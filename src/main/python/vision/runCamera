@@ -1,8 +1,0 @@
-#!/bin/sh
-### TYPE: upload-python
-echo "Waiting 5 seconds..."
-sleep 5
-export PYTHONUNBUFFERED=1
-exec ./hc-sr04/Left_HC-SR04.py 10.59.62.2 &
-exec ./hc-sr04/Right_HC-SR04.py 10.59.62.2 &
-exec ./uploaded.py
