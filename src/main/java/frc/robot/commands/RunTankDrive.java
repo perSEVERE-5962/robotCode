@@ -9,10 +9,11 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class RunTankDrive extends CommandBase {
   private final Drive subsystem;
-  public Joystick joystick = new Joystick(0);
+  private final Joystick joystick;
 
-  public RunTankDrive(Drive subsystem) {
+  public RunTankDrive(Drive subsystem, Joystick joystick) {
     this.subsystem = subsystem;
+    this.joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -25,8 +26,6 @@ public class RunTankDrive extends CommandBase {
   public void execute() {
     double x = joystick.getRawAxis(5);
     double y = joystick.getRawAxis(1);
-    // x = x*x*x;
-    // y = y*y*y;
     subsystem.smoothTankDrive(y, x);
   }
 
