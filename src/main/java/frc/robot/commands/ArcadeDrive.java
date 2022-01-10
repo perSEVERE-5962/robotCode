@@ -13,10 +13,11 @@ import frc.robot.subsystems.Drive;
 
 public class ArcadeDrive extends CommandBase {
  private final Drive subsystem;
- public Joystick joystick = new Joystick(0);
+ private final Joystick joystick;
 
- public ArcadeDrive(Drive subsystem) {
+ public ArcadeDrive(Drive subsystem, Joystick joystick) {
   this.subsystem = subsystem;
+  this.joystick = joystick;
   // Use addRequirements() here to declare subsystem dependencies.
   addRequirements(subsystem);
 }
