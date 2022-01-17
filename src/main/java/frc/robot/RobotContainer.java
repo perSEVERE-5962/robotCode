@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
 
@@ -26,12 +26,12 @@ import frc.robot.commands.*;
 public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
-  private final Drive drive = new Drive();
+  private final DriveTrain m_driveTrain = new DriveTrain();
 
-  private SendableChooser<Command> driveChooser = new SendableChooser<>();
-  private SendableChooser<Command> autoChooser = new SendableChooser<>();
-  private AutoSequence autoSequence = new AutoSequence(drive);
-  private final Joystick driverController = new Joystick(0);
+  private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
+  private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
+  private final Joystick m_driverController = new Joystick(0);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -40,13 +40,13 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    driveChooser.setDefaultOption("tank drive", new RunTankDrive(drive, driverController));
-    driveChooser.addOption("arcade drive", new ArcadeDrive(drive, driverController));
-    SmartDashboard.putData("drivercontrol", driveChooser);
+    m_driveChooser.setDefaultOption("tank drive", new RunTankDrive(m_driveTrain, m_driverController));
+    m_driveChooser.addOption("arcade drive", new ArcadeDrive(m_driveTrain, m_driverController));
+    SmartDashboard.putData("drivercontrol", m_driveChooser);
 
-    autoChooser.setDefaultOption("default auto", autoSequence);
+    m_autoChooser.setDefaultOption("default auto", m_autoSequence);
     //autoChooser.addOption("alternative auto", alternative_auto);
-    SmartDashboard.putData("auto chooser", autoChooser);
+    SmartDashboard.putData("auto chooser", m_autoChooser);
   }
 
   /**
@@ -66,10 +66,14 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return  (Command) autoChooser.getSelected();
+    return  (Command) m_autoChooser.getSelected();
   }
 
   public Command getDriveCommand() {
-    return (Command) driveChooser.getSelected();
+    return (Command) m_driveChooser.getSelected();
+  }
+
+  public DriveTrain getDriveTrain() {
+    return m_driveTrain;
   }
 }

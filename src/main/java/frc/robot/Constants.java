@@ -16,4 +16,22 @@ package frc.robot;
  */
 public final class Constants {
 
+    /**
+     * Types of motor controllers<p>
+     *     kCTRE represents {@link com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX} with a {@link com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX} follower<p>
+     *     kREV represents {@link com.revrobotics.CANSparkMax} with a {@link com.revrobotics.CANSparkMax} follower
+     */
+    public static final class MotorControllerType {
+        public static final int kCTRE = 1; 
+        public static final int kREV = 2;
+    }
+
+    public static final class MotorControllerDeviceID {
+        public static final int leftLeadDeviceID = 22;
+        public static final int leftFollowerDeviceID = 21;        
+
+        public static final int rightLeadDeviceID = 23;
+        public static final int rightFollowerDeviceID = 20;        
+    }
+
 }

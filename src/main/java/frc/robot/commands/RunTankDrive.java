@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DriveTrain;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.Joystick;
  *
  */
 public class RunTankDrive extends CommandBase {
-  private final Drive subsystem;
-  private final Joystick joystick;
+  private final DriveTrain m_driveTrain;
+  private final Joystick m_joystick;
 
-  public RunTankDrive(Drive subsystem, Joystick joystick) {
-    this.subsystem = subsystem;
-    this.joystick = joystick;
+  public RunTankDrive(DriveTrain subsystem, Joystick joystick) {
+    m_driveTrain = subsystem;
+    m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
@@ -24,9 +24,9 @@ public class RunTankDrive extends CommandBase {
 
   // Called repeatedly when this Command is scheduled to run
   public void execute() {
-    double x = joystick.getRawAxis(5);
-    double y = joystick.getRawAxis(1);
-    subsystem.smoothTankDrive(y, x);
+    double x = m_joystick.getRawAxis(5);
+    double y = m_joystick.getRawAxis(1);
+    m_driveTrain.tankDrive(y, x);
   }
 
   // Make this return true when this Command no longer needs to run execute()
