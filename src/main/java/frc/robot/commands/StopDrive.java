@@ -14,15 +14,14 @@ public class StopDrive extends CommandBase {
   private final DriveTrain m_driveTrain;
 
   public StopDrive(DriveTrain drive) {
-   m_driveTrain = drive;
-   // Use addRequirements() here to declare subsystem dependencies.
-   addRequirements(drive);
- }
+    m_driveTrain = drive;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drive);
+  }
 
- // Called when the command is initially scheduled.
- @Override
- public void initialize() {
- }
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -32,8 +31,7 @@ public class StopDrive extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

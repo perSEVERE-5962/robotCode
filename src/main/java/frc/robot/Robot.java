@@ -67,7 +67,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {}
 
-
   @Override
   public void teleopInit() {
     // This makes sure that the autonomous stops running when
@@ -80,27 +79,21 @@ public class Robot extends TimedRobot {
 
     Command driveCommand = m_robotContainer.getDriveCommand();
     if (driveCommand != null) {
-       driveCommand.schedule();
+      driveCommand.schedule();
     }
-
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {
-  }
-
+  public void teleopPeriodic() {}
 
   @Override
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-
-  }
+  public void testPeriodic() {}
 }

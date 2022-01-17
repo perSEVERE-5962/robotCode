@@ -9,32 +9,31 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 /** Add your docs here. */
 public abstract class DriveBase implements DriveInterface {
-        
-    // Set up the differential drive controller
-    private DifferentialDrive m_diffDrive;
-    private MotorController m_leftMotor, m_rightMotor;
 
-    public void init (MotorController leftMotor, MotorController rightMotor){
-        m_diffDrive = new DifferentialDrive(leftMotor, rightMotor);
-        m_leftMotor = leftMotor;
-        m_rightMotor = rightMotor;
-    }
+  // Set up the differential drive controller
+  private DifferentialDrive m_diffDrive;
+  private MotorController m_leftMotor, m_rightMotor;
 
-    @Override
-    public void tankDrive(double leftSpeed, double rightSpeed) {
-        m_diffDrive.tankDrive(leftSpeed, rightSpeed);
-    }
+  public void init(MotorController leftMotor, MotorController rightMotor) {
+    m_diffDrive = new DifferentialDrive(leftMotor, rightMotor);
+    m_leftMotor = leftMotor;
+    m_rightMotor = rightMotor;
+  }
 
-    @Override
-    public void tankDriveVolts(double leftVolts, double rightVolts) {
-        m_leftMotor.setVoltage(leftVolts);
-        m_rightMotor.setVoltage(-rightVolts); // We invert this to maintain +ve = forward
-        m_diffDrive.feed();
-    }
+  @Override
+  public void tankDrive(double leftSpeed, double rightSpeed) {
+    m_diffDrive.tankDrive(leftSpeed, rightSpeed);
+  }
 
-    @Override
-    public void arcadeDrive(double xSpeed, double zRotation) {
-        m_diffDrive.arcadeDrive(xSpeed,zRotation);    
-    }
+  @Override
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    m_leftMotor.setVoltage(leftVolts);
+    m_rightMotor.setVoltage(-rightVolts); // We invert this to maintain +ve = forward
+    m_diffDrive.feed();
+  }
 
+  @Override
+  public void arcadeDrive(double xSpeed, double zRotation) {
+    m_diffDrive.arcadeDrive(xSpeed, zRotation);
+  }
 }
