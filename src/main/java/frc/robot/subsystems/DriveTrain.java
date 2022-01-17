@@ -7,19 +7,18 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
-
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
 
 public class DriveTrain extends SubsystemBase {
 
   private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   private DriveInterface m_drive;
 
-  public AHRS getGyro(){
+  public AHRS getGyro() {
     return m_ahrs;
   }
 
@@ -28,14 +27,14 @@ public class DriveTrain extends SubsystemBase {
     m_drive = driveFactory.createDrive();
   }
 
-  public double getLeftEncoderDistance(){
+  public double getLeftEncoderDistance() {
     return m_drive.getLeftEncoderDistance();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
+
   }
 
   public void tankDrive(double leftAxis, double rightAxis) {
@@ -58,8 +57,7 @@ public class DriveTrain extends SubsystemBase {
     return m_ahrs.getAngle();
   }
 
-  public void resetEncoders(){
+  public void resetEncoders() {
     m_drive.resetEncoders();
   }
-
 }

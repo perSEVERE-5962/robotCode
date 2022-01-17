@@ -1,12 +1,10 @@
 package frc.robot.commands;
 
-import frc.robot.subsystems.DriveTrain;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.DriveTrain;
 
-/**
- *
- */
+/** */
 public class RunTankDrive extends CommandBase {
   private final DriveTrain m_driveTrain;
   private final Joystick m_joystick;
@@ -19,8 +17,7 @@ public class RunTankDrive extends CommandBase {
   }
 
   // Called just before this Command runs the first time
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called repeatedly when this Command is scheduled to run
   public void execute() {
@@ -35,8 +32,7 @@ public class RunTankDrive extends CommandBase {
   }
 
   // Called once after isFinished returns true
-  public void end() {
-  }
+  public void end() {}
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
