@@ -26,21 +26,27 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
+  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
+  private final Joystick m_driverController = new Joystick(0);
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+  private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
+    m_motorControllerChooser.setDefaultOption(
+        "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
+    m_motorControllerChooser.addOption("Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+    SmartDashboard.putData("drivetrain motor controller", m_motorControllerChooser);
+
     m_driveChooser.setDefaultOption(
         "tank drive", new RunTankDrive(m_driveTrain, m_driverController));
     m_driveChooser.addOption("arcade drive", new ArcadeDrive(m_driveTrain, m_driverController));
-    SmartDashboard.putData("drivercontrol", m_driveChooser);
+    SmartDashboard.putData("driver control", m_driveChooser);
 
     m_autoChooser.setDefaultOption("default auto", m_autoSequence);
     // autoChooser.addOption("alternative auto", alternative_auto);
@@ -67,6 +73,10 @@ public class RobotContainer {
 
   public Command getDriveCommand() {
     return (Command) m_driveChooser.getSelected();
+  }
+
+  public void setMotorControllerType() {
+    m_driveTrain.setMotorControllerType(((Integer) m_motorControllerChooser.getSelected()).intValue());
   }
 
   public DriveTrain getDriveTrain() {

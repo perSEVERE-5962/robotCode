@@ -23,6 +23,7 @@ public abstract class DriveBase implements DriveInterface {
   @Override
   public void tankDrive(double leftSpeed, double rightSpeed) {
     m_diffDrive.tankDrive(leftSpeed, rightSpeed);
+    m_diffDrive.feed();
   }
 
   @Override
@@ -35,5 +36,6 @@ public abstract class DriveBase implements DriveInterface {
   @Override
   public void arcadeDrive(double xSpeed, double zRotation) {
     m_diffDrive.arcadeDrive(xSpeed, zRotation);
+    m_diffDrive.feed();
   }
 }
