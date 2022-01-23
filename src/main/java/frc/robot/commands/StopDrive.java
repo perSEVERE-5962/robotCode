@@ -8,32 +8,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drive;
+import frc.robot.subsystems.DriveTrain;
 
 public class StopDrive extends CommandBase {
-  private final Drive drive;
+  private final DriveTrain m_driveTrain;
 
-  public StopDrive(Drive drive) {
-   this.drive = drive;
-   // Use addRequirements() here to declare subsystem dependencies.
-   addRequirements(drive);
- }
+  public StopDrive(DriveTrain drive) {
+    m_driveTrain = drive;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drive);
+  }
 
- // Called when the command is initially scheduled.
- @Override
- public void initialize() {
- }
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.stopDrive();
+    m_driveTrain.stopDrive();
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
