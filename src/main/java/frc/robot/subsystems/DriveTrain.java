@@ -22,9 +22,11 @@ public class DriveTrain extends SubsystemBase {
     return m_ahrs;
   }
 
-  public DriveTrain() {
+  public DriveTrain() {}
+
+  public void setMotorControllerType(int motorControllerType) {
     DriveFactory driveFactory = new DriveFactory();
-    m_drive = driveFactory.createDrive();
+    m_drive = driveFactory.createDrive(motorControllerType);
   }
 
   public double getLeftEncoderDistance() {
