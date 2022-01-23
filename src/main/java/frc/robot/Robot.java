@@ -83,7 +83,6 @@ public class Robot extends TimedRobot {
     if (driveCommand != null) {
       driveCommand.schedule();
     }
-    
   }
 
   /** This function is called periodically during operator control. */

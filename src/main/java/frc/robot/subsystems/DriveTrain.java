@@ -18,13 +18,11 @@ public class DriveTrain extends SubsystemBase {
   private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   private DriveInterface m_drive;
 
-
   public AHRS getGyro() {
     return m_ahrs;
   }
 
-  public DriveTrain() {
-  }
+  public DriveTrain() {}
 
   public void setMotorControllerType(int motorControllerType) {
     DriveFactory driveFactory = new DriveFactory();

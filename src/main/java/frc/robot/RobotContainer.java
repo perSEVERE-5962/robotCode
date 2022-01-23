@@ -40,7 +40,8 @@ public class RobotContainer {
 
     m_motorControllerChooser.setDefaultOption(
         "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
-    m_motorControllerChooser.addOption("Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+    m_motorControllerChooser.addOption(
+        "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
     SmartDashboard.putData("drivetrain motor controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
@@ -76,7 +77,8 @@ public class RobotContainer {
   }
 
   public void setMotorControllerType() {
-    m_driveTrain.setMotorControllerType(((Integer) m_motorControllerChooser.getSelected()).intValue());
+    m_driveTrain.setMotorControllerType(
+        ((Integer) m_motorControllerChooser.getSelected()).intValue());
   }
 
   public DriveTrain getDriveTrain() {
