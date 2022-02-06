@@ -29,10 +29,10 @@ public final class Constants {
   }
 
   public static final class MotorControllerDeviceID {
-    public static final int leftLeadDeviceID = 22;
-    public static final int leftFollowerDeviceID = 21;
+    public static final int leftLeadDeviceID = 23;
+    public static final int leftFollowerDeviceID = 20;
 
-    public static final int rightLeadDeviceID = 23;
-    public static final int rightFollowerDeviceID = 20;
+    public static final int rightLeadDeviceID = 22;
+    public static final int rightFollowerDeviceID = 21;
   }
 }
