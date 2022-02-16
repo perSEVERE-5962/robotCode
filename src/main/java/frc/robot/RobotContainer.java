@@ -14,12 +14,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -28,12 +33,20 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
   private final Joystick m_driverController = new Joystick(0);
+  private final Joystick m_copilotController = new Joystick(1);
+  private Intake m_intake = new Intake();
+  private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
+
+  private Arm m_arm = new Arm();
+  private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
@@ -55,12 +68,15 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -83,5 +99,13 @@ public class RobotContainer {
 
   public DriveTrain getDriveTrain() {
     return m_driveTrain;
+  }
+
+  public IntakeSpeed getIntakeSpeed() {
+    return m_intakeSpeed;
+  }
+
+  public Command getArm() {
+    return m_moveArm;
   }
 }
