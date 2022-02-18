@@ -17,6 +17,9 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private Command m_driveCommand;
+  private Command m_intakeSpeed;
+  private Command m_arm;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -79,11 +82,20 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.setMotorControllerType();
-    Command driveCommand = m_robotContainer.getDriveCommand();
-    if (driveCommand != null) {
-      driveCommand.schedule();
+    m_driveCommand = m_robotContainer.getDriveCommand();
+    if (m_driveCommand != null) {
+      m_driveCommand.schedule();
+    }
+    m_intakeSpeed = m_robotContainer.getIntakeSpeed();
+    if (m_intakeSpeed != null) {
+      m_intakeSpeed.schedule();
+    }
+    m_arm = m_robotContainer.getArm();
+    if (m_arm != null) {
+      m_arm.schedule();
     }
   }
+
 
   /** This function is called periodically during operator control. */
   @Override

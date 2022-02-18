@@ -6,20 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Arm;
 
-public class IntakeSpeed extends CommandBase {
-  /** Creates a new IntakeSpeed. */
-  private static Intake m_armIntake;
-
+public class moveArm extends CommandBase {
+  /** Creates a new moveArm. */
   private static Joystick m_controller;
 
-  public IntakeSpeed(Intake armIntake, Joystick controller) {
-    m_armIntake = armIntake;
-    addRequirements(armIntake);
-    m_controller = controller;
+  private static Arm m_arm;
 
+  public moveArm(Joystick controller, Arm arm) {
+    m_controller = controller;
+    m_arm = arm;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_arm);
   }
 
   // Called when the command is initially scheduled.
@@ -29,13 +28,12 @@ public class IntakeSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armIntake.armIntake(m_controller.getRawAxis(3));
-    if (m_controller.getRawAxis(3) > 0.1) {
-      m_armIntake.armIntake(m_controller.getRawAxis(3));
-    } else if (m_controller.getRawAxis(2) > 0.1) {
-      m_armIntake.armIntake(m_controller.getRawAxis(2));
+    if (m_controller.getRawAxis(5) > 0.2) {
+      m_arm.moveArm(m_controller.getRawAxis(5));
+    } else if (m_controller.getRawAxis(5) < -0.2) {
+      m_arm.moveArm(m_controller.getRawAxis(5));
     } else {
-      m_armIntake.armIntake(0);
+      m_arm.moveArm(0);
     }
   }
 

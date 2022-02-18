@@ -34,5 +34,7 @@ public final class Constants {
 
     public static final int rightLeadDeviceID = 22;
     public static final int rightFollowerDeviceID = 21;
+
+    public static final int armDeviceID = 30;
   }
 }
