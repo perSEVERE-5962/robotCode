@@ -23,10 +23,10 @@ public class CTREDrive extends DriveBase {
     m_leftVictor = new WPI_VictorSPX(MotorControllerDeviceID.leftFollowerDeviceID);
     m_leftVictor.follow(m_leftTalon, FollowerType.PercentOutput);
     m_rightVictor.follow(m_rightTalon, FollowerType.PercentOutput);
-    m_leftVictor.setInverted(false);
-    m_leftTalon.setInverted(false);
-    m_rightVictor.setInverted(true);
-    m_rightTalon.setInverted(true);
+    m_leftVictor.setInverted(true);
+    m_leftTalon.setInverted(true);
+    m_rightVictor.setInverted(false);
+    m_rightTalon.setInverted(false);
 
     m_leftTalon.configOpenloopRamp(0.7);
     m_leftTalon.configClosedloopRamp(0);
