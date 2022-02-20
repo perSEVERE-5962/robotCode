@@ -33,7 +33,7 @@ public class IntakeSpeed extends CommandBase {
     if (m_controller.getRawAxis(3) > 0.1) {
       m_armIntake.armIntake(m_controller.getRawAxis(3));
     } else if (m_controller.getRawAxis(2) > 0.1) {
-      m_armIntake.armIntake(m_controller.getRawAxis(2));
+      m_armIntake.armIntake(-m_controller.getRawAxis(2));
     } else {
       m_armIntake.armIntake(0);
     }
