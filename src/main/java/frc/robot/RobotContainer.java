@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 
@@ -41,6 +42,7 @@ public class RobotContainer {
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
 
+  private Camera m_camera = new Camera();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -60,6 +62,7 @@ public class RobotContainer {
     m_autoChooser.setDefaultOption("default auto", m_autoSequence);
     // autoChooser.addOption("alternative auto", alternative_auto);
     SmartDashboard.putData("auto chooser", m_autoChooser);
+    SmartDashboard.putNumber("camera brightness", 50); 
   }
 
   /**
@@ -99,5 +102,8 @@ public class RobotContainer {
 
   public Command getArm() {
     return m_moveArm;
+  }
+  public void setCameraBrightness(int brightness) {
+    m_camera.setBrightness(brightness); 
   }
 }
