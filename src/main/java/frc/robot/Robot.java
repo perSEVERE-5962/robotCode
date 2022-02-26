@@ -102,6 +102,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     int brightness = (int) SmartDashboard.getNumber("camera brightness", 50); 
     m_robotContainer.setCameraBrightness(brightness);
+    SmartDashboard.putNumber("driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
   }
 
   @Override
