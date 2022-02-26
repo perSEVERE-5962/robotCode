@@ -29,8 +29,8 @@ public class DriveTrain extends SubsystemBase {
     m_drive = driveFactory.createDrive(motorControllerType);
   }
 
-  public double getLeftEncoderDistance() {
-    return m_drive.getLeftEncoderDistance();
+  public double getAverageEncoderDistance() {
+    return m_drive.getAverageEncoderDistance();
   }
 
   @Override
