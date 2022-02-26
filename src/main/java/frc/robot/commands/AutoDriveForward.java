@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
@@ -25,7 +26,7 @@ public class AutoDriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.tankDrive(0.25, 0.25); 
+    m_driveTrain.tankDrive(-0.5, -0.5); 
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +39,7 @@ public class AutoDriveForward extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean isFinished = false;
+    SmartDashboard.putNumber("Distance", m_driveTrain.getAverageEncoderDistance());
     isFinished = m_driveTrain.getAverageEncoderDistance()>m_position;
     return isFinished;
   }

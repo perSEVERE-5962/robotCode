@@ -19,7 +19,9 @@ public class AutoPickupBall extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoRunIntake(-1,intake)
+     new AutoRunIntake(-0.5,intake),
+     new AutoDriveForward(12285, drivetrain)
+      
     );
   }
 }
