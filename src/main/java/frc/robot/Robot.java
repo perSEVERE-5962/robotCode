@@ -70,7 +70,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    SmartDashboard.putNumber("driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+  }
 
   @Override
   public void teleopInit() {

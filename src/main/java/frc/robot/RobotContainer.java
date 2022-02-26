@@ -29,15 +29,16 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
-  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+ 
   private final Joystick m_copilotController = new Joystick(1);
   private Intake m_intake = new Intake();
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
 
   private Arm m_arm = new Arm();
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
-
+  private final Joystick m_driverController = new Joystick(0);
+  private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm);
+  private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
@@ -59,8 +60,8 @@ public class RobotContainer {
     m_driveChooser.addOption("arcade drive", new ArcadeDrive(m_driveTrain, m_driverController));
     SmartDashboard.putData("driver control", m_driveChooser);
 
-    m_autoChooser.setDefaultOption("default auto", m_autoSequence);
-    // autoChooser.addOption("alternative auto", alternative_auto);
+    m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
+    m_autoChooser.addOption("shoot ball", m_autoShootBall);
     SmartDashboard.putData("auto chooser", m_autoChooser);
     SmartDashboard.putNumber("camera brightness", 50); 
   }
