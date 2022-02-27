@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class ArcadeDrive extends CommandBase {
+public class OneStickArcade extends CommandBase {
   private final DriveTrain m_driveTrain;
   private final Joystick m_joystick;
 
-  public ArcadeDrive(DriveTrain subsystem, Joystick joystick) {
+  public OneStickArcade(DriveTrain subsystem, Joystick joystick) {
     m_driveTrain = subsystem;
     m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
