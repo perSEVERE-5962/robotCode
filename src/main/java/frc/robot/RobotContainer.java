@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -18,6 +20,8 @@ import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
+import edu.wpi.first.wpilibj.SPI;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,7 +33,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
- 
+  private AHRS m_gyro = new AHRS(SPI.Port.kMXP); 
   private final Joystick m_copilotController = new Joystick(1);
   private Intake m_intake = new Intake();
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
@@ -39,6 +43,8 @@ public class RobotContainer {
   private final Joystick m_driverController = new Joystick(0);
   private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm);
   private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
+  private GyroTesting m_gyroTesting = new GyroTesting(m_driveTrain, m_intake, m_arm, m_gyro);
+
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
@@ -57,12 +63,15 @@ public class RobotContainer {
 
     m_driveChooser.setDefaultOption(
         "tank drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("arcade drive", new ArcadeDrive(m_driveTrain, m_driverController));
-    SmartDashboard.putData("driver control", m_driveChooser);
+        m_driveChooser.addOption("Two Stick Arcase", new TwoStickArcade(m_driveTrain, m_driverController));
+        m_driveChooser.addOption("One Stick Arcase", new OneStickArcade(m_driveTrain, m_driverController));
+        SmartDashboard.putData("driver control", m_driveChooser);
 
     m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
     m_autoChooser.addOption("shoot ball", m_autoShootBall);
+    m_autoChooser.addOption("test gyro", m_gyroTesting);
     SmartDashboard.putData("auto chooser", m_autoChooser);
+
     SmartDashboard.putNumber("camera brightness", 50); 
   }
 
@@ -106,5 +115,9 @@ public class RobotContainer {
   }
   public void setCameraBrightness(int brightness) {
     m_camera.setBrightness(brightness); 
+  }
+
+  public AHRS getGyro() {
+    return m_gyro;
   }
 }
