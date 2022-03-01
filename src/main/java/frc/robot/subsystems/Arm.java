@@ -55,6 +55,9 @@ public class Arm extends SubsystemBase {
     SmartDashboard.putNumber("Encoder", m_encoder.getPosition());
     // -20 is lowest
   }
+  public double getPosition(){
+    return m_encoder.getPosition(); 
+  }
 
   @Override
   public void periodic() {

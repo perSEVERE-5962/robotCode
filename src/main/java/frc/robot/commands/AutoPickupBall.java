@@ -14,14 +14,10 @@ import frc.robot.subsystems.Intake;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPickupBall extends SequentialCommandGroup {
   /** Creates a new Autopickupball. */
-  public AutoPickupBall(Intake intake,DriveTrain drivetrain, Arm arm) {
+  public AutoPickupBall(Intake intake, DriveTrain drivetrain, Arm arm) {
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-     new AutoRunIntake(-0.5,intake),
-     new AutoDriveForward(12285, drivetrain)
-      
-    );
+    addCommands(new AutoRunIntake(-0.5, intake), new AutoDriveForward(12285, drivetrain));
   }
 }
