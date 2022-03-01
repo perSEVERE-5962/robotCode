@@ -18,7 +18,8 @@ public class AutoDriveScore extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new AutoDriveForward(4300, driveTrain),
-      new AutoRunIntake(1, intake)
+      new AutoRunIntake(1, intake),
+      new AutoDriveBackward(-12885, driveTrain)
 
     );
   }
