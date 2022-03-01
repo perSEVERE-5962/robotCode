@@ -4,15 +4,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Arm;
 
 public class LowerArm extends CommandBase {
-  private Arm m_arm; 
-  public LowerArm(Arm arm, double position) {
-   m_arm = arm;
-   addRequirements(m_arm);
+  private Arm m_arm;
+
+  public LowerArm(Arm arm) {
+    m_arm = arm;
+    addRequirements(m_arm);
   }
 
   // Called when the command is initially scheduled.
@@ -22,18 +22,18 @@ public class LowerArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_arm.moveArm(-0.25); 
+    m_arm.moveArm(-0.25);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_arm.moveArm(0); 
+    m_arm.moveArm(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.getPosition() < -23.9; 
+    return m_arm.getPosition() < -23.9;
   }
 }
