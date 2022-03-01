@@ -71,7 +71,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    SmartDashboard.putNumber("driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+    SmartDashboard.putNumber(
+        "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
   }
 
   @Override
@@ -102,9 +103,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50); 
+    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
-    SmartDashboard.putNumber("driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+    SmartDashboard.putNumber(
+        "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
   }
 
   @Override
@@ -116,7 +118,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50); 
-    m_robotContainer.setCameraBrightness(brightness); 
+    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50);
+    m_robotContainer.setCameraBrightness(brightness);
   }
 }

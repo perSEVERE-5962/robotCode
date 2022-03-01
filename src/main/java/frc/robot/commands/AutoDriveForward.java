@@ -26,7 +26,7 @@ public class AutoDriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.tankDrive(-0.5, -0.5); 
+    m_driveTrain.tankDrive(-0.5, -0.5);
   }
 
   // Called once the command ends or is interrupted.
@@ -40,7 +40,7 @@ public class AutoDriveForward extends CommandBase {
   public boolean isFinished() {
     boolean isFinished = false;
     SmartDashboard.putNumber("Distance", m_driveTrain.getAverageEncoderDistance());
-    isFinished = m_driveTrain.getAverageEncoderDistance()>m_position;
+    isFinished = m_driveTrain.getAverageEncoderDistance() > m_position;
     return isFinished;
   }
 }
