@@ -39,7 +39,7 @@ public class RobotContainer {
   private Arm m_arm = new Arm();
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
   private final Joystick m_driverController = new Joystick(0);
-  private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm);
+  private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm, m_gyro);
   private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
   private GyroTesting m_gyroTesting = new GyroTesting(m_driveTrain, m_intake, m_arm, m_gyro);
 
