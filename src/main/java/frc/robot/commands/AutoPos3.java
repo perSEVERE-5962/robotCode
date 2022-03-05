@@ -14,10 +14,10 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Movebackshoot extends SequentialCommandGroup {
+public class AutoPos3 extends SequentialCommandGroup {
 
   /** Creates a new Movebackshoot. */
-  public Movebackshoot(Intake intake, DriveTrain driveTrain, Arm arm, AHRS gyro) {
+  public AutoPos3(Intake intake, DriveTrain driveTrain, Arm arm, AHRS gyro) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

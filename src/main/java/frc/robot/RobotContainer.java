@@ -46,7 +46,8 @@ public class RobotContainer {
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
-
+  private SendableChooser<Integer> m_bluePositionChooser = new SendableChooser<>();
+  private SendableChooser<Integer> m_redPositionChooser = new SendableChooser<>();
   private Camera m_camera = new Camera();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -72,6 +73,18 @@ public class RobotContainer {
     m_autoChooser.addOption("test gyro", m_gyroTesting);
     SmartDashboard.putData("auto chooser", m_autoChooser);
 
+    m_bluePositionChooser.setDefaultOption("B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_bluePositionChooser.addOption("B2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_bluePositionChooser.addOption("B3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
+    m_bluePositionChooser.addOption("B4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
+    SmartDashboard.putData("Blue Position", m_bluePositionChooser);
+
+    m_redPositionChooser.setDefaultOption("R1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_redPositionChooser.addOption("R2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_redPositionChooser.addOption("R3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
+    m_redPositionChooser.addOption("R4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
+    SmartDashboard.putData("Red Position", m_redPositionChooser);
+
     SmartDashboard.putNumber("camera brightness", 50);
   }
 
@@ -90,7 +103,22 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (Command) m_autoChooser.getSelected();
+    Command command;
+    int position = m_bluePositionChooser.getSelected();
+    if (position == Constants.AutonomousStartPosition.position1){
+      command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
+    }
+    else if (position == Constants.AutonomousStartPosition.position2){
+      command = new AutoPos2(m_intake, m_driveTrain, m_arm, m_gyro);
+
+    }
+    else if (position == Constants.AutonomousStartPosition.position3){
+      command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
+    }
+    else{
+      command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
+    }
+    return command;
   }
 
   public Command getDriveCommand() {
