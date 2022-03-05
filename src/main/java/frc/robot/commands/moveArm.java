@@ -31,7 +31,7 @@ public class moveArm extends CommandBase {
     if (m_controller.getRawAxis(5) > 0.2) {
       m_arm.moveArm(0.25);
     } else if (m_controller.getRawAxis(5) < -0.2) {
-      m_arm.moveArm(-0.25);
+      m_arm.moveArm(-0.1);
     } else {
       m_arm.moveArm(0);
     }

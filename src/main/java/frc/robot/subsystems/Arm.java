@@ -47,7 +47,7 @@ public class Arm extends SubsystemBase {
     m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
     m_ArmSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
-    m_ArmSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, -23.9f);
+    m_ArmSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, -22f);
   }
 
   public void moveArm(double speed) {

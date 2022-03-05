@@ -36,6 +36,8 @@ public final class Constants {
     public static final int rightFollowerDeviceID = 21;
 
     public static final int armDeviceID = 30;
+
+    public static final int intakeDeviceID = 19;
   }
 
   public static final class AutonomousStartPosition{

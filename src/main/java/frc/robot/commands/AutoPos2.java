@@ -27,7 +27,6 @@ public class AutoPos2 extends SequentialCommandGroup {
         new GyroLeftTurn(driveTrain, gyro, 180), 
         new LowerArm(arm),
         new AutoRunIntake(-0.5, intake),
-        new AutoDriveForward(12285, driveTrain),
-        new GyroLeftTurn(driveTrain, gyro, 0)); 
+        new AutoDriveForward(12285, driveTrain)); 
   }
 }
