@@ -25,6 +25,7 @@ public class AutoPos1 extends SequentialCommandGroup {
         new AutoRunIntake(-0.5, intake),
         new AutoDriveForward(12285, driveTrain),
         new GyroRightTurn(driveTrain, gyro, 120),
+        new RaiseArm(arm),
         new AutoDriveForward(4300, driveTrain),
         new AutoRunIntake(1, intake));
 
