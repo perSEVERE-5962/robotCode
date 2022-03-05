@@ -40,7 +40,7 @@ public class AutoDriveForward extends CommandBase {
   public boolean isFinished() {
     boolean isFinished = false;
     SmartDashboard.putNumber("Distance", m_driveTrain.getAverageEncoderDistance());
-    isFinished = m_driveTrain.getAverageEncoderDistance() > m_position;
+    isFinished = m_driveTrain.getAverageEncoderDistance() < m_position; 
     return isFinished;
   }
 }

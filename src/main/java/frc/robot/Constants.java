@@ -46,4 +46,6 @@ public final class Constants {
     public static final int position3 = 3;
     public static final int position4 = 4;
   }
+
+  public static final float lowerSoftLimit = -22f; 
 }

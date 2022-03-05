@@ -107,6 +107,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.setCameraBrightness(brightness);
     SmartDashboard.putNumber(
         "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+        SmartDashboard.putNumber("gyro", m_robotContainer.getDriveTrain().getGyroAngle()); 
   }
 
   @Override

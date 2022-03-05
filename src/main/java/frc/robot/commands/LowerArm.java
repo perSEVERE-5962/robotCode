@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
 public class LowerArm extends CommandBase {
@@ -22,7 +23,7 @@ public class LowerArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_arm.moveArm(-0.25);
+    m_arm.moveArm(-0.1);
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +35,6 @@ public class LowerArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.getPosition() < -23.9;
+    return m_arm.getPosition() < (int) Constants.lowerSoftLimit;
   }
 }

@@ -67,11 +67,11 @@ public class RobotContainer {
     m_driveChooser.addOption(
         "One Stick Arcase", new OneStickArcade(m_driveTrain, m_driverController));
     SmartDashboard.putData("driver control", m_driveChooser);
-
-    m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
-    m_autoChooser.addOption("shoot ball", m_autoShootBall);
-    m_autoChooser.addOption("test gyro", m_gyroTesting);
-    SmartDashboard.putData("auto chooser", m_autoChooser);
+    
+    // m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
+    // m_autoChooser.addOption("shoot ball", m_autoShootBall);
+    // m_autoChooser.addOption("test gyro", m_gyroTesting);
+    // SmartDashboard.putData("auto chooser", m_autoChooser);
 
     m_bluePositionChooser.setDefaultOption("B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
     m_bluePositionChooser.addOption("B2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
@@ -106,6 +106,7 @@ public class RobotContainer {
     Command command;
     int position = m_bluePositionChooser.getSelected();
     if (position == Constants.AutonomousStartPosition.position1){
+      m_intake.armIntake(-0.75);
       command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
     }
     else if (position == Constants.AutonomousStartPosition.position2){

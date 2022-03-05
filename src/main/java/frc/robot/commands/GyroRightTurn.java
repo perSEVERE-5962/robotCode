@@ -32,7 +32,7 @@ public class GyroRightTurn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.tankDrive(0.5, -0.5);
+    m_driveTrain.tankDrive(-0.375, 0.375);
     SmartDashboard.putNumber("Gyro Angle", m_gyro.getAngle());
   }
 
