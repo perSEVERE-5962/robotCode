@@ -18,14 +18,12 @@ public class RaiseArm extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_arm.moveToPosition(Constants.ArmPositions.upperLimit);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_arm.moveArm(0.25);
+    m_arm.moveArm(0.25);
   }
 
   // Called once the command ends or is interrupted.

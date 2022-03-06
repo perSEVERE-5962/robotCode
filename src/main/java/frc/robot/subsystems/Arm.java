@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -14,9 +13,7 @@ public class Arm extends SubsystemBase {
   /** Creates a new Arm. */
   private CANSparkMax m_ArmSpark;
 
-  private SparkMaxPIDController m_pidController;
   private RelativeEncoder m_encoder;
-  public double kP, kI, kD, kIz, kFF, kMaxOutput, kMinOutput;
 
   public Arm() {
     m_ArmSpark =
@@ -33,27 +30,8 @@ public class Arm extends SubsystemBase {
 
     m_ArmSpark.setInverted(false);
 
-    m_pidController = m_ArmSpark.getPIDController();
-
     m_encoder = m_ArmSpark.getEncoder();
     m_encoder.setPosition(0);
-
-    // PID coefficients
-    kP = 0.1;
-    kI = 1e-4;
-    kD = 1;
-    kIz = 0;
-    kFF = 0;
-    kMaxOutput = 0.5;
-    kMinOutput = -0.5;
-
-    // set PID coefficients
-    m_pidController.setP(kP);
-    m_pidController.setI(kI);
-    m_pidController.setD(kD);
-    m_pidController.setIZone(kIz);
-    m_pidController.setFF(kFF);
-    m_pidController.setOutputRange(kMinOutput, kMaxOutput);
 
     /**
      * Soft Limits restrict the motion of the motor in a particular direction at a particular point.
@@ -71,10 +49,6 @@ public class Arm extends SubsystemBase {
         CANSparkMax.SoftLimitDirection.kForward, (float) Constants.ArmPositions.upperLimit);
     m_ArmSpark.setSoftLimit(
         CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.ArmPositions.lowerLimit);
-  }
-
-  public void moveToPosition(double position) {
-    m_pidController.setReference(position, CANSparkMax.ControlType.kPosition);
   }
 
   public void moveArm(double speed) {

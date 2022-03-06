@@ -18,14 +18,16 @@ public class LowerArm extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_arm.moveToPosition(Constants.ArmPositions.lowerLimit);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_arm.moveArm(-0.1);
+    if (m_arm.getPosition() < -15) {
+      m_arm.moveArm(-0.1);
+    } else {
+      m_arm.moveArm(-0.25);
+    }
   }
 
   // Called once the command ends or is interrupted.

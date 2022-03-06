@@ -31,7 +31,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public double getAverageEncoderDistance() {
-    return m_drive.getAverageEncoderDistance();
+    double distance = 0;
+    if (m_drive != null) {
+      distance = m_drive.getAverageEncoderDistance();
+    }
+    return distance;
   }
 
   @Override

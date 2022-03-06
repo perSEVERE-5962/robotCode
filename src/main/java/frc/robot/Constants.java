@@ -48,7 +48,7 @@ public final class Constants {
   }
 
   public static final class ArmPositions {
-    public static final double lowerLimit = -22;
+    public static final double lowerLimit = -21;
     public static final double upperLimit = 0;
   }
 }
