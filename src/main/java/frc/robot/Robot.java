@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -48,6 +47,11 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    SmartDashboard.putNumber(
+        "Drive Encoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+    SmartDashboard.putNumber("Arm Encoder", m_robotContainer.getArm().getPosition());
+    SmartDashboard.putNumber("Gyro Angle", m_robotContainer.getDriveTrain().getGyroAngle());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -71,10 +75,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
-    SmartDashboard.putNumber(
-        "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
-  }
+  public void autonomousPeriodic() {}
 
   @Override
   public void teleopInit() {
@@ -95,7 +96,7 @@ public class Robot extends TimedRobot {
     if (m_intakeSpeed != null) {
       m_intakeSpeed.schedule();
     }
-    m_arm = m_robotContainer.getArm();
+    m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {
       m_arm.schedule();
     }
@@ -104,11 +105,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50);
+    int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
-    SmartDashboard.putNumber(
-        "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
-        SmartDashboard.putNumber("gyro", m_robotContainer.getDriveTrain().getGyroAngle()); 
   }
 
   @Override
@@ -119,8 +117,5 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50);
-    m_robotContainer.setCameraBrightness(brightness);
-  }
+  public void testPeriodic() {}
 }

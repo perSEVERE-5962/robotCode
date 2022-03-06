@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
@@ -33,7 +32,6 @@ public class GyroLeftTurn extends CommandBase {
   @Override
   public void execute() {
     m_driveTrain.tankDrive(-0.5, 0.5);
-    SmartDashboard.putNumber("Gyro Angle", m_gyro.getAngle());
   }
 
   // Called once the command ends or is interrupted.

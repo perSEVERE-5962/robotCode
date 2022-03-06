@@ -40,12 +40,15 @@ public final class Constants {
     public static final int intakeDeviceID = 19;
   }
 
-  public static final class AutonomousStartPosition{
+  public static final class AutonomousStartPosition {
     public static final int position1 = 1;
     public static final int position2 = 2;
     public static final int position3 = 3;
     public static final int position4 = 4;
   }
 
-  public static final float lowerSoftLimit = -22f; 
+  public static final class ArmPositions {
+    public static final double lowerLimit = -22;
+    public static final double upperLimit = 0;
+  }
 }
