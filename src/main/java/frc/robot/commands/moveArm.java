@@ -5,9 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
 public class moveArm extends CommandBase {
@@ -33,7 +31,7 @@ public class moveArm extends CommandBase {
     if (m_controller.getRawAxis(5) > 0.2) {
       m_arm.moveArm(0.25);
     } else if (m_controller.getRawAxis(5) < -0.2) {
-        m_arm.moveArm(-0.15);
+      m_arm.moveArm(-0.15);
     } else {
       m_arm.moveArm(0);
     }

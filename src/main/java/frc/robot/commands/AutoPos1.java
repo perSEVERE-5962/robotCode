@@ -19,14 +19,15 @@ public class AutoPos1 extends SequentialCommandGroup {
   public AutoPos1(Intake intake, DriveTrain driveTrain, Arm arm, AHRS gyro) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new LowerArm(arm)); /*,
+    addCommands(
+        new LowerArm(arm),
         new AutoDriveForward(-28, driveTrain),
         new AutoRunIntake(0, intake),
         new GyroRightTurn(driveTrain, gyro, 130),
-        new AutoDriveForward(-10, driveTrain),
-        new GyroRightTurn(driveTrain, gyro, 40),
+        new AutoDriveForward(-59, driveTrain),
+        new GyroRightTurn(driveTrain, gyro, 50),
         new RaiseArm(arm),
-        new AutoDriveForward(-75, driveTrain),
-        new AutoRunIntake(1, intake));*/
+        new AutoDriveForward(-82, driveTrain),
+        new AutoRunIntake(1, intake));
   }
 }
