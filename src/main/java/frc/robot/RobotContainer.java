@@ -116,20 +116,16 @@ public class RobotContainer {
     Command command;
     int position = m_startPositionChooser.getSelected();
     if (position == Constants.AutonomousStartPosition.position1) {
-      m_intake.armIntake(-0.75);
       command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
     } else if (position == Constants.AutonomousStartPosition.position2) {
       command = new AutoPos2(m_intake, m_driveTrain, m_arm, m_gyro);
 
     } else if (position == Constants.AutonomousStartPosition.position3) {
-      m_intake.armIntake(-0.75);
       command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
     } else if (position == Constants.AutonomousStartPosition.position4) {
-      m_intake.armIntake(-0.75);
       command = new AutoPos4(m_intake, m_driveTrain, m_arm, m_gyro);
     
     } else {
-      m_intake.armIntake(-0.75);
       command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
     }
     return command;
