@@ -22,7 +22,9 @@ public class DriveTrain extends SubsystemBase {
     return m_ahrs;
   }
 
-  public DriveTrain() {}
+  public DriveTrain() {
+    m_ahrs.reset();
+  }
 
   public void setMotorControllerType(int motorControllerType) {
     DriveFactory driveFactory = new DriveFactory();
