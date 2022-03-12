@@ -106,7 +106,6 @@ public class Robot extends TimedRobot {
   /**
    * This function is called periodically during operator control.
    *
-   * @param Joy1
    */
   @Override
   public void teleopPeriodic() {
@@ -115,11 +114,14 @@ public class Robot extends TimedRobot {
 
     double rate = SmartDashboard.getNumber("Ramp Rate", 0);
     m_robotContainer.getDriveTrain().setRampRate(rate);
+/*    
     if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
       m_robotContainer.getCamera().ActivateCamera1();
     } else if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(2)) {
       m_robotContainer.getCamera().ActivateCamera2();
     }
+*/
+
   }
 
   @Override
