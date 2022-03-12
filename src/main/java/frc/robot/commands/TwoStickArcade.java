@@ -29,7 +29,7 @@ public class TwoStickArcade extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(0), m_joystick.getRawAxis(5));
+    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(5), m_joystick.getRawAxis(0) * -1);
   }
 
   // Called once the command ends or is interrupted.
