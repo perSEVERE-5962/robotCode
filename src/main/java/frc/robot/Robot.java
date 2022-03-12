@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +22,7 @@ public class Robot extends TimedRobot {
   private Command m_driveCommand;
   private Command m_intakeSpeed;
   private Command m_arm;
+  private Command m_camerafeed; 
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +33,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
   }
 
   /**
@@ -100,9 +103,11 @@ public class Robot extends TimedRobot {
     if (m_arm != null) {
       m_arm.schedule();
     }
+
   }
 
-  /** This function is called periodically during operator control. */
+  /** This function is called periodically during operator control. 
+   * @param Joy1 */
   @Override
   public void teleopPeriodic() {
     int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
@@ -110,7 +115,15 @@ public class Robot extends TimedRobot {
 
     double rate = SmartDashboard.getNumber("Ramp Rate", 0);
     m_robotContainer.getDriveTrain().setRampRate(rate);
+    if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)){
+      m_robotContainer.getCamera().ActivateCamera1();
+    }
+    else if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(2)){
+      m_robotContainer.getCamera().ActivateCamera2();
+    }
+    
   }
+
 
   @Override
   public void testInit() {

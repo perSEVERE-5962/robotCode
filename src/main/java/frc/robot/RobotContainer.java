@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Camera;
@@ -106,7 +108,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+   
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -164,5 +168,11 @@ public class RobotContainer {
 
   public AHRS getGyro() {
     return m_gyro;
+  }
+  public Joystick getCopilotJoystick(){
+    return m_copilotController; 
+  }
+  public Camera getCamera() {
+    return m_camera; 
   }
 }
