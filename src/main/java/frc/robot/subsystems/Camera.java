@@ -36,9 +36,10 @@ public class Camera extends SubsystemBase {
     SmartDashboard.putNumber("Camera", 1);
     server.setSource(camera1);
   }
-
+/*
   public void ActivateCamera2() {
     SmartDashboard.putNumber("Camera", 2);
     server.setSource(camera2);
   }
+  */
 }
