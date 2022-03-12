@@ -18,12 +18,12 @@ public class Camera extends SubsystemBase {
   public Camera() {
 
     camera1 = CameraServer.startAutomaticCapture(0);
-    camera2 = CameraServer.startAutomaticCapture(1);
+//    camera2 = CameraServer.startAutomaticCapture(1);
     server = CameraServer.getServer();
     camera1.setBrightness(50);
     camera1.setResolution(640, 480);
-    camera2.setBrightness(50);
-    camera2.setResolution(640, 480);
+//    camera2.setBrightness(50);
+//    camera2.setResolution(640, 480);
     server.setSource(camera1);
     SmartDashboard.putNumber("Camera", 1);
   }
