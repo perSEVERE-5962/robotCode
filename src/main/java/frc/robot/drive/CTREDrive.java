@@ -34,6 +34,7 @@ public class CTREDrive extends DriveBase {
     m_rightTalon.configClosedloopRamp(0);
 
     init(m_leftTalon, m_rightTalon);
+    setRampRate(0);
   }
 
   @Override
@@ -55,5 +56,13 @@ public class CTREDrive extends DriveBase {
   @Override
   public double getAverageEncoderDistance() {
     return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
+  }
+
+  @Override
+  public void setRampRate(double rate) {
+    m_leftTalon.configOpenloopRamp(rate);
+    m_leftVictor.configOpenloopRamp(rate);
+    m_rightTalon.configOpenloopRamp(rate);
+    m_rightVictor.configOpenloopRamp(rate);
   }
 }

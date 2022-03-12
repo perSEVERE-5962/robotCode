@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
@@ -24,15 +23,13 @@ public class AutoPos1 extends SequentialCommandGroup {
     addCommands(
         new LowerArm(arm),
         new ParallelCommandGroup(
-          new AutoRunIntake(-0.75, intake),
-          new AutoDriveForward(-28, driveTrain)
-        ),
-        new AutoRunIntake(0,intake),
+            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-28, driveTrain)),
+        new AutoRunIntake(0, intake),
         new GyroRightTurn(driveTrain, gyro, 130),
         new AutoDriveForward(-59, driveTrain),
-        new GyroRightTurn(driveTrain, gyro, 50),
+        new GyroRightTurn(driveTrain, gyro, 55),
         new RaiseArm(arm),
-        new AutoDriveForward(-82, driveTrain),
+        new AutoDriveForward(-80, driveTrain),
         new AutoRunIntake(1, intake));
   }
 }

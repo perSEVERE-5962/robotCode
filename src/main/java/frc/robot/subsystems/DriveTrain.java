@@ -51,7 +51,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double leftAxis, double rightAxis) {
-    m_drive.tankDrive(leftAxis, rightAxis);
+    m_drive.arcadeDrive(leftAxis, rightAxis);
   }
 
   public void stopDrive() {
@@ -68,5 +68,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetEncoders() {
     m_drive.resetEncoders();
+  }
+
+  public void setRampRate(double rate) {
+    m_drive.setRampRate(rate);
   }
 }

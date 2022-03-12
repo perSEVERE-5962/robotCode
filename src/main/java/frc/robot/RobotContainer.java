@@ -12,11 +12,9 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.PS4Controller.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Camera;
@@ -98,6 +96,8 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
+
+    SmartDashboard.putNumber("Ramp Rate", 0);
   }
 
   /**
@@ -106,9 +106,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-   
-  }
+  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -128,7 +126,7 @@ public class RobotContainer {
       command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
     } else if (position == Constants.AutonomousStartPosition.position4) {
       command = new AutoPos4(m_intake, m_driveTrain, m_arm, m_gyro);
-    
+
     } else {
       command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
     }
@@ -167,10 +165,12 @@ public class RobotContainer {
   public AHRS getGyro() {
     return m_gyro;
   }
-  public Joystick getCopilotJoystick(){
-    return m_copilotController; 
+
+  public Joystick getCopilotJoystick() {
+    return m_copilotController;
   }
+
   public Camera getCamera() {
-    return m_camera; 
+    return m_camera;
   }
 }
