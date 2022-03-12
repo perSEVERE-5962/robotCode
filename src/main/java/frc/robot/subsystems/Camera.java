@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Camera extends SubsystemBase {
   UsbCamera camera1;
-  UsbCamera camera2;
+//  UsbCamera camera2;
   VideoSink server;
 
   public Camera() {
