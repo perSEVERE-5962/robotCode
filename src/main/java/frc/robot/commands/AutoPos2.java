@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
@@ -29,8 +28,6 @@ public class AutoPos2 extends SequentialCommandGroup {
         new GyroLeftTurn(driveTrain, gyro, -180),
         new LowerArm(arm),
         new ParallelCommandGroup(
-          new AutoRunIntake(1, intake),
-          new AutoDriveForward(-28, driveTrain)
-        ));
+            new AutoRunIntake(1, intake), new AutoDriveForward(-28, driveTrain)));
   }
 }

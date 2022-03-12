@@ -15,11 +15,11 @@ public class TwoStickArcade extends CommandBase {
   private final DriveTrain m_driveTrain;
   private final Joystick m_joystick;
 
-  public TwoStickArcade(DriveTrain subsystem, Joystick joystick) {
-    m_driveTrain = subsystem;
+  public TwoStickArcade(DriveTrain driveTrain, Joystick joystick) {
+    m_driveTrain = driveTrain;
     m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.

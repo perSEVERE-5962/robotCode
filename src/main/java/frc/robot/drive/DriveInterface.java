@@ -57,4 +57,12 @@ public interface DriveInterface {
    * @return the distance of the left & right encoders averaged together in meters
    */
   double getAverageEncoderDistance();
+
+  /**
+   * Sets the ramp rate for open loop control modes This is the maximum rate at which the motor
+   * controller's output is allowed to change
+   *
+   * @param rate - Time in seconds to go from 0 to full throttle
+   */
+  void setRampRate(double rate);
 }

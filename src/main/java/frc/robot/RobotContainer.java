@@ -96,6 +96,8 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
+
+    SmartDashboard.putNumber("Ramp Rate", 0);
   }
 
   /**
@@ -124,7 +126,7 @@ public class RobotContainer {
       command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
     } else if (position == Constants.AutonomousStartPosition.position4) {
       command = new AutoPos4(m_intake, m_driveTrain, m_arm, m_gyro);
-    
+
     } else {
       command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
     }

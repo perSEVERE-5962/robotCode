@@ -107,6 +107,9 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
+
+    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
+    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   @Override
