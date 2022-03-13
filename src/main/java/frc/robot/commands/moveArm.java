@@ -29,9 +29,9 @@ public class moveArm extends CommandBase {
   @Override
   public void execute() {
     if (m_controller.getRawAxis(5) > 0.2) {
-      m_arm.moveArm(0.25);
+      m_arm.moveArm(-0.15); // lower arm
     } else if (m_controller.getRawAxis(5) < -0.2) {
-      m_arm.moveArm(-0.15);
+      m_arm.moveArm(0.25); // raise arm
     } else {
       m_arm.moveArm(0);
     }
