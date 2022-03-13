@@ -97,7 +97,7 @@ public class RobotContainer {
 
     SmartDashboard.putNumber("Camera Brightness", 50);
 
-    SmartDashboard.putNumber("Ramp Rate", 0);
+    SmartDashboard.putNumber("Ramp Rate", 0.5);
   }
 
   /**
