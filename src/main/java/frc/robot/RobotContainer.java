@@ -7,14 +7,19 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,15 +28,31 @@ import frc.robot.subsystems.DriveTrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final Joystick m_driverController = new Joystick(0);
+  private final Joystick m_copilotController = new Joystick(1);
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
-  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+  private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+
+  private Intake m_intake = new Intake();
+  private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
+
+  private Arm m_arm = new Arm();
+  private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
+
+  // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm,
+  // m_gyro);
+  // private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
+
+  // private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+  // private SendableChooser<Integer> m_redPositionChooser = new SendableChooser<>();
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
-  private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
+  private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
+
+  private Camera m_camera = new Camera();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -42,16 +63,41 @@ public class RobotContainer {
         "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
     m_motorControllerChooser.addOption(
         "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    SmartDashboard.putData("drivetrain motor controller", m_motorControllerChooser);
+    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
-        "tank drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("arcade drive", new ArcadeDrive(m_driveTrain, m_driverController));
-    SmartDashboard.putData("driver control", m_driveChooser);
+        "Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
+    m_driveChooser.addOption(
+        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
+    m_driveChooser.addOption(
+        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
+    SmartDashboard.putData("Driver Control", m_driveChooser);
 
-    m_autoChooser.setDefaultOption("default auto", m_autoSequence);
-    // autoChooser.addOption("alternative auto", alternative_auto);
-    SmartDashboard.putData("auto chooser", m_autoChooser);
+    // m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
+    // m_autoChooser.addOption("shoot ball", m_autoShootBall);
+    // SmartDashboard.putData("auto chooser", m_autoChooser);
+
+    m_startPositionChooser.setDefaultOption(
+        "B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_startPositionChooser.addOption(
+        "B2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_startPositionChooser.addOption(
+        "B3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
+    m_startPositionChooser.addOption(
+        "B4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
+    m_startPositionChooser.addOption(
+        "R1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_startPositionChooser.addOption(
+        "R2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_startPositionChooser.addOption(
+        "R3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
+    m_startPositionChooser.addOption(
+        "R4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
+    SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
+
+    SmartDashboard.putNumber("Camera Brightness", 50);
+
+    SmartDashboard.putNumber("Ramp Rate", 0.5);
   }
 
   /**
@@ -69,7 +115,22 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (Command) m_autoChooser.getSelected();
+    Command command;
+    int position = m_startPositionChooser.getSelected();
+    if (position == Constants.AutonomousStartPosition.position1) {
+      command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
+    } else if (position == Constants.AutonomousStartPosition.position2) {
+      command = new AutoPos2(m_intake, m_driveTrain, m_arm, m_gyro);
+
+    } else if (position == Constants.AutonomousStartPosition.position3) {
+      command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
+    } else if (position == Constants.AutonomousStartPosition.position4) {
+      command = new AutoPos4(m_intake, m_driveTrain, m_arm, m_gyro);
+
+    } else {
+      command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
+    }
+    return command;
   }
 
   public Command getDriveCommand() {
@@ -83,5 +144,33 @@ public class RobotContainer {
 
   public DriveTrain getDriveTrain() {
     return m_driveTrain;
+  }
+
+  public IntakeSpeed getIntakeSpeed() {
+    return m_intakeSpeed;
+  }
+
+  public Command getArmCommand() {
+    return m_moveArm;
+  }
+
+  public Arm getArm() {
+    return m_arm;
+  }
+
+  public void setCameraBrightness(int brightness) {
+    m_camera.setBrightness(brightness);
+  }
+
+  public AHRS getGyro() {
+    return m_gyro;
+  }
+
+  public Joystick getCopilotJoystick() {
+    return m_copilotController;
+  }
+
+  public Camera getCamera() {
+    return m_camera;
   }
 }

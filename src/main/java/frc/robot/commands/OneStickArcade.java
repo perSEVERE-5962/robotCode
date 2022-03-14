@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
-public class ArcadeDrive extends CommandBase {
+public class OneStickArcade extends CommandBase {
   private final DriveTrain m_driveTrain;
   private final Joystick m_joystick;
 
-  public ArcadeDrive(DriveTrain subsystem, Joystick joystick) {
+  public OneStickArcade(DriveTrain subsystem, Joystick joystick) {
     m_driveTrain = subsystem;
     m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +29,7 @@ public class ArcadeDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(4), m_joystick.getRawAxis(5));
+    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(5), m_joystick.getRawAxis(4) * -1);
   }
 
   // Called once the command ends or is interrupted.

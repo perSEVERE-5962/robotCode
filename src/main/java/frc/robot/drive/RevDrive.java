@@ -55,8 +55,8 @@ public class RevDrive extends DriveBase {
     m_rightFollowerMotor.restoreFactoryDefaults();
 
     /** invert one side of the drive */
-    m_leftLeadMotor.setInverted(false);
-    m_rightLeadMotor.setInverted(true);
+    m_leftLeadMotor.setInverted(true);
+    m_rightLeadMotor.setInverted(false);
 
     /**
      * In CAN mode, one SPARK MAX can be configured to follow another. This is done by calling the
@@ -71,6 +71,9 @@ public class RevDrive extends DriveBase {
     m_leftFollowerEncoder = m_leftFollowerMotor.getEncoder();
     m_rightLeadEncoder = m_rightLeadMotor.getEncoder();
     m_rightFollowerEncoder = m_rightFollowerMotor.getEncoder();
+
+    init(m_leftLeadMotor, m_rightLeadMotor);
+    setRampRate(0);
   }
 
   @Override
@@ -94,5 +97,13 @@ public class RevDrive extends DriveBase {
   @Override
   public double getAverageEncoderDistance() {
     return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
+  }
+
+  @Override
+  public void setRampRate(double rate) {
+    m_leftLeadMotor.setOpenLoopRampRate(rate);
+    m_leftFollowerMotor.setOpenLoopRampRate(rate);
+    m_rightLeadMotor.setOpenLoopRampRate(rate);
+    m_rightFollowerMotor.setOpenLoopRampRate(rate);
   }
 }
