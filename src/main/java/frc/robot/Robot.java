@@ -103,10 +103,7 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /**
-   * This function is called periodically during operator control.
-   *
-   */
+  /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
     int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
@@ -114,13 +111,13 @@ public class Robot extends TimedRobot {
 
     double rate = SmartDashboard.getNumber("Ramp Rate", 0);
     m_robotContainer.getDriveTrain().setRampRate(rate);
-/*    
-    if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
-      m_robotContainer.getCamera().ActivateCamera1();
-    } else if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(2)) {
-      m_robotContainer.getCamera().ActivateCamera2();
-    }
-*/
+    /*
+        if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
+          m_robotContainer.getCamera().ActivateCamera1();
+        } else if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(2)) {
+          m_robotContainer.getCamera().ActivateCamera2();
+        }
+    */
 
   }
 
