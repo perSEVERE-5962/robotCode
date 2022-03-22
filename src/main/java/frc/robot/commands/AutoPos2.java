@@ -22,7 +22,7 @@ public class AutoPos2 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new AutoDriveForward(-13, driveTrain),
-        new AutoRunIntake(1, intake),
+        new ParallelCommandGroup(new RaiseArm(arm), new AutoRunIntake(1, intake)),
         new AutoDriveBackward(0, driveTrain),
         new AutoRunIntake(0, intake),
         new GyroLeftTurn(driveTrain, gyro, -180),

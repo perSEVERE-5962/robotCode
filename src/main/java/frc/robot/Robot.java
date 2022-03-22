@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_robotContainer.setMotorControllerType();
   }
 
   /**
@@ -65,7 +66,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_robotContainer.setMotorControllerType();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -88,7 +88,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.setMotorControllerType();
     m_driveCommand = m_robotContainer.getDriveCommand();
     if (m_driveCommand != null) {
       m_driveCommand.schedule();
@@ -101,6 +100,8 @@ public class Robot extends TimedRobot {
     if (m_arm != null) {
       m_arm.schedule();
     }
+    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
+    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */
@@ -109,8 +110,6 @@ public class Robot extends TimedRobot {
     int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
 
-    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
-    m_robotContainer.getDriveTrain().setRampRate(rate);
     /*
         if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
           m_robotContainer.getCamera().ActivateCamera1();

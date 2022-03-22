@@ -28,6 +28,8 @@ public class AutoPos3 extends SequentialCommandGroup {
         new GyroRightTurn(driveTrain, gyro, 165),
         new RaiseArm(arm),
         new AutoDriveForward(-70, driveTrain),
+        new RaiseArm(arm),
+        new GyroLeftTurn(driveTrain, gyro, 5),
         new AutoRunIntake(1, intake));
   }
 }
