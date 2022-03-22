@@ -21,6 +21,7 @@ public class Robot extends TimedRobot {
   private Command m_driveCommand;
   private Command m_intakeSpeed;
   private Command m_arm;
+  private Command m_camerafeed;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    m_robotContainer.setMotorControllerType();
   }
 
   /**
@@ -47,6 +49,11 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    SmartDashboard.putNumber(
+        "Drive Encoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+    SmartDashboard.putNumber("Arm Encoder", m_robotContainer.getArm().getPosition());
+    SmartDashboard.putNumber("Gyro Angle", m_robotContainer.getDriveTrain().getGyroAngle());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -59,7 +66,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_robotContainer.setMotorControllerType();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -70,10 +76,7 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
-    SmartDashboard.putNumber(
-        "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
-  }
+  public void autonomousPeriodic() {}
 
   @Override
   public void teleopInit() {
@@ -85,7 +88,6 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    m_robotContainer.setMotorControllerType();
     m_driveCommand = m_robotContainer.getDriveCommand();
     if (m_driveCommand != null) {
       m_driveCommand.schedule();
@@ -94,20 +96,28 @@ public class Robot extends TimedRobot {
     if (m_intakeSpeed != null) {
       m_intakeSpeed.schedule();
     }
-    m_arm = m_robotContainer.getArm();
+    m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {
       m_arm.schedule();
     }
+    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
+    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50);
+    int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
-    SmartDashboard.putNumber(
-        "driveencoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
-        SmartDashboard.putNumber("gyro", m_robotContainer.getDriveTrain().getGyroAngle()); 
+
+    /*
+        if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
+          m_robotContainer.getCamera().ActivateCamera1();
+        } else if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(2)) {
+          m_robotContainer.getCamera().ActivateCamera2();
+        }
+    */
+
   }
 
   @Override
@@ -118,8 +128,5 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("camera brightness", 50);
-    m_robotContainer.setCameraBrightness(brightness);
-  }
+  public void testPeriodic() {}
 }

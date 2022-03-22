@@ -4,9 +4,7 @@
 
 package frc.robot.commands;
 
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -14,20 +12,13 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoPos1 extends SequentialCommandGroup {
-
-  /** Creates a new Movebackshoot. */
-  public AutoPos1(Intake intake, DriveTrain driveTrain, Arm arm, AHRS gyro) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+public class LeaveTarmac extends ParallelCommandGroup {
+  /** Creates a new LeaveTarmac. */
+  public LeaveTarmac(Intake intake, DriveTrain driveTrain, Arm arm) {
     addCommands(
         new LowerArm(arm),
         new ParallelCommandGroup(
             new AutoRunIntake(-0.75, intake), new AutoDriveForward(-28, driveTrain)),
-        new AutoRunIntake(0, intake),
-        new GyroRightTurn(driveTrain, gyro, 165),
-        new RaiseArm(arm),
-        new AutoDriveForward(-70, driveTrain),
-        new AutoRunIntake(1, intake));
+        new AutoRunIntake(0, intake));
   }
 }

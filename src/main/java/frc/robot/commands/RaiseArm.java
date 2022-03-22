@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
 public class RaiseArm extends CommandBase {
@@ -34,6 +35,6 @@ public class RaiseArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.getPosition() >= 0;
+    return m_arm.getPosition() >= Constants.ArmPositions.upperLimit;
   }
 }

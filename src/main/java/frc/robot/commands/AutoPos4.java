@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveTrain;
@@ -13,15 +14,20 @@ import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GyroTesting extends SequentialCommandGroup {
-  /** Creates a new GyroTesting. */
-  public GyroTesting(DriveTrain driveTrain, Intake intake, Arm arm, AHRS gyro) {
+public class AutoPos4 extends SequentialCommandGroup {
+
+  /** Creates a new Movebackshoot. */
+  public AutoPos4(Intake intake, DriveTrain driveTrain, Arm arm, AHRS gyro) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new AutoDriveForward(4300, driveTrain),
-        new GyroLeftTurn(driveTrain, gyro, 180),
-        new AutoDriveForward(4300, driveTrain),
-        new GyroRightTurn(driveTrain, gyro, 180));
+        new LowerArm(arm),
+        new ParallelCommandGroup(
+            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-28, driveTrain)),
+        new AutoRunIntake(0, intake),
+        new GyroRightTurn(driveTrain, gyro, 165),
+        new RaiseArm(arm),
+        new AutoDriveForward(-70, driveTrain),
+       new AutoRunIntake(1, intake));
   }
 }

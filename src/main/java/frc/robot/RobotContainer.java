@@ -28,27 +28,32 @@ import frc.robot.subsystems.Intake;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final Joystick m_driverController = new Joystick(0);
+  private final Joystick m_copilotController = new Joystick(1);
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
   private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
-  private final Joystick m_copilotController = new Joystick(1);
+
   private Intake m_intake = new Intake();
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
 
   private Arm m_arm = new Arm();
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
-  private final Joystick m_driverController = new Joystick(0);
-  private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm, m_gyro);
-  private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
-  private GyroTesting m_gyroTesting = new GyroTesting(m_driveTrain, m_intake, m_arm, m_gyro);
+
+  // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm,
+  // m_gyro);
+  // private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
+
+  // private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
+  // private SendableChooser<Integer> m_redPositionChooser = new SendableChooser<>();
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
-  private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_bluePositionChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_redPositionChooser = new SendableChooser<>();
+  private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
+
   private Camera m_camera = new Camera();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -58,34 +63,40 @@ public class RobotContainer {
         "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
     m_motorControllerChooser.addOption(
         "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    SmartDashboard.putData("drivetrain motor controller", m_motorControllerChooser);
+    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
-        "tank drive", new RunTankDrive(m_driveTrain, m_driverController));
+        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
+    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
     m_driveChooser.addOption(
-        "Two Stick Arcase", new TwoStickArcade(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
-        "One Stick Arcase", new OneStickArcade(m_driveTrain, m_driverController));
-    SmartDashboard.putData("driver control", m_driveChooser);
-    
+        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
+    SmartDashboard.putData("Driver Control", m_driveChooser);
+
     // m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
     // m_autoChooser.addOption("shoot ball", m_autoShootBall);
-    // m_autoChooser.addOption("test gyro", m_gyroTesting);
     // SmartDashboard.putData("auto chooser", m_autoChooser);
 
-    m_bluePositionChooser.setDefaultOption("B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
-    m_bluePositionChooser.addOption("B2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
-    m_bluePositionChooser.addOption("B3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
-    m_bluePositionChooser.addOption("B4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
-    SmartDashboard.putData("Blue Position", m_bluePositionChooser);
+    m_startPositionChooser.setDefaultOption(
+        "B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_startPositionChooser.addOption(
+        "B2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_startPositionChooser.addOption(
+        "B3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
+    m_startPositionChooser.addOption(
+        "B4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
+    m_startPositionChooser.addOption(
+        "R1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_startPositionChooser.addOption(
+        "R2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_startPositionChooser.addOption(
+        "R3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
+    m_startPositionChooser.addOption(
+        "R4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
+    SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
 
-    m_redPositionChooser.setDefaultOption("R1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
-    m_redPositionChooser.addOption("R2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
-    m_redPositionChooser.addOption("R3", Integer.valueOf(Constants.AutonomousStartPosition.position3));
-    m_redPositionChooser.addOption("R4", Integer.valueOf(Constants.AutonomousStartPosition.position4));
-    SmartDashboard.putData("Red Position", m_redPositionChooser);
+    SmartDashboard.putNumber("Camera Brightness", 50);
 
-    SmartDashboard.putNumber("camera brightness", 50);
+    SmartDashboard.putNumber("Ramp Rate", 0.5);
   }
 
   /**
@@ -104,20 +115,19 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     Command command;
-    int position = m_bluePositionChooser.getSelected();
-    if (position == Constants.AutonomousStartPosition.position1){
-      m_intake.armIntake(-0.75);
+    int position = m_startPositionChooser.getSelected();
+    if (position == Constants.AutonomousStartPosition.position1) {
       command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
-    }
-    else if (position == Constants.AutonomousStartPosition.position2){
+    } else if (position == Constants.AutonomousStartPosition.position2) {
       command = new AutoPos2(m_intake, m_driveTrain, m_arm, m_gyro);
 
-    }
-    else if (position == Constants.AutonomousStartPosition.position3){
+    } else if (position == Constants.AutonomousStartPosition.position3) {
       command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
-    }
-    else{
-      command = new AutoPos3(m_intake, m_driveTrain, m_arm, m_gyro);
+    } else if (position == Constants.AutonomousStartPosition.position4) {
+      command = new AutoPos4(m_intake, m_driveTrain, m_arm, m_gyro);
+
+    } else {
+      command = new AutoPos1(m_intake, m_driveTrain, m_arm, m_gyro);
     }
     return command;
   }
@@ -139,8 +149,12 @@ public class RobotContainer {
     return m_intakeSpeed;
   }
 
-  public Command getArm() {
+  public Command getArmCommand() {
     return m_moveArm;
+  }
+
+  public Arm getArm() {
+    return m_arm;
   }
 
   public void setCameraBrightness(int brightness) {
@@ -149,5 +163,13 @@ public class RobotContainer {
 
   public AHRS getGyro() {
     return m_gyro;
+  }
+
+  public Joystick getCopilotJoystick() {
+    return m_copilotController;
+  }
+
+  public Camera getCamera() {
+    return m_camera;
   }
 }

@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -46,14 +45,14 @@ public class Arm extends SubsystemBase {
     m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    m_ArmSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
-    m_ArmSpark.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.lowerSoftLimit);
+    m_ArmSpark.setSoftLimit(
+        CANSparkMax.SoftLimitDirection.kForward, (float) Constants.ArmPositions.upperLimit);
+    m_ArmSpark.setSoftLimit(
+        CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.ArmPositions.lowerLimit);
   }
 
   public void moveArm(double speed) {
     m_ArmSpark.set(speed);
-    SmartDashboard.putNumber("Encoder", m_encoder.getPosition());
-    // -20 is lowest
   }
 
   public double getPosition() {

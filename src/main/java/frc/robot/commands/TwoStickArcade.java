@@ -15,11 +15,11 @@ public class TwoStickArcade extends CommandBase {
   private final DriveTrain m_driveTrain;
   private final Joystick m_joystick;
 
-  public TwoStickArcade(DriveTrain subsystem, Joystick joystick) {
-    m_driveTrain = subsystem;
+  public TwoStickArcade(DriveTrain driveTrain, Joystick joystick) {
+    m_driveTrain = driveTrain;
     m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(subsystem);
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +29,7 @@ public class TwoStickArcade extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(0), m_joystick.getRawAxis(5));
+    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(1), m_joystick.getRawAxis(4) * -1);
   }
 
   // Called once the command ends or is interrupted.

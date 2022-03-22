@@ -22,7 +22,9 @@ public class DriveTrain extends SubsystemBase {
     return m_ahrs;
   }
 
-  public DriveTrain() {}
+  public DriveTrain() {
+    m_ahrs.reset();
+  }
 
   public void setMotorControllerType(int motorControllerType) {
     DriveFactory driveFactory = new DriveFactory();
@@ -31,7 +33,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public double getAverageEncoderDistance() {
-    return m_drive.getAverageEncoderDistance();
+    double distance = 0;
+    if (m_drive != null) {
+      distance = m_drive.getAverageEncoderDistance();
+    }
+    return distance;
   }
 
   @Override
@@ -45,7 +51,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double leftAxis, double rightAxis) {
-    m_drive.tankDrive(leftAxis, rightAxis);
+    m_drive.arcadeDrive(leftAxis, rightAxis);
   }
 
   public void stopDrive() {
@@ -62,5 +68,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetEncoders() {
     m_drive.resetEncoders();
+  }
+
+  public void setRampRate(double rate) {
+    m_drive.setRampRate(rate);
   }
 }
