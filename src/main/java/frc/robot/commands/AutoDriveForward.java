@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 
 public class AutoDriveForward extends CommandBase {
-  private double m_position;
+  private double m_distance;
   private DriveTrain m_driveTrain;
   /** Creates a new AutoDriveForward. */
-  public AutoDriveForward(double position, DriveTrain driveTrain) {
-    m_position = position;
+  public AutoDriveForward(double Distance, DriveTrain driveTrain) {
+    m_distance = Distance;
     m_driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.''
     addRequirements(driveTrain);
@@ -40,7 +40,7 @@ public class AutoDriveForward extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean isFinished = false;
-    isFinished = m_driveTrain.getAverageEncoderDistance() < m_position;
+    isFinished = m_driveTrain.getAverageEncoderDistance() < m_distance;
     return isFinished;
   }
 }
