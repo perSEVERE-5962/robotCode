@@ -51,4 +51,7 @@ public final class Constants {
     public static final double lowerLimit = -21;
     public static final double upperLimit = 0; 
   }
+
+public static final double driveTrainGearRatio = 10.71;
+public static final double driveTrainWheelDiameter = 6;
 }
