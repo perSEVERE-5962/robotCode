@@ -37,8 +37,8 @@ public class RobotContainer {
 
   private Intake m_intake = new Intake();
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
-
   private Arm m_arm = new Arm();
+  private ShootWithPID m_shootWithPID = new ShootWithPID(m_intake, m_arm, m_copilotController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
   // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm,
@@ -143,6 +143,10 @@ public class RobotContainer {
 
   public DriveTrain getDriveTrain() {
     return m_driveTrain;
+  }
+
+  public ShootWithPID getShootWithPID() {
+    return m_shootWithPID;
   }
 
   public IntakeSpeed getIntakeSpeed() {

@@ -55,7 +55,8 @@ public class CTREDrive extends DriveBase {
 
   @Override
   public double getAverageEncoderDistance() {
-    double encoderPosition =  (m_leftTalon.getSelectedSensorPosition() + m_rightTalon.getSelectedSensorPosition()) / 2;
+    double encoderPosition =
+        (m_leftTalon.getSelectedSensorPosition() + m_rightTalon.getSelectedSensorPosition()) / 2;
     return convertPostitionToDistance(encoderPosition);
   }
 

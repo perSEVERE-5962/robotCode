@@ -29,7 +29,14 @@ public class Arm extends SubsystemBase {
     m_ArmSpark.restoreFactoryDefaults();
 
     m_ArmSpark.setInverted(false);
-
+    m_ArmSpark.getPIDController().setP(Constants.PIDCoeffients.kP);
+    m_ArmSpark.getPIDController().setI(Constants.PIDCoeffients.kI);
+    m_ArmSpark.getPIDController().setD(Constants.PIDCoeffients.kD);
+    m_ArmSpark.getPIDController().setIZone(Constants.PIDCoeffients.kIz);
+    m_ArmSpark.getPIDController().setFF(Constants.PIDCoeffients.kFF);
+    m_ArmSpark
+        .getPIDController()
+        .setOutputRange(Constants.PIDCoeffients.kMinOutput, Constants.PIDCoeffients.kMaxOutput);
     m_encoder = m_ArmSpark.getEncoder();
     m_encoder.setPosition(0);
 
@@ -62,5 +69,9 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void moveToPositionWithPID(double position) {
+    m_ArmSpark.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 }

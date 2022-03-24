@@ -4,21 +4,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class moveArm extends CommandBase {
-  /** Creates a new moveArm. */
-  private static Joystick m_controller;
-
+public class MoveToShootPosition extends CommandBase {
   private static Arm m_arm;
 
-  public moveArm(Joystick controller, Arm arm) {
-    m_controller = controller;
+  public MoveToShootPosition(Arm arm) {
     m_arm = arm;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_arm);
   }
 
@@ -29,13 +23,7 @@ public class moveArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_controller.getRawAxis(5) > 0.2) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.lowerLimit); // lower arm
-    } else if (m_controller.getRawAxis(5) < -0.2) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.upperLimit); // raise arm
-    } else {
-      m_arm.moveArm(0);
-    }
+    m_arm.moveToPositionWithPID(Constants.ArmPositions.shoot);
   }
 
   // Called once the command ends or is interrupted.

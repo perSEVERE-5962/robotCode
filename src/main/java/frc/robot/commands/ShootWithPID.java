@@ -4,21 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoDriveScore extends SequentialCommandGroup {
-  /** Creates a new AutoDriveScore. */
-  public AutoDriveScore(DriveTrain driveTrain, Intake intake) {
+public class ShootWithPID extends SequentialCommandGroup {
+  /** Creates a new ShootWithPID. */
+  public ShootWithPID(Intake intake, Arm arm, Joystick controller) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new AutoDriveForward(4300, driveTrain),
-        new AutoRunIntake(1, intake),
-        new AutoDriveBackward(-12885, driveTrain));
+    addCommands(new MoveToShootPosition(arm), new IntakeSpeed(intake, controller));
   }
 }

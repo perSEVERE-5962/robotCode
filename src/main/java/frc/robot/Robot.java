@@ -109,7 +109,12 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
-
+    if (m_robotContainer.getCopilotJoystick().getRawAxis(3) > 0.1) {
+      Command shootWithPID = m_robotContainer.getShootWithPID();
+      if (shootWithPID != null) {
+        shootWithPID.schedule();
+      }
+    }
     /*
         if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
           m_robotContainer.getCamera().ActivateCamera1();

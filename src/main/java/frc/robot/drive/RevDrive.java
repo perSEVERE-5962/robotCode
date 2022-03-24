@@ -7,8 +7,6 @@ package frc.robot.drive;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-
-import frc.robot.Constants;
 import frc.robot.Constants.MotorControllerDeviceID;
 
 /** Add your docs here. */
@@ -97,16 +95,17 @@ public class RevDrive extends DriveBase {
   }
 
   private double getAverageLeftEncoderPosition() {
-    return (m_leftLeadEncoder.getPosition() + m_leftFollowerEncoder.getPosition()) / 2;   
+    return (m_leftLeadEncoder.getPosition() + m_leftFollowerEncoder.getPosition()) / 2;
   }
 
   private double getAverageRightEncoderPosition() {
-    return (m_rightLeadEncoder.getPosition() + m_rightFollowerEncoder.getPosition()) / 2;   
+    return (m_rightLeadEncoder.getPosition() + m_rightFollowerEncoder.getPosition()) / 2;
   }
-  
+
   @Override
   public double getAverageEncoderDistance() {
-    double encoderPosition = (getAverageLeftEncoderPosition() + getAverageRightEncoderPosition()) / 2;
+    double encoderPosition =
+        (getAverageLeftEncoderPosition() + getAverageRightEncoderPosition()) / 2;
 
     return convertPostitionToDistance(encoderPosition);
   }
