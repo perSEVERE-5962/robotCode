@@ -22,7 +22,6 @@ public class RevDrive extends DriveBase {
   private RelativeEncoder m_leftFollowerEncoder;
   private RelativeEncoder m_rightLeadEncoder;
   private RelativeEncoder m_rightFollowerEncoder;
-  private int encoderPosition;
 
   RevDrive() {
     /**
@@ -89,19 +88,27 @@ public class RevDrive extends DriveBase {
 
   @Override
   public double getLeftEncoderDistance() {
-    return (m_leftLeadEncoder.getPosition() + m_leftFollowerEncoder.getPosition()) / 2;
+    return convertPostitionToDistance(getAverageLeftEncoderPosition());
   }
 
   @Override
   public double getRightEncoderDistance() {
-    return (m_rightLeadEncoder.getPosition() + m_rightFollowerEncoder.getPosition()) / 2;
+    return convertPostitionToDistance(getAverageRightEncoderPosition());
+  }
+
+  private double getAverageLeftEncoderPosition() {
+    return (m_leftLeadEncoder.getPosition() + m_leftFollowerEncoder.getPosition()) / 2;   
+  }
+
+  private double getAverageRightEncoderPosition() {
+    return (m_rightLeadEncoder.getPosition() + m_rightFollowerEncoder.getPosition()) / 2;   
   }
   
   @Override
   public double getAverageEncoderDistance() {
-    double encoderPosition = (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
+    double encoderPosition = (getAverageLeftEncoderPosition() + getAverageRightEncoderPosition()) / 2;
 
-    return (encoderPosition/Constants.driveTrainGearRatio)*Math.PI*Constants.driveTrainWheelDiameter;
+    return convertPostitionToDistance(encoderPosition);
   }
 
   @Override

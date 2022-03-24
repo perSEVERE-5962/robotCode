@@ -6,6 +6,7 @@ package frc.robot.drive;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+import frc.robot.Constants;
 
 /** Add your docs here. */
 public abstract class DriveBase implements DriveInterface {
@@ -37,5 +38,9 @@ public abstract class DriveBase implements DriveInterface {
   public void arcadeDrive(double xSpeed, double zRotation) {
     m_diffDrive.arcadeDrive(xSpeed, zRotation);
     m_diffDrive.feed();
+  }
+
+  public double convertPostitionToDistance(double position) {
+    return (position/Constants.driveTrainGearRatio)*Math.PI*Constants.driveTrainWheelDiameter;
   }
 }

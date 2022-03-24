@@ -45,17 +45,18 @@ public class CTREDrive extends DriveBase {
 
   @Override
   public double getLeftEncoderDistance() {
-    return m_leftTalon.getSelectedSensorPosition();
+    return convertPostitionToDistance(m_leftTalon.getSelectedSensorPosition());
   }
 
   @Override
   public double getRightEncoderDistance() {
-    return m_rightTalon.getSelectedSensorPosition();
+    return convertPostitionToDistance(m_rightTalon.getSelectedSensorPosition());
   }
 
   @Override
   public double getAverageEncoderDistance() {
-    return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
+    double encoderPosition =  (m_leftTalon.getSelectedSensorPosition() + m_rightTalon.getSelectedSensorPosition()) / 2;
+    return convertPostitionToDistance(encoderPosition);
   }
 
   @Override
