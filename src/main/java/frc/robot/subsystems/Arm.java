@@ -29,6 +29,8 @@ public class Arm extends SubsystemBase {
     m_ArmSpark.restoreFactoryDefaults();
 
     m_ArmSpark.setInverted(false);
+    m_encoder = m_ArmSpark.getEncoder();
+    m_encoder.setPosition(0);
     m_ArmSpark.getPIDController().setP(Constants.PIDCoeffients.kP);
     m_ArmSpark.getPIDController().setI(Constants.PIDCoeffients.kI);
     m_ArmSpark.getPIDController().setD(Constants.PIDCoeffients.kD);
@@ -37,8 +39,7 @@ public class Arm extends SubsystemBase {
     m_ArmSpark
         .getPIDController()
         .setOutputRange(Constants.PIDCoeffients.kMinOutput, Constants.PIDCoeffients.kMaxOutput);
-    m_encoder = m_ArmSpark.getEncoder();
-    m_encoder.setPosition(0);
+   
 
     /**
      * Soft Limits restrict the motion of the motor in a particular direction at a particular point.
@@ -49,13 +50,13 @@ public class Arm extends SubsystemBase {
      *
      * <p>The directions are rev::CANSparkMax::kForward and rev::CANSparkMax::kReverse
      */
-    m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    m_ArmSpark.setSoftLimit(
-        CANSparkMax.SoftLimitDirection.kForward, (float) Constants.ArmPositions.upperLimit);
-    m_ArmSpark.setSoftLimit(
-        CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.ArmPositions.lowerLimit);
+    // m_ArmSpark.setSoftLimit(
+    //     CANSparkMax.SoftLimitDirection.kForward, (float) Constants.ArmPositions.upperLimit);
+    // m_ArmSpark.setSoftLimit(
+    //     CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.ArmPositions.lowerLimit);
   }
 
   public void moveArm(double speed) {

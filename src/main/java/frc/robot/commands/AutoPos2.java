@@ -21,13 +21,13 @@ public class AutoPos2 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new AutoDriveForward(-13, driveTrain),
+        new AutoDriveForward(-23, driveTrain),
         new ParallelCommandGroup(new RaiseArm(arm), new AutoRunIntake(1, intake)),
-        new AutoDriveBackward(0, driveTrain),
+        new AutoDriveBackward(23, driveTrain),
         new AutoRunIntake(0, intake),
         new GyroLeftTurn(driveTrain, gyro, -180),
         new LowerArm(arm),
         new ParallelCommandGroup(
-            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-28, driveTrain)));
+            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-49, driveTrain)));
   }
 }

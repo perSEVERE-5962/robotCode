@@ -6,19 +6,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 
 public class IntakeSpeed extends CommandBase {
   /** Creates a new IntakeSpeed. */
   private static Intake m_armIntake;
 
+  private static Arm m_arm;
   private static Joystick m_controller;
 
-  public IntakeSpeed(Intake armIntake, Joystick controller) {
+  public IntakeSpeed(Intake armIntake, Joystick controller, Arm arm) {
     m_armIntake = armIntake;
-    addRequirements(armIntake);
+    addRequirements(armIntake, arm);
     m_controller = controller;
-
+    m_arm = arm;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,7 +34,13 @@ public class IntakeSpeed extends CommandBase {
   public void execute() {
     m_armIntake.armIntake(m_controller.getRawAxis(3));
     if (m_controller.getRawAxis(3) > 0.1) {
-      m_armIntake.armIntake(m_controller.getRawAxis(3));
+      double position = m_arm.getPosition();
+      if (position <= Constants.ArmPositions.shootmax
+          && position >= Constants.ArmPositions.shootmin) {
+        m_armIntake.armIntake(m_controller.getRawAxis(3));
+      } else {
+        m_armIntake.armIntake(0);
+      }
     } else if (m_controller.getRawAxis(2) > 0.1) {
       m_armIntake.armIntake(-m_controller.getRawAxis(2));
     } else {

@@ -48,21 +48,23 @@ public final class Constants {
   }
 
   public static final class ArmPositions {
-    public static final double lowerLimit = -21;
+    public static final double lowerLimit = -20;
     public static final double upperLimit = 0;
     public static final double shoot = -2.7;
+    public static final double shootmin = -2.4;
+    public static final double shootmax = -2.9;
   }
 
   public static final double driveTrainGearRatio = 10.71;
   public static final double driveTrainWheelDiameter = 6;
 
   public static final class PIDCoeffients {
-    public static final double kP = 0.1;
-    public static final double kI = 1e-4;
-    public static final double kD = 1;
+    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4, 
+    public static final double kD = 0; // 1, 0.5, 0.1 
     public static final double kIz = 0;
-    public static final double kFF = 0;
-    public static final double kMaxOutput = 1;
-    public static final double kMinOutput = -1;
+    public static final double kFF = 0; // 0, 
+    public static final double kMaxOutput = 0.2;
+    public static final double kMinOutput = -0.2;
   }
 }
