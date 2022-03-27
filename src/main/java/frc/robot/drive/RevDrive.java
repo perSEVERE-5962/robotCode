@@ -5,8 +5,10 @@
 package frc.robot.drive;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import frc.robot.Constants;
 import frc.robot.Constants.MotorControllerDeviceID;
 
 /** Add your docs here. */
@@ -45,10 +47,12 @@ public class RevDrive extends DriveBase {
         new CANSparkMax(MotorControllerDeviceID.rightFollowerDeviceID, MotorType.kBrushless);
 
     // /**
-    //  * The RestoreFactoryDefaults method can be used to reset the configuration parameters in the
-    //  * SPARK MAX to their factory default state. If no argument is passed, these parameters will not
-    //  * persist between power cycles
-    //  */
+    // * The RestoreFactoryDefaults method can be used to reset the configuration
+    // parameters in the
+    // * SPARK MAX to their factory default state. If no argument is passed, these
+    // parameters will not
+    // * persist between power cycles
+    // */
     // m_leftLeadMotor.restoreFactoryDefaults();
     // m_leftFollowerMotor.restoreFactoryDefaults();
     // m_rightLeadMotor.restoreFactoryDefaults();
@@ -58,6 +62,9 @@ public class RevDrive extends DriveBase {
     m_leftLeadMotor.setInverted(true);
     m_rightLeadMotor.setInverted(false);
 
+    configurePID(m_leftLeadMotor);
+    configurePID(m_rightLeadMotor);
+    
     /**
      * In CAN mode, one SPARK MAX can be configured to follow another. This is done by calling the
      * follow() method on the SPARK MAX you want to configure as a follower, and by passing as a
@@ -76,6 +83,18 @@ public class RevDrive extends DriveBase {
     setRampRate(0);
   }
 
+  private void configurePID (CANSparkMax motor) {
+    motor.getPIDController().setP(Constants.DrivePIDCoeffients.kP);
+    motor.getPIDController().setI(Constants.DrivePIDCoeffients.kI);
+    motor.getPIDController().setD(Constants.DrivePIDCoeffients.kD);
+    motor.getPIDController().setIZone(Constants.DrivePIDCoeffients.kIz);
+    motor.getPIDController().setFF(Constants.DrivePIDCoeffients.kFF);
+    motor
+        .getPIDController()
+        .setOutputRange(
+            Constants.DrivePIDCoeffients.kMinOutput, Constants.DrivePIDCoeffients.kMaxOutput);
+  }
+
   @Override
   public void resetEncoders() {
     m_leftLeadEncoder.setPosition(0);
@@ -86,12 +105,12 @@ public class RevDrive extends DriveBase {
 
   @Override
   public double getLeftEncoderDistance() {
-    return convertPostitionToDistance(getAverageLeftEncoderPosition());
+    return convertPositionToDistance(getAverageLeftEncoderPosition());
   }
 
   @Override
   public double getRightEncoderDistance() {
-    return convertPostitionToDistance(getAverageRightEncoderPosition());
+    return convertPositionToDistance(getAverageRightEncoderPosition());
   }
 
   private double getAverageLeftEncoderPosition() {
@@ -107,7 +126,7 @@ public class RevDrive extends DriveBase {
     double encoderPosition =
         (getAverageLeftEncoderPosition() + getAverageRightEncoderPosition()) / 2;
 
-    return convertPostitionToDistance(encoderPosition);
+    return convertPositionToDistance(encoderPosition);
   }
 
   @Override
@@ -116,5 +135,28 @@ public class RevDrive extends DriveBase {
     m_leftFollowerMotor.setOpenLoopRampRate(rate);
     m_rightLeadMotor.setOpenLoopRampRate(rate);
     m_rightFollowerMotor.setOpenLoopRampRate(rate);
+  }
+
+  public void moveDistanceWithPID(double distance) throws Exception {
+    double position = convertDistanceToPosition(distance);
+    m_leftLeadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+    m_rightLeadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void setIdleMode(int idleMode) {
+    switch (idleMode) {
+      case Constants.MotorControllerIdleModes.kBrake:
+        m_leftLeadMotor.setIdleMode(IdleMode.kBrake);
+        m_leftFollowerMotor.setIdleMode(IdleMode.kBrake);
+        m_rightLeadMotor.setIdleMode(IdleMode.kBrake);
+        m_rightFollowerMotor.setIdleMode(IdleMode.kBrake);
+        break;
+      case Constants.MotorControllerIdleModes.kCoast:
+        m_leftLeadMotor.setIdleMode(IdleMode.kCoast);
+        m_leftFollowerMotor.setIdleMode(IdleMode.kCoast);
+        m_rightLeadMotor.setIdleMode(IdleMode.kCoast);
+        m_rightFollowerMotor.setIdleMode(IdleMode.kCoast);
+        break;
+    }
   }
 }

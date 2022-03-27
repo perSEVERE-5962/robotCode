@@ -21,19 +21,20 @@ public class AutoDriveBackward extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //    m_driveTrain.resetEncoders();
+    m_driveTrain.resetEncoders();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.tankDrive(0.5, 0.5);
+    //m_driveTrain.tankDrive(0.5, 0.5);
+    m_driveTrain.moveDistanceWithPID(m_distance);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_driveTrain.tankDrive(0, 0);
+    //m_driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.

@@ -4,6 +4,7 @@
 
 package frc.robot.drive;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorControllerType;
 
 public class DriveFactory {
@@ -31,15 +32,19 @@ public class DriveFactory {
     switch (motorControllerType) {
       case MotorControllerType.kCTRE:
         drive = new CTREDrive();
+        SmartDashboard.putString("Selected Drive", "CTRE");
         break;
       case MotorControllerType.kREV:
         drive = new RevDrive();
+        SmartDashboard.putString("Selected Drive", "Rev");
         break;
       case MotorControllerType.kHybrid:
         drive = new HybridDrive();
+        SmartDashboard.putString("Selected Drive", "Hybrid");
         break;
       default:
         drive = new RevDrive(); // default to Rev starting in 2022
+        SmartDashboard.putString("Selected Drive", "Default");
         break;
     }
     return drive;

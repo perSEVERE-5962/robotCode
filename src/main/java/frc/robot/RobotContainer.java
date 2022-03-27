@@ -63,7 +63,7 @@ public class RobotContainer {
     m_motorControllerChooser.addOption(
         "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
     m_motorControllerChooser.addOption(
-        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
     SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
@@ -72,10 +72,6 @@ public class RobotContainer {
     m_driveChooser.addOption(
         "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
     SmartDashboard.putData("Driver Control", m_driveChooser);
-
-    // m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
-    // m_autoChooser.addOption("shoot ball", m_autoShootBall);
-    // SmartDashboard.putData("auto chooser", m_autoChooser);
 
     m_startPositionChooser.setDefaultOption(
         "B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));

@@ -37,7 +37,6 @@ public final class Constants {
     public static final int rightFollowerDeviceID = 21;
 
     public static final int armDeviceID = 30;
-    
 
     public static final int intakeDeviceID = 19;
   }
@@ -60,7 +59,7 @@ public final class Constants {
   public static final double driveTrainGearRatio = 10.71;
   public static final double driveTrainWheelDiameter = 6;
 
-  public static final class PIDCoeffients {
+  public static final class ArmPIDCoeffients {
     public static final double kP = 0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
@@ -68,5 +67,20 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.25;
     public static final double kMinOutput = -0.25;
+  }
+
+  public static final class DrivePIDCoeffients {
+    public static final double kP = 0.5;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0;
+    public static final double kMaxOutput = 0.75;
+    public static final double kMinOutput = -0.75;
+  }
+
+  public static final class MotorControllerIdleModes {
+    public static final int kBrake = 0;
+    public static final int kCoast = 1;
   }
 }

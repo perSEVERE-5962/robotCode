@@ -65,4 +65,8 @@ public interface DriveInterface {
    * @param rate - Time in seconds to go from 0 to full throttle
    */
   void setRampRate(double rate);
+
+  void moveDistanceWithPID(double distance) throws Exception;
+
+  void setIdleMode(int idleMode);
 }

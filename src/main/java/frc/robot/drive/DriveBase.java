@@ -40,7 +40,12 @@ public abstract class DriveBase implements DriveInterface {
     m_diffDrive.feed();
   }
 
-  public double convertPostitionToDistance(double position) {
+  public double convertPositionToDistance(double position) {
     return (position / Constants.driveTrainGearRatio) * Math.PI * Constants.driveTrainWheelDiameter;
+  }
+
+  public double convertDistanceToPosition(double distance) {
+    return (distance * Constants.driveTrainGearRatio)
+        / (Math.PI * Constants.driveTrainWheelDiameter);
   }
 }

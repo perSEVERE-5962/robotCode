@@ -5,8 +5,11 @@
 package frc.robot.drive;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Constants;
 import frc.robot.Constants.MotorControllerDeviceID;
 
 /**
@@ -15,8 +18,8 @@ import frc.robot.Constants.MotorControllerDeviceID;
  */
 public class HybridDrive extends DriveBase {
   private CANSparkMax m_leftLeadMotor; // Neo
-  private CANSparkMax m_leftFollowerMotor;  // CIM
-  private CANSparkMax m_rightLeadMotor; //Neo
+  private CANSparkMax m_leftFollowerMotor; // CIM
+  private CANSparkMax m_rightLeadMotor; // Neo
   private CANSparkMax m_rightFollowerMotor; // CIM
 
   private RelativeEncoder m_leftLeadEncoder;
@@ -46,10 +49,12 @@ public class HybridDrive extends DriveBase {
         new CANSparkMax(MotorControllerDeviceID.rightFollowerDeviceID, MotorType.kBrushed);
 
     // /**
-    //  * The RestoreFactoryDefaults method can be used to reset the configuration parameters in the
-    //  * SPARK MAX to their factory default state. If no argument is passed, these parameters will not
-    //  * persist between power cycles
-    //  */
+    // * The RestoreFactoryDefaults method can be used to reset the configuration
+    // parameters in the
+    // * SPARK MAX to their factory default state. If no argument is passed, these
+    // parameters will not
+    // * persist between power cycles
+    // */
     // m_leftLeadMotor.restoreFactoryDefaults();
     // m_leftFollowerMotor.restoreFactoryDefaults();
     // m_rightLeadMotor.restoreFactoryDefaults();
@@ -58,6 +63,9 @@ public class HybridDrive extends DriveBase {
     /** invert one side of the drive */
     m_leftLeadMotor.setInverted(true);
     m_rightLeadMotor.setInverted(false);
+
+    configurePID(m_leftLeadMotor);
+    configurePID(m_rightLeadMotor);
 
     /**
      * In CAN mode, one SPARK MAX can be configured to follow another. This is done by calling the
@@ -75,6 +83,18 @@ public class HybridDrive extends DriveBase {
     setRampRate(0);
   }
 
+  private void configurePID (CANSparkMax motor) {
+    motor.getPIDController().setP(Constants.DrivePIDCoeffients.kP);
+    motor.getPIDController().setI(Constants.DrivePIDCoeffients.kI);
+    motor.getPIDController().setD(Constants.DrivePIDCoeffients.kD);
+    motor.getPIDController().setIZone(Constants.DrivePIDCoeffients.kIz);
+    motor.getPIDController().setFF(Constants.DrivePIDCoeffients.kFF);
+    motor
+        .getPIDController()
+        .setOutputRange(
+            Constants.DrivePIDCoeffients.kMinOutput, Constants.DrivePIDCoeffients.kMaxOutput);
+  }
+
   @Override
   public void resetEncoders() {
     m_leftLeadEncoder.setPosition(0);
@@ -83,12 +103,16 @@ public class HybridDrive extends DriveBase {
 
   @Override
   public double getLeftEncoderDistance() {
-    return convertPostitionToDistance(getAverageLeftEncoderPosition());
+    double distance = convertPositionToDistance(getAverageLeftEncoderPosition());
+    SmartDashboard.putNumber("Left Encoder Distance", distance);
+    return distance;
   }
 
   @Override
   public double getRightEncoderDistance() {
-    return convertPostitionToDistance(getAverageRightEncoderPosition());
+    double distance = convertPositionToDistance(getAverageRightEncoderPosition());
+    SmartDashboard.putNumber("Right Encoder Distance", distance);
+    return distance;
   }
 
   private double getAverageLeftEncoderPosition() {
@@ -101,10 +125,7 @@ public class HybridDrive extends DriveBase {
 
   @Override
   public double getAverageEncoderDistance() {
-    double encoderPosition =
-        (getAverageLeftEncoderPosition() + getAverageRightEncoderPosition()) / 2;
-
-    return convertPostitionToDistance(encoderPosition);
+    return (getRightEncoderDistance() + getLeftEncoderDistance()) / 2;
   }
 
   @Override
@@ -113,5 +134,28 @@ public class HybridDrive extends DriveBase {
     m_leftFollowerMotor.setOpenLoopRampRate(rate);
     m_rightLeadMotor.setOpenLoopRampRate(rate);
     m_rightFollowerMotor.setOpenLoopRampRate(rate);
+  }
+
+  public void moveDistanceWithPID(double distance) throws Exception {
+    double position = convertDistanceToPosition(distance);
+    m_leftLeadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+    m_rightLeadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void setIdleMode(int idleMode) {
+    switch (idleMode) {
+      case Constants.MotorControllerIdleModes.kBrake:
+        m_leftLeadMotor.setIdleMode(IdleMode.kBrake);
+        m_leftFollowerMotor.setIdleMode(IdleMode.kBrake);
+        m_rightLeadMotor.setIdleMode(IdleMode.kBrake);
+        m_rightFollowerMotor.setIdleMode(IdleMode.kBrake);
+        break;
+      case Constants.MotorControllerIdleModes.kCoast:
+        m_leftLeadMotor.setIdleMode(IdleMode.kCoast);
+        m_leftFollowerMotor.setIdleMode(IdleMode.kCoast);
+        m_rightLeadMotor.setIdleMode(IdleMode.kCoast);
+        m_rightFollowerMotor.setIdleMode(IdleMode.kCoast);
+        break;
+    }
   }
 }
