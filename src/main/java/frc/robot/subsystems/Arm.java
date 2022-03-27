@@ -39,7 +39,6 @@ public class Arm extends SubsystemBase {
     m_ArmSpark
         .getPIDController()
         .setOutputRange(Constants.PIDCoeffients.kMinOutput, Constants.PIDCoeffients.kMaxOutput);
-   
 
     /**
      * Soft Limits restrict the motion of the motor in a particular direction at a particular point.

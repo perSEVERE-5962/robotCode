@@ -26,6 +26,7 @@ public final class Constants {
   public static final class MotorControllerType {
     public static final int kCTRE = 1;
     public static final int kREV = 2;
+    public static final int kHybrid = 3;
   }
 
   public static final class MotorControllerDeviceID {
@@ -36,6 +37,7 @@ public final class Constants {
     public static final int rightFollowerDeviceID = 21;
 
     public static final int armDeviceID = 30;
+    
 
     public static final int intakeDeviceID = 19;
   }
@@ -60,12 +62,11 @@ public final class Constants {
 
   public static final class PIDCoeffients {
     public static final double kP = 0.5; // 0.1, 0, -0.1, -2
-    public static final double kI = 0; // 1e-4, 
-    public static final double kD = 0; // 1, 0.5, 0.1 
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
-    public static final double kFF = 0; // 0, 
+    public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.25;
     public static final double kMinOutput = -0.25;
   }
 }
-

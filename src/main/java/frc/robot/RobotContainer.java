@@ -62,6 +62,8 @@ public class RobotContainer {
         "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
     m_motorControllerChooser.addOption(
         "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+    m_motorControllerChooser.addOption(
+        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kCTRE));
     SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
