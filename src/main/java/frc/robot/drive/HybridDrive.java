@@ -83,7 +83,7 @@ public class HybridDrive extends DriveBase {
     setRampRate(0);
   }
 
-  private void configurePID (CANSparkMax motor) {
+  private void configurePID(CANSparkMax motor) {
     motor.getPIDController().setP(Constants.DrivePIDCoeffients.kP);
     motor.getPIDController().setI(Constants.DrivePIDCoeffients.kI);
     motor.getPIDController().setD(Constants.DrivePIDCoeffients.kD);
