@@ -64,7 +64,7 @@ public class RevDrive extends DriveBase {
 
     configurePID(m_leftLeadMotor);
     configurePID(m_rightLeadMotor);
-    
+
     /**
      * In CAN mode, one SPARK MAX can be configured to follow another. This is done by calling the
      * follow() method on the SPARK MAX you want to configure as a follower, and by passing as a
@@ -83,7 +83,7 @@ public class RevDrive extends DriveBase {
     setRampRate(0);
   }
 
-  private void configurePID (CANSparkMax motor) {
+  private void configurePID(CANSparkMax motor) {
     motor.getPIDController().setP(Constants.DrivePIDCoeffients.kP);
     motor.getPIDController().setI(Constants.DrivePIDCoeffients.kI);
     motor.getPIDController().setD(Constants.DrivePIDCoeffients.kD);

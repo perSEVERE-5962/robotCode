@@ -16,9 +16,9 @@ public class LeaveTarmac extends ParallelCommandGroup {
   /** Creates a new LeaveTarmac. */
   public LeaveTarmac(Intake intake, DriveTrain driveTrain, Arm arm) {
     addCommands(
-      new LowerArm(arm),
-      new ParallelCommandGroup(
-          new AutoRunIntake(-0.75, intake), new AutoDriveForward(-49, driveTrain)),
-      new AutoRunIntake(0, intake));
-}
+        new LowerArm(arm),
+        new ParallelCommandGroup(
+            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-49, driveTrain)),
+        new AutoRunIntake(0, intake));
+  }
 }

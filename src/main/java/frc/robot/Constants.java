@@ -39,6 +39,9 @@ public final class Constants {
     public static final int armDeviceID = 30;
 
     public static final int intakeDeviceID = 19;
+
+    public static final int telescopingDeviceID = 32;
+    public static final int angleDeviceID = 31;
   }
 
   public static final class AutonomousStartPosition {
@@ -54,6 +57,11 @@ public final class Constants {
     public static final double shoot = -2.7;
     public static final double shootmin = -2.4;
     public static final double shootmax = -2.9;
+  }
+
+  public static final class HangerPositions {
+    public static final double forwardLimit = 0;
+    public static final double reverseLimit = 0;
   }
 
   public static final double driveTrainGearRatio = 10.71;
