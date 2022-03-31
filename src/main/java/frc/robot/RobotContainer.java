@@ -41,6 +41,7 @@ public class RobotContainer {
   private Hanger m_hanger = new Hanger();
   private MoveHanger m_moveHanger = new MoveHanger(m_driverController, m_hanger); 
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController, m_arm);
+  private Telescoping m_telescoping = new Telescoping(m_hanger, m_driverController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
   // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm,
@@ -147,6 +148,10 @@ public class RobotContainer {
 
   public IntakeSpeed getIntakeSpeed() {
     return m_intakeSpeed;
+  }
+
+  public Telescoping getTelescoping() {
+    return m_telescoping;
   }
 
   public Command getArmCommand() {
