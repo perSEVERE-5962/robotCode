@@ -37,9 +37,9 @@ public class RobotContainer {
   private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   private Intake m_intake = new Intake();
-  private Arm m_arm = new Arm(); 
+  private Arm m_arm = new Arm();
   private Hanger m_hanger = new Hanger();
-  private MoveHanger m_moveHanger = new MoveHanger(m_driverController, m_hanger); 
+  private MoveHanger m_moveHanger = new MoveHanger(m_driverController, m_hanger);
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController, m_arm);
   private Telescoping m_telescoping = new Telescoping(m_hanger, m_driverController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
@@ -177,7 +177,8 @@ public class RobotContainer {
   public Camera getCamera() {
     return m_camera;
   }
+
   public MoveHanger getMoveHanger() {
-    return m_moveHanger; 
+    return m_moveHanger;
   }
 }

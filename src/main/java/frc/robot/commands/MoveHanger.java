@@ -21,23 +21,21 @@ public class MoveHanger extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if (m_controller.getRawAxis(6) > 0.2) {
-      m_hanger.moveToPositionWithPID(Constants.HangerPositions.lowerlimit); // lower position of the hanger
-    } else (m_controller.getRawAxis(5) < -0.2) {
-      m_hanger.moveToPositionWithPID(Constants.HangerPositions.upperlimit); // upper position of the hanger 
-    } 
+      m_hanger.moveHanger(Constants.HangerPositions.lowerlimit); // lower position of the hanger
+    } else if (m_controller.getRawAxis(5) < -0.2) {
+      m_hanger.moveHanger(Constants.HangerPositions.upperlimit); // upper position of the hanger
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

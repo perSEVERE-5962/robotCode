@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
   private Command m_arm;
   private Command m_camerafeed;
   private Command m_telescoping;
-  private Command m_moveHanger; 
+  private Command m_moveHanger;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
     m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {
       m_arm.schedule();
-    } 
+    }
     m_moveHanger = m_robotContainer.getMoveHanger();
     if (m_moveHanger != null) {
       m_moveHanger.schedule();

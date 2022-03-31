@@ -62,8 +62,8 @@ public final class Constants {
   public static final class HangerPositions {
     public static final double forwardLimit = 0;
     public static final double reverseLimit = 0;
-    public static final double lowerlimit = -5; 
-    public static final double upperlimit = 0; 
+    public static final double lowerlimit = -5;
+    public static final double upperlimit = 0;
   }
 
   public static final double driveTrainGearRatio = 10.71;
@@ -88,6 +88,7 @@ public final class Constants {
     public static final double kMaxOutput = 0.75;
     public static final double kMinOutput = -0.75;
   }
+
   public static final class HangerPIDCoeffients {
     public static final double kP = 0.5;
     public static final double kI = 0;
@@ -97,7 +98,6 @@ public final class Constants {
     public static final double kMaxOutput = 0.25;
     public static final double kMinOutput = -0.25;
   }
-  
 
   public static final class MotorControllerIdleModes {
     public static final int kBrake = 0;
