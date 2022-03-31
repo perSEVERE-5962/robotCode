@@ -22,6 +22,7 @@ public class Robot extends TimedRobot {
   private Command m_intakeSpeed;
   private Command m_arm;
   private Command m_camerafeed;
+  private Command m_telescoping;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -99,6 +100,10 @@ public class Robot extends TimedRobot {
     m_intakeSpeed = m_robotContainer.getIntakeSpeed();
     if (m_intakeSpeed != null) {
       m_intakeSpeed.schedule();
+    }
+    m_telescoping = m_robotContainer.getTelescoping();
+    if (m_telescoping != null) {
+      m_telescoping.schedule();
     }
     m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {

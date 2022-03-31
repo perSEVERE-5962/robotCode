@@ -19,6 +19,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
 
 /**
@@ -37,7 +38,9 @@ public class RobotContainer {
 
   private Intake m_intake = new Intake();
   private Arm m_arm = new Arm();
+  private Hanger m_hanger = new Hanger();
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController, m_arm);
+  private Telescoping m_telescoping = new Telescoping(m_hanger, m_driverController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
   // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm,
@@ -144,6 +147,10 @@ public class RobotContainer {
 
   public IntakeSpeed getIntakeSpeed() {
     return m_intakeSpeed;
+  }
+
+  public Telescoping getTelescoping() {
+    return m_telescoping;
   }
 
   public Command getArmCommand() {
