@@ -19,6 +19,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
 
 /**
@@ -36,7 +37,9 @@ public class RobotContainer {
   private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   private Intake m_intake = new Intake();
-  private Arm m_arm = new Arm();
+  private Arm m_arm = new Arm(); 
+  private Hanger m_hanger = new Hanger();
+  private MoveHanger m_moveHanger = new MoveHanger(m_driverController, m_hanger); 
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController, m_arm);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
@@ -168,5 +171,8 @@ public class RobotContainer {
 
   public Camera getCamera() {
     return m_camera;
+  }
+  public MoveHanger getMoveHanger() {
+    return m_moveHanger; 
   }
 }
