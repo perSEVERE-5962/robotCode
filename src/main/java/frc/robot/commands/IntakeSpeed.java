@@ -32,20 +32,22 @@ public class IntakeSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_armIntake.armIntake(m_controller.getRawAxis(3));
+   // m_armIntake.armIntake(m_controller.getRawAxis(3));
     if (m_controller.getRawAxis(3) > 0.1) {
-      double position = m_arm.getPosition();
-      if (position <= Constants.ArmPositions.shootmax
-          && position >= Constants.ArmPositions.shootmin) {
-        m_armIntake.armIntake(m_controller.getRawAxis(3));
-      } else {
-        m_armIntake.armIntake(0);
-      }
-    } else if (m_controller.getRawAxis(2) > 0.1) {
+      
+      // double position = m_arm.getPosition();
+      // if (position <= Constants.ArmPositions.shootmax
+      //     && position >= Constants.ArmPositions.shootmin) {
+      //    m_armIntake.armIntake(m_controller.getRawAxis(3));
+      //  } else {
+      //    m_armIntake.armIntake(0);
+      //  }
+      m_armIntake.armIntake(m_controller.getRawAxis(3));
+     } else if (m_controller.getRawAxis(2) > 0.1) {
       m_armIntake.armIntake(-m_controller.getRawAxis(2));
-    } else {
+     } else {
       m_armIntake.armIntake(0);
-    }
+     }
   }
 
   // Called once the command ends or is interrupted.
