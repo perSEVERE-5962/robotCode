@@ -52,11 +52,11 @@ public final class Constants {
   }
 
   public static final class ArmPositions {
-    public static final double lowerLimit = -20;
+    public static final double lowerLimit = -22.7;
     public static final double upperLimit = 0;
-    public static final double shoot = -2.7;
-    public static final double shootmin = -2.4;
-    public static final double shootmax = -2.9;
+    public static final double shoot = -2.0;
+    public static final double shootmin = -1.9;
+    public static final double shootmax = -2.1;
   }
 
   public static final class HangerPositions {

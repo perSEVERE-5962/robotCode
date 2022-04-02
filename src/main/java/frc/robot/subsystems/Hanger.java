@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -12,7 +13,7 @@ import frc.robot.Constants;
 
 public class Hanger extends SubsystemBase {
   private CANSparkMax m_angleControl;
-  private static WPI_VictorSPX m_telescopeControl;
+  private static WPI_TalonSRX m_telescopeControl;
   private RelativeEncoder m_encoder;
 
   public Hanger() {
@@ -33,7 +34,7 @@ public class Hanger extends SubsystemBase {
     m_angleControl.setSoftLimit(
         CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.HangerPositions.reverseLimit);
 
-    m_telescopeControl = new WPI_VictorSPX(Constants.MotorControllerDeviceID.telescopingDeviceID);
+    m_telescopeControl = new WPI_TalonSRX(Constants.MotorControllerDeviceID.telescopingDeviceID);
     m_telescopeControl.setInverted(true);
   }
 
