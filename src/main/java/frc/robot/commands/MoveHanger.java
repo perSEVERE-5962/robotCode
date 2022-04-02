@@ -26,10 +26,10 @@ public class MoveHanger extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_controller.getRawAxis(6) > 0.2) {
-      m_hanger.moveHanger(Constants.HangerPositions.lowerlimit); // lower position of the hanger
-    } else if (m_controller.getRawAxis(5) < -0.2) {
-      m_hanger.moveHanger(Constants.HangerPositions.upperlimit); // upper position of the hanger
+    if (m_controller.getRawButton(6)) {
+      m_hanger.moveHanger(-0.25); // lower position of the hanger
+    } else if (m_controller.getRawButton(5)) {
+      m_hanger.moveHanger(0.25); // upper position of the hanger
     }
   }
 
