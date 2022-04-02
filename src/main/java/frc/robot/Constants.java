@@ -55,8 +55,8 @@ public final class Constants {
     public static final double lowerLimit = -22.7;
     public static final double upperLimit = 0;
     public static final double shoot = -2.0;
-    public static final double shootmin = -1.9;
-    public static final double shootmax = -2.1;
+    public static final double shootmin = -1.85;
+    public static final double shootmax = -2.15;
   }
 
   public static final class HangerPositions {
