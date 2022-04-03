@@ -9,16 +9,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
-  private static WPI_VictorSPX motorControl;
+  private static WPI_VictorSPX m_motorControl;
 
   /** Creates a new Intake. */
   public Intake() {
-    motorControl = new WPI_VictorSPX(Constants.MotorControllerDeviceID.intakeDeviceID);
-    motorControl.setInverted(true);
+    m_motorControl = new WPI_VictorSPX(Constants.MotorControllerDeviceID.intakeDeviceID);
+    m_motorControl.setInverted(true);
   }
 
   public void armIntake(double speed) {
-    motorControl.set(speed);
+    m_motorControl.set(speed);
   }
 
   @Override

@@ -31,7 +31,7 @@ public class moveArm extends CommandBase {
   public void execute() {
     /* if (m_controller.getRawAxis(3) > 0.1) {
       m_arm.moveToPositionWithPID(Constants.ArmPositions.shoot); // Shoot
-    } else  */if (m_controller.getRawAxis(5) > 0.2) { 
+    } else  */ if (m_controller.getRawAxis(5) > 0.2) {
       m_arm.moveToPositionWithPID(Constants.ArmPositions.lowerLimit); // lower arm
     } else if (m_controller.getRawAxis(5) < -0.2) {
       m_arm.moveToPositionWithPID(Constants.ArmPositions.upperLimit); // raise arm
