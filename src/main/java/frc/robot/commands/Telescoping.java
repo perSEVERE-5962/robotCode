@@ -7,20 +7,23 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Hanger;
+import frc.robot.subsystems.telescopehanger;
 
 public class Telescoping extends CommandBase {
-  private  Hanger m_hanger;
+  private  telescopehanger m_telescoping; 
   private  Joystick m_controller;
 
   /** Creates a new Telescoping. */
-  public Telescoping(Hanger hanger, Joystick controller) {
+  public Telescoping(telescopehanger telescoping, Joystick controller) {
     m_controller = controller;
-    m_hanger = hanger;
-    addRequirements(hanger);
+    m_telescoping = telescoping;
+    addRequirements(telescoping);
 
 
     // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  private void addRequirements(Telescoping telescoping) {
   }
 
   // Called when the command is initially scheduled.
@@ -34,13 +37,13 @@ public class Telescoping extends CommandBase {
   public void execute() {
     if (m_controller.getRawAxis(3) > 0.1) {
       SmartDashboard.putString("Telescoping","extending");
-      m_hanger.telescopeControl(m_controller.getRawAxis(3));
+      m_telescoping.telescopeControl(m_controller.getRawAxis(3));
     } else if (m_controller.getRawAxis(2) > 0.1) {
       SmartDashboard.putString("Telescoping","retracting");
-      m_hanger.telescopeControl(-m_controller.getRawAxis(2));
+      m_telescoping.telescopeControl(-m_controller.getRawAxis(2));
     } else {
       SmartDashboard.putString("Telescoping","stop");
-      m_hanger.telescopeControl(0);
+      m_telescoping.telescopeControl(0);
     }
   }
 

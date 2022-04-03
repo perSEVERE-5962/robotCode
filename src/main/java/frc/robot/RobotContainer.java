@@ -21,6 +21,7 @@ import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.telescopehanger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,9 +40,10 @@ public class RobotContainer {
   private Intake m_intake = new Intake();
   private Arm m_arm = new Arm();
   private Hanger m_hanger = new Hanger();
+  private telescopehanger m_Telescopehanger = new telescopehanger(); 
+  private Telescoping m_telescoping = new Telescoping(m_Telescopehanger, m_driverController); 
   private MoveHanger m_moveHanger = new MoveHanger(m_driverController, m_hanger);
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
-  private Telescoping m_telescoping = new Telescoping(m_hanger, m_driverController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
   // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake,
