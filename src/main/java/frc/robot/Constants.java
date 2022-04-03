@@ -79,12 +79,12 @@ public final class Constants {
 
   public static final class DrivePIDCoeffients {
     public static final double kP = 0.1;
-    public static final double kI = 1e-4;
-    public static final double kD = 1;
+    public static final double kI = 0;
+    public static final double kD = 0;
     public static final double kIz = 0;
     public static final double kFF = 0;
-    public static final double kMaxOutput = 0.70;
-    public static final double kMinOutput = -0.70;
+    public static final double kMaxOutput = 0.5;
+    public static final double kMinOutput = -0.5;
   }
 
   public static final class HangerPIDCoeffients {
