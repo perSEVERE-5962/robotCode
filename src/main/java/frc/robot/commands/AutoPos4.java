@@ -28,7 +28,7 @@ public class AutoPos4 extends SequentialCommandGroup {
         new GyroRightTurn(driveTrain, gyro, 170),
         new RaiseArm(arm),
         new AutoDriveForward(-69, driveTrain),
-        new MoveToShootPosition(arm),
+      //  new MoveToShootPosition(arm),
         new AutoRunIntake(1, intake));
   }
 }

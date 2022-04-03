@@ -105,7 +105,7 @@ public class Robot extends TimedRobot {
     }
     m_telescoping = m_robotContainer.getTelescoping();
     if (m_telescoping != null) {
-      m_telescoping.schedule();
+      m_telescoping.schedule(); 
     }
     m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {
