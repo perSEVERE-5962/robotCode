@@ -165,6 +165,10 @@ public class RobotContainer {
     return m_arm;
   }
 
+  public Hanger getHanger() {
+    return m_hanger;
+  }
+
   public void setCameraBrightness(int brightness) {
     m_camera.setBrightness(brightness);
   }

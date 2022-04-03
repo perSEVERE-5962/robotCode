@@ -26,9 +26,9 @@ public class MoveHanger extends CommandBase {
   @Override
   public void execute() {
     if (m_controller.getRawButton(6)) {
-      m_hanger.moveHanger(-0.25); // lower position of the hanger
+      m_hanger.moveHanger(0.25); // to start position
     } else if (m_controller.getRawButton(5)) {
-      m_hanger.moveHanger(0.25); // upper position of the hanger
+      m_hanger.moveHanger(-0.25); // to climb position
     }
   }
 

@@ -56,6 +56,7 @@ public class Robot extends TimedRobot {
         "Drive Encoder Distance", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
     SmartDashboard.putNumber("Arm Encoder Position", m_robotContainer.getArm().getPosition());
     SmartDashboard.putNumber("Gyro Angle", m_robotContainer.getDriveTrain().getGyroAngle());
+    SmartDashboard.putNumber("Hanger Angle", m_robotContainer.getHanger().getHangerPosition());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
