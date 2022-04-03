@@ -30,11 +30,8 @@ public class IntakeSpeed extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("Intake Status", "in execute");
     // m_armIntake.armIntake(m_controller.getRawAxis(3));
     if (m_controller.getRawAxis(3) > 0.1) {
-      SmartDashboard.putString("Intake Status", "right trigger");
-
       // double position = m_arm.getPosition();
       // if (position <= Constants.ArmPositions.shootmax
       //     && position >= Constants.ArmPositions.shootmin) {
@@ -44,10 +41,8 @@ public class IntakeSpeed extends CommandBase {
       //  }
       m_armIntake.armIntake(m_controller.getRawAxis(3));
     } else if (m_controller.getRawAxis(2) > 0.1) {
-      SmartDashboard.putString("Intake Status", "left trigger");
       m_armIntake.armIntake(-m_controller.getRawAxis(2));
     } else {
-      SmartDashboard.putString("Intake Status", "stop");
       m_armIntake.armIntake(0);
     }
   }

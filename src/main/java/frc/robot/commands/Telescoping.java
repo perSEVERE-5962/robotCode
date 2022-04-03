@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hanger;
 
@@ -31,10 +32,13 @@ public class Telescoping extends CommandBase {
   @Override
   public void execute() {
     if (m_controller.getRawAxis(3) > 0.1) {
+      SmartDashboard.putString("Telescoping","extending");
       m_hanger.telescopeControl(m_controller.getRawAxis(3));
     } else if (m_controller.getRawAxis(2) > 0.1) {
+      SmartDashboard.putString("Telescoping","retracting");
       m_hanger.telescopeControl(-m_controller.getRawAxis(2));
     } else {
+      SmartDashboard.putString("Telescoping","stop");
       m_hanger.telescopeControl(0);
     }
   }
