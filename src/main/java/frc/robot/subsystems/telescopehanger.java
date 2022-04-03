@@ -14,7 +14,7 @@ public class telescopehanger extends SubsystemBase {
   
   public telescopehanger() {
     m_telescopeControl = new WPI_TalonSRX(Constants.MotorControllerDeviceID.telescopingDeviceID);
-    m_telescopeControl.setInverted(true); 
+    m_telescopeControl.setInverted(false); 
     
   }
 
