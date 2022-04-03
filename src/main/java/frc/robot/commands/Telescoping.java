@@ -32,8 +32,8 @@ public class Telescoping extends CommandBase {
   public void execute() {
     if (m_controller.getRawAxis(3) > 0.1) {
       m_hanger.telescopeControl(m_controller.getRawAxis(3));
-    } else if (-m_controller.getRawAxis(2) > 0.1) {
-      m_hanger.telescopeControl(m_controller.getRawAxis(2));
+    } else if (m_controller.getRawAxis(2) > 0.1) {
+      m_hanger.telescopeControl(-m_controller.getRawAxis(2));
     } else {
       m_hanger.telescopeControl(0);
     }

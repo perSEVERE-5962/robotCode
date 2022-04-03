@@ -85,8 +85,8 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kIz = 0;
     public static final double kFF = 0;
-    public static final double kMaxOutput = 0.75;
-    public static final double kMinOutput = -0.75;
+    public static final double kMaxOutput = 0.70;
+    public static final double kMinOutput = -0.70;
   }
 
   public static final class HangerPIDCoeffients {
