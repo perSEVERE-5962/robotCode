@@ -53,4 +53,7 @@ public class Hanger extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+  public void moveToPositionWithPID(double position) {
+    m_angleControl.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
 }
