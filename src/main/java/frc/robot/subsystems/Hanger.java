@@ -12,7 +12,7 @@ import frc.robot.Constants;
 
 public class Hanger extends SubsystemBase {
   private CANSparkMax m_angleControl;
-  private static WPI_TalonSRX m_telescopeControl;
+  private WPI_TalonSRX m_telescopeControl;
   private RelativeEncoder m_encoder;
 
   public Hanger() {
@@ -61,6 +61,7 @@ public class Hanger extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    m_telescopeControl.set(1);
   }
   public void moveToPositionWithPID(double position) {
     m_angleControl.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);

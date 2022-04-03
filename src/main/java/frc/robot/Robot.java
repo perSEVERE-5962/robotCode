@@ -105,6 +105,7 @@ public class Robot extends TimedRobot {
       m_intakeSpeed.schedule();
     }
     m_telescoping = m_robotContainer.getTelescoping();
+    SmartDashboard.putString("Telescoping","scheduling");
     if (m_telescoping != null) {
       m_telescoping.schedule(); 
     }

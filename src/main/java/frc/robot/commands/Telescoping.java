@@ -10,23 +10,24 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hanger;
 
 public class Telescoping extends CommandBase {
-  private static Hanger m_hanger;
-
-  private static Joystick m_controller;
+  private  Hanger m_hanger;
+  private  Joystick m_controller;
 
   /** Creates a new Telescoping. */
   public Telescoping(Hanger hanger, Joystick controller) {
-
+    m_controller = controller;
     m_hanger = hanger;
     addRequirements(hanger);
-    m_controller = controller;
+
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    SmartDashboard.putString("Telescoping","initalized");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -45,7 +46,9 @@ public class Telescoping extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    SmartDashboard.putString("Telescoping","end");
+  }
 
   // Returns true when the command should end.
   @Override
