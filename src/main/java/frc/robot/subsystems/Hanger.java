@@ -25,13 +25,22 @@ public class Hanger extends SubsystemBase {
     m_encoder = m_angleControl.getEncoder();
     m_encoder.setPosition(0);
 
-    m_angleControl.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    m_angleControl.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // m_angleControl.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // m_angleControl.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    m_angleControl.setSoftLimit(
-        CANSparkMax.SoftLimitDirection.kForward, (float) Constants.HangerPositions.forwardLimit);
-    m_angleControl.setSoftLimit(
-        CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.HangerPositions.reverseLimit);
+    // m_angleControl.setSoftLimit(
+    //     CANSparkMax.SoftLimitDirection.kForward, (float) Constants.HangerPositions.forwardLimit);
+    // m_angleControl.setSoftLimit(
+    //     CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.HangerPositions.reverseLimit);
+    m_angleControl.getPIDController().setP(Constants.HangerPIDCoeffients.kP);
+    m_angleControl.getPIDController().setI(Constants.HangerPIDCoeffients.kI);
+    m_angleControl.getPIDController().setD(Constants.HangerPIDCoeffients.kD);
+    m_angleControl.getPIDController().setIZone(Constants.HangerPIDCoeffients.kIz);
+    m_angleControl.getPIDController().setFF(Constants.HangerPIDCoeffients.kFF);
+    m_angleControl
+        .getPIDController()
+        .setOutputRange(
+            Constants.HangerPIDCoeffients.kMinOutput, Constants.HangerPIDCoeffients.kMaxOutput);
 
     m_telescopeControl = new WPI_TalonSRX(Constants.MotorControllerDeviceID.telescopingDeviceID);
     m_telescopeControl.setInverted(true);
