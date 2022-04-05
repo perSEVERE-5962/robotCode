@@ -9,12 +9,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class telescopehanger extends SubsystemBase {
+public class TelescopeHanger extends SubsystemBase {
   private WPI_TalonSRX m_telescopeControl;
   
-  public telescopehanger() {
+  public TelescopeHanger() {
     m_telescopeControl = new WPI_TalonSRX(Constants.MotorControllerDeviceID.telescopingDeviceID);
-    m_telescopeControl.setInverted(true); 
+    m_telescopeControl.setInverted(false); 
     
   }
 

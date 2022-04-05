@@ -30,9 +30,7 @@ public class MoveHanger extends CommandBase {
       m_hanger.moveToPositionWithPID(Constants.HangerPositions.reverseLimit); // to start position
     } else if (m_controller.getRawButton(5)) {
       m_hanger.moveToPositionWithPID(Constants.HangerPositions.forwardLimit); // to climb position
-    } else {
-      m_hanger.moveToPositionWithPID(Constants.HangerPositions.reverseLimit); // to start position     
-    }
+    } 
   }
 
   // Called once the command ends or is interrupted.
