@@ -45,6 +45,7 @@ public class RobotContainer {
   private MoveHanger m_moveHanger = new MoveHanger(m_driverController, m_hanger);
   private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
+  
 
   // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake,
   // m_driveTrain, m_arm,
