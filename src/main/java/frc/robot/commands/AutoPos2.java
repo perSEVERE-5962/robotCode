@@ -22,6 +22,7 @@ public class AutoPos2 extends SequentialCommandGroup {
     addCommands(
        // new MoveToShootPosition(arm),
         new AutoRunIntake(1, intake),
+        new Delay(1000),
         new AutoDriveBackward(75, driveTrain),
         // new AutoDriveForward(-23, driveTrain),
         // new MoveToShootPosition(arm),
