@@ -77,6 +77,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+    
+    m_robotContainer.getHanger().moveToPositionWithPID(Constants.HangerPositions.reverseLimit);
   }
 
   /** This function is called periodically during autonomous. */
@@ -105,7 +107,6 @@ public class Robot extends TimedRobot {
       m_intakeSpeed.schedule();
     }
     m_telescoping = m_robotContainer.getTelescoping();
-    SmartDashboard.putString("Telescoping","scheduling");
     if (m_telescoping != null) {
       m_telescoping.schedule(); 
     }
