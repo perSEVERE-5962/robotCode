@@ -4,7 +4,6 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,7 +11,6 @@ import frc.robot.Constants;
 
 public class Hanger extends SubsystemBase {
   private CANSparkMax m_angleControl;
-  private WPI_TalonSRX m_telescopeControl;
   private RelativeEncoder m_encoder;
 
   public Hanger() {
@@ -42,17 +40,13 @@ public class Hanger extends SubsystemBase {
         .setOutputRange(
             Constants.HangerPIDCoeffients.kMinOutput, Constants.HangerPIDCoeffients.kMaxOutput);
 
-    m_telescopeControl = new WPI_TalonSRX(Constants.MotorControllerDeviceID.telescopingDeviceID);
-    m_telescopeControl.setInverted(true);
   }
 
   public void moveHanger(double speed) {
     m_angleControl.set(speed);
   }
 
-  public void telescopeControl(double speed) {
-    m_telescopeControl.set(speed);
-  }
+  
 
   public double getHangerPosition() {
     return m_encoder.getPosition();
@@ -61,7 +55,6 @@ public class Hanger extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_telescopeControl.set(1);
   }
   public void moveToPositionWithPID(double position) {
     m_angleControl.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
