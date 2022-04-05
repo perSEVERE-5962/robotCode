@@ -41,7 +41,8 @@ public final class Constants {
     public static final int intakeDeviceID = 19;
 
     public static final int telescopingDeviceID = 32;
-    public static final int angleDeviceID = 31;
+    public static final int angleLeadDeviceID = 31;
+    public static final int angleFollowDeviceID = 33;
   }
 
   public static final class AutonomousStartPosition {
