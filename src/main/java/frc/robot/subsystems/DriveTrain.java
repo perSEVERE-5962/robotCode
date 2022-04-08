@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
@@ -17,6 +18,7 @@ public class DriveTrain extends SubsystemBase {
 
   private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   private DriveInterface m_drive;
+  private boolean driveTrainSet = false;
 
   public AHRS getGyro() {
     return m_ahrs;
@@ -27,9 +29,12 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void setMotorControllerType(int motorControllerType) {
-    DriveFactory driveFactory = new DriveFactory();
-    m_drive = driveFactory.createDrive(motorControllerType);
-    m_drive.resetEncoders();
+    if (driveTrainSet == false) {
+      DriveFactory driveFactory = new DriveFactory();
+      m_drive = driveFactory.createDrive(motorControllerType);
+      m_drive.resetEncoders();
+      driveTrainSet = true;
+    }
   }
 
   public double getAverageEncoderDistance() {
@@ -54,6 +59,15 @@ public class DriveTrain extends SubsystemBase {
     m_drive.arcadeDrive(leftAxis, rightAxis);
   }
 
+  public void moveDistanceWithPID(double position) {
+    try {
+      m_drive.moveDistanceWithPID(position);
+    } catch (Exception e) {
+      stopDrive();
+      SmartDashboard.putString("ERROR MESSAGE", e.getMessage());
+    }
+  }
+
   public void stopDrive() {
     m_drive.tankDrive(0, 0);
   }
@@ -72,5 +86,9 @@ public class DriveTrain extends SubsystemBase {
 
   public void setRampRate(double rate) {
     m_drive.setRampRate(rate);
+  }
+
+  public void setIdleMode(int idleMode) {
+    m_drive.setIdleMode(idleMode);
   }
 }

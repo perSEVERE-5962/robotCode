@@ -19,7 +19,9 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Hanger;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.TelescopeHanger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,17 +38,23 @@ public class RobotContainer {
   private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
   private Intake m_intake = new Intake();
-  private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
-
   private Arm m_arm = new Arm();
+  private Hanger m_hanger = new Hanger();
+  private TelescopeHanger m_Telescopehanger = new TelescopeHanger();
+  private Telescoping m_telescoping = new Telescoping(m_Telescopehanger, m_driverController);
+  private MoveHanger m_moveHanger = new MoveHanger(m_copilotController, m_hanger);
+  private IntakeSpeed m_intakeSpeed = new IntakeSpeed(m_intake, m_copilotController);
   private moveArm m_moveArm = new moveArm(m_copilotController, m_arm);
 
-  // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake, m_driveTrain, m_arm,
+  // private AutoPickupBall m_autoPickupBall = new AutoPickupBall(m_intake,
+  // m_driveTrain, m_arm,
   // m_gyro);
-  // private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain, m_intake);
+  // private AutoDriveScore m_autoShootBall = new AutoDriveScore(m_driveTrain,
+  // m_intake);
 
   // private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-  // private SendableChooser<Integer> m_redPositionChooser = new SendableChooser<>();
+  // private SendableChooser<Integer> m_redPositionChooser = new
+  // SendableChooser<>();
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
@@ -63,19 +71,16 @@ public class RobotContainer {
         "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
     m_motorControllerChooser.addOption(
         "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+    m_motorControllerChooser.addOption(
+        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
     SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
-        "Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
         "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
+    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
     m_driveChooser.addOption(
         "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
     SmartDashboard.putData("Driver Control", m_driveChooser);
-
-    // m_autoChooser.setDefaultOption("pickup ball", m_autoPickupBall);
-    // m_autoChooser.addOption("shoot ball", m_autoShootBall);
-    // SmartDashboard.putData("auto chooser", m_autoChooser);
 
     m_startPositionChooser.setDefaultOption(
         "B1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
@@ -150,12 +155,20 @@ public class RobotContainer {
     return m_intakeSpeed;
   }
 
+  public Telescoping getTelescoping() {
+    return m_telescoping;
+  }
+
   public Command getArmCommand() {
     return m_moveArm;
   }
 
   public Arm getArm() {
     return m_arm;
+  }
+
+  public Hanger getHanger() {
+    return m_hanger;
   }
 
   public void setCameraBrightness(int brightness) {
@@ -172,5 +185,9 @@ public class RobotContainer {
 
   public Camera getCamera() {
     return m_camera;
+  }
+
+  public MoveHanger getMoveHanger() {
+    return m_moveHanger;
   }
 }

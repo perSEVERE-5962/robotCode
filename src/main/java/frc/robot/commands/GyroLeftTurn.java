@@ -31,7 +31,7 @@ public class GyroLeftTurn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.tankDrive(0.375, -0.375);
+    m_driveTrain.tankDrive(0.4, -0.4); // (-0.375, 0.375);
   }
 
   // Called once the command ends or is interrupted.

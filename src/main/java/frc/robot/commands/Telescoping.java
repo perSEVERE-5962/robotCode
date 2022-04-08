@@ -6,20 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.TelescopeHanger;
 
-public class moveArm extends CommandBase {
-  /** Creates a new moveArm. */
-  private static Joystick m_controller;
+public class Telescoping extends CommandBase {
+  private TelescopeHanger m_telescoping;
+  private Joystick m_controller;
 
-  private static Arm m_arm;
-
-  public moveArm(Joystick controller, Arm arm) {
+  /** Creates a new Telescoping. */
+  public Telescoping(TelescopeHanger telescoping, Joystick controller) {
     m_controller = controller;
-    m_arm = arm;
+    m_telescoping = telescoping;
+    addRequirements(telescoping);
+
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_arm);
   }
 
   // Called when the command is initially scheduled.
@@ -29,14 +28,12 @@ public class moveArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* if (m_controller.getRawAxis(3) > 0.1) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.shoot); // Shoot
-    } else  */ if (m_controller.getRawAxis(5) > 0.2) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.lowerLimit); // lower arm
-    } else if (m_controller.getRawAxis(5) < -0.2) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.upperLimit); // raise arm
+    if (m_controller.getRawAxis(3) > 0.1) {
+      m_telescoping.telescopeControl(m_controller.getRawAxis(3));
+    } else if (m_controller.getRawAxis(2) > 0.1) {
+      m_telescoping.telescopeControl(-m_controller.getRawAxis(2));
     } else {
-      // m_arm.moveArm(0);
+      m_telescoping.telescopeControl(0);
     }
   }
 

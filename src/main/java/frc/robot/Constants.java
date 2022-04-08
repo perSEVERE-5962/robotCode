@@ -26,6 +26,7 @@ public final class Constants {
   public static final class MotorControllerType {
     public static final int kCTRE = 1;
     public static final int kREV = 2;
+    public static final int kHybrid = 3;
   }
 
   public static final class MotorControllerDeviceID {
@@ -38,6 +39,10 @@ public final class Constants {
     public static final int armDeviceID = 30;
 
     public static final int intakeDeviceID = 19;
+
+    public static final int telescopingDeviceID = 32;
+    public static final int angleLeadDeviceID = 31;
+    public static final int angleFollowDeviceID = 33;
   }
 
   public static final class AutonomousStartPosition {
@@ -48,7 +53,53 @@ public final class Constants {
   }
 
   public static final class ArmPositions {
-    public static final double lowerLimit = -21;
+    public static final double lowerLimit = -22.7;
     public static final double upperLimit = 0;
+    public static final double shoot = -2.0;
+    public static final double shootmin = -1.85;
+    public static final double shootmax = -2.15;
+  }
+
+  public static final class HangerPositions {
+    public static final double forwardLimit = 9;
+    public static final double reverseLimit = 0;
+  }
+
+  public static final double driveTrainGearRatio = 10.71;
+  public static final double driveTrainWheelDiameter = 6;
+
+  public static final class ArmPIDCoeffients {
+    public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kIz = 0;
+    public static final double kFF = 0; // 0,
+    public static final double kMaxOutput = 0.5; // raise?
+    public static final double kMinOutput = -0.25; // lower ?
+  }
+
+  public static final class DrivePIDCoeffients {
+    public static final double kP = 0.1;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0;
+    public static final double kMaxOutput = 0.5;
+    public static final double kMinOutput = -0.5;
+  }
+
+  public static final class HangerPIDCoeffients {
+    public static final double kP = 0.5;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0;
+    public static final double kMaxOutput = 1;
+    public static final double kMinOutput = -1;
+  }
+
+  public static final class MotorControllerIdleModes {
+    public static final int kBrake = 0;
+    public static final int kCoast = 1;
   }
 }

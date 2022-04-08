@@ -6,20 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Hanger;
 
-public class moveArm extends CommandBase {
-  /** Creates a new moveArm. */
+public class MoveHanger extends CommandBase {
   private static Joystick m_controller;
+  private static Hanger m_hanger;
 
-  private static Arm m_arm;
-
-  public moveArm(Joystick controller, Arm arm) {
+  public MoveHanger(Joystick controller, Hanger hanger) {
     m_controller = controller;
-    m_arm = arm;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_arm);
+    m_hanger = hanger;
+    addRequirements(m_hanger);
   }
 
   // Called when the command is initially scheduled.
@@ -29,14 +25,12 @@ public class moveArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    /* if (m_controller.getRawAxis(3) > 0.1) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.shoot); // Shoot
-    } else  */ if (m_controller.getRawAxis(5) > 0.2) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.lowerLimit); // lower arm
-    } else if (m_controller.getRawAxis(5) < -0.2) {
-      m_arm.moveToPositionWithPID(Constants.ArmPositions.upperLimit); // raise arm
+    if (m_controller.getRawAxis(1) >= 0.2) {
+      m_hanger.moveHanger(m_controller.getRawAxis(1)); // to start position
+    } else if (m_controller.getRawAxis(1) <= 0.2) {
+      m_hanger.moveHanger(m_controller.getRawAxis(1)); // to climb position
     } else {
-      // m_arm.moveArm(0);
+      m_hanger.moveHanger(0); // idle
     }
   }
 

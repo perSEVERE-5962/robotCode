@@ -23,11 +23,14 @@ public class AutoPos3 extends SequentialCommandGroup {
     addCommands(
         new LowerArm(arm),
         new ParallelCommandGroup(
-            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-28, driveTrain)),
-        new AutoRunIntake(0, intake),
-        new GyroRightTurn(driveTrain, gyro, 165),
+            new AutoRunIntake(-0.75, intake), new AutoDriveForward(-49, driveTrain)),
+        new GyroLeftTurn(driveTrain, gyro, -170),
         new RaiseArm(arm),
-        new AutoDriveForward(-70, driveTrain),
+        new AutoRunIntake(0, intake),
+        new AutoDriveForward(-72, driveTrain),
+        new GyroLeftTurn(driveTrain, gyro, -20),
+        new AutoDriveForward(-10, driveTrain),
+        // new MoveToShootPosition(arm),
         new AutoRunIntake(1, intake));
   }
 }

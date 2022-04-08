@@ -4,21 +4,20 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Intake extends SubsystemBase {
-  private static WPI_VictorSPX m_motorControl;
+public class TelescopeHanger extends SubsystemBase {
+  private WPI_TalonSRX m_telescopeControl;
 
-  /** Creates a new Intake. */
-  public Intake() {
-    m_motorControl = new WPI_VictorSPX(Constants.MotorControllerDeviceID.intakeDeviceID);
-    m_motorControl.setInverted(true);
+  public TelescopeHanger() {
+    m_telescopeControl = new WPI_TalonSRX(Constants.MotorControllerDeviceID.telescopingDeviceID);
+    m_telescopeControl.setInverted(false);
   }
 
-  public void armIntake(double speed) {
-    m_motorControl.set(speed);
+  public void telescopeControl(double speed) {
+    m_telescopeControl.set(speed);
   }
 
   @Override

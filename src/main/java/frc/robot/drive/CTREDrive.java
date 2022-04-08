@@ -5,8 +5,10 @@
 package frc.robot.drive;
 
 import com.ctre.phoenix.motorcontrol.FollowerType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import frc.robot.Constants;
 import frc.robot.Constants.MotorControllerDeviceID;
 
 /** Add your docs here. */
@@ -45,17 +47,19 @@ public class CTREDrive extends DriveBase {
 
   @Override
   public double getLeftEncoderDistance() {
-    return m_leftTalon.getSelectedSensorPosition();
+    return convertPositionToDistance(m_leftTalon.getSelectedSensorPosition());
   }
 
   @Override
   public double getRightEncoderDistance() {
-    return m_rightTalon.getSelectedSensorPosition();
+    return convertPositionToDistance(m_rightTalon.getSelectedSensorPosition());
   }
 
   @Override
   public double getAverageEncoderDistance() {
-    return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2;
+    double encoderPosition =
+        (m_leftTalon.getSelectedSensorPosition() + m_rightTalon.getSelectedSensorPosition()) / 2;
+    return convertPositionToDistance(encoderPosition);
   }
 
   @Override
@@ -64,5 +68,26 @@ public class CTREDrive extends DriveBase {
     m_leftVictor.configOpenloopRamp(rate);
     m_rightTalon.configOpenloopRamp(rate);
     m_rightVictor.configOpenloopRamp(rate);
+  }
+
+  public void moveDistanceWithPID(double distance) throws Exception {
+    throw new Exception("moveDistanceWithPID not implemented for CTREDrive");
+  }
+
+  public void setIdleMode(int idleMode) {
+    switch (idleMode) {
+      case Constants.MotorControllerIdleModes.kBrake:
+        m_leftTalon.setNeutralMode(NeutralMode.Brake);
+        m_leftVictor.setNeutralMode(NeutralMode.Brake);
+        m_rightTalon.setNeutralMode(NeutralMode.Brake);
+        m_rightVictor.setNeutralMode(NeutralMode.Brake);
+        break;
+      case Constants.MotorControllerIdleModes.kCoast:
+        m_leftTalon.setNeutralMode(NeutralMode.Coast);
+        m_leftVictor.setNeutralMode(NeutralMode.Coast);
+        m_rightTalon.setNeutralMode(NeutralMode.Coast);
+        m_rightVictor.setNeutralMode(NeutralMode.Coast);
+        break;
+    }
   }
 }

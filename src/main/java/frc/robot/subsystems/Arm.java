@@ -26,12 +26,20 @@ public class Arm extends SubsystemBase {
      * SPARK MAX to their factory default state. If no argument is passed, these parameters will not
      * persist between power cycles
      */
-    m_ArmSpark.restoreFactoryDefaults();
+    //    m_ArmSpark.restoreFactoryDefaults();
 
     m_ArmSpark.setInverted(false);
-
     m_encoder = m_ArmSpark.getEncoder();
     m_encoder.setPosition(0);
+    m_ArmSpark.getPIDController().setP(Constants.ArmPIDCoeffients.kP);
+    m_ArmSpark.getPIDController().setI(Constants.ArmPIDCoeffients.kI);
+    m_ArmSpark.getPIDController().setD(Constants.ArmPIDCoeffients.kD);
+    m_ArmSpark.getPIDController().setIZone(Constants.ArmPIDCoeffients.kIz);
+    m_ArmSpark.getPIDController().setFF(Constants.ArmPIDCoeffients.kFF);
+    m_ArmSpark
+        .getPIDController()
+        .setOutputRange(
+            Constants.ArmPIDCoeffients.kMinOutput, Constants.ArmPIDCoeffients.kMaxOutput);
 
     /**
      * Soft Limits restrict the motion of the motor in a particular direction at a particular point.
@@ -42,13 +50,13 @@ public class Arm extends SubsystemBase {
      *
      * <p>The directions are rev::CANSparkMax::kForward and rev::CANSparkMax::kReverse
      */
-    m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    // m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    // m_ArmSpark.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
 
-    m_ArmSpark.setSoftLimit(
-        CANSparkMax.SoftLimitDirection.kForward, (float) Constants.ArmPositions.upperLimit);
-    m_ArmSpark.setSoftLimit(
-        CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.ArmPositions.lowerLimit);
+    // m_ArmSpark.setSoftLimit(
+    //     CANSparkMax.SoftLimitDirection.kForward, (float) Constants.ArmPositions.upperLimit);
+    // m_ArmSpark.setSoftLimit(
+    //     CANSparkMax.SoftLimitDirection.kReverse, (float) Constants.ArmPositions.lowerLimit);
   }
 
   public void moveArm(double speed) {
@@ -62,5 +70,9 @@ public class Arm extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public void moveToPositionWithPID(double position) {
+    m_ArmSpark.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 }

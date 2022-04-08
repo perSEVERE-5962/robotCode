@@ -23,22 +23,23 @@ public class LowerArm extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_arm.getPosition() < -15) {
-      m_arm.moveArm(-0.1);
-    } else {
-      m_arm.moveArm(-0.25);
-    }
+    // if (m_arm.getPosition() < -15) {
+    //   m_arm.moveArm(-0.1);
+    // } else {
+    //   m_arm.moveArm(-0.25);
+    // }
+    m_arm.moveToPositionWithPID(Constants.ArmPositions.lowerLimit); // lower arm
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_arm.moveArm(0);
+    // m_arm.moveArm(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_arm.getPosition() < Constants.ArmPositions.lowerLimit;
+    return m_arm.getPosition() <= Constants.ArmPositions.lowerLimit;
   }
 }

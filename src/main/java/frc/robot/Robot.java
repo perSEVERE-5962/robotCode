@@ -22,6 +22,8 @@ public class Robot extends TimedRobot {
   private Command m_intakeSpeed;
   private Command m_arm;
   private Command m_camerafeed;
+  private Command m_telescoping;
+  private Command m_moveHanger;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    //   m_robotContainer.setMotorControllerType();
   }
 
   /**
@@ -50,9 +53,10 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     SmartDashboard.putNumber(
-        "Drive Encoder", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
-    SmartDashboard.putNumber("Arm Encoder", m_robotContainer.getArm().getPosition());
+        "Drive Encoder Distance", m_robotContainer.getDriveTrain().getAverageEncoderDistance());
+    SmartDashboard.putNumber("Arm Encoder Position", m_robotContainer.getArm().getPosition());
     SmartDashboard.putNumber("Gyro Angle", m_robotContainer.getDriveTrain().getGyroAngle());
+    SmartDashboard.putNumber("Hanger Angle", m_robotContainer.getHanger().getHangerPosition());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -66,12 +70,15 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_robotContainer.setMotorControllerType();
+    m_robotContainer.getDriveTrain().setIdleMode(Constants.MotorControllerIdleModes.kBrake);
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    m_robotContainer.getHanger().moveToPositionWithPID(Constants.HangerPositions.reverseLimit);
   }
 
   /** This function is called periodically during autonomous. */
@@ -89,6 +96,8 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.setMotorControllerType();
+    m_robotContainer.getDriveTrain().setIdleMode(Constants.MotorControllerIdleModes.kBrake);
+
     m_driveCommand = m_robotContainer.getDriveCommand();
     if (m_driveCommand != null) {
       m_driveCommand.schedule();
@@ -97,10 +106,20 @@ public class Robot extends TimedRobot {
     if (m_intakeSpeed != null) {
       m_intakeSpeed.schedule();
     }
+    m_telescoping = m_robotContainer.getTelescoping();
+    if (m_telescoping != null) {
+      m_telescoping.schedule();
+    }
     m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {
       m_arm.schedule();
     }
+    m_moveHanger = m_robotContainer.getMoveHanger();
+    if (m_moveHanger != null) {
+      m_moveHanger.schedule();
+    }
+    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
+    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */
@@ -109,8 +128,6 @@ public class Robot extends TimedRobot {
     int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
     m_robotContainer.setCameraBrightness(brightness);
 
-    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
-    m_robotContainer.getDriveTrain().setRampRate(rate);
     /*
         if (m_robotContainer.getCopilotJoystick().getRawButtonPressed(1)) {
           m_robotContainer.getCamera().ActivateCamera1();
