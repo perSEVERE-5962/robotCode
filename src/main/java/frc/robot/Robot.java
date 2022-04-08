@@ -77,7 +77,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-    
+
     m_robotContainer.getHanger().moveToPositionWithPID(Constants.HangerPositions.reverseLimit);
   }
 
@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
     }
     m_telescoping = m_robotContainer.getTelescoping();
     if (m_telescoping != null) {
-      m_telescoping.schedule(); 
+      m_telescoping.schedule();
     }
     m_arm = m_robotContainer.getArmCommand();
     if (m_arm != null) {

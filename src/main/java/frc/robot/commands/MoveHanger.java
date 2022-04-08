@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Hanger;
 
 public class MoveHanger extends CommandBase {
@@ -31,7 +30,7 @@ public class MoveHanger extends CommandBase {
     } else if (m_controller.getRawAxis(1) <= 0.2) {
       m_hanger.moveHanger(m_controller.getRawAxis(1)); // to climb position
     } else {
-      m_hanger.moveHanger(0); // idle    
+      m_hanger.moveHanger(0); // idle
     }
   }
 

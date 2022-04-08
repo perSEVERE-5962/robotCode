@@ -28,7 +28,7 @@ public class AutoPos4 extends SequentialCommandGroup {
         new RaiseArm(arm),
         new AutoRunIntake(0, intake),
         new AutoDriveForward(-72, driveTrain),
-      //  new MoveToShootPosition(arm),
+        //  new MoveToShootPosition(arm),
         new AutoRunIntake(1, intake));
   }
 }

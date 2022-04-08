@@ -20,7 +20,7 @@ public class AutoPos2 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-       // new MoveToShootPosition(arm),
+        // new MoveToShootPosition(arm),
         new AutoRunIntake(1, intake),
         new Delay(1000),
         new AutoDriveBackward(75, driveTrain),

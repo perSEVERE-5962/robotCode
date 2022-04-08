@@ -9,15 +9,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.TelescopeHanger;
 
 public class Telescoping extends CommandBase {
-  private  TelescopeHanger m_telescoping; 
-  private  Joystick m_controller;
+  private TelescopeHanger m_telescoping;
+  private Joystick m_controller;
 
   /** Creates a new Telescoping. */
   public Telescoping(TelescopeHanger telescoping, Joystick controller) {
     m_controller = controller;
     m_telescoping = telescoping;
     addRequirements(telescoping);
-
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
