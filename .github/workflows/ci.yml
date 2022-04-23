@@ -9,10 +9,12 @@ on:
     branches:
       - master
       - 2022
+      - 2023
   pull_request:
     branches:
       - master
       - 2022
+      - 2023
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
