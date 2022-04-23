@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
@@ -17,20 +18,31 @@ public class DriveTrain extends SubsystemBase {
 
   private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   private DriveInterface m_drive;
+  private boolean driveTrainSet = false;
 
   public AHRS getGyro() {
     return m_ahrs;
   }
 
-  public DriveTrain() {}
-
-  public void setMotorControllerType(int motorControllerType) {
-    DriveFactory driveFactory = new DriveFactory();
-    m_drive = driveFactory.createDrive(motorControllerType);
+  public DriveTrain() {
+    m_ahrs.reset();
   }
 
-  public double getLeftEncoderDistance() {
-    return m_drive.getLeftEncoderDistance();
+  public void setMotorControllerType(int motorControllerType) {
+    if (driveTrainSet == false) {
+      DriveFactory driveFactory = new DriveFactory();
+      m_drive = driveFactory.createDrive(motorControllerType);
+      m_drive.resetEncoders();
+      driveTrainSet = true;
+    }
+  }
+
+  public double getAverageEncoderDistance() {
+    double distance = 0;
+    if (m_drive != null) {
+      distance = m_drive.getAverageEncoderDistance();
+    }
+    return distance;
   }
 
   @Override
@@ -44,7 +56,16 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void arcadeDrive(double leftAxis, double rightAxis) {
-    m_drive.tankDrive(leftAxis, rightAxis);
+    m_drive.arcadeDrive(leftAxis, rightAxis);
+  }
+
+  public void moveDistanceWithPID(double position) {
+    try {
+      m_drive.moveDistanceWithPID(position);
+    } catch (Exception e) {
+      stopDrive();
+      SmartDashboard.putString("ERROR MESSAGE", e.getMessage());
+    }
   }
 
   public void stopDrive() {
@@ -61,5 +82,13 @@ public class DriveTrain extends SubsystemBase {
 
   public void resetEncoders() {
     m_drive.resetEncoders();
+  }
+
+  public void setRampRate(double rate) {
+    m_drive.setRampRate(rate);
+  }
+
+  public void setIdleMode(int idleMode) {
+    m_drive.setIdleMode(idleMode);
   }
 }

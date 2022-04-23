@@ -26,6 +26,7 @@ public final class Constants {
   public static final class MotorControllerType {
     public static final int kCTRE = 1;
     public static final int kREV = 2;
+    public static final int kHybrid = 3;
   }
 
   public static final class MotorControllerDeviceID {
@@ -34,5 +35,23 @@ public final class Constants {
 
     public static final int rightLeadDeviceID = 22;
     public static final int rightFollowerDeviceID = 21;
+  }
+
+  public static final double driveTrainGearRatio = 10.71;
+  public static final double driveTrainWheelDiameter = 6;
+
+  public static final class DrivePIDCoeffients {
+    public static final double kP = 0.1;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0;
+    public static final double kMaxOutput = 0.5;
+    public static final double kMinOutput = -0.5;
+  }
+
+  public static final class MotorControllerIdleModes {
+    public static final int kBrake = 0;
+    public static final int kCoast = 1;
   }
 }
