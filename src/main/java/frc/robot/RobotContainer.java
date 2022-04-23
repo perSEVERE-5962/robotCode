@@ -42,16 +42,22 @@ public class RobotContainer {
         "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
     m_motorControllerChooser.addOption(
         "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    SmartDashboard.putData("drivetrain motor controller", m_motorControllerChooser);
+    m_motorControllerChooser.addOption(
+        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
+    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
-        "tank drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("arcade drive", new ArcadeDrive(m_driveTrain, m_driverController));
-    SmartDashboard.putData("driver control", m_driveChooser);
+        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
+    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
+    m_driveChooser.addOption(
+        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
+    SmartDashboard.putData("Driver Control", m_driveChooser);
 
     m_autoChooser.setDefaultOption("default auto", m_autoSequence);
     // autoChooser.addOption("alternative auto", alternative_auto);
     SmartDashboard.putData("auto chooser", m_autoChooser);
+
+    SmartDashboard.putNumber("Ramp Rate", 0.5);
   }
 
   /**
