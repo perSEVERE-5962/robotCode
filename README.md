@@ -2,5 +2,5 @@
 
 ![Team 5962 perSEVERE](/images/team_logo.svg)
 
-# 2022 Robot Code
-This is the code that will be used on the 2022 competition robot
+# 2023 Robot Code
+This is the code that will be used on the 2023 competition robot
