@@ -15,18 +15,18 @@ public class Hanger extends SubsystemBase {
   private RelativeEncoder m_encoder;
 
   public Hanger() {
-    m_angleLeadControl = new CANSparkMax(
-        Constants.MotorControllerDeviceID.angleLeadDeviceID,
-        com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-    m_angleFollowControl = new CANSparkMax(
-        Constants.MotorControllerDeviceID.angleFollowDeviceID,
-        com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_angleLeadControl =
+        new CANSparkMax(
+            Constants.MotorControllerDeviceID.angleLeadDeviceID,
+            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_angleFollowControl =
+        new CANSparkMax(
+            Constants.MotorControllerDeviceID.angleFollowDeviceID,
 
     m_angleLeadControl.setInverted(false);
     m_angleFollowControl.follow(m_angleLeadControl);
     m_encoder = m_angleLeadControl.getEncoder();
     m_encoder.setPosition(0);
-
 
     // m_angleControl.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward,
     // true);
@@ -48,7 +48,6 @@ public class Hanger extends SubsystemBase {
         .getPIDController()
         .setOutputRange(
             Constants.HangerPIDCoeffients.kMinOutput, Constants.HangerPIDCoeffients.kMaxOutput);
-
   }
 
   public void moveHanger(double speed) {
