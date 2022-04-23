@@ -22,6 +22,7 @@ public class Hanger extends SubsystemBase {
     m_angleFollowControl =
         new CANSparkMax(
             Constants.MotorControllerDeviceID.angleFollowDeviceID,
+            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
 
     m_angleLeadControl.setInverted(false);
     m_angleFollowControl.follow(m_angleLeadControl);
