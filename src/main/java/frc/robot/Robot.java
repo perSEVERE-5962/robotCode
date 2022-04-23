@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -79,10 +80,14 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.setMotorControllerType();
+    m_robotContainer.getDriveTrain().setIdleMode(Constants.MotorControllerIdleModes.kBrake);
+
     Command driveCommand = m_robotContainer.getDriveCommand();
     if (driveCommand != null) {
       driveCommand.schedule();
     }
+    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
+    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */
