@@ -8,22 +8,24 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.MotorControllerDeviceID;
 
-/** Add your docs here. */
-public class RevDrive extends DriveBase {
-  private CANSparkMax m_leftLeadMotor;
-  private CANSparkMax m_leftFollowerMotor;
-  private CANSparkMax m_rightLeadMotor;
-  private CANSparkMax m_rightFollowerMotor;
+/**
+ * Combination of Neo and CIM motors controlled by the SparkMax The Neo is the "lead" The CIM is the
+ * "follower" and has no encoder
+ */
+public class HybridDrive extends DriveBase {
+  private CANSparkMax m_leftLeadMotor; // Neo
+  private CANSparkMax m_leftFollowerMotor; // CIM
+  private CANSparkMax m_rightLeadMotor; // Neo
+  private CANSparkMax m_rightFollowerMotor; // CIM
 
   private RelativeEncoder m_leftLeadEncoder;
-  private RelativeEncoder m_leftFollowerEncoder;
   private RelativeEncoder m_rightLeadEncoder;
-  private RelativeEncoder m_rightFollowerEncoder;
 
-  RevDrive() {
+  HybridDrive() {
     /**
      * SPARK MAX controllers are intialized over CAN by constructing a CANSparkMax object
      *
@@ -40,11 +42,11 @@ public class RevDrive extends DriveBase {
     m_leftLeadMotor =
         new CANSparkMax(MotorControllerDeviceID.leftLeadDeviceID, MotorType.kBrushless);
     m_leftFollowerMotor =
-        new CANSparkMax(MotorControllerDeviceID.leftFollowerDeviceID, MotorType.kBrushless);
+        new CANSparkMax(MotorControllerDeviceID.leftFollowerDeviceID, MotorType.kBrushed);
     m_rightLeadMotor =
         new CANSparkMax(MotorControllerDeviceID.rightLeadDeviceID, MotorType.kBrushless);
     m_rightFollowerMotor =
-        new CANSparkMax(MotorControllerDeviceID.rightFollowerDeviceID, MotorType.kBrushless);
+        new CANSparkMax(MotorControllerDeviceID.rightFollowerDeviceID, MotorType.kBrushed);
 
     // /**
     // * The RestoreFactoryDefaults method can be used to reset the configuration
@@ -75,9 +77,7 @@ public class RevDrive extends DriveBase {
 
     /** create the encoders for each motor each Neo brushless motor has it's own built-in encoder */
     m_leftLeadEncoder = m_leftLeadMotor.getEncoder();
-    m_leftFollowerEncoder = m_leftFollowerMotor.getEncoder();
     m_rightLeadEncoder = m_rightLeadMotor.getEncoder();
-    m_rightFollowerEncoder = m_rightFollowerMotor.getEncoder();
 
     init(m_leftLeadMotor, m_rightLeadMotor);
     setRampRate(0);
@@ -98,35 +98,34 @@ public class RevDrive extends DriveBase {
   @Override
   public void resetEncoders() {
     m_leftLeadEncoder.setPosition(0);
-    m_leftFollowerEncoder.setPosition(0);
     m_rightLeadEncoder.setPosition(0);
-    m_rightFollowerEncoder.setPosition(0);
   }
 
   @Override
   public double getLeftEncoderDistance() {
-    return convertPositionToDistance(getAverageLeftEncoderPosition());
+    double distance = convertPositionToDistance(getAverageLeftEncoderPosition());
+    SmartDashboard.putNumber("Left Encoder Distance", distance);
+    return distance;
   }
 
   @Override
   public double getRightEncoderDistance() {
-    return convertPositionToDistance(getAverageRightEncoderPosition());
+    double distance = convertPositionToDistance(getAverageRightEncoderPosition());
+    SmartDashboard.putNumber("Right Encoder Distance", distance);
+    return distance;
   }
 
   private double getAverageLeftEncoderPosition() {
-    return (m_leftLeadEncoder.getPosition() + m_leftFollowerEncoder.getPosition()) / 2;
+    return m_leftLeadEncoder.getPosition();
   }
 
   private double getAverageRightEncoderPosition() {
-    return (m_rightLeadEncoder.getPosition() + m_rightFollowerEncoder.getPosition()) / 2;
+    return m_rightLeadEncoder.getPosition();
   }
 
   @Override
   public double getAverageEncoderDistance() {
-    double encoderPosition =
-        (getAverageLeftEncoderPosition() + getAverageRightEncoderPosition()) / 2;
-
-    return convertPositionToDistance(encoderPosition);
+    return (getRightEncoderDistance() + getLeftEncoderDistance()) / 2;
   }
 
   @Override
