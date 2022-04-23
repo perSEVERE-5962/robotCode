@@ -1,4 +1,4 @@
-[![CI](https://github.com/perSEVERE-5962/robotCode/actions/workflows/ci.yml/badge.svg?branch=2022)](https://github.com/perSEVERE-5962/robotCode/actions/workflows/ci.yml)
+[![CI](https://github.com/perSEVERE-5962/robotCode/actions/workflows/ci.yml/badge.svg?branch=2023)](https://github.com/perSEVERE-5962/robotCode/actions/workflows/ci.yml)
 
 ![Team 5962 perSEVERE](/images/team_logo.svg)
 
