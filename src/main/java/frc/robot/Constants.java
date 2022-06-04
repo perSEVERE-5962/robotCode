@@ -5,11 +5,15 @@
 package frc.robot;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants
+ * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
@@ -17,28 +21,42 @@ public final class Constants {
   /**
    * Types of motor controllers
    *
-   * <p>kCTRE represents {@link com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX} with a {@link
+   * <p>
+   * kCTRE represents {@link com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX} with
+   * a {@link
    * com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX} follower
    *
-   * <p>kREV represents {@link com.revrobotics.CANSparkMax} with a {@link
+   * <p>
+   * kREV represents {@link com.revrobotics.CANSparkMax} with a {@link
    * com.revrobotics.CANSparkMax} follower
    */
   public static final class MotorControllerType {
     public static final int kCTRE = 1;
     public static final int kREV = 2;
     public static final int kHybrid = 3;
+    public static final int kRomi = 4;
   }
 
-  public static final class MotorControllerDeviceID {
+  public static final class CompetitionRobot {
     public static final int leftLeadDeviceID = 23;
     public static final int leftFollowerDeviceID = 20;
 
     public static final int rightLeadDeviceID = 22;
     public static final int rightFollowerDeviceID = 21;
+    public static final double kDriveTrainGearRatio = 10.71;
+    public static final double kDriveTrainWheelDiameter = 6;
   }
 
-  public static final double driveTrainGearRatio = 10.71;
-  public static final double driveTrainWheelDiameter = 6;
+  public static final class Romi {
+    public static final int leftDeviceID = 0;
+    public static final int rightDeviceID = 1;
+    public static final int leftEncoderChannelA = 4;
+    public static final int leftEncoderChannelB = 5;
+    public static final int rightEncoderChannelA = 6;
+    public static final int rightEncoderChannelB = 7;
+    public static final double kCountsPerRevolution = 1440.0;
+    public static final double kWheelDiameterMeter = 0.07;
+  }
 
   public static final class DrivePIDCoeffients {
     public static final double kP = 0.1;

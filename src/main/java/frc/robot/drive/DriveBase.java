@@ -41,11 +41,11 @@ public abstract class DriveBase implements DriveInterface {
   }
 
   public double convertPositionToDistance(double position) {
-    return (position / Constants.driveTrainGearRatio) * Math.PI * Constants.driveTrainWheelDiameter;
+    return (position / Constants.CompetitionRobot.kDriveTrainGearRatio) * Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter;
   }
 
   public double convertDistanceToPosition(double distance) {
-    return (distance * Constants.driveTrainGearRatio)
-        / (Math.PI * Constants.driveTrainWheelDiameter);
+    return (distance * Constants.CompetitionRobot.kDriveTrainGearRatio)
+        / (Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter);
   }
 }
