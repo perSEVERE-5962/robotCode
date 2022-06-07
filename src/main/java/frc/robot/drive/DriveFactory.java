@@ -11,7 +11,9 @@ public class DriveFactory {
   /**
    * create the drive system based on the controller type
    *
-   * <p>starting with the 2022 season we are switching from CTRE (TalonSRX & VictorSPX) to REV
+   * <p>
+   * starting with the 2022 season we are switching from CTRE (TalonSRX &
+   * VictorSPX) to REV
    * (Spark Max) controllers
    *
    * @return the drive system to use
@@ -24,7 +26,7 @@ public class DriveFactory {
    * Create a drive based on the specified controller type
    *
    * @param motorControllerType is one of the types defined in {@link
-   *     frc.robot.Constants.MotorControllerType}
+   *                            frc.robot.Constants.MotorControllerType}
    * @returns an instance of {@link frc.robot.factories.DriveInterface}
    */
   public DriveInterface createDrive(int motorControllerType) {
@@ -41,6 +43,10 @@ public class DriveFactory {
       case MotorControllerType.kHybrid:
         drive = new HybridDrive();
         SmartDashboard.putString("Selected Drive", "Hybrid");
+        break;
+      case MotorControllerType.kRomi:
+        drive = new RomiDrive();
+        SmartDashboard.putString("Selected Drive", "Romi");
         break;
       default:
         drive = new RevDrive(); // default to Rev starting in 2022

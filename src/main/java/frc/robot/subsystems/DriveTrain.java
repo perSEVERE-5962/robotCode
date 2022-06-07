@@ -7,25 +7,19 @@
 
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
+import frc.robot.gyro.GyroFactory;
+import frc.robot.gyro.GyroInterface;
 
 public class DriveTrain extends SubsystemBase {
-
-  private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   private DriveInterface m_drive;
+  private GyroInterface m_gyro;
   private boolean driveTrainSet = false;
 
-  public AHRS getGyro() {
-    return m_ahrs;
-  }
-
   public DriveTrain() {
-    m_ahrs.reset();
   }
 
   public void setMotorControllerType(int motorControllerType) {
@@ -33,6 +27,8 @@ public class DriveTrain extends SubsystemBase {
       DriveFactory driveFactory = new DriveFactory();
       m_drive = driveFactory.createDrive(motorControllerType);
       m_drive.resetEncoders();
+      GyroFactory gyroFactory = new GyroFactory();
+      m_gyro = gyroFactory.createGyro(motorControllerType);
       driveTrainSet = true;
     }
   }
@@ -73,11 +69,11 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void resetGyro() {
-    m_ahrs.reset();
+    m_gyro.resetGyro();
   }
 
   public double getGyroAngle() {
-    return m_ahrs.getAngle();
+    return m_gyro.getGyroAngle();
   }
 
   public void resetEncoders() {
