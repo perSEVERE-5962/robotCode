@@ -20,6 +20,8 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/Driver Control": "String Chooser",
+      "/SmartDashboard/Drivetrain Motor Controller": "String Chooser",
       "/SmartDashboard/auto chooser": "String Chooser",
       "/SmartDashboard/drivercontrol": "String Chooser"
     }
@@ -35,6 +37,15 @@
       "open": true
     },
     "SmartDashboard": {
+      "Driver Control": {
+        "open": true
+      },
+      "Drivetrain Motor Controller": {
+        "open": true
+      },
+      "auto chooser": {
+        "open": true
+      },
       "open": true
     }
   }
