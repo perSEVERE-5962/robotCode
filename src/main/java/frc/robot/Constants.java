@@ -35,6 +35,7 @@ public final class Constants {
     public static final int kREV = 2;
     public static final int kHybrid = 3;
     public static final int kRomi = 4;
+    public static final int kSwerve = 5;
   }
 
   public static final class CompetitionRobot {
@@ -72,4 +73,42 @@ public final class Constants {
     public static final int kBrake = 0;
     public static final int kCoast = 1;
   }
+
+  // Swerve Drive Stuff
+  /**
+   * The left-to-right distance between the drivetrain wheels
+   *
+   * Should be measured from center to center.
+   */
+
+  public static final double DRIVETRAIN_TRACKWIDTH_METERS = 1; // TODO
+  /**
+   * The front-to-back distance between the drivetrain wheels.
+   *
+   * Should be measured from center to center.
+   */
+  public static final double DRIVETRAIN_WHEELBASE_METERS = 1; // TODO
+
+  // public static final int DRIVETRAIN_PIGEON_ID = 0;
+
+  public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 10;
+  public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 11;
+  public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 12;
+  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(0.0);
+
+  public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 20;
+  public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 21;
+  public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 22;
+  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0.0);
+
+  public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 30;
+  public static final int BACK_LEFT_MODULE_STEER_MOTOR = 31;
+  public static final int BACK_LEFT_MODULE_STEER_ENCODER = 32;
+  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(0.0);
+
+  public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 40;
+  public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41;
+  public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 42;
+  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0.0);
+
 }

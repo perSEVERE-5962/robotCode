@@ -48,6 +48,10 @@ public class DriveFactory {
         drive = new RomiDrive();
         SmartDashboard.putString("Selected Drive", "Romi");
         break;
+      case MotorControllerType.kSwerve:
+        drive = new SwerveDrive();
+        SmartDashboard.putString("Selected Drive", "Swerve");
+        break;
       default:
         drive = new RevDrive(); // default to Rev starting in 2022
         SmartDashboard.putString("Selected Drive", "Default");

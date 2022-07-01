@@ -4,9 +4,13 @@
 
 package frc.robot.drive;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants;
+import frc.robot.gyro.GyroInterface;
+import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
 public abstract class DriveBase implements DriveInterface {
@@ -14,6 +18,8 @@ public abstract class DriveBase implements DriveInterface {
   // Set up the differential drive controller
   private DifferentialDrive m_diffDrive;
   private MotorController m_leftMotor, m_rightMotor;
+
+  private GyroInterface m_gyro;
 
   public void init(MotorController leftMotor, MotorController rightMotor) {
     m_diffDrive = new DifferentialDrive(leftMotor, rightMotor);
@@ -40,12 +46,36 @@ public abstract class DriveBase implements DriveInterface {
     m_diffDrive.feed();
   }
 
+  @Override
+  public void swerveDrive(DoubleSupplier translationXSupplier, DoubleSupplier translationYSupplier, DoubleSupplier rotationSupplier) {
+    // To be implemented in SwerveDrive
+  }
+
   public double convertPositionToDistance(double position) {
-    return (position / Constants.CompetitionRobot.kDriveTrainGearRatio) * Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter;
+    return (position / Constants.CompetitionRobot.kDriveTrainGearRatio)
+        * Math.PI
+        * Constants.CompetitionRobot.kDriveTrainWheelDiameter;
   }
 
   public double convertDistanceToPosition(double distance) {
     return (distance * Constants.CompetitionRobot.kDriveTrainGearRatio)
         / (Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter);
   }
+
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void setGyro(GyroInterface gyro) {
+    m_gyro = gyro;
+  }
+
+  public void resetGyro() {
+    m_gyro.resetGyro();
+  }
+  
+  public GyroInterface getGyro() {
+    return m_gyro;
+  }
+
 }

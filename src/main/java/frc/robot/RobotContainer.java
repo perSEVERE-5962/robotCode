@@ -51,6 +51,9 @@ public class RobotContainer {
         "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
     m_motorControllerChooser.addOption(
         "Romi", Integer.valueOf(Constants.MotorControllerType.kRomi));
+    m_motorControllerChooser.addOption(
+        "Swerve", Integer.valueOf(Constants.MotorControllerType.kSwerve));
+
     SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
@@ -58,6 +61,9 @@ public class RobotContainer {
     m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
     m_driveChooser.addOption(
         "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
+    m_driveChooser.addOption(
+        "Swerve", new SwerveDriveCommand(m_driveTrain, m_driverController));
+
     SmartDashboard.putData("Driver Control", m_driveChooser);
 
     m_autoChooser.setDefaultOption("default auto", m_autoSequence);
@@ -100,4 +106,5 @@ public class RobotContainer {
   public DriveTrain getDriveTrain() {
     return m_driveTrain;
   }
+
 }

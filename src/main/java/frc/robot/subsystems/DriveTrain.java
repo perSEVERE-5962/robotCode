@@ -7,16 +7,17 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
 import frc.robot.gyro.GyroFactory;
 import frc.robot.gyro.GyroInterface;
+import java.util.function.DoubleSupplier;
 
 public class DriveTrain extends SubsystemBase {
   private DriveInterface m_drive;
-  private GyroInterface m_gyro;
   private boolean driveTrainSet = false;
 
   public DriveTrain() {
@@ -28,7 +29,8 @@ public class DriveTrain extends SubsystemBase {
       m_drive = driveFactory.createDrive(motorControllerType);
       m_drive.resetEncoders();
       GyroFactory gyroFactory = new GyroFactory();
-      m_gyro = gyroFactory.createGyro(motorControllerType);
+      GyroInterface gyro = gyroFactory.createGyro(motorControllerType);
+      m_drive.setGyro(gyro);
       driveTrainSet = true;
     }
   }
@@ -43,8 +45,14 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if (m_drive != null) {
+      m_drive.periodic();
+    }
+  }
 
+  public void swerveDrive(DoubleSupplier translationXSupplier, DoubleSupplier translationYSupplier,
+      DoubleSupplier rotationSupplier) {
+    m_drive.swerveDrive(translationXSupplier, translationYSupplier, rotationSupplier);
   }
 
   public void tankDrive(double leftAxis, double rightAxis) {
@@ -68,13 +76,13 @@ public class DriveTrain extends SubsystemBase {
     m_drive.tankDrive(0, 0);
   }
 
-  public void resetGyro() {
-    m_gyro.resetGyro();
-  }
+  // public void resetGyro() {
+  // m_gyro.resetGyro();
+  // }
 
-  public double getGyroAngle() {
-    return m_gyro.getGyroAngle();
-  }
+  // public double getGyroAngle() {
+  // return m_gyro.getGyroAngle();
+  // }
 
   public void resetEncoders() {
     m_drive.resetEncoders();
@@ -87,4 +95,5 @@ public class DriveTrain extends SubsystemBase {
   public void setIdleMode(int idleMode) {
     m_drive.setIdleMode(idleMode);
   }
+
 }

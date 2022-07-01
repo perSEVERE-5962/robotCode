@@ -8,17 +8,16 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 
 /** Add your docs here. */
-public class AHRSGyro implements GyroInterface{
-    private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
+public class AHRSGyro implements GyroInterface {
+  private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
 
-    @Override
-    public double getGyroAngle() {
-        return m_ahrs.getAngle();
-    }
+  @Override
+  public double getGyroAngle() {
+    return m_ahrs.getAngle();
+  }
 
-    @Override
-    public void resetGyro() {
-        m_ahrs.reset();
-    }
-    
+  @Override
+  public void resetGyro() {
+    m_ahrs.reset();
+  }
 }

@@ -6,6 +6,7 @@ package frc.robot.gyro;
 
 /** Add your docs here. */
 public interface GyroInterface {
-    public double getGyroAngle();
-    public void resetGyro();
+  public double getGyroAngle();
+
+  public void resetGyro();
 }
