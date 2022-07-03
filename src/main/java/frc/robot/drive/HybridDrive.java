@@ -11,6 +11,7 @@ import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.CompetitionRobot;
+import frc.robot.gyro.GyroInterface;
 
 /**
  * Combination of Neo and CIM motors controlled by the SparkMax The Neo is the "lead" The CIM is the
@@ -25,7 +26,7 @@ public class HybridDrive extends DriveBase {
   private RelativeEncoder m_leftLeadEncoder;
   private RelativeEncoder m_rightLeadEncoder;
 
-  HybridDrive() {
+  HybridDrive(GyroInterface gyro) {
     /**
      * SPARK MAX controllers are intialized over CAN by constructing a CANSparkMax object
      *
@@ -79,6 +80,7 @@ public class HybridDrive extends DriveBase {
 
     init(m_leftLeadMotor, m_rightLeadMotor);
     setRampRate(0);
+    setGyro(gyro);
   }
 
   private void configurePID(CANSparkMax motor) {

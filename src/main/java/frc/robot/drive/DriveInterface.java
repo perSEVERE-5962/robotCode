@@ -4,10 +4,8 @@
 
 package frc.robot.drive;
 
-
 import frc.robot.gyro.GyroInterface;
 import java.util.function.DoubleSupplier;
-
 
 /** Add your docs here. */
 public interface DriveInterface {
@@ -39,7 +37,10 @@ public interface DriveInterface {
    */
   void arcadeDrive(double xSpeed, double zRotation);
 
-  void swerveDrive(DoubleSupplier translationXSupplier, DoubleSupplier translationYSupplier, DoubleSupplier rotationSupplier);
+  void swerveDrive(
+      DoubleSupplier translationXSupplier,
+      DoubleSupplier translationYSupplier,
+      DoubleSupplier rotationSupplier);
 
   /** reset the encoders */
   void resetEncoders();
@@ -81,4 +82,5 @@ public interface DriveInterface {
 
   public void setGyro(GyroInterface gyro);
 
+  public void stopDrive();
 }

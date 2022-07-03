@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants;
 import frc.robot.Constants.CompetitionRobot;
+import frc.robot.gyro.GyroInterface;
 
 /** Add your docs here. */
 public class CTREDrive extends DriveBase {
@@ -18,7 +19,7 @@ public class CTREDrive extends DriveBase {
   private WPI_TalonSRX m_rightTalon;
   private WPI_VictorSPX m_rightVictor;
 
-  CTREDrive() {
+  CTREDrive(GyroInterface gyro) {
     m_rightTalon = new WPI_TalonSRX(CompetitionRobot.rightLeadDeviceID);
     m_rightVictor = new WPI_VictorSPX(CompetitionRobot.rightFollowerDeviceID);
     m_leftTalon = new WPI_TalonSRX(CompetitionRobot.leftLeadDeviceID);
@@ -37,6 +38,7 @@ public class CTREDrive extends DriveBase {
 
     init(m_leftTalon, m_rightTalon);
     setRampRate(0);
+    setGyro(gyro);
   }
 
   @Override

@@ -4,8 +4,6 @@
 
 package frc.robot.drive;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants;
@@ -47,7 +45,10 @@ public abstract class DriveBase implements DriveInterface {
   }
 
   @Override
-  public void swerveDrive(DoubleSupplier translationXSupplier, DoubleSupplier translationYSupplier, DoubleSupplier rotationSupplier) {
+  public void swerveDrive(
+      DoubleSupplier translationXSupplier,
+      DoubleSupplier translationYSupplier,
+      DoubleSupplier rotationSupplier) {
     // To be implemented in SwerveDrive
   }
 
@@ -73,9 +74,12 @@ public abstract class DriveBase implements DriveInterface {
   public void resetGyro() {
     m_gyro.resetGyro();
   }
-  
+
   public GyroInterface getGyro() {
     return m_gyro;
   }
 
+  public void stopDrive() {
+    tankDrive(0, 0);
+  }
 }

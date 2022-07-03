@@ -6,14 +6,14 @@ package frc.robot.drive;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.MotorControllerType;
+import frc.robot.gyro.GyroFactory;
+import frc.robot.gyro.GyroInterface;
 
 public class DriveFactory {
   /**
    * create the drive system based on the controller type
    *
-   * <p>
-   * starting with the 2022 season we are switching from CTRE (TalonSRX &
-   * VictorSPX) to REV
+   * <p>starting with the 2022 season we are switching from CTRE (TalonSRX & VictorSPX) to REV
    * (Spark Max) controllers
    *
    * @return the drive system to use
@@ -26,34 +26,37 @@ public class DriveFactory {
    * Create a drive based on the specified controller type
    *
    * @param motorControllerType is one of the types defined in {@link
-   *                            frc.robot.Constants.MotorControllerType}
+   *     frc.robot.Constants.MotorControllerType}
    * @returns an instance of {@link frc.robot.factories.DriveInterface}
    */
   public DriveInterface createDrive(int motorControllerType) {
     DriveInterface drive;
+    GyroFactory gyroFactory = new GyroFactory();
+    GyroInterface gyro = gyroFactory.createGyro(motorControllerType);
+
     switch (motorControllerType) {
       case MotorControllerType.kCTRE:
-        drive = new CTREDrive();
+        drive = new CTREDrive(gyro);
         SmartDashboard.putString("Selected Drive", "CTRE");
         break;
       case MotorControllerType.kREV:
-        drive = new RevDrive();
+        drive = new RevDrive(gyro);
         SmartDashboard.putString("Selected Drive", "Rev");
         break;
       case MotorControllerType.kHybrid:
-        drive = new HybridDrive();
+        drive = new HybridDrive(gyro);
         SmartDashboard.putString("Selected Drive", "Hybrid");
         break;
       case MotorControllerType.kRomi:
-        drive = new RomiDrive();
+        drive = new RomiDrive(gyro);
         SmartDashboard.putString("Selected Drive", "Romi");
         break;
       case MotorControllerType.kSwerve:
-        drive = new SwerveDrive();
+        drive = new SwerveDrive(gyro);
         SmartDashboard.putString("Selected Drive", "Swerve");
         break;
       default:
-        drive = new RevDrive(); // default to Rev starting in 2022
+        drive = new RevDrive(gyro); // default to Rev starting in 2022
         SmartDashboard.putString("Selected Drive", "Default");
         break;
     }

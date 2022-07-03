@@ -7,30 +7,24 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
-import frc.robot.gyro.GyroFactory;
-import frc.robot.gyro.GyroInterface;
 import java.util.function.DoubleSupplier;
 
 public class DriveTrain extends SubsystemBase {
   private DriveInterface m_drive;
   private boolean driveTrainSet = false;
 
-  public DriveTrain() {
-  }
+  public DriveTrain() {}
 
   public void setMotorControllerType(int motorControllerType) {
     if (driveTrainSet == false) {
       DriveFactory driveFactory = new DriveFactory();
       m_drive = driveFactory.createDrive(motorControllerType);
       m_drive.resetEncoders();
-      GyroFactory gyroFactory = new GyroFactory();
-      GyroInterface gyro = gyroFactory.createGyro(motorControllerType);
-      m_drive.setGyro(gyro);
+      //      m_drive.setGyro(gyro);
       driveTrainSet = true;
     }
   }
@@ -50,7 +44,9 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  public void swerveDrive(DoubleSupplier translationXSupplier, DoubleSupplier translationYSupplier,
+  public void swerveDrive(
+      DoubleSupplier translationXSupplier,
+      DoubleSupplier translationYSupplier,
       DoubleSupplier rotationSupplier) {
     m_drive.swerveDrive(translationXSupplier, translationYSupplier, rotationSupplier);
   }
@@ -73,7 +69,7 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void stopDrive() {
-    m_drive.tankDrive(0, 0);
+    m_drive.stopDrive();
   }
 
   // public void resetGyro() {
@@ -96,4 +92,7 @@ public class DriveTrain extends SubsystemBase {
     m_drive.setIdleMode(idleMode);
   }
 
+  public DriveInterface getDrive() {
+    return m_drive;
+  }
 }

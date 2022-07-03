@@ -4,44 +4,49 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
+import java.util.function.DoubleSupplier;
+import frc.robot.drive.SwerveDrive;
+import edu.wpi.first.wpilibj.GenericHID;
+
 
 public class SwerveDriveCommand extends CommandBase {
 
   private final DriveTrain m_driveTrain;
-  private final Joystick m_joystick;
+  private final XboxController m_joystick;
+  private DoubleSupplier m_translationXSupplier;
+  private DoubleSupplier m_translationYSupplier;
+  private DoubleSupplier m_rotationSupplier;
 
   /** Creates a new SwerveDriveCommand. */
-  public SwerveDriveCommand(DriveTrain driveTrain, Joystick joystick) {
+  public SwerveDriveCommand(DriveTrain driveTrain, XboxController joystick) {
     m_driveTrain = driveTrain;
     m_joystick = joystick;
+
+    m_translationXSupplier =
+        () -> -modifyAxis(m_joystick.getLeftY()) * ((SwerveDrive)(m_driveTrain.getDrive())).MAX_VELOCITY_METERS_PER_SECOND;
+    m_translationYSupplier = () -> -modifyAxis(m_joystick.getLeftX()) * ((SwerveDrive)(m_driveTrain.getDrive())).MAX_VELOCITY_METERS_PER_SECOND;
+    m_rotationSupplier = () -> -modifyAxis(m_joystick.getRightX()) * ((SwerveDrive)(m_driveTrain.getDrive())).MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
 
     addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DoubleSupplier translationXSupplier = () -> -modifyAxis(m_joystick.getY()); // Axes are flipped here on purpose
-    DoubleSupplier translationYSupplier = () -> -modifyAxis(m_joystick.getX());
-    DoubleSupplier rotationSupplier = () -> -modifyAxis(m_joystick.getZ());
-
-    m_driveTrain.swerveDrive(translationXSupplier, translationYSupplier, rotationSupplier);
-
+    m_driveTrain.swerveDrive(m_translationXSupplier, m_translationYSupplier, m_rotationSupplier);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_driveTrain.stopDrive();
   }
 
   // Returns true when the command should end.

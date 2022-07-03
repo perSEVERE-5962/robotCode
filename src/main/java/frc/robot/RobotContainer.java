@@ -17,12 +17,9 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.DriveTrain;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -30,39 +27,39 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
   private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+  //private final Joystick m_driverController = new Joystick(0);
+  private final XboxController m_driverController = new XboxController(0);
+
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
     m_motorControllerChooser.setDefaultOption(
-        "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
-    m_motorControllerChooser.addOption(
-        "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    m_motorControllerChooser.addOption(
-        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
-    m_motorControllerChooser.addOption(
-        "Romi", Integer.valueOf(Constants.MotorControllerType.kRomi));
-    m_motorControllerChooser.addOption(
         "Swerve", Integer.valueOf(Constants.MotorControllerType.kSwerve));
+    // m_motorControllerChooser.addOption(
+    //     "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
+    // m_motorControllerChooser.addOption(
+    //     "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+    // m_motorControllerChooser.addOption(
+    //     "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
+    // m_motorControllerChooser.addOption(
+    //     "Romi", Integer.valueOf(Constants.MotorControllerType.kRomi));
 
     SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
-        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
-        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
         "Swerve", new SwerveDriveCommand(m_driveTrain, m_driverController));
+    // m_driveChooser.addOption(
+    //     "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
+    // m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
+    // m_driveChooser.addOption(
+    //     "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
 
     SmartDashboard.putData("Driver Control", m_driveChooser);
 
@@ -74,15 +71,12 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
+   * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-  }
+  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -106,5 +100,4 @@ public class RobotContainer {
   public DriveTrain getDriveTrain() {
     return m_driveTrain;
   }
-
 }
