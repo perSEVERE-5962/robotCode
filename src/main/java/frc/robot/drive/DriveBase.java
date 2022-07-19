@@ -7,6 +7,7 @@ package frc.robot.drive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants;
+import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
 public abstract class DriveBase implements DriveInterface {
@@ -41,11 +42,21 @@ public abstract class DriveBase implements DriveInterface {
   }
 
   public double convertPositionToDistance(double position) {
-    return (position / Constants.CompetitionRobot.kDriveTrainGearRatio) * Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter;
+    return (position / Constants.CompetitionRobot.kDriveTrainGearRatio)
+        * Math.PI
+        * Constants.CompetitionRobot.kDriveTrainWheelDiameter;
   }
 
   public double convertDistanceToPosition(double distance) {
     return (distance * Constants.CompetitionRobot.kDriveTrainGearRatio)
         / (Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter);
+  }
+
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void stopDrive() {
+    tankDrive(0, 0);
   }
 }

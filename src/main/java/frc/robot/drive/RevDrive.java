@@ -37,12 +37,10 @@ public class RevDrive extends DriveBase {
      * <p>The example below initializes brushless motors with MotorControllerDeviceID. Change these
      * parameters to match your setup
      */
-    m_leftLeadMotor =
-        new CANSparkMax(CompetitionRobot.leftLeadDeviceID, MotorType.kBrushless);
+    m_leftLeadMotor = new CANSparkMax(CompetitionRobot.leftLeadDeviceID, MotorType.kBrushless);
     m_leftFollowerMotor =
         new CANSparkMax(CompetitionRobot.leftFollowerDeviceID, MotorType.kBrushless);
-    m_rightLeadMotor =
-        new CANSparkMax(CompetitionRobot.rightLeadDeviceID, MotorType.kBrushless);
+    m_rightLeadMotor = new CANSparkMax(CompetitionRobot.rightLeadDeviceID, MotorType.kBrushless);
     m_rightFollowerMotor =
         new CANSparkMax(CompetitionRobot.rightFollowerDeviceID, MotorType.kBrushless);
 

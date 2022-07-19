@@ -5,17 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
-public class AutoDriveBackward extends CommandBase {
+public class Forward extends CommandBase {
   private double m_distance;
   private DriveTrain m_driveTrain;
-  /** Creates a new AutoDriveForward. */
-  public AutoDriveBackward(double distance, DriveTrain driveTrain) {
+
+  /**
+   * Move forward the specified distance
+   *
+   * @param distance - the number of inches to move
+   */
+  public Forward(double distance) {
     m_distance = distance;
-    m_driveTrain = driveTrain;
+    m_driveTrain = RobotContainer.getInstance().getDriveTrain();
     // Use addRequirements() here to declare subsystem dependencies.''
-    addRequirements(driveTrain);
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +33,7 @@ public class AutoDriveBackward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_driveTrain.tankDrive(0.5, 0.5);
+    // m_driveTrain.tankDrive(-0.5, -0.5);
     m_driveTrain.moveDistanceWithPID(m_distance);
   }
 
@@ -41,7 +47,7 @@ public class AutoDriveBackward extends CommandBase {
   @Override
   public boolean isFinished() {
     boolean isFinished = false;
-    isFinished = m_driveTrain.getAverageEncoderDistance() > m_distance;
+    isFinished = m_driveTrain.getAverageEncoderDistance() < m_distance;
     return isFinished;
   }
 }

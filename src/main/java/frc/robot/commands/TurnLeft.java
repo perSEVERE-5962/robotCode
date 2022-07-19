@@ -5,43 +5,47 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
 
-public class AutoDriveForward extends CommandBase {
-  private double m_distance;
+public class TurnLeft extends CommandBase {
   private DriveTrain m_driveTrain;
-  /** Creates a new AutoDriveForward. */
-  public AutoDriveForward(double Distance, DriveTrain driveTrain) {
-    m_distance = Distance;
-    m_driveTrain = driveTrain;
-    // Use addRequirements() here to declare subsystem dependencies.''
-    addRequirements(driveTrain);
+  private double m_degrees;
+
+  /**
+   * Turn to the left the specified degrees
+   *
+   * @param degrees - the number of degrees to turn
+   */
+  public TurnLeft(double degrees) {
+    m_driveTrain = RobotContainer.getInstance().getDriveTrain();
+    m_degrees = degrees;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_driveTrain.resetEncoders();
+    m_driveTrain.resetGyro();
+    ;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_driveTrain.tankDrive(-0.5, -0.5);
-    m_driveTrain.moveDistanceWithPID(m_distance);
+    m_driveTrain.tankDrive(0.4, -0.4); // (-0.375, 0.375);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // m_driveTrain.tankDrive(0, 0);
+    m_driveTrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean isFinished = false;
-    isFinished = m_driveTrain.getAverageEncoderDistance() < m_distance;
-    return isFinished;
+    return m_driveTrain.getGyroAngle() > m_degrees;
   }
 }

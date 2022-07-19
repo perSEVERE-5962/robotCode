@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = RobotContainer.getInstance();
   }
 
   /**
@@ -78,16 +78,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    m_robotContainer.setMotorControllerType();
-    m_robotContainer.getDriveTrain().setIdleMode(Constants.MotorControllerIdleModes.kBrake);
-
-    Command driveCommand = m_robotContainer.getDriveCommand();
-    if (driveCommand != null) {
-      driveCommand.schedule();
-    }
-    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
-    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */

@@ -70,4 +70,7 @@ public interface DriveInterface {
 
   void setIdleMode(int idleMode);
 
+  void periodic();
+
+  public void stopDrive();
 }
