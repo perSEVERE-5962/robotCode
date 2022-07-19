@@ -27,7 +27,7 @@ public class RobotContainer {
   private final DriveTrain m_driveTrain = new DriveTrain();
   private Autonomous m_autonomous = new Autonomous();
 
-  private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
+  private SendableChooser<Integer> m_chassisChooser = new SendableChooser<>();
 
   // create a singleton that allows us to access the single instance from multiple places
   private static RobotContainer m_instance;
@@ -44,10 +44,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_motorControllerChooser.setDefaultOption(
+    m_chassisChooser.setDefaultOption(
         "FRC Robot", Integer.valueOf(Constants.ChassisType.kREV));
-    m_motorControllerChooser.addOption("Romi", Integer.valueOf(Constants.ChassisType.kRomi));
-    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
+    m_chassisChooser.addOption("Romi", Integer.valueOf(Constants.ChassisType.kRomi));
+    SmartDashboard.putData("Robot to use", m_chassisChooser);
   }
 
   /**
@@ -69,7 +69,7 @@ public class RobotContainer {
 
   public void setMotorControllerType() {
     m_driveTrain.setMotorControllerType(
-        ((Integer) m_motorControllerChooser.getSelected()).intValue());
+        ((Integer) m_chassisChooser.getSelected()).intValue());
   }
 
   public DriveTrain getDriveTrain() {
