@@ -6,11 +6,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveTrain;
 import java.util.function.DoubleSupplier;
-import frc.robot.drive.SwerveDrive;
-import edu.wpi.first.wpilibj.GenericHID;
-
 
 public class SwerveDriveCommand extends CommandBase {
 
@@ -22,13 +20,16 @@ public class SwerveDriveCommand extends CommandBase {
 
   /** Creates a new SwerveDriveCommand. */
   public SwerveDriveCommand(DriveTrain driveTrain, XboxController joystick) {
-    m_driveTrain = driveTrain;
     m_joystick = joystick;
+    m_driveTrain = driveTrain;
 
     m_translationXSupplier =
-        () -> -modifyAxis(m_joystick.getLeftY()) * ((SwerveDrive)(m_driveTrain.getDrive())).MAX_VELOCITY_METERS_PER_SECOND;
-    m_translationYSupplier = () -> -modifyAxis(m_joystick.getLeftX()) * ((SwerveDrive)(m_driveTrain.getDrive())).MAX_VELOCITY_METERS_PER_SECOND;
-    m_rotationSupplier = () -> -modifyAxis(m_joystick.getRightX()) * ((SwerveDrive)(m_driveTrain.getDrive())).MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
+        () -> -modifyAxis(m_joystick.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND;
+    m_translationYSupplier =
+        () -> -modifyAxis(m_joystick.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND;
+    m_rotationSupplier =
+        () ->
+            -modifyAxis(m_joystick.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
 
     addRequirements(driveTrain);
   }
@@ -40,13 +41,15 @@ public class SwerveDriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.swerveDrive(m_translationXSupplier, m_translationYSupplier, m_rotationSupplier);
+    m_driveTrain
+        .getDriveInterface()
+        .swerveDrive(m_translationXSupplier, m_translationYSupplier, m_rotationSupplier);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_driveTrain.stopDrive();
+    m_driveTrain.getDriveInterface().stopDrive();
   }
 
   // Returns true when the command should end.

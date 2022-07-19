@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Constants;
 import frc.robot.Constants.CompetitionRobot;
-import frc.robot.gyro.GyroInterface;
 
 /** Add your docs here. */
 public class RevDrive extends DriveBase {
@@ -24,7 +23,7 @@ public class RevDrive extends DriveBase {
   private RelativeEncoder m_rightLeadEncoder;
   private RelativeEncoder m_rightFollowerEncoder;
 
-  RevDrive(GyroInterface gyro) {
+  RevDrive() {
     /**
      * SPARK MAX controllers are intialized over CAN by constructing a CANSparkMax object
      *
@@ -80,7 +79,6 @@ public class RevDrive extends DriveBase {
 
     init(m_leftLeadMotor, m_rightLeadMotor);
     setRampRate(0);
-    setGyro(gyro);
   }
 
   private void configurePID(CANSparkMax motor) {

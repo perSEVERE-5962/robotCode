@@ -7,7 +7,6 @@ package frc.robot.drive;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.Constants;
-import frc.robot.gyro.GyroInterface;
 
 /** Add your docs here. */
 public class RomiDrive extends DriveBase {
@@ -23,14 +22,13 @@ public class RomiDrive extends DriveBase {
   private final Encoder m_rightEncoder =
       new Encoder(Constants.Romi.rightEncoderChannelA, Constants.Romi.rightEncoderChannelB);
 
-  RomiDrive(GyroInterface gyro) {
+  RomiDrive() {
     // Use inches as unit for encoder distances
     m_leftEncoder.setDistancePerPulse(
         (Math.PI * Constants.Romi.kWheelDiameterMeter) / Constants.Romi.kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse(
         (Math.PI * Constants.Romi.kWheelDiameterMeter) / Constants.Romi.kCountsPerRevolution);
 
-    setGyro(gyro);
     init(m_leftMotor, m_rightMotor);
   }
 

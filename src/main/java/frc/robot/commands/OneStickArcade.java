@@ -29,7 +29,9 @@ public class OneStickArcade extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.arcadeDrive(m_joystick.getRawAxis(5), m_joystick.getRawAxis(4) * -1);
+    m_driveTrain
+        .getDriveInterface()
+        .arcadeDrive(m_joystick.getRawAxis(5), m_joystick.getRawAxis(4) * -1);
   }
 
   // Called once the command ends or is interrupted.

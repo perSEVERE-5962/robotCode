@@ -4,7 +4,6 @@
 
 package frc.robot.drive;
 
-import frc.robot.gyro.GyroInterface;
 import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
@@ -79,8 +78,6 @@ public interface DriveInterface {
   void setIdleMode(int idleMode);
 
   void periodic();
-
-  public void setGyro(GyroInterface gyro);
 
   public void stopDrive();
 }

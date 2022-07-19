@@ -7,7 +7,6 @@ package frc.robot.drive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants;
-import frc.robot.gyro.GyroInterface;
 import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
@@ -16,8 +15,6 @@ public abstract class DriveBase implements DriveInterface {
   // Set up the differential drive controller
   private DifferentialDrive m_diffDrive;
   private MotorController m_leftMotor, m_rightMotor;
-
-  private GyroInterface m_gyro;
 
   public void init(MotorController leftMotor, MotorController rightMotor) {
     m_diffDrive = new DifferentialDrive(leftMotor, rightMotor);
@@ -65,18 +62,6 @@ public abstract class DriveBase implements DriveInterface {
 
   public void periodic() {
     // This method will be called once per scheduler run
-  }
-
-  public void setGyro(GyroInterface gyro) {
-    m_gyro = gyro;
-  }
-
-  public void resetGyro() {
-    m_gyro.resetGyro();
-  }
-
-  public GyroInterface getGyro() {
-    return m_gyro;
   }
 
   public void stopDrive() {
