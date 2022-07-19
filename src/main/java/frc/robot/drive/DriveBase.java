@@ -7,7 +7,6 @@ package frc.robot.drive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants;
-import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
 public abstract class DriveBase implements DriveInterface {

@@ -66,5 +66,4 @@ public final class Constants {
     public static final int kBrake = 0;
     public static final int kCoast = 1;
   }
-
 }

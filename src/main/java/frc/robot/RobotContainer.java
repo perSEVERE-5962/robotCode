@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,7 +25,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
-  private AutoSequence m_autoSequence = new AutoSequence();
+  private Autonomous m_autonomous = new Autonomous();
 
   private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
 
@@ -47,8 +46,7 @@ public class RobotContainer {
 
     m_motorControllerChooser.setDefaultOption(
         "FRC Robot", Integer.valueOf(Constants.ChassisType.kREV));
-    m_motorControllerChooser.addOption(
-        "Romi", Integer.valueOf(Constants.ChassisType.kRomi));
+    m_motorControllerChooser.addOption("Romi", Integer.valueOf(Constants.ChassisType.kRomi));
     SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
   }
 
@@ -66,7 +64,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_autoSequence;
+    return m_autonomous;
   }
 
   public void setMotorControllerType() {
