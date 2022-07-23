@@ -23,22 +23,34 @@ public final class Constants {
    * <p>kREV represents {@link com.revrobotics.CANSparkMax} with a {@link
    * com.revrobotics.CANSparkMax} follower
    */
-  public static final class MotorControllerType {
-    public static final int kCTRE = 1;
-    public static final int kREV = 2;
-    public static final int kHybrid = 3;
+  public static final class ChassisType {
+    public static final int kCTRE = 1; // Kit chassis with Talon SPX and Victor SPX & Cims
+    public static final int kREV = 2; // Kit chassis with Rev Spark Max & Neos
+    public static final int kHybrid = 3; // Kit Chassis with Rev Spark Max, Neos, and Cims
+    public static final int kRomi = 4; // Romi robot
+    public static final int kSwerve = 5; // MK4i Swerve Chassis
   }
 
-  public static final class MotorControllerDeviceID {
+  public static final class CompetitionRobot {
     public static final int leftLeadDeviceID = 23;
     public static final int leftFollowerDeviceID = 20;
 
     public static final int rightLeadDeviceID = 22;
     public static final int rightFollowerDeviceID = 21;
+    public static final double kDriveTrainGearRatio = 10.71;
+    public static final double kDriveTrainWheelDiameter = 6;
   }
 
-  public static final double driveTrainGearRatio = 10.71;
-  public static final double driveTrainWheelDiameter = 6;
+  public static final class Romi {
+    public static final int leftDeviceID = 0;
+    public static final int rightDeviceID = 1;
+    public static final int leftEncoderChannelA = 4;
+    public static final int leftEncoderChannelB = 5;
+    public static final int rightEncoderChannelA = 6;
+    public static final int rightEncoderChannelB = 7;
+    public static final double kCountsPerRevolution = 1440.0;
+    public static final double kWheelDiameterMeter = 0.07;
+  }
 
   public static final class DrivePIDCoeffients {
     public static final double kP = 0.1;

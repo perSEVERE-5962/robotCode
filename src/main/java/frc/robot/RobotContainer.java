@@ -7,9 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,38 +23,29 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
-  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+  private Autonomous m_autonomous = new Autonomous();
 
-  private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
-  private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
+  private SendableChooser<Integer> m_chassisChooser = new SendableChooser<>();
+
+  // create a singleton that allows us to access the single instance from multiple places
+  private static RobotContainer m_instance;
+
+  public static RobotContainer getInstance() {
+    if (m_instance == null) {
+      m_instance = new RobotContainer();
+    }
+    return m_instance;
+  }
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  private RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_motorControllerChooser.setDefaultOption(
-        "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
-    m_motorControllerChooser.addOption(
-        "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    m_motorControllerChooser.addOption(
-        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
-    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
-
-    m_driveChooser.setDefaultOption(
-        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
-        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
-    SmartDashboard.putData("Driver Control", m_driveChooser);
-
-    m_autoChooser.setDefaultOption("default auto", m_autoSequence);
-    // autoChooser.addOption("alternative auto", alternative_auto);
-    SmartDashboard.putData("auto chooser", m_autoChooser);
-
-    SmartDashboard.putNumber("Ramp Rate", 0.5);
+    m_chassisChooser.setDefaultOption(
+        "FRC Robot", Integer.valueOf(Constants.ChassisType.kREV));
+    m_chassisChooser.addOption("Romi", Integer.valueOf(Constants.ChassisType.kRomi));
+    SmartDashboard.putData("Robot to use", m_chassisChooser);
   }
 
   /**
@@ -74,17 +62,12 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return (Command) m_autoChooser.getSelected();
-  }
-
-  public Command getDriveCommand() {
-    return (Command) m_driveChooser.getSelected();
+    return m_autonomous;
   }
 
   public void setMotorControllerType() {
     m_driveTrain.setMotorControllerType(
-        ((Integer) m_motorControllerChooser.getSelected()).intValue());
+        ((Integer) m_chassisChooser.getSelected()).intValue());
   }
 
   public DriveTrain getDriveTrain() {

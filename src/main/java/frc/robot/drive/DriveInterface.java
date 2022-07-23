@@ -69,4 +69,8 @@ public interface DriveInterface {
   void moveDistanceWithPID(double distance) throws Exception;
 
   void setIdleMode(int idleMode);
+
+  void periodic();
+
+  public void stopDrive();
 }
