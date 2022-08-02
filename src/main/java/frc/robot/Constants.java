@@ -49,7 +49,7 @@ public final class Constants {
     public static final int rightEncoderChannelA = 6;
     public static final int rightEncoderChannelB = 7;
     public static final double kCountsPerRevolution = 1440.0;
-    public static final double kWheelDiameterMeter = 0.07;
+    public static final double kWheelDiameterInch = 2.75591; // 70 mm
   }
 
   public static final class DrivePIDCoeffients {

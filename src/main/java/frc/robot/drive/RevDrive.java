@@ -4,10 +4,12 @@
 
 package frc.robot.drive;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.SPI;
 import frc.robot.Constants;
 import frc.robot.Constants.CompetitionRobot;
 
@@ -22,6 +24,8 @@ public class RevDrive extends DriveBase {
   private RelativeEncoder m_leftFollowerEncoder;
   private RelativeEncoder m_rightLeadEncoder;
   private RelativeEncoder m_rightFollowerEncoder;
+
+  private final AHRS m_navx = new AHRS(SPI.Port.kMXP); // NavX connected over MXP
 
   RevDrive() {
     /**
@@ -91,6 +95,16 @@ public class RevDrive extends DriveBase {
         .getPIDController()
         .setOutputRange(
             Constants.DrivePIDCoeffients.kMinOutput, Constants.DrivePIDCoeffients.kMaxOutput);
+  }
+
+  @Override
+  public void resetGyroAngle() {
+    m_navx.reset();
+  }
+
+  @Override
+  public double getGyroAngle() {
+    return m_navx.getAngle();
   }
 
   @Override

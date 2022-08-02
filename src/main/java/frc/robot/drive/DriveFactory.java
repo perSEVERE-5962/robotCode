@@ -4,7 +4,6 @@
 
 package frc.robot.drive;
 
-import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.ChassisType;
 
@@ -14,10 +13,9 @@ public class DriveFactory {
    *
    * @param motorControllerType is one of the types defined in {@link
    *     frc.robot.Constants.ChassisType}
-   * @param navx is the NavX IMU
    * @returns an instance of {@link frc.robot.factories.DriveInterface}
    */
-  public DriveInterface createDrive(int motorControllerType, AHRS navx) {
+  public DriveInterface createDrive(int motorControllerType) {
     DriveInterface drive;
 
     switch (motorControllerType) {
