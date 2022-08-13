@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
   private SendableChooser<Integer> m_chassisChooser = new SendableChooser<>();
+
+  private final Joystick m_joystick = new Joystick(0);
 
   // create a singleton that allows us to access the single instance from multiple places
   private static RobotContainer m_instance;
@@ -68,5 +71,9 @@ public class RobotContainer {
 
   public DriveTrain getDriveTrain() {
     return m_driveTrain;
+  }
+
+  public Joystick getJoystick() {
+    return m_joystick;
   }
 }

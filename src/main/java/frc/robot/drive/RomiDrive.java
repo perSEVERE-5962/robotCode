@@ -23,12 +23,13 @@ public class RomiDrive extends DriveBase {
       new Encoder(Constants.Romi.rightEncoderChannelA, Constants.Romi.rightEncoderChannelB);
 
   RomiDrive() {
-    init(m_leftMotor, m_rightMotor); 
+    init(m_leftMotor, m_rightMotor);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
-    m_rightMotor.setInverted(true);
+    m_leftMotor.setInverted(true);
+
 
     // Use inches as unit for encoder distances
     m_leftEncoder.setDistancePerPulse(
@@ -94,6 +95,12 @@ public class RomiDrive extends DriveBase {
   private double getAverageTurningDistance() {
     double leftDistance = Math.abs(m_leftEncoder.getDistance());
     double rightDistance = Math.abs(m_rightEncoder.getDistance());
-    return (leftDistance + rightDistance) / 2.0;
+    double averageTurnDistance = (leftDistance + rightDistance) / 2.0;
+
+    //adjust the value based on the turn direction 
+    if (m_leftEncoder.getDistance()<0)
+      averageTurnDistance = averageTurnDistance*-1;
+
+    return averageTurnDistance;
   }
 }

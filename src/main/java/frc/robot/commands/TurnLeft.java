@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveTrain;
@@ -19,7 +20,7 @@ public class TurnLeft extends CommandBase {
    */
   public TurnLeft(double degrees) {
     m_driveTrain = RobotContainer.getInstance().getDriveTrain();
-    m_degrees = degrees;
+    m_degrees = degrees*-1;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_driveTrain);
   }
@@ -33,7 +34,7 @@ public class TurnLeft extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.arcadeDrive(0, -0.4);
+    m_driveTrain.arcadeDrive(0, 0.4);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,6 +46,6 @@ public class TurnLeft extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getGyroAngle() > m_degrees;
+    return m_driveTrain.getGyroAngle() < m_degrees;
   }
 }
