@@ -7,9 +7,6 @@
 
 package frc.robot.subsystems;
 
-import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
@@ -18,25 +15,23 @@ public class DriveTrain extends SubsystemBase {
   private DriveInterface m_drive;
   private boolean driveTrainSet = false;
 
-  private final AHRS m_navx = new AHRS(SPI.Port.kMXP); // NavX connected over MXP
-
   public DriveTrain() {}
 
   public void setMotorControllerType(int motorControllerType) {
     if (driveTrainSet == false) {
       DriveFactory driveFactory = new DriveFactory();
-      m_drive = driveFactory.createDrive(motorControllerType, m_navx);
+      m_drive = driveFactory.createDrive(motorControllerType);
       resetEncoders();
       driveTrainSet = true;
     }
   }
 
   public void resetGyro() {
-    m_navx.reset();
+    m_drive.resetGyroAngle();
   }
 
   public double getGyroAngle() {
-    return m_navx.getAngle();
+    return m_drive.getGyroAngle();
   }
 
   public void resetEncoders() {
@@ -58,17 +53,8 @@ public class DriveTrain extends SubsystemBase {
     }
   }
 
-  public void moveDistanceWithPID(double position) {
-    try {
-      m_drive.moveDistanceWithPID(position);
-    } catch (Exception e) {
-      m_drive.stopDrive();
-      SmartDashboard.putString("ERROR MESSAGE", e.getMessage());
-    }
-  }
-
-  public void tankDrive(double leftAxis, double rightAxis) {
-    m_drive.tankDrive(leftAxis, rightAxis);
+  public void arcadeDrive(double speed, double rotation) {
+    m_drive.arcadeDrive(speed, rotation);
   }
 
   public void stopDrive() {

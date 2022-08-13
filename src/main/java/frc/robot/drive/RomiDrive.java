@@ -23,13 +23,21 @@ public class RomiDrive extends DriveBase {
       new Encoder(Constants.Romi.rightEncoderChannelA, Constants.Romi.rightEncoderChannelB);
 
   RomiDrive() {
+    init(m_leftMotor, m_rightMotor);
+
+    // We need to invert one side of the drivetrain so that positive voltages
+    // result in both sides moving forward. Depending on how your robot's
+    // gearbox is constructed, you might have to invert the left side instead.
+    m_leftMotor.setInverted(true);
+
+
     // Use inches as unit for encoder distances
     m_leftEncoder.setDistancePerPulse(
-        (Math.PI * Constants.Romi.kWheelDiameterMeter) / Constants.Romi.kCountsPerRevolution);
+        (Math.PI * Constants.Romi.kWheelDiameterInch) / Constants.Romi.kCountsPerRevolution);
     m_rightEncoder.setDistancePerPulse(
-        (Math.PI * Constants.Romi.kWheelDiameterMeter) / Constants.Romi.kCountsPerRevolution);
+        (Math.PI * Constants.Romi.kWheelDiameterInch) / Constants.Romi.kCountsPerRevolution);
 
-    init(m_leftMotor, m_rightMotor);
+    resetEncoders();
   }
 
   @Override
@@ -66,5 +74,33 @@ public class RomiDrive extends DriveBase {
   @Override
   public void setIdleMode(int idleMode) {
     // Not applicable for Romi
+  }
+
+  @Override
+  public void resetGyroAngle() {
+    resetEncoders(); // the romi uses encoders for turning, not a gyro
+  }
+
+  @Override
+  public double getGyroAngle() {
+    /* Need to convert distance travelled to degrees. The Standard
+       Romi Chassis found here, https://www.pololu.com/category/203/romi-chassis-kits,
+       has a wheel placement diameter (149 mm) - width of the wheel (8 mm) = 141 mm
+       or 5.551 inches. We then take into consideration the width of the tires.
+    */
+    double inchPerDegree = Math.PI * 5.551 / 360;
+    return getAverageTurningDistance() / inchPerDegree;
+  }
+
+  private double getAverageTurningDistance() {
+    double leftDistance = Math.abs(m_leftEncoder.getDistance());
+    double rightDistance = Math.abs(m_rightEncoder.getDistance());
+    double averageTurnDistance = (leftDistance + rightDistance) / 2.0;
+
+    //adjust the value based on the turn direction 
+    if (m_leftEncoder.getDistance()<0)
+      averageTurnDistance = averageTurnDistance*-1;
+
+    return averageTurnDistance;
   }
 }

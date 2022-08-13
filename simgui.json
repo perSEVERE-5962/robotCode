@@ -20,6 +20,7 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
+      "/SmartDashboard/Robot to use": "String Chooser",
       "/SmartDashboard/auto chooser": "String Chooser",
       "/SmartDashboard/drivercontrol": "String Chooser"
     }
@@ -29,12 +30,30 @@
       ".status": {
         "open": true
       },
+      "DriveTrain": {
+        "open": true
+      },
       "Ungrouped": {
+        "DifferentialDrive[1]": {
+          "open": true
+        },
+        "Encoder[0]": {
+          "open": true
+        },
+        "Encoder[1]": {
+          "open": true
+        },
+        "Scheduler": {
+          "open": true
+        },
         "open": true
       },
       "open": true
     },
     "SmartDashboard": {
+      "Robot to use": {
+        "open": true
+      },
       "open": true
     }
   }

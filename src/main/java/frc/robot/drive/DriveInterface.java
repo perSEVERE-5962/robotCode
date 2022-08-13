@@ -73,4 +73,8 @@ public interface DriveInterface {
   void periodic();
 
   public void stopDrive();
+
+  public double getGyroAngle();
+
+  public void resetGyroAngle();
 }
