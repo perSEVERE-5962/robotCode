@@ -4,10 +4,18 @@
 
 package frc.robot;
 
+import java.util.concurrent.Callable;
+
+import ROS_Interface.msgs.LaserScanMsg;
+import ROS_Interface.src.NodeHandle;
+import ROS_Interface.src.Subscriber;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.DriveTrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -18,6 +26,27 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private NodeHandle nh;
+  private Callable<Void> callback;
+  private NetworkTableEntry laser_topic;
+  private DriveTrain m_driveTrain;
+  private boolean processing = false;
+
+  public float getleft(LaserScanMsg msg){
+    for(int i=0; i < msg.ranges_size; ++i){
+      if(!Float.isNaN(msg.ranges[i]))
+        return msg.ranges[i];
+    }
+    return Float.NaN;
+  }
+
+  public float getRight(LaserScanMsg msg){
+    for(int i=msg.ranges_size-1; i > 0; --i){
+      if(!Float.isNaN(msg.ranges[i]))
+        return msg.ranges[i];
+    }
+    return Float.NaN;
+  }
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -28,6 +57,55 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
+
+    // Ignore this for now
+//    callback = new Callable<Void>() {
+//      @Override
+//      public Void call() throws Exception {
+//        laser_scan_callback();
+//        return null;
+//      }
+//    };
+
+
+    //ROS Stuff
+    this.nh = new NodeHandle();
+    Subscriber laser_sub = nh.subscribe("laser_scan", callback);
+
+
+    //Ignore this
+    laser_topic = laser_sub.getTopic();
+    }
+
+  public void laser_scan_callback(){
+    processing = true;
+    //Ignore this
+    byte[] raw_msg = laser_topic.getRaw(new byte[0]);
+    LaserScanMsg msg = new LaserScanMsg(raw_msg);
+
+    float left_value = getleft(msg);
+    SmartDashboard.putNumber("LEFT_VALUE", left_value);
+    float right_value = getRight(msg);
+    SmartDashboard.putNumber("RIGHT_VALUE", right_value);
+
+    float error = Math.abs(left_value - right_value);
+    
+    
+    //MAKE CHANGES HERE!
+    double TOLERANCE = 0.1;
+    if(error < TOLERANCE){
+      SmartDashboard.putString("COMMAND", "STOP");
+      m_driveTrain.stopDrive();
+    }
+    else if(left_value > right_value){
+      SmartDashboard.putString("COMMAND", "TURN1");
+      m_driveTrain.arcadeDrive(0, 0.1);
+    }
+    else if(right_value > left_value){
+      SmartDashboard.putString("COMMAND", "TURN2");
+      m_driveTrain.arcadeDrive(0, 0.1);
+    }
+    processing = false;
   }
 
   /**
@@ -92,9 +170,14 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+    m_robotContainer.setMotorControllerType();
+    m_driveTrain = RobotContainer.getInstance().getDriveTrain();
   }
 
   /** This function is called periodically during test mode. */
   @Override
-  public void testPeriodic() {}
+  public void testPeriodic() {
+    if(!processing)
+      laser_scan_callback();
+  }
 }

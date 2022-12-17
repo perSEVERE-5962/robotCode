@@ -47,13 +47,15 @@
           "open": true
         },
         "open": true
-      },
-      "open": true
+      }
     },
     "SmartDashboard": {
       "Robot to use": {
         "open": true
       },
+      "open": true
+    },
+    "roscore": {
       "open": true
     }
   }
