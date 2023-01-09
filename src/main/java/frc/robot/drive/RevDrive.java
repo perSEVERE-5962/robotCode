@@ -9,7 +9,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import frc.robot.Constants;
-import frc.robot.Constants.CompetitionRobot;
+import frc.robot.Constants.MotorControllerDeviceID;
 
 /** Add your docs here. */
 public class RevDrive extends DriveBase {
@@ -37,12 +37,14 @@ public class RevDrive extends DriveBase {
      * <p>The example below initializes brushless motors with MotorControllerDeviceID. Change these
      * parameters to match your setup
      */
-    m_leftLeadMotor = new CANSparkMax(CompetitionRobot.leftLeadDeviceID, MotorType.kBrushless);
+    m_leftLeadMotor =
+        new CANSparkMax(MotorControllerDeviceID.leftLeadDeviceID, MotorType.kBrushless);
     m_leftFollowerMotor =
-        new CANSparkMax(CompetitionRobot.leftFollowerDeviceID, MotorType.kBrushless);
-    m_rightLeadMotor = new CANSparkMax(CompetitionRobot.rightLeadDeviceID, MotorType.kBrushless);
+        new CANSparkMax(MotorControllerDeviceID.leftFollowerDeviceID, MotorType.kBrushless);
+    m_rightLeadMotor =
+        new CANSparkMax(MotorControllerDeviceID.rightLeadDeviceID, MotorType.kBrushless);
     m_rightFollowerMotor =
-        new CANSparkMax(CompetitionRobot.rightFollowerDeviceID, MotorType.kBrushless);
+        new CANSparkMax(MotorControllerDeviceID.rightFollowerDeviceID, MotorType.kBrushless);
 
     // /**
     // * The RestoreFactoryDefaults method can be used to reset the configuration

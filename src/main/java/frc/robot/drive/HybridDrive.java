@@ -10,7 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-import frc.robot.Constants.CompetitionRobot;
+import frc.robot.Constants.MotorControllerDeviceID;
 
 /**
  * Combination of Neo and CIM motors controlled by the SparkMax The Neo is the "lead" The CIM is the
@@ -39,12 +39,14 @@ public class HybridDrive extends DriveBase {
      * <p>The example below initializes brushless motors with MotorControllerDeviceID. Change these
      * parameters to match your setup
      */
-    m_leftLeadMotor = new CANSparkMax(CompetitionRobot.leftLeadDeviceID, MotorType.kBrushless);
+    m_leftLeadMotor =
+        new CANSparkMax(MotorControllerDeviceID.leftLeadDeviceID, MotorType.kBrushless);
     m_leftFollowerMotor =
-        new CANSparkMax(CompetitionRobot.leftFollowerDeviceID, MotorType.kBrushed);
-    m_rightLeadMotor = new CANSparkMax(CompetitionRobot.rightLeadDeviceID, MotorType.kBrushless);
+        new CANSparkMax(MotorControllerDeviceID.leftFollowerDeviceID, MotorType.kBrushed);
+    m_rightLeadMotor =
+        new CANSparkMax(MotorControllerDeviceID.rightLeadDeviceID, MotorType.kBrushless);
     m_rightFollowerMotor =
-        new CANSparkMax(CompetitionRobot.rightFollowerDeviceID, MotorType.kBrushed);
+        new CANSparkMax(MotorControllerDeviceID.rightFollowerDeviceID, MotorType.kBrushed);
 
     // /**
     // * The RestoreFactoryDefaults method can be used to reset the configuration

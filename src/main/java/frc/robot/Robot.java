@@ -80,17 +80,14 @@ public class Robot extends TimedRobot {
     }
 
     m_robotContainer.setMotorControllerType();
-    m_robotContainer
-        .getDriveTrain()
-        .getDriveInterface()
-        .setIdleMode(Constants.MotorControllerIdleModes.kBrake);
+    m_robotContainer.getDriveTrain().setIdleMode(Constants.MotorControllerIdleModes.kBrake);
 
     Command driveCommand = m_robotContainer.getDriveCommand();
     if (driveCommand != null) {
       driveCommand.schedule();
     }
     double rate = SmartDashboard.getNumber("Ramp Rate", 0);
-    m_robotContainer.getDriveTrain().getDriveInterface().setRampRate(rate);
+    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */

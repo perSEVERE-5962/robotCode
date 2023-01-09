@@ -23,7 +23,7 @@ public class RunTankDrive extends CommandBase {
   public void execute() {
     double x = m_joystick.getRawAxis(5);
     double y = m_joystick.getRawAxis(1);
-    m_driveTrain.getDriveInterface().tankDrive(y, x);
+    m_driveTrain.tankDrive(y, x);
   }
 
   // Make this return true when this Command no longer needs to run execute()

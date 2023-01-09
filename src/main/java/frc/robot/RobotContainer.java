@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,47 +27,30 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain m_driveTrain = new DriveTrain();
   private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  // private final Joystick m_driverController = new Joystick(0);
-  private final XboxController m_driverController = new XboxController(0);
+  private final Joystick m_driverController = new Joystick(0);
 
   private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
   private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_chassisChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_orientationChooser = new SendableChooser<>();
+  private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_chassisChooser.setDefaultOption(
-        "Swerve Chassis", Integer.valueOf(Constants.ChassisType.kSwerve));
-    m_chassisChooser.addOption(
-        "Kit Chassis - Spark Max", Integer.valueOf(Constants.ChassisType.kREV));
-    m_chassisChooser.addOption(
-        "Kit Chassis - Talon SRX/Victor SPX", Integer.valueOf(Constants.ChassisType.kCTRE));
-    m_chassisChooser.addOption(
-        "Kit Chassis - Hybrid", Integer.valueOf(Constants.ChassisType.kHybrid));
-    m_chassisChooser.addOption("Romi Chassis", Integer.valueOf(Constants.ChassisType.kRomi));
-
-    SmartDashboard.putData("Drivetrain Chassis", m_chassisChooser);
+    m_motorControllerChooser.setDefaultOption(
+        "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
+    m_motorControllerChooser.addOption(
+        "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
+    m_motorControllerChooser.addOption(
+        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
+    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
 
     m_driveChooser.setDefaultOption(
-        "Swerve", new SwerveDriveCommand(m_driveTrain, m_driverController));
-    // m_driveChooser.addOption(
-    // "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
-    // m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain,
-    // m_driverController));
-    // m_driveChooser.addOption(
-    // "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
-
-    m_orientationChooser.setDefaultOption(
-        "Driver Oriented Swerve", Integer.valueOf(Constants.DriverOrientation.kDriver));
-    m_orientationChooser.addOption("Field Oriented Swerve", Integer.valueOf(Constants.DriverOrientation.kField));
-
-    SmartDashboard.putData("Swerve Drive Orientation", m_orientationChooser);
-    
-
+        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
+    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
+    m_driveChooser.addOption(
+        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
     SmartDashboard.putData("Driver Control", m_driveChooser);
 
     m_autoChooser.setDefaultOption("default auto", m_autoSequence);
@@ -99,7 +83,8 @@ public class RobotContainer {
   }
 
   public void setMotorControllerType() {
-    m_driveTrain.setMotorControllerType(((Integer) m_chassisChooser.getSelected()).intValue());
+    m_driveTrain.setMotorControllerType(
+        ((Integer) m_motorControllerChooser.getSelected()).intValue());
   }
 
   public DriveTrain getDriveTrain() {

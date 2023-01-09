@@ -26,7 +26,7 @@ public class StopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.getDriveInterface().stopDrive();
+    m_driveTrain.stopDrive();
   }
 
   // Called once the command ends or is interrupted.

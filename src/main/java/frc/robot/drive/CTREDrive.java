@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.Constants;
-import frc.robot.Constants.CompetitionRobot;
+import frc.robot.Constants.MotorControllerDeviceID;
 
 /** Add your docs here. */
 public class CTREDrive extends DriveBase {
@@ -19,10 +19,10 @@ public class CTREDrive extends DriveBase {
   private WPI_VictorSPX m_rightVictor;
 
   CTREDrive() {
-    m_rightTalon = new WPI_TalonSRX(CompetitionRobot.rightLeadDeviceID);
-    m_rightVictor = new WPI_VictorSPX(CompetitionRobot.rightFollowerDeviceID);
-    m_leftTalon = new WPI_TalonSRX(CompetitionRobot.leftLeadDeviceID);
-    m_leftVictor = new WPI_VictorSPX(CompetitionRobot.leftFollowerDeviceID);
+    m_rightTalon = new WPI_TalonSRX(MotorControllerDeviceID.rightLeadDeviceID);
+    m_rightVictor = new WPI_VictorSPX(MotorControllerDeviceID.rightFollowerDeviceID);
+    m_leftTalon = new WPI_TalonSRX(MotorControllerDeviceID.leftLeadDeviceID);
+    m_leftVictor = new WPI_VictorSPX(MotorControllerDeviceID.leftFollowerDeviceID);
     m_leftVictor.follow(m_leftTalon, FollowerType.PercentOutput);
     m_rightVictor.follow(m_rightTalon, FollowerType.PercentOutput);
     m_leftVictor.setInverted(true);
