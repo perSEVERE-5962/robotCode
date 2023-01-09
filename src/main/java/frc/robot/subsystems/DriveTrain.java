@@ -15,23 +15,17 @@ import frc.robot.drive.DriveFactory;
 import frc.robot.drive.DriveInterface;
 
 public class DriveTrain extends SubsystemBase {
-
-  private AHRS m_ahrs = new AHRS(SPI.Port.kMXP);
   private DriveInterface m_drive;
   private boolean driveTrainSet = false;
 
-  public AHRS getGyro() {
-    return m_ahrs;
-  }
+  private final AHRS m_navx = new AHRS(SPI.Port.kMXP); // NavX connected over MXP
 
-  public DriveTrain() {
-    m_ahrs.reset();
-  }
+  public DriveTrain() {}
 
   public void setMotorControllerType(int motorControllerType) {
     if (driveTrainSet == false) {
       DriveFactory driveFactory = new DriveFactory();
-      m_drive = driveFactory.createDrive(motorControllerType);
+      m_drive = driveFactory.createDrive(motorControllerType, m_navx);
       m_drive.resetEncoders();
       driveTrainSet = true;
     }
@@ -47,48 +41,54 @@ public class DriveTrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-
-  }
-
-  public void tankDrive(double leftAxis, double rightAxis) {
-    m_drive.tankDrive(leftAxis, rightAxis);
-  }
-
-  public void arcadeDrive(double leftAxis, double rightAxis) {
-    m_drive.arcadeDrive(leftAxis, rightAxis);
+    if (m_drive != null) {
+      m_drive.periodic();
+    }
   }
 
   public void moveDistanceWithPID(double position) {
     try {
       m_drive.moveDistanceWithPID(position);
     } catch (Exception e) {
-      stopDrive();
+      m_drive.stopDrive();
       SmartDashboard.putString("ERROR MESSAGE", e.getMessage());
     }
   }
 
-  public void stopDrive() {
-    m_drive.tankDrive(0, 0);
+  public DriveInterface getDriveInterface() {
+    return m_drive;
   }
 
-  public void resetGyro() {
-    m_ahrs.reset();
-  }
+  // public void tankDrive(double leftAxis, double rightAxis) {
+  //   m_drive.tankDrive(leftAxis, rightAxis);
+  // }
 
-  public double getGyroAngle() {
-    return m_ahrs.getAngle();
-  }
+  // public void arcadeDrive(double leftAxis, double rightAxis) {
+  //   m_drive.arcadeDrive(leftAxis, rightAxis);
+  // }
 
-  public void resetEncoders() {
-    m_drive.resetEncoders();
-  }
+  // public void stopDrive() {
+  //   m_drive.stopDrive();
+  // }
 
-  public void setRampRate(double rate) {
-    m_drive.setRampRate(rate);
-  }
+  // public void resetGyro() {
+  // m_gyro.resetGyro();
+  // }
 
-  public void setIdleMode(int idleMode) {
-    m_drive.setIdleMode(idleMode);
-  }
+  // public double getGyroAngle() {
+  // return m_gyro.getGyroAngle();
+  // }
+
+  // public void resetEncoders() {
+  //   m_drive.resetEncoders();
+  // }
+
+  // public void setRampRate(double rate) {
+  //   m_drive.setRampRate(rate);
+  // }
+
+  // public void setIdleMode(int idleMode) {
+  //   m_drive.setIdleMode(idleMode);
+  // }
+
 }

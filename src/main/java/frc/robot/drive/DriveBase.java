@@ -7,6 +7,7 @@ package frc.robot.drive;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import frc.robot.Constants;
+import java.util.function.DoubleSupplier;
 
 /** Add your docs here. */
 public abstract class DriveBase implements DriveInterface {
@@ -40,12 +41,30 @@ public abstract class DriveBase implements DriveInterface {
     m_diffDrive.feed();
   }
 
+  @Override
+  public void swerveDrive(
+      DoubleSupplier translationXSupplier,
+      DoubleSupplier translationYSupplier,
+      DoubleSupplier rotationSupplier) {
+    // To be implemented in SwerveDrive
+  }
+
   public double convertPositionToDistance(double position) {
-    return (position / Constants.driveTrainGearRatio) * Math.PI * Constants.driveTrainWheelDiameter;
+    return (position / Constants.CompetitionRobot.kDriveTrainGearRatio)
+        * Math.PI
+        * Constants.CompetitionRobot.kDriveTrainWheelDiameter;
   }
 
   public double convertDistanceToPosition(double distance) {
-    return (distance * Constants.driveTrainGearRatio)
-        / (Math.PI * Constants.driveTrainWheelDiameter);
+    return (distance * Constants.CompetitionRobot.kDriveTrainGearRatio)
+        / (Math.PI * Constants.CompetitionRobot.kDriveTrainWheelDiameter);
+  }
+
+  public void periodic() {
+    // This method will be called once per scheduler run
+  }
+
+  public void stopDrive() {
+    tankDrive(0, 0);
   }
 }

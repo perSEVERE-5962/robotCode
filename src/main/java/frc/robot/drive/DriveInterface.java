@@ -4,6 +4,8 @@
 
 package frc.robot.drive;
 
+import java.util.function.DoubleSupplier;
+
 /** Add your docs here. */
 public interface DriveInterface {
   /**
@@ -33,6 +35,11 @@ public interface DriveInterface {
    *     positive.
    */
   void arcadeDrive(double xSpeed, double zRotation);
+
+  void swerveDrive(
+      DoubleSupplier translationXSupplier,
+      DoubleSupplier translationYSupplier,
+      DoubleSupplier rotationSupplier);
 
   /** reset the encoders */
   void resetEncoders();
@@ -69,4 +76,8 @@ public interface DriveInterface {
   void moveDistanceWithPID(double distance) throws Exception;
 
   void setIdleMode(int idleMode);
+
+  void periodic();
+
+  public void stopDrive();
 }
