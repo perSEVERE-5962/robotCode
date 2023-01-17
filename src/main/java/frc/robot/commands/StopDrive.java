@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class StopDrive extends CommandBase {
-  private final DriveTrain m_driveTrain;
+  private final Drivetrain m_driveTrain;
 
-  public StopDrive(DriveTrain drive) {
+  public StopDrive(Drivetrain drive) {
     m_driveTrain = drive;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);

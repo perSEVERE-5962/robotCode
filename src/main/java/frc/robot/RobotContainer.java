@@ -7,14 +7,22 @@
 
 package frc.robot;
 
+import com.kauailabs.navx.frc.AHRS;
+import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
+import com.swervedrivespecialties.swervelib.SwerveModule;
+
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
-import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.drivetrain.Drivetrain;
+import edu.wpi.first.wpilibj.SPI;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -23,41 +31,80 @@ import frc.robot.subsystems.DriveTrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private final XboxController m_driverController = new XboxController(0);
+  private final XboxController m_copilotController = new XboxController(1);
 
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrain = new DriveTrain();
-  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+  private final Drivetrain m_driveTrain;
+  private Camera m_camera = new Camera();
 
-  private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
-  private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
+
+  private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_motorControllerChooser.setDefaultOption(
-        "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
-    m_motorControllerChooser.addOption(
-        "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    m_motorControllerChooser.addOption(
-        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
-    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
+    m_startPositionChooser.setDefaultOption(
+        "P1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
+    m_startPositionChooser.addOption(
+        "P2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
 
-    m_driveChooser.setDefaultOption(
-        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
-        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
-    SmartDashboard.putData("Driver Control", m_driveChooser);
+        SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
 
-    m_autoChooser.setDefaultOption("default auto", m_autoSequence);
-    // autoChooser.addOption("alternative auto", alternative_auto);
-    SmartDashboard.putData("auto chooser", m_autoChooser);
+    SmartDashboard.putNumber("Camera Brightness", 50);
 
-    SmartDashboard.putNumber("Ramp Rate", 0.5);
+    
+   AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+
+   ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
+
+   SwerveModule frontLeftModule = Mk4iSwerveModuleHelper.createNeo(
+    shuffleboardTab
+            .getLayout("Front Left Module", BuiltInLayouts.kList)
+            .withSize(2, 4)
+            .withPosition(0, 0),
+    Mk4iSwerveModuleHelper.GearRatio.L1,
+    Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
+    Constants.FRONT_LEFT_MODULE_STEER_MOTOR,
+    Constants.FRONT_LEFT_MODULE_STEER_ENCODER,
+    Constants.FRONT_LEFT_MODULE_STEER_OFFSET);
+    SwerveModule frontRightModule = Mk4iSwerveModuleHelper.createNeo(
+    shuffleboardTab
+            .getLayout("Front Right Module", BuiltInLayouts.kList)
+            .withSize(2, 4)
+            .withPosition(2, 0),
+    Mk4iSwerveModuleHelper.GearRatio.L1,
+    Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
+    Constants.FRONT_RIGHT_MODULE_STEER_MOTOR,
+    Constants.FRONT_RIGHT_MODULE_STEER_ENCODER,
+    Constants.FRONT_RIGHT_MODULE_STEER_OFFSET);
+
+    SwerveModule backLeftModule = Mk4iSwerveModuleHelper.createNeo(
+    shuffleboardTab
+            .getLayout("Back Left Module", BuiltInLayouts.kList)
+            .withSize(2, 4)
+            .withPosition(4, 0),
+    Mk4iSwerveModuleHelper.GearRatio.L1,
+    Constants.BACK_LEFT_MODULE_DRIVE_MOTOR,
+    Constants.BACK_LEFT_MODULE_STEER_MOTOR,
+    Constants.BACK_LEFT_MODULE_STEER_ENCODER,
+    Constants.BACK_LEFT_MODULE_STEER_OFFSET);
+
+    SwerveModule backRightModule = Mk4iSwerveModuleHelper.createNeo(
+    shuffleboardTab
+            .getLayout("Back Right Module", BuiltInLayouts.kList)
+            .withSize(2, 4)
+            .withPosition(6, 0),
+    Mk4iSwerveModuleHelper.GearRatio.L1,
+    Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
+    Constants.BACK_RIGHT_MODULE_STEER_MOTOR,
+    Constants.BACK_RIGHT_MODULE_STEER_ENCODER,
+    Constants.BACK_RIGHT_MODULE_STEER_OFFSET);
+
+    m_driveTrain = new Drivetrain(m_gyro, frontLeftModule, frontRightModule, backLeftModule, backRightModule);
+ 
   }
 
   /**
@@ -66,7 +113,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -75,19 +124,31 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (Command) m_autoChooser.getSelected();
+    Command command;
+    int position = m_startPositionChooser.getSelected();
+    if (position == Constants.AutonomousStartPosition.position1) {
+      command = new AutoPos1(m_driveTrain);
+    } else if (position == Constants.AutonomousStartPosition.position2) {
+      command = new AutoPos2(m_driveTrain);
+    } else {
+      command = new StopDrive(m_driveTrain);
+    }
+    return command;
   }
 
-  public Command getDriveCommand() {
-    return (Command) m_driveChooser.getSelected();
+  public Command getTeleopCommand() {
+    return new SwerveDriveCommand(m_driveTrain, m_driverController);
   }
 
-  public void setMotorControllerType() {
-    m_driveTrain.setMotorControllerType(
-        ((Integer) m_motorControllerChooser.getSelected()).intValue());
-  }
-
-  public DriveTrain getDriveTrain() {
+  public Drivetrain getDriveTrain() {
     return m_driveTrain;
+  }
+
+  public void setCameraBrightness(int brightness) {
+    m_camera.setBrightness(brightness);
+  }
+
+  public Camera getCamera() {
+    return m_camera;
   }
 }
