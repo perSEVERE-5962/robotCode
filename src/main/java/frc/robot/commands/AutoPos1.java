@@ -16,7 +16,6 @@ public class AutoPos1 extends SequentialCommandGroup {
   public AutoPos1(Drivetrain driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new StopDrive(driveTrain));
+    addCommands(new StopDrive(driveTrain));
   }
 }

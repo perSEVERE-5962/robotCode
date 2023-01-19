@@ -7,15 +7,15 @@
 
 package frc.robot;
 
-//import com.ctre.phoenix.motorcontrol.MotorCommutation;
+// import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.kauailabs.navx.frc.AHRS;
-//import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
+// import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
 import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
 import com.swervedrivespecialties.swervelib.MotorType;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
-
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -26,15 +26,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
 import frc.robot.subsystems.drivetrain.Drivetrain;
-import edu.wpi.first.wpilibj.SPI;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -47,9 +43,7 @@ public class RobotContainer {
 
   private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
@@ -67,65 +61,73 @@ public class RobotContainer {
 
     ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
 
-    SwerveModule frontLeftModule = new MkSwerveModuleBuilder()
-        .withLayout(shuffleboardTab.getLayout("Front Left Module", BuiltInLayouts.kList)
-            .withSize(2, 4)
-            .withPosition(0, 0))
-        .withGearRatio(SdsModuleConfigurations.MK4_L1)
-        .withDriveMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR)
-        .withSteerMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_STEER_MOTOR)
-        .withSteerEncoderPort(Constants.FRONT_LEFT_MODULE_STEER_ENCODER)
-        .withSteerOffset(Constants.FRONT_LEFT_MODULE_STEER_OFFSET)
-        .build();
+    SwerveModule frontLeftModule =
+        new MkSwerveModuleBuilder()
+            .withLayout(
+                shuffleboardTab
+                    .getLayout("Front Left Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(0, 0))
+            .withGearRatio(SdsModuleConfigurations.MK4_L1)
+            .withDriveMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR)
+            .withSteerMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_STEER_MOTOR)
+            .withSteerEncoderPort(Constants.FRONT_LEFT_MODULE_STEER_ENCODER)
+            .withSteerOffset(Constants.FRONT_LEFT_MODULE_STEER_OFFSET)
+            .build();
 
-    SwerveModule frontRightModule = new MkSwerveModuleBuilder()
-        .withLayout(shuffleboardTab.getLayout("Front Right Module", BuiltInLayouts.kList)
-            .withSize(2, 4)
-            .withPosition(0, 0))
-        .withGearRatio(SdsModuleConfigurations.MK4_L1)
-        .withDriveMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR)
-        .withSteerMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_STEER_MOTOR)
-        .withSteerEncoderPort(Constants.FRONT_RIGHT_MODULE_STEER_ENCODER)
-        .withSteerOffset(Constants.FRONT_RIGHT_MODULE_STEER_OFFSET)
-        .build();
+    SwerveModule frontRightModule =
+        new MkSwerveModuleBuilder()
+            .withLayout(
+                shuffleboardTab
+                    .getLayout("Front Right Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(0, 0))
+            .withGearRatio(SdsModuleConfigurations.MK4_L1)
+            .withDriveMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR)
+            .withSteerMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_STEER_MOTOR)
+            .withSteerEncoderPort(Constants.FRONT_RIGHT_MODULE_STEER_ENCODER)
+            .withSteerOffset(Constants.FRONT_RIGHT_MODULE_STEER_OFFSET)
+            .build();
 
-    SwerveModule backLeftModule = new MkSwerveModuleBuilder()
-        .withLayout(shuffleboardTab.getLayout("Back Left Module", BuiltInLayouts.kList)
-            .withSize(2, 4)
-            .withPosition(0, 0))
-        .withGearRatio(SdsModuleConfigurations.MK4_L1)
-        .withDriveMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_DRIVE_MOTOR)
-        .withSteerMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_STEER_MOTOR)
-        .withSteerEncoderPort(Constants.BACK_LEFT_MODULE_STEER_ENCODER)
-        .withSteerOffset(Constants.BACK_LEFT_MODULE_STEER_OFFSET)
-        .build();
+    SwerveModule backLeftModule =
+        new MkSwerveModuleBuilder()
+            .withLayout(
+                shuffleboardTab
+                    .getLayout("Back Left Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(0, 0))
+            .withGearRatio(SdsModuleConfigurations.MK4_L1)
+            .withDriveMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_DRIVE_MOTOR)
+            .withSteerMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_STEER_MOTOR)
+            .withSteerEncoderPort(Constants.BACK_LEFT_MODULE_STEER_ENCODER)
+            .withSteerOffset(Constants.BACK_LEFT_MODULE_STEER_OFFSET)
+            .build();
 
-    SwerveModule backRightModule = new MkSwerveModuleBuilder()
-        .withLayout(shuffleboardTab.getLayout("Back Right Module", BuiltInLayouts.kList)
-            .withSize(2, 4)
-            .withPosition(0, 0))
-        .withGearRatio(SdsModuleConfigurations.MK4_L1)
-        .withDriveMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR)
-        .withSteerMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_STEER_MOTOR)
-        .withSteerEncoderPort(Constants.BACK_RIGHT_MODULE_STEER_ENCODER)
-        .withSteerOffset(Constants.BACK_RIGHT_MODULE_STEER_OFFSET)
-        .build();
+    SwerveModule backRightModule =
+        new MkSwerveModuleBuilder()
+            .withLayout(
+                shuffleboardTab
+                    .getLayout("Back Right Module", BuiltInLayouts.kList)
+                    .withSize(2, 4)
+                    .withPosition(0, 0))
+            .withGearRatio(SdsModuleConfigurations.MK4_L1)
+            .withDriveMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR)
+            .withSteerMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_STEER_MOTOR)
+            .withSteerEncoderPort(Constants.BACK_RIGHT_MODULE_STEER_ENCODER)
+            .withSteerOffset(Constants.BACK_RIGHT_MODULE_STEER_OFFSET)
+            .build();
 
-    m_driveTrain = new Drivetrain(m_gyro, frontLeftModule, frontRightModule, backLeftModule, backRightModule);
-
+    m_driveTrain =
+        new Drivetrain(m_gyro, frontLeftModule, frontRightModule, backLeftModule, backRightModule);
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
+   * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
-
-  }
+  private void configureButtonBindings() {}
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

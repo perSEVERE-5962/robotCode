@@ -91,9 +91,8 @@ public final class Constants {
       MAX_VELOCITY_METERS_PER_SECOND
           / Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
 
-
   public static final class DriverOrientation {
     public static final int kDriver = 0;
     public static final int kField = 1;
-  }  
+  }
 }
