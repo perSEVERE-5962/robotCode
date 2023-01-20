@@ -43,29 +43,29 @@ public final class Constants {
   public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 10;
   public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 11;
   public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 12;
-  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(310.78);
+  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(170.86);
 
   public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 20;
   public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 21;
   public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 22;
-  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(211.47);
+  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(16);
 
   public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 30;
   public static final int BACK_LEFT_MODULE_STEER_MOTOR = 31;
   public static final int BACK_LEFT_MODULE_STEER_ENCODER = 32;
-  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(87.80);
+  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(13.36);
 
   public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 40;
   public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41;
   public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 42;
-  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(278.13);
+  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(37.27);
   /**
    * The maximum voltage that will be delivered to the drive motors.
    *
    * <p>This can be reduced to cap the robot's maximum speed. Typically, this is useful during
    * initial testing of the robot.
    */
-  public static final double MAX_VOLTAGE = 3; // 12.0;
+  public static final double MAX_VOLTAGE = 12; // 12.0;
 
   /**
    * The maximum velocity of the robot in meters per second.
