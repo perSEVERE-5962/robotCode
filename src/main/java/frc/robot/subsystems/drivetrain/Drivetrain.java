@@ -7,8 +7,6 @@
 
 package frc.robot.subsystems.drivetrain;
 
-import java.util.function.DoubleSupplier;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -21,6 +19,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import java.util.function.DoubleSupplier;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -50,36 +49,35 @@ public class Drivetrain extends SubsystemBase {
 
     m_gyro.reset();
 
-    odometry = new SwerveDriveOdometry(
-        DrivetrainConstants.kKinematics,
-        Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
-        new SwerveModulePosition[] {
-            m_frontLeftModule.getPosition(),
-            m_frontRightModule.getPosition(),
-            m_backLeftModule.getPosition(),
-            m_backRightModule.getPosition()
-        });
+    odometry =
+        new SwerveDriveOdometry(
+            DrivetrainConstants.kKinematics,
+            Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
+            new SwerveModulePosition[] {
+              m_frontLeftModule.getPosition(),
+              m_frontRightModule.getPosition(),
+              m_backLeftModule.getPosition(),
+              m_backRightModule.getPosition()
+            });
 
     ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
     shuffleboardTab.addNumber("Gyroscope Angle", () -> getGyroscopeRotation().getDegrees());
     shuffleboardTab.addNumber("Pose X", () -> odometry.getPoseMeters().getX());
     shuffleboardTab.addNumber("Pose Y", () -> odometry.getPoseMeters().getY());
-
   }
 
   /**
-   * Sets the gyroscope angle to zero. This can be used to set the direction the
-   * robot is currently
+   * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently
    * facing to the 'forwards' direction.
    */
   public void zeroGyroscope() {
     odometry.resetPosition(
         Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
         new SwerveModulePosition[] {
-            m_frontLeftModule.getPosition(),
-            m_frontRightModule.getPosition(),
-            m_backLeftModule.getPosition(),
-            m_backRightModule.getPosition()
+          m_frontLeftModule.getPosition(),
+          m_frontRightModule.getPosition(),
+          m_backLeftModule.getPosition(),
+          m_backRightModule.getPosition()
         },
         new Pose2d(odometry.getPoseMeters().getTranslation(), Rotation2d.fromDegrees(0.0)));
   }
@@ -93,13 +91,14 @@ public class Drivetrain extends SubsystemBase {
     odometry.update(
         Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
         new SwerveModulePosition[] {
-            m_frontLeftModule.getPosition(),
-            m_frontRightModule.getPosition(),
-            m_backLeftModule.getPosition(),
-            m_backRightModule.getPosition()
+          m_frontLeftModule.getPosition(),
+          m_frontRightModule.getPosition(),
+          m_backLeftModule.getPosition(),
+          m_backRightModule.getPosition()
         });
 
-    SwerveModuleState[] states = DrivetrainConstants.kKinematics.toSwerveModuleStates(m_chassisSpeeds);
+    SwerveModuleState[] states =
+        DrivetrainConstants.kKinematics.toSwerveModuleStates(m_chassisSpeeds);
 
     m_frontLeftModule.set(
         states[0].speedMetersPerSecond
@@ -153,5 +152,4 @@ public class Drivetrain extends SubsystemBase {
   public double getGyroAngle() {
     return m_gyro.getAngle();
   }
-
 }
