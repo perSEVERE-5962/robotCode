@@ -28,6 +28,7 @@ public class LineDetector extends SubsystemBase {
     // }
     return false;
   }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

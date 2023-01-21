@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
+import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
@@ -40,7 +41,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain;
   private Camera m_camera = new Camera();
-
+  private LineDetector Line_Detector = new LineDetector();
   private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -136,7 +137,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    Command command = new CrossLine();
+    Command command = new CrossLine(Line_Detector);
     /*int position = m_startPositionChooser.getSelected();
     if (position == Constants.AutonomousStartPosition.position1) {
       command = new AutoPos1(m_driveTrain);
