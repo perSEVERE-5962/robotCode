@@ -23,9 +23,12 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.Pneumatics;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -36,6 +39,10 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 public class RobotContainer {
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_copilotController = new XboxController(1);
+
+  private final Pneumatics m_Pneumatics = new Pneumatics();
+  private final Trigger A = new JoystickButton(m_driverController, 1);
+  private final Trigger B = new JoystickButton(m_driverController, 2);
 
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain;
@@ -81,7 +88,7 @@ public class RobotContainer {
                 shuffleboardTab
                     .getLayout("Front Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
-                    .withPosition(0, 0))
+                    .withPosition(2, 0))
             .withGearRatio(SdsModuleConfigurations.MK4_L1)
             .withDriveMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR)
             .withSteerMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_STEER_MOTOR)
@@ -95,7 +102,7 @@ public class RobotContainer {
                 shuffleboardTab
                     .getLayout("Back Left Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
-                    .withPosition(0, 0))
+                    .withPosition(4, 0))
             .withGearRatio(SdsModuleConfigurations.MK4_L1)
             .withDriveMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_DRIVE_MOTOR)
             .withSteerMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_STEER_MOTOR)
@@ -109,7 +116,7 @@ public class RobotContainer {
                 shuffleboardTab
                     .getLayout("Back Right Module", BuiltInLayouts.kList)
                     .withSize(2, 4)
-                    .withPosition(0, 0))
+                    .withPosition(6, 0))
             .withGearRatio(SdsModuleConfigurations.MK4_L1)
             .withDriveMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR)
             .withSteerMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_STEER_MOTOR)
@@ -127,7 +134,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    A.onTrue(new CloseManipulator(m_Pneumatics));
+    B.onTrue(new OpenManipulator(m_Pneumatics));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
