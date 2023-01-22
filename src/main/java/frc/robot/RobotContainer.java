@@ -147,14 +147,8 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     Command command = new CrossLine();
-    /*int position = m_startPositionChooser.getSelected();
-    if (position == Constants.AutonomousStartPosition.position1) {
-      command = new AutoPos1(m_driveTrain);
-    } else if (position == Constants.AutonomousStartPosition.position2) {
-      command = new AutoPos2(m_driveTrain);
-    } else {
-      command = new StopDrive(m_driveTrain);
-    }*/
+    Command command;
+    command = new AutoDriveForward(0, m_driveTrain);
     return command;
   }
 
