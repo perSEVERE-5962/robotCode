@@ -4,17 +4,16 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
+import java.util.function.DoubleSupplier;
 
 public class Forward extends CommandBase {
   protected Drivetrain m_driveTrain;
   private DoubleSupplier m_zero;
   private DoubleSupplier m_speed;
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
+  // private DoubleSupplier m_translationYSupplier;
+  // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
   public Forward(Drivetrain driveTrain, double speed) {
     m_speed = () -> speed;
@@ -25,9 +24,7 @@ public class Forward extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

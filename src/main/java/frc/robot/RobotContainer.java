@@ -41,7 +41,7 @@ public class RobotContainer {
   private final XboxController m_copilotController = new XboxController(1);
 
   private final Pneumatics m_Pneumatics = new Pneumatics();
-  private final Trigger A = new JoystickButton(m_driverController, 1);
+  private final JoystickButton A = new JoystickButton(m_driverController, 1);
   private final Trigger B = new JoystickButton(m_driverController, 2);
 
   // The robot's subsystems and commands are defined here...
@@ -146,8 +146,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    Command command = new CrossLine();
     Command command;
+    // command = new CrossLine();
     command = new AutoDriveForward(0, m_driveTrain);
     return command;
   }

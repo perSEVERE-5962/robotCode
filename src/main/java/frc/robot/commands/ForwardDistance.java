@@ -4,15 +4,12 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class ForwardDistance extends Forward {
-  
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
+
+  // private DoubleSupplier m_translationYSupplier;
+  // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
   public ForwardDistance(Drivetrain driveTrain, double speed) {
     super(driveTrain, speed);
@@ -22,17 +19,14 @@ public class ForwardDistance extends Forward {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     super.execute();
-    m_driveTrain.
+    // m_driveTrain.
 
-    
   }
 
   // Called once the command ends or is interrupted.

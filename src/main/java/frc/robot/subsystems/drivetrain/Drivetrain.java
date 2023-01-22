@@ -152,8 +152,8 @@ public class Drivetrain extends SubsystemBase {
   public double getGyroAngle() {
     return m_gyro.getAngle();
   }
-  
-  public double getAverageEncoder(){
+
+  public double getAverageEncoder() {
     return 0.0;
   }
 }
