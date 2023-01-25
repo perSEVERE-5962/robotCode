@@ -59,6 +59,9 @@ public final class Constants {
   public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41;
   public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 42;
   public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0);
+
+  public static final float CLIMBING_PITCH = 7.0f;
+  public static final float ENGAGED_PITCH = 2.5f;
   /**
    * The maximum voltage that will be delivered to the drive motors.
    *

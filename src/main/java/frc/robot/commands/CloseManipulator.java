@@ -5,15 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Pneumatics;
+import frc.robot.subsystems.Pneumatics;
 
 public class CloseManipulator extends CommandBase {
   /** Creates a new CloseManipulator. */
   Pneumatics m_Pneumatics;
 
-  public CloseManipulator(Pneumatics m_Pneumatics) {
+  public CloseManipulator(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_Pneumatics = m_Pneumatics;
+    this.m_Pneumatics = pneumatics;
+    addRequirements(pneumatics);
   }
 
   // Called when the command is initially scheduled.
