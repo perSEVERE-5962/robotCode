@@ -13,9 +13,11 @@ public class ForwardDistance extends Forward {
   
   //private DoubleSupplier m_translationYSupplier;
   //private DoubleSupplier m_rotationSupplier;
+ private double m_distance;
   /** Creates a new Forward. */
-  public ForwardDistance(Drivetrain driveTrain, double speed) {
+public ForwardDistance(Drivetrain driveTrain, double speed, double distance){
     super(driveTrain, speed);
+    m_distance= distance;
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -26,22 +28,17 @@ public class ForwardDistance extends Forward {
     
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    super.execute();
-    m_driveTrain.
 
-    
-  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_driveTrain.stopDrive();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_driveTrain.getAverageEncoder()>=m_distance;
   }
 }
