@@ -5,20 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
-import java.util.function.DoubleSupplier;
 
-public class Forward extends CommandBase {
-  protected Drivetrain m_driveTrain;
-  private DoubleSupplier m_zero;
-  private DoubleSupplier m_speed;
-  // private DoubleSupplier m_translationYSupplier;
-  // private DoubleSupplier m_rotationSupplier;
-  /** Creates a new Forward. */
-  public Forward(Drivetrain driveTrain, double speed) {
-    m_speed = () -> speed;
-    m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+public class Drive extends CommandBase {
+  /** Creates a new Drive. */
+  public Drive() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -28,9 +18,7 @@ public class Forward extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_driveTrain.swerveDrive(m_speed, m_zero, m_zero);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -42,3 +30,4 @@ public class Forward extends CommandBase {
     return false;
   }
 }
+  
