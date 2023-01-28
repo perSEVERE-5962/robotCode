@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
@@ -41,10 +41,10 @@ public class RobotContainer {
   private final XboxController m_driverController = new XboxController(0);
   private final Joystick m_copilotController = new Joystick(1);
 
-  private final Pneumatics m_Pneumatics = new Pneumatics();
+  private final Gripper m_Gripper = new Gripper();
   private final Trigger m_ButtonA = new JoystickButton(m_copilotController, 1);
   private final Trigger m_ButtonB = new JoystickButton(m_copilotController, 2);
-  private AHRS m_gyro = new AHRS(SPI.Port.kMXP);
+  // private AHRS m_Gyro = new AHRS(SPI.Port.kMXP);
 
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain;
@@ -137,8 +137,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_ButtonA.onTrue(new CloseManipulator(m_Pneumatics));
-    m_ButtonB.onTrue(new OpenManipulator(m_Pneumatics));
+    m_ButtonA.onTrue(new CloseManipulator(m_Gripper));
+    m_ButtonB.onTrue(new OpenManipulator(m_Gripper));
   }
 
   /**

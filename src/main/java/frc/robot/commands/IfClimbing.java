@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
 public class IfClimbing extends CommandBase {
-  AHRS gyro;
+  AHRS m_Gyro;
   /** Creates a new IfClimbing. */
   public IfClimbing(AHRS gyro) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.gyro = gyro;
+    m_Gyro = gyro;
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +31,6 @@ public class IfClimbing extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return gyro.getPitch() >= Constants.PITCH_CLIMBING;
+    return m_Gyro.getPitch() >= Constants.PITCH_CLIMBING;
   }
 }

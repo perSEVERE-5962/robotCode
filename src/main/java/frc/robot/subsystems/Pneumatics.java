@@ -10,22 +10,24 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pneumatics extends SubsystemBase {
-  private DoubleSolenoid m_dsol1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
-  private DoubleSolenoid m_dsol2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 2, 3);
   private Compressor m_pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
   /** Creates a new Pneumatics. */
   public Pneumatics() {
-    // m_pcmCompressor.enableDigital();
+    m_pcmCompressor.enableDigital();
   }
 
-  public void close() {
-    m_dsol1.set(DoubleSolenoid.Value.kForward);
-    m_dsol2.set(DoubleSolenoid.Value.kForward);
+  public DoubleSolenoid add_double_solenoid(int channel1, int channel2) {
+    DoubleSolenoid new_solenoid =
+        new DoubleSolenoid(PneumaticsModuleType.CTREPCM, channel1, channel2);
+    return new_solenoid;
   }
 
-  public void open() {
-    m_dsol1.set(DoubleSolenoid.Value.kReverse);
-    m_dsol2.set(DoubleSolenoid.Value.kReverse);
+  public void forward(DoubleSolenoid solenoid) {
+    solenoid.set(DoubleSolenoid.Value.kForward);
+  }
+
+  public void backward(DoubleSolenoid solenoid) {
+    solenoid.set(DoubleSolenoid.Value.kReverse);
   }
 
   @Override

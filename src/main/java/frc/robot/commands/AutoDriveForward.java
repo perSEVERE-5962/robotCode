@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class AutoDriveForward extends CommandBase {
-  //private double m_distance;
+  // private double m_distance;
   private Drivetrain m_driveTrain;
   /** Creates a new AutoDriveForward. */
   public AutoDriveForward(double Distance, Drivetrain driveTrain) {
-   // m_distance = Distance;
+    // m_distance = Distance;
     m_driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.''
     addRequirements(driveTrain);

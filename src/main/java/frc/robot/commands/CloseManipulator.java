@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Gripper;
 
 public class CloseManipulator extends CommandBase {
   /** Creates a new CloseManipulator. */
-  Pneumatics pneumatics;
+  Gripper m_Gripper;
 
-  public CloseManipulator(Pneumatics pneumatics) {
+  public CloseManipulator(Gripper gripper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(pneumatics);
+    m_Gripper = gripper;
+    addRequirements(gripper);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +24,7 @@ public class CloseManipulator extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.pneumatics.close();
+    m_Gripper.close();
   }
 
   // Called once the command ends or is interrupted.

@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Gripper;
 
 public class OpenManipulator extends CommandBase {
   /** Creates a new OpenManipulator. */
-  Pneumatics pneumatics;
+  Gripper m_Gripper;
 
-  public OpenManipulator(Pneumatics pneumatics) {
+  public OpenManipulator(Gripper gripper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(pneumatics);
+    m_Gripper = gripper;
+    addRequirements(gripper);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +24,7 @@ public class OpenManipulator extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.pneumatics.open();
+    m_Gripper.open();
   }
 
   // Called once the command ends or is interrupted.
