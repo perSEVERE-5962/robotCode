@@ -4,17 +4,16 @@
 
 package frc.robot.commands;
 
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Pneumatics;
+import frc.robot.Constants;
 
-public class CloseManipulator extends CommandBase {
-  /** Creates a new CloseManipulator. */
-  Pneumatics pneumatics;
-
-  public CloseManipulator(Pneumatics pneumatics) {
+public class IfClimbing extends CommandBase {
+  AHRS gyro;
+  /** Creates a new IfClimbing. */
+  public IfClimbing(AHRS gyro) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(pneumatics);
+    this.gyro = gyro;
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +22,7 @@ public class CloseManipulator extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    this.pneumatics.close();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -34,6 +31,6 @@ public class CloseManipulator extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return gyro.getPitch() >= Constants.PITCH_CLIMBING;
   }
 }

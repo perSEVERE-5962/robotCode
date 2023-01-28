@@ -22,7 +22,7 @@ public class AUTOEngageChargingStation extends SequentialCommandGroup {
      * Stop once the charging station becomes level
      */
     addCommands(
-        new ParallelCommands_Race(driveTrain, gyro), // Drive until pitch changes
+        new GetOnChargingStation(driveTrain, gyro), // Drive until pitch changes
         new StopDrive(driveTrain));
   }
 }

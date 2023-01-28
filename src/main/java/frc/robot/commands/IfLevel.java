@@ -8,14 +8,12 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 
-public class GetGyroPitch extends CommandBase {
+public class IfLevel extends CommandBase {
   AHRS gyro;
-  boolean checkClimbing;
-  /** Creates a new GetGyroPitch. */
-  public GetGyroPitch(AHRS gyro, boolean checkClimbing) {
+  /** Creates a new IfLevel. */
+  public IfLevel(AHRS gyro) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.gyro = gyro;
-    this.checkClimbing = checkClimbing;
   }
 
   // Called when the command is initially scheduled.
@@ -33,9 +31,6 @@ public class GetGyroPitch extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (checkClimbing) {
-      return gyro.getPitch() >= Constants.CLIMBING_PITCH;
-    }
-    return gyro.getPitch() >= Constants.ENGAGED_PITCH;
+    return gyro.getPitch() <= Constants.PITCH_ENGAGED;
   }
 }

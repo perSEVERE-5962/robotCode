@@ -9,11 +9,11 @@ import frc.robot.subsystems.Pneumatics;
 
 public class OpenManipulator extends CommandBase {
   /** Creates a new OpenManipulator. */
-  Pneumatics m_Pneumatics;
+  Pneumatics pneumatics;
 
   public OpenManipulator(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_Pneumatics = pneumatics;
+    this.pneumatics = pneumatics;
     addRequirements(pneumatics);
   }
 
@@ -24,7 +24,7 @@ public class OpenManipulator extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Pneumatics.open();
+    this.pneumatics.open();
   }
 
   // Called once the command ends or is interrupted.
