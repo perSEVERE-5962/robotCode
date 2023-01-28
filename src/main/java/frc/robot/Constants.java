@@ -24,6 +24,13 @@ public final class Constants {
     public static final int kCoast = 1;
   }
 
+  public static final double kForward = 1;
+  public static final double kBackward = -1;
+  public static final double kLeft = -1;
+  public static final double kRight = 1;
+  public static final double kTurnLeft = -1;
+  public static final double kTurnRight = 1;
+
   // Swerve Drive Stuff
   /**
    * The left-to-right distance between the drivetrain wheels
