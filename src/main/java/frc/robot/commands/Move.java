@@ -4,19 +4,20 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.util.function.DoubleSupplier;
 
-public class Forward extends CommandBase {
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.drivetrain.Drivetrain;
+
+public class Move extends CommandBase {
   protected Drivetrain m_driveTrain;
-  private DoubleSupplier m_zero;
-  private DoubleSupplier m_speed;
-  // private DoubleSupplier m_translationYSupplier;
-  // private DoubleSupplier m_rotationSupplier;
+  private DoubleSupplier translationXSupplier;
+  private DoubleSupplier translationYSupplier;
+  private DoubleSupplier rotationSupplier;
+  //private DoubleSupplier m_translationYSupplier;
+  //private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-  public Forward(Drivetrain driveTrain, double speed) {
-    m_speed = () -> speed;
+  public Move(Drivetrain driveTrain, double translationXSupplier, double translationYSupplier, double rotationSupplier) {
     m_driveTrain = driveTrain;
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,12 +25,14 @@ public class Forward extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.swerveDrive(m_speed, m_zero, m_zero);
+    m_driveTrain.swerveDrive(translationXSupplier, translationYSupplier, rotationSupplier);
   }
 
   // Called once the command ends or is interrupted.
