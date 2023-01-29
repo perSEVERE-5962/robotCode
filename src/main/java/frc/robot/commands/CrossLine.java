@@ -13,8 +13,8 @@ public class CrossLine extends CommandBase {
   private LineDetector Line_Detector;
   // private final String red = "Red Value";
   // private final String blue = "Blue Value";
-  public CrossLine() {
-
+  public CrossLine(LineDetector Line_Detector) {
+    this.Line_Detector = Line_Detector;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
