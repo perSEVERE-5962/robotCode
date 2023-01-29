@@ -4,17 +4,16 @@
 
 package frc.robot.commands;
 
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Gripper;
+import frc.robot.Constants;
 
-public class OpenManipulator extends CommandBase {
-  /** Creates a new OpenManipulator. */
-  Gripper m_Gripper;
-
-  public OpenManipulator(Gripper gripper) {
+public class IfLevel extends CommandBase {
+  AHRS m_Gyro;
+  /** Creates a new IfLevel. */
+  public IfLevel(AHRS gyro) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Gripper = gripper;
-    addRequirements(gripper);
+    m_Gyro = gyro;
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +22,7 @@ public class OpenManipulator extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_Gripper.open();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -34,6 +31,6 @@ public class OpenManipulator extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_Gyro.getPitch() <= Constants.PITCH_ENGAGED;
   }
 }

@@ -15,6 +15,7 @@ import com.swervedrivespecialties.swervelib.MotorType;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -28,8 +29,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
 import frc.robot.subsystems.LineDetector;
+import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.drivetrain.Drivetrain;
-import frc.robot.subsystems.drivetrain.Pneumatics;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -39,11 +40,12 @@ import frc.robot.subsystems.drivetrain.Pneumatics;
  */
 public class RobotContainer {
   private final XboxController m_driverController = new XboxController(0);
-  private final XboxController m_copilotController = new XboxController(1);
+  private final Joystick m_copilotController = new Joystick(1);
 
-  private final Pneumatics m_Pneumatics = new Pneumatics();
-  private final JoystickButton A = new JoystickButton(m_driverController, 1);
-  private final Trigger B = new JoystickButton(m_driverController, 2);
+  private final Gripper m_Gripper = new Gripper();
+  private final Trigger m_ButtonA = new JoystickButton(m_copilotController, 1);
+  private final Trigger m_ButtonB = new JoystickButton(m_copilotController, 2);
+  // private AHRS m_Gyro = new AHRS(SPI.Port.kMXP);
 
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain;
@@ -136,8 +138,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    A.onTrue(new CloseManipulator(m_Pneumatics));
-    B.onTrue(new OpenManipulator(m_Pneumatics));
+    m_ButtonA.onTrue(new CloseManipulator(m_Gripper));
+    m_ButtonB.onTrue(new OpenManipulator(m_Gripper));
   }
 
   /**
