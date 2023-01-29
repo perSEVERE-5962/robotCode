@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.sensors.ColorSensor; 
+import frc.robot.sensors.ColorSensor;
 
 public class LineDetector extends SubsystemBase {
   private ColorSensor Color_Sensor;
@@ -14,10 +14,9 @@ public class LineDetector extends SubsystemBase {
   private final String blue = "Blue";
   private final String Working = "Working";
 
-
-  //private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  //private final ColorSensorV3 m_colorSensor_read_rgb_values = new ColorSensorV3(i2cPort);
-  //Color detectedRGB = m_colorSensor_read_rgb_values.getColor();
+  // private final I2C.Port i2cPort = I2C.Port.kOnboard;
+  // private final ColorSensorV3 m_colorSensor_read_rgb_values = new ColorSensorV3(i2cPort);
+  // Color detectedRGB = m_colorSensor_read_rgb_values.getColor();
   /** Creates a new LineDetector2. */
   public LineDetector() {
     Color_Sensor = new ColorSensor();
