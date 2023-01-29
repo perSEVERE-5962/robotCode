@@ -28,8 +28,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
-import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.Gripper;
+import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
