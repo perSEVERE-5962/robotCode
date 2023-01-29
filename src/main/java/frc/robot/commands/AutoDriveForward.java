@@ -12,8 +12,8 @@ public class AutoDriveForward extends CommandBase {
   private double m_distance;
   private Drivetrain m_driveTrain;
   /** Creates a new AutoDriveForward. */
-  public AutoDriveForward(double Distance, Drivetrain driveTrain) {
-    m_distance = Distance;
+  public AutoDriveForward(double distance, Drivetrain driveTrain) {
+    m_distance = distance;
     m_driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.''
     addRequirements(driveTrain);

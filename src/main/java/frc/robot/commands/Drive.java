@@ -4,18 +4,11 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class ForwardDistance extends Forward {
-  
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
- private double m_distance;
-  /** Creates a new Forward. */
-public ForwardDistance(Drivetrain driveTrain, double speed, double distance){
-    super(driveTrain, speed);
-    m_distance= distance;
-    addRequirements(driveTrain);
+public class Drive extends CommandBase {
+  /** Creates a new Drive. */
+  public Drive() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -23,17 +16,18 @@ public ForwardDistance(Drivetrain driveTrain, double speed, double distance){
   @Override
   public void initialize() {}
 
-
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_driveTrain.stopDrive();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getAverageEncoder()>=m_distance;
+    return false;
   }
 }
+  
