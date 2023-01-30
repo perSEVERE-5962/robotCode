@@ -8,26 +8,17 @@
 package frc.robot;
 
 // import com.ctre.phoenix.motorcontrol.MotorCommutation;
-import com.kauailabs.navx.frc.AHRS;
 // import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
-import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
-import com.swervedrivespecialties.swervelib.MotorType;
-import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
-import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
+import frc.robot.sensors.Camera;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -67,68 +58,12 @@ public class RobotContainer {
 
     SmartDashboard.putNumber("Camera Brightness", 50);
 
-    AHRS m_gyro = new AHRS(SPI.Port.kMXP);
-
-    ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
-
-    SwerveModule frontLeftModule =
-        new MkSwerveModuleBuilder()
-            .withLayout(
-                shuffleboardTab
-                    .getLayout("Front Left Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(0, 0))
-            .withGearRatio(SdsModuleConfigurations.MK4_L1)
-            .withDriveMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR)
-            .withSteerMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_STEER_MOTOR)
-            .withSteerEncoderPort(Constants.FRONT_LEFT_MODULE_STEER_ENCODER)
-            .withSteerOffset(Constants.FRONT_LEFT_MODULE_STEER_OFFSET)
-            .build();
-
-    SwerveModule frontRightModule =
-        new MkSwerveModuleBuilder()
-            .withLayout(
-                shuffleboardTab
-                    .getLayout("Front Right Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(2, 0))
-            .withGearRatio(SdsModuleConfigurations.MK4_L1)
-            .withDriveMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR)
-            .withSteerMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_STEER_MOTOR)
-            .withSteerEncoderPort(Constants.FRONT_RIGHT_MODULE_STEER_ENCODER)
-            .withSteerOffset(Constants.FRONT_RIGHT_MODULE_STEER_OFFSET)
-            .build();
-
-    SwerveModule backLeftModule =
-        new MkSwerveModuleBuilder()
-            .withLayout(
-                shuffleboardTab
-                    .getLayout("Back Left Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(4, 0))
-            .withGearRatio(SdsModuleConfigurations.MK4_L1)
-            .withDriveMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_DRIVE_MOTOR)
-            .withSteerMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_STEER_MOTOR)
-            .withSteerEncoderPort(Constants.BACK_LEFT_MODULE_STEER_ENCODER)
-            .withSteerOffset(Constants.BACK_LEFT_MODULE_STEER_OFFSET)
-            .build();
-
-    SwerveModule backRightModule =
-        new MkSwerveModuleBuilder()
-            .withLayout(
-                shuffleboardTab
-                    .getLayout("Back Right Module", BuiltInLayouts.kList)
-                    .withSize(2, 4)
-                    .withPosition(6, 0))
-            .withGearRatio(SdsModuleConfigurations.MK4_L1)
-            .withDriveMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR)
-            .withSteerMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_STEER_MOTOR)
-            .withSteerEncoderPort(Constants.BACK_RIGHT_MODULE_STEER_ENCODER)
-            .withSteerOffset(Constants.BACK_RIGHT_MODULE_STEER_OFFSET)
-            .build();
+    // AHRS m_gyro = new AHRS(SPI.Port.kMXP);
 
     m_driveTrain =
-        new Drivetrain(m_gyro, frontLeftModule, frontRightModule, backLeftModule, backRightModule);
+        // new Drivetrain(m_gyro, frontLeftModule, frontRightModule, backLeftModule,
+        // backRightModule);
+        new Drivetrain();
   }
 
   /**
