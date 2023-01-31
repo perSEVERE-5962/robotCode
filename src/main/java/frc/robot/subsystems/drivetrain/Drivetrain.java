@@ -24,10 +24,10 @@ import java.util.function.DoubleSupplier;
 public class Drivetrain extends SubsystemBase {
 
   // These are our modules. We initialize them in the constructor.
-  private final SwerveModule m_frontLeftModule;
-  private final SwerveModule m_frontRightModule;
-  private final SwerveModule m_backLeftModule;
-  private final SwerveModule m_backRightModule;
+  public final SwerveModule m_frontLeftModule;
+  public final SwerveModule m_frontRightModule;
+  public final SwerveModule m_backLeftModule;
+  public final SwerveModule m_backRightModule;
 
   private AHRS m_gyro;
 
@@ -152,4 +152,15 @@ public class Drivetrain extends SubsystemBase {
   public double getGyroAngle() {
     return m_gyro.getAngle();
   }
+
+  public double getAverageEncoder() {
+    double averagedistance =
+        m_backLeftModule.getDriveDistance()
+            + m_backRightModule.getDriveDistance()
+            + m_frontLeftModule.getDriveDistance()
+            + m_frontRightModule.getDriveDistance();
+    return averagedistance / 4;
+  }
+
+  public void resetEncoder() {}
 }

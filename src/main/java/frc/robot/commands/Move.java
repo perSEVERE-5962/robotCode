@@ -5,21 +5,24 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LinearSlide;
+import frc.robot.subsystems.drivetrain.Drivetrain;
+import java.util.function.DoubleSupplier;
 
-public class VerticalLinearSlide extends CommandBase {
-  /** Creates a new VerticalLinearSlide. */
-  private LinearSlide m_LinearSlide;
-
-  private double m_position;
-
-  public VerticalLinearSlide(LinearSlide linearSlide, double position) {
-    m_LinearSlide = linearSlide;
-    m_position = position;
-    addRequirements(m_LinearSlide);
-  }
-
-  public VerticalLinearSlide() {
+public class Move extends CommandBase {
+  protected Drivetrain m_driveTrain;
+  private DoubleSupplier translationXSupplier;
+  private DoubleSupplier translationYSupplier;
+  private DoubleSupplier rotationSupplier;
+  // private DoubleSupplier m_translationYSupplier;
+  // private DoubleSupplier m_rotationSupplier;
+  /** Creates a new Forward. */
+  public Move(
+      Drivetrain driveTrain,
+      double translationXSupplier,
+      double translationYSupplier,
+      double rotationSupplier) {
+    m_driveTrain = driveTrain;
+    addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -30,7 +33,7 @@ public class VerticalLinearSlide extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_LinearSlide.moveToPositionWithPID(m_position);
+    m_driveTrain.swerveDrive(translationXSupplier, translationYSupplier, rotationSupplier);
   }
 
   // Called once the command ends or is interrupted.
