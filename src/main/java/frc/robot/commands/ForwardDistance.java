@@ -4,19 +4,19 @@
 
 package frc.robot.commands;
 
-
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
-
 public class ForwardDistance extends Move {
-  private double distanceWanted; 
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
+  private double distanceWanted;
+  private double m_InitialDistance;
+  // private DoubleSupplier m_translationYSupplier;
+  // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-  public ForwardDistance(Drivetrain driveTrain, double translationXSupplier , double distanceWanted) {
+  public ForwardDistance(
+      Drivetrain driveTrain, double translationXSupplier, double distanceWanted) {
     super(driveTrain, translationXSupplier, 0, 0);
     this.distanceWanted = distanceWanted;
-    
+
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -24,27 +24,14 @@ public class ForwardDistance extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    m_InitialDistance = m_driveTrain.getAverageEncoder();
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    super.execute();
-    
-
-    
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
+
   @Override
   public boolean isFinished() {
-    if (distanceWanted > m_driveTrain.getAverageEncoder())
-      return true;
+    if (distanceWanted <= (m_driveTrain.getAverageEncoder() - m_InitialDistance)) return true;
 
     return false;
   }

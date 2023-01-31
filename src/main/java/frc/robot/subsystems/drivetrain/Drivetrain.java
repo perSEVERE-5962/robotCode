@@ -49,15 +49,16 @@ public class Drivetrain extends SubsystemBase {
 
     m_gyro.reset();
 
-    odometry = new SwerveDriveOdometry(
-        DrivetrainConstants.kKinematics,
-        Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
-        new SwerveModulePosition[] {
-            m_frontLeftModule.getPosition(),
-            m_frontRightModule.getPosition(),
-            m_backLeftModule.getPosition(),
-            m_backRightModule.getPosition()
-        });
+    odometry =
+        new SwerveDriveOdometry(
+            DrivetrainConstants.kKinematics,
+            Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
+            new SwerveModulePosition[] {
+              m_frontLeftModule.getPosition(),
+              m_frontRightModule.getPosition(),
+              m_backLeftModule.getPosition(),
+              m_backRightModule.getPosition()
+            });
 
     ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
     shuffleboardTab.addNumber("Gyroscope Angle", () -> getGyroscopeRotation().getDegrees());
@@ -66,18 +67,17 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Sets the gyroscope angle to zero. This can be used to set the direction the
-   * robot is currently
+   * Sets the gyroscope angle to zero. This can be used to set the direction the robot is currently
    * facing to the 'forwards' direction.
    */
   public void zeroGyroscope() {
     odometry.resetPosition(
         Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
         new SwerveModulePosition[] {
-            m_frontLeftModule.getPosition(),
-            m_frontRightModule.getPosition(),
-            m_backLeftModule.getPosition(),
-            m_backRightModule.getPosition()
+          m_frontLeftModule.getPosition(),
+          m_frontRightModule.getPosition(),
+          m_backLeftModule.getPosition(),
+          m_backRightModule.getPosition()
         },
         new Pose2d(odometry.getPoseMeters().getTranslation(), Rotation2d.fromDegrees(0.0)));
   }
@@ -91,13 +91,14 @@ public class Drivetrain extends SubsystemBase {
     odometry.update(
         Rotation2d.fromDegrees(m_gyro.getFusedHeading()),
         new SwerveModulePosition[] {
-            m_frontLeftModule.getPosition(),
-            m_frontRightModule.getPosition(),
-            m_backLeftModule.getPosition(),
-            m_backRightModule.getPosition()
+          m_frontLeftModule.getPosition(),
+          m_frontRightModule.getPosition(),
+          m_backLeftModule.getPosition(),
+          m_backRightModule.getPosition()
         });
 
-    SwerveModuleState[] states = DrivetrainConstants.kKinematics.toSwerveModuleStates(m_chassisSpeeds);
+    SwerveModuleState[] states =
+        DrivetrainConstants.kKinematics.toSwerveModuleStates(m_chassisSpeeds);
 
     m_frontLeftModule.set(
         states[0].speedMetersPerSecond
@@ -153,12 +154,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getAverageEncoder() {
-    double averagedistance = m_backLeftModule.getDriveDistance() + m_backRightModule.getDriveDistance()
-        + m_frontLeftModule.getDriveDistance() + m_frontRightModule.getDriveDistance();
-    return averagedistance/4;
+    double averagedistance =
+        m_backLeftModule.getDriveDistance()
+            + m_backRightModule.getDriveDistance()
+            + m_frontLeftModule.getDriveDistance()
+            + m_frontRightModule.getDriveDistance();
+    return averagedistance / 4;
   }
-  public void resetEncoder(){
-    
-  }
-}
 
+  public void resetEncoder() {}
+}

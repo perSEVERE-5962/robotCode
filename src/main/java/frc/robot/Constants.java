@@ -24,13 +24,6 @@ public final class Constants {
     public static final int kCoast = 1;
   }
 
-  public static final double kForward = 1;
-  public static final double kBackward = -1;
-  public static final double kLeft = -1;
-  public static final double kRight = 1;
-  public static final double kTurnLeft = -1;
-  public static final double kTurnRight = 1;
-
   // Swerve Drive Stuff
   /**
    * The left-to-right distance between the drivetrain wheels
@@ -46,6 +39,12 @@ public final class Constants {
   public static final double DRIVETRAIN_WHEELBASE_METERS = 0.632; // 24.875 inches
 
   // public static final int DRIVETRAIN_PIGEON_ID = 0;
+  public static final float Vert1 = 1;
+  public static final float Vert2 = 2;
+  public static final float Vert3 = 3;
+  public static final float Hor1 = 1;
+  public static final float Hor2 = 2;
+  public static final float Hor3 = 3;
 
   public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 10;
   public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 11;
@@ -97,6 +96,20 @@ public final class Constants {
   public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND =
       MAX_VELOCITY_METERS_PER_SECOND
           / Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
+
+  public static final class MotorControllerDeviceID {
+    public static final int LinearSlideDeviceID = 30;
+  }
+
+  public static final class LinearSlidePIDCoefficients {
+    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kIz = 0;
+    public static final double kFF = 0; // 0,
+    public static final double kMaxOutput = 0.5; // raise?
+    public static final double kMinOutput = -0.25; // lower ?
+  }
 
   public static final class DriverOrientation {
     public static final int kDriver = 0;
