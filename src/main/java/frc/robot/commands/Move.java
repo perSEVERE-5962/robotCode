@@ -33,7 +33,7 @@ public class Move extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.swerveDrive(translationXSupplier, translationYSupplier, rotationSupplier);
+    m_driveTrain.drive(translationXSupplier, translationYSupplier, rotationSupplier);
   }
 
   // Called once the command ends or is interrupted.

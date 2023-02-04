@@ -39,7 +39,7 @@ public class RobotContainer {
   // private AHRS m_Gyro = new AHRS(SPI.Port.kMXP);
 
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain m_driveTrain;
+  private final Drivetrain m_driveTrain = new Drivetrain();
   private Camera m_camera = new Camera();
   private LineDetector Line_Detector = new LineDetector();
   private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
@@ -58,12 +58,7 @@ public class RobotContainer {
 
     SmartDashboard.putNumber("Camera Brightness", 50);
 
-    // AHRS m_gyro = new AHRS(SPI.Port.kMXP);
-
-    m_driveTrain =
-        // new Drivetrain(m_gyro, frontLeftModule, frontRightModule, backLeftModule,
-        // backRightModule);
-        new Drivetrain();
+    m_driveTrain.register();
   }
 
   /**
@@ -91,7 +86,7 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand() {
-    return new SwerveDriveCommand(m_driveTrain, m_driverController);
+    return new DriveCommand(m_driveTrain, m_driverController);
   }
 
   public Drivetrain getDriveTrain() {

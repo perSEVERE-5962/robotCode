@@ -69,37 +69,6 @@ public final class Constants {
 
   public static final float PITCH_CLIMBING = 7.0f;
   public static final float PITCH_ENGAGED = 2.5f;
-  /**
-   * The maximum voltage that will be delivered to the drive motors.
-   *
-   * <p>This can be reduced to cap the robot's maximum speed. Typically, this is useful during
-   * initial testing of the robot.
-   */
-  public static final double MAX_VOLTAGE = 12; // 12.0;
-
-  /**
-   * The maximum velocity of the robot in meters per second.
-   *
-   * <p>This is a measure of how fast the robot should be able to drive in a straight line.
-   */
-  public static final double MAX_VELOCITY_METERS_PER_SECOND =
-      5880.0
-          / 60.0
-          / ((14.0 / 50.0)
-              * (25.0 / 19.0)
-              * (15.0 / 45.0)) // SdsModuleConfigurations.MK4I_L1.getDriveReduction()
-          * 0.10033 // SdsModuleConfigurations.MK4I_L1.getWheelDiameter()
-          * Math.PI;
-  /**
-   * The maximum angular velocity of the robot in radians per second.
-   *
-   * <p>This is a measure of how fast the robot can rotate in place.
-   */
-  // Here we calculate the theoretical maximum angular velocity. You can also
-  // replace this with a measured amount.
-  public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND =
-      MAX_VELOCITY_METERS_PER_SECOND
-          / Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
 
   public static final class DriverOrientation {
     public static final int kDriver = 0;
