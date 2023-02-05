@@ -23,6 +23,6 @@ public class AUTOEngageChargingStation extends SequentialCommandGroup {
      */
     addCommands(
         new GetOnChargingStation(driveTrain, gyro), // Drive until pitch changes
-        new StopDrive(driveTrain));
+        new StayEngaged(driveTrain));
   }
 }

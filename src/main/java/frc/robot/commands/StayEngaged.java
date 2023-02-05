@@ -32,6 +32,7 @@ public class StayEngaged extends PIDCommand {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // Need to somehow detect if autonomous has ended in order to finish this command.
     return false;
   }
 }
