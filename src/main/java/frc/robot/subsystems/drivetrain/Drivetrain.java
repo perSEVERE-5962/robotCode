@@ -249,4 +249,13 @@ public class Drivetrain extends SubsystemBase {
   }
 
   //  public void resetEncoder() {}
+
+  public double getAveragePositionMeters() {
+    double averagePositionMeters =
+      m_backLeftModule.getPosition().distanceMeters +
+      m_backRightModule.getPosition().distanceMeters +
+      m_frontLeftModule.getPosition().distanceMeters +
+      m_frontRightModule.getPosition().distanceMeters;
+    return averagePositionMeters / 4;
+  }
 }
