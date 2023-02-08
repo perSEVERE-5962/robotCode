@@ -203,24 +203,8 @@ public class Drivetrain extends SubsystemBase {
         states[3].angle.getRadians());
   }
 
-  public void drive(
-      DoubleSupplier translationXSupplier,
-      DoubleSupplier translationYSupplier,
-      DoubleSupplier rotationSupplier) {
-    /** Driver Oriented */
-    new ChassisSpeeds(
-        translationXSupplier.getAsDouble(),
-        translationYSupplier.getAsDouble(),
-        rotationSupplier.getAsDouble());
-    /** Field Oriented */
-    // ChassisSpeeds.fromFieldRelativeSpeeds(
-    // translationXPercent * MAX_VELOCITY_METERS_PER_SECOND,
-    // translationYPercent * MAX_VELOCITY_METERS_PER_SECOND,
-    // rotationPercent *
-    // MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
-    // getRotation()
-    // )
-
+  public void drive(ChassisSpeeds chassisSpeeds) {
+    m_chassisSpeeds = chassisSpeeds;
   }
 
   public void stopDrive() {

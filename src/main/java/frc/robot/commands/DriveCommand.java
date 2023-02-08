@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -12,22 +13,20 @@ import java.util.function.DoubleSupplier;
 public class DriveCommand extends CommandBase {
 
   private final Drivetrain m_driveTrain;
-  private final XboxController m_joystick;
   private DoubleSupplier m_translationXSupplier;
   private DoubleSupplier m_translationYSupplier;
   private DoubleSupplier m_rotationSupplier;
 
   /** Creates a new SwerveDriveCommand. */
-  public DriveCommand(Drivetrain driveTrain, XboxController joystick) {
-    m_joystick = joystick;
+  public DriveCommand(Drivetrain driveTrain,
+      DoubleSupplier translationXSupplier,
+      DoubleSupplier translationYSupplier,
+      DoubleSupplier rotationSupplier) {
     m_driveTrain = driveTrain;
 
-    m_translationXSupplier =
-        () -> -modifyAxis(m_joystick.getLeftY()); // * Constants.MAX_VELOCITY_METERS_PER_SECOND;
-    m_translationYSupplier =
-        () -> -modifyAxis(m_joystick.getLeftX()); // * Constants.MAX_VELOCITY_METERS_PER_SECOND;
-    m_rotationSupplier = () -> -modifyAxis(m_joystick.getRightX()); // *
-    // Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
+    m_translationXSupplier = translationXSupplier;
+    m_translationYSupplier = translationYSupplier;
+    m_rotationSupplier = rotationSupplier;
 
     addRequirements(driveTrain);
   }
@@ -35,34 +34,28 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.drive(m_translationXSupplier, m_translationYSupplier, m_rotationSupplier);
+    m_driveTrain.drive(
+        /** Driver Oriented */
+        new ChassisSpeeds(
+            m_translationXSupplier.getAsDouble(),
+            m_translationYSupplier.getAsDouble(),
+            m_rotationSupplier.getAsDouble())
+    /** Field Oriented */
+    // ChassisSpeeds.fromFieldRelativeSpeeds(
+    // translationXPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+    // translationYPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+    // rotationPercent *
+    // DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
+    // drivetrain.getRotation()
+    // )
+    );
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_driveTrain.stopDrive();
+    // Stop the drivetrain
+    m_driveTrain.drive(new ChassisSpeeds(0.0, 0.0, 0.0));
   }
 
-  private static double deadband(double value, double deadband) {
-    if (Math.abs(value) > deadband) {
-      if (value > 0.0) {
-        return (value - deadband) / (1.0 - deadband);
-      } else {
-        return (value + deadband) / (1.0 - deadband);
-      }
-    } else {
-      return 0.0;
-    }
-  }
-
-  private static double modifyAxis(double value) {
-    // Deadband
-    value = deadband(value, 0.05);
-
-    // Square the axis
-    value = Math.copySign(value * value, value);
-
-    return value;
-  }
 }

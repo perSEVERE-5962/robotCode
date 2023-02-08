@@ -24,9 +24,12 @@ import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
@@ -44,8 +47,19 @@ public class RobotContainer {
   private LineDetector Line_Detector = new LineDetector();
   private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
+    m_driveTrain.register();
+
+    m_driveTrain.setDefaultCommand(new DriveCommand(
+      m_driveTrain,
+            () -> -modifyAxis(m_driverController.getLeftY()), // Axes are flipped here on purpose
+            () -> -modifyAxis(m_driverController.getLeftX()),
+            () -> -modifyAxis(m_driverController.getRightX())
+    ));
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -57,14 +71,14 @@ public class RobotContainer {
     SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
-
-    m_driveTrain.register();
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
@@ -85,10 +99,6 @@ public class RobotContainer {
     return command;
   }
 
-  public Command getTeleopCommand() {
-    return new DriveCommand(m_driveTrain, m_driverController);
-  }
-
   public Drivetrain getDriveTrain() {
     return m_driveTrain;
   }
@@ -99,5 +109,27 @@ public class RobotContainer {
 
   public Camera getCamera() {
     return m_camera;
+  }
+
+  private static double deadband(double value, double deadband) {
+    if (Math.abs(value) > deadband) {
+      if (value > 0.0) {
+        return (value - deadband) / (1.0 - deadband);
+      } else {
+        return (value + deadband) / (1.0 - deadband);
+      }
+    } else {
+      return 0.0;
+    }
+  }
+
+  private static double modifyAxis(double value) {
+    // Deadband
+    value = deadband(value, 0.05);
+
+    // Square the axis
+    value = Math.copySign(value * value, value);
+
+    return value;
   }
 }
