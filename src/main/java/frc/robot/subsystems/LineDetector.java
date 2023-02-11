@@ -28,6 +28,7 @@ public class LineDetector extends SubsystemBase {
     SmartDashboard.putString("Hex Value", Color_Sensor.getHex().toString());
     if (Color_Sensor.getColor() == red || Color_Sensor.getColor() == blue) {
       SmartDashboard.putString("Testing_for_Color", Working);
+      return true;
     }
     // replace blue and red strings with the value as strings
     // robot.stop();
