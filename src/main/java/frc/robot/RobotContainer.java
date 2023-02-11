@@ -89,8 +89,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    Command command =
-        new AUTO_LeaveCommunityAndEngage(m_driveTrain, m_lineDetector, m_driveTrain.getGyro());
+    Command command = new AUTO_LeaveCommunityAndEngage(m_driveTrain, m_lineDetector);
     // command = new CrossLine();
     // command = new AutoDriveForward(0, m_driveTrain);
     return command;
