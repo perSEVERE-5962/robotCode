@@ -134,11 +134,7 @@ public class Drivetrain extends SubsystemBase {
             .build();
 
     m_gyro.reset();
-
-    ((CANSparkMax) m_frontLeftModule.getDriveMotor()).getEncoder().setPosition(0);
-    ((CANSparkMax) m_frontRightModule.getDriveMotor()).getEncoder().setPosition(0);
-    ((CANSparkMax) m_backLeftModule.getDriveMotor()).getEncoder().setPosition(0);
-    ((CANSparkMax) m_backRightModule.getDriveMotor()).getEncoder().setPosition(0);
+    resetEncoder();
 
     m_odometry =
         new SwerveDriveOdometry(
@@ -232,17 +228,23 @@ public class Drivetrain extends SubsystemBase {
   public double getAverageEncoder() {
     double averagedistance =
         Math.abs(m_backLeftModule.getDriveDistance())
-            +  Math.abs(m_backRightModule.getDriveDistance())
-            +  Math.abs(m_frontLeftModule.getDriveDistance())
-            +  Math.abs(m_frontRightModule.getDriveDistance());
-            SmartDashboard.putNumber("Front Left Encoder",  Math.abs(m_frontLeftModule.getDriveDistance()));
-            SmartDashboard.putNumber("Front Right Encoder", Math.abs( m_frontRightModule.getDriveDistance()));
-            SmartDashboard.putNumber("Back Left Encoder", Math.abs( m_backLeftModule.getDriveDistance()));
-            SmartDashboard.putNumber("Back Right Encoder",  Math.abs(m_backRightModule.getDriveDistance()));
+            + Math.abs(m_backRightModule.getDriveDistance())
+            + Math.abs(m_frontLeftModule.getDriveDistance())
+            + Math.abs(m_frontRightModule.getDriveDistance());
+    SmartDashboard.putNumber("Front Left Encoder", Math.abs(m_frontLeftModule.getDriveDistance()));
+    SmartDashboard.putNumber(
+        "Front Right Encoder", Math.abs(m_frontRightModule.getDriveDistance()));
+    SmartDashboard.putNumber("Back Left Encoder", Math.abs(m_backLeftModule.getDriveDistance()));
+    SmartDashboard.putNumber("Back Right Encoder", Math.abs(m_backRightModule.getDriveDistance()));
     return averagedistance / 4;
   }
 
-  // public void resetEncoder() {}
+  public void resetEncoder() {
+    ((CANSparkMax) m_frontLeftModule.getDriveMotor()).getEncoder().setPosition(0);
+    ((CANSparkMax) m_frontRightModule.getDriveMotor()).getEncoder().setPosition(0);
+    ((CANSparkMax) m_backLeftModule.getDriveMotor()).getEncoder().setPosition(0);
+    ((CANSparkMax) m_backRightModule.getDriveMotor()).getEncoder().setPosition(0);
+  }
 
   public double getAveragePositionMeters() {
     double averagePositionMeters =

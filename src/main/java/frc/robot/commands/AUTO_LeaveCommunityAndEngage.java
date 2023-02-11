@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import com.kauailabs.navx.frc.AHRS;
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.drivetrain.Drivetrain;

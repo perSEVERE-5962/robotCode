@@ -14,9 +14,9 @@ public class ForwardDistance extends Move {
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
   public ForwardDistance(
-      Drivetrain driveTrain, double translationXSupplier, double distanceWanted) {
+      Drivetrain driveTrain, double translationXSupplier, double distanceWantedMeters) {
     super(driveTrain, translationXSupplier, 0, 0);
-    this.distanceWanted = distanceWanted;
+    this.distanceWanted = distanceWantedMeters;
 
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
