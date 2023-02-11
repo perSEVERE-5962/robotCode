@@ -253,7 +253,7 @@ public class Drivetrain extends SubsystemBase {
     return averagePositionMeters / 4;
   }
 
-  public AHRS getGyro() {
-    return m_gyro;
+  public double getPitch() {
+    return m_gyro.getPitch();
   }
 }

@@ -7,13 +7,14 @@ package frc.robot.commands;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class IfClimbing extends CommandBase {
-  AHRS m_Gyro;
+  Drivetrain m_Drivetrain;
   /** Creates a new IfClimbing. */
-  public IfClimbing(AHRS gyro) {
+  public IfClimbing(Drivetrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Gyro = gyro;
+    m_Drivetrain = driveTrain;
   }
 
   // Called when the command is initially scheduled.
@@ -31,6 +32,6 @@ public class IfClimbing extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_Gyro.getPitch() >= Constants.PITCH_CLIMBING;
+    return m_Drivetrain.getPitch() >= Constants.PITCH_CLIMBING;
   }
 }

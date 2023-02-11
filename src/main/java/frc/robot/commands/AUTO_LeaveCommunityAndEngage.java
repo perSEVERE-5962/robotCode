@@ -14,7 +14,7 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AUTO_LeaveCommunityAndEngage extends SequentialCommandGroup {
   /** Creates a new GroupSeqCom_MovePastLineAndBack. */
-  public AUTO_LeaveCommunityAndEngage(Drivetrain drivetrain, LineDetector lineDetector, AHRS gyro) {
+  public AUTO_LeaveCommunityAndEngage(Drivetrain drivetrain, LineDetector lineDetector) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

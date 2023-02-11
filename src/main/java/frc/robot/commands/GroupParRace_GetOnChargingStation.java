@@ -13,9 +13,9 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GroupParRace_GetOnChargingStation extends ParallelRaceGroup {
   /** Creates a new GetOnChargingStation. */
-  public GroupParRace_GetOnChargingStation(Drivetrain driveTrain, AHRS gyro) {
+  public GroupParRace_GetOnChargingStation(Drivetrain driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Move(driveTrain, -1, 0, 0), new GroupSeqCom_CheckIfEngaged(gyro));
+    addCommands(new Move(driveTrain, -1, 0, 0), new GroupSeqCom_CheckIfEngaged(driveTrain));
   }
 }

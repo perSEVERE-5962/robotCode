@@ -13,7 +13,7 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 public class GroupSeqCom_EngageChargingStation extends SequentialCommandGroup {
 
   /** Creates a new EngageChargingStation. */
-  public GroupSeqCom_EngageChargingStation(Drivetrain driveTrain, AHRS gyro) {
+  public GroupSeqCom_EngageChargingStation(Drivetrain driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     /*
@@ -22,7 +22,7 @@ public class GroupSeqCom_EngageChargingStation extends SequentialCommandGroup {
      * Stop once the charging station becomes level
      */
     addCommands(
-        new GroupParRace_GetOnChargingStation(driveTrain, gyro), // Drive until pitch changes
+        new GroupParRace_GetOnChargingStation(driveTrain), // Drive until pitch changes
         // new StayEngaged(driveTrain),
         new StopDrive(driveTrain));
   }
