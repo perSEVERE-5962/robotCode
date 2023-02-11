@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import javax.swing.text.Position;
+
 // import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.kauailabs.navx.frc.AHRS;
 // import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
@@ -23,8 +25,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.lib.team5962.camera.Camera;
 import frc.robot.commands.*;
+import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
@@ -34,13 +38,14 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private static final LinearSlide Position = null;
+  private static final LinearSlide LinearSlide = null;
   private final XboxController m_driverController = new XboxController(0);
   private final XboxController m_copilotController = new XboxController(1);
 
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain;
   private Camera m_camera = new Camera();
-
   private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
