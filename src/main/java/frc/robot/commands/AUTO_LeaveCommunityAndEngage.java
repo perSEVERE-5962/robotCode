@@ -20,7 +20,8 @@ public class AUTO_LeaveCommunityAndEngage extends SequentialCommandGroup {
     addCommands(
         new GroupParRace_MoveToLine(drivetrain, lineDetector),
         new ForwardDistance(
-            drivetrain, -1, 10 /* Unknown so far */), // Moves foward fully past the line
-        new GroupSeqCom_EngageChargingStation(drivetrain, gyro));
+            drivetrain, 0.5, 1 /* Unknown so far */) // Moves foward fully past the line
+        // new GroupSeqCom_EngageChargingStation(drivetrain, gyro));
+        );
   }
 }

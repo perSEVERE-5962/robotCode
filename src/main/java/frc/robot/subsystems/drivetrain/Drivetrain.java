@@ -8,6 +8,7 @@
 package frc.robot.subsystems.drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.revrobotics.CANSparkMax;
 import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
 import com.swervedrivespecialties.swervelib.MotorType;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -131,7 +133,12 @@ public class Drivetrain extends SubsystemBase {
             .withSteerOffset(Constants.BACK_RIGHT_MODULE_STEER_OFFSET)
             .build();
 
-    // m_gyro.reset();
+    m_gyro.reset();
+
+    ((CANSparkMax) m_frontLeftModule.getDriveMotor()).getEncoder().setPosition(0);
+    ((CANSparkMax) m_frontRightModule.getDriveMotor()).getEncoder().setPosition(0);
+    ((CANSparkMax) m_backLeftModule.getDriveMotor()).getEncoder().setPosition(0);
+    ((CANSparkMax) m_backRightModule.getDriveMotor()).getEncoder().setPosition(0);
 
     m_odometry =
         new SwerveDriveOdometry(
@@ -211,11 +218,11 @@ public class Drivetrain extends SubsystemBase {
   }
 
   // public void resetGyro() {
-  //   m_gyro.reset();
+  // m_gyro.reset();
   // }
 
   // public double getGyroAngle() {
-  //   return m_gyro.getAngle();
+  // return m_gyro.getAngle();
   // }
 
   private double getInvertedYaw() {
@@ -224,14 +231,18 @@ public class Drivetrain extends SubsystemBase {
 
   public double getAverageEncoder() {
     double averagedistance =
-        m_backLeftModule.getDriveDistance()
-            + m_backRightModule.getDriveDistance()
-            + m_frontLeftModule.getDriveDistance()
-            + m_frontRightModule.getDriveDistance();
+        Math.abs(m_backLeftModule.getDriveDistance())
+            +  Math.abs(m_backRightModule.getDriveDistance())
+            +  Math.abs(m_frontLeftModule.getDriveDistance())
+            +  Math.abs(m_frontRightModule.getDriveDistance());
+            SmartDashboard.putNumber("Front Left Encoder",  Math.abs(m_frontLeftModule.getDriveDistance()));
+            SmartDashboard.putNumber("Front Right Encoder", Math.abs( m_frontRightModule.getDriveDistance()));
+            SmartDashboard.putNumber("Back Left Encoder", Math.abs( m_backLeftModule.getDriveDistance()));
+            SmartDashboard.putNumber("Back Right Encoder",  Math.abs(m_backRightModule.getDriveDistance()));
     return averagedistance / 4;
   }
 
-  //  public void resetEncoder() {}
+  // public void resetEncoder() {}
 
   public double getAveragePositionMeters() {
     double averagePositionMeters =
@@ -240,5 +251,9 @@ public class Drivetrain extends SubsystemBase {
             + m_frontLeftModule.getPosition().distanceMeters
             + m_frontRightModule.getPosition().distanceMeters;
     return averagePositionMeters / 4;
+  }
+
+  public AHRS getGyro() {
+    return m_gyro;
   }
 }

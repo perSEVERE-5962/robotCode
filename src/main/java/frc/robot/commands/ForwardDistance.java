@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class ForwardDistance extends Move {
@@ -25,10 +26,12 @@ public class ForwardDistance extends Move {
   @Override
   public void initialize() {
     m_InitialDistance = m_driveTrain.getAverageEncoder();
+    SmartDashboard.putNumber("Initial Encoder Avg", m_driveTrain.getAverageEncoder());
   }
 
   @Override
   public boolean isFinished() {
+    SmartDashboard.putNumber("Current Encoder Avg", m_driveTrain.getAverageEncoder());
     if (distanceWanted <= (m_driveTrain.getAverageEncoder() - m_InitialDistance)) return true;
 
     return false;

@@ -44,7 +44,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain = new Drivetrain();
   private Camera m_camera = new Camera();
-  private LineDetector Line_Detector = new LineDetector();
+  private LineDetector m_lineDetector = new LineDetector();
   private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -89,7 +89,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    Command command = new CrossLine(Line_Detector);
+    Command command =
+        new AUTO_LeaveCommunityAndEngage(m_driveTrain, m_lineDetector, m_driveTrain.getGyro());
     // command = new CrossLine();
     // command = new AutoDriveForward(0, m_driveTrain);
     return command;

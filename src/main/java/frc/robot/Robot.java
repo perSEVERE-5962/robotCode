@@ -29,11 +29,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-    SmartDashboard.putNumber("Front-Right Offset", Constants.FRONT_RIGHT_MODULE_STEER_OFFSET);
-    SmartDashboard.putNumber("Front-Left Offset", Constants.FRONT_LEFT_MODULE_STEER_OFFSET);
-    SmartDashboard.putNumber("Back-Right Offset", Constants.BACK_RIGHT_MODULE_STEER_OFFSET);
-    SmartDashboard.putNumber("Back-Left Offset", Constants.BACK_LEFT_MODULE_STEER_OFFSET);
   }
 
   /**
@@ -52,11 +47,6 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
 
     // SmartDashboard.putNumber("Gyro Angle", m_robotContainer.getDriveTrain().getGyroAngle());
-
-    Constants.FRONT_RIGHT_MODULE_STEER_OFFSET = SmartDashboard.getNumber("Front-Right Offset", 0.0);
-    Constants.FRONT_LEFT_MODULE_STEER_OFFSET = SmartDashboard.getNumber("Front-Left Offset", 0.0);
-    Constants.BACK_RIGHT_MODULE_STEER_OFFSET = SmartDashboard.getNumber("Back-Right Offset", 0.0);
-    Constants.BACK_LEFT_MODULE_STEER_OFFSET = SmartDashboard.getNumber("Back-Left Offset", 0.0);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
