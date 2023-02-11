@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import javax.swing.text.Position;
+
 // import com.ctre.phoenix.motorcontrol.MotorCommutation;
 // import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -21,6 +23,7 @@ import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.LineDetector;
+import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
@@ -33,6 +36,8 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private static final LinearSlide Position = null;
+  private static final LinearSlide LinearSlide = null;
   private final XboxController m_driverController = new XboxController(0);
   private final Joystick m_copilotController = new Joystick(1);
 

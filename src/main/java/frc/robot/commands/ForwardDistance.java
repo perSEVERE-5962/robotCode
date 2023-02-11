@@ -27,7 +27,6 @@ public class ForwardDistance extends Move {
     m_InitialDistance = m_driveTrain.getAverageEncoder();
   }
 
-
   @Override
   public boolean isFinished() {
     if (distanceWanted <= (m_driveTrain.getAverageEncoder() - m_InitialDistance)) return true;
