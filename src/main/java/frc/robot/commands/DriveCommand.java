@@ -6,11 +6,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.util.function.DoubleSupplier;
 
-public class SwerveDriveCommand extends CommandBase {
+public class DriveCommand extends CommandBase {
 
   private final Drivetrain m_driveTrain;
   private final XboxController m_joystick;
@@ -19,41 +18,30 @@ public class SwerveDriveCommand extends CommandBase {
   private DoubleSupplier m_rotationSupplier;
 
   /** Creates a new SwerveDriveCommand. */
-  public SwerveDriveCommand(Drivetrain driveTrain, XboxController joystick) {
+  public DriveCommand(Drivetrain driveTrain, XboxController joystick) {
     m_joystick = joystick;
     m_driveTrain = driveTrain;
 
     m_translationXSupplier =
-        () -> -modifyAxis(m_joystick.getLeftY()) * Constants.MAX_VELOCITY_METERS_PER_SECOND;
+        () -> -modifyAxis(m_joystick.getLeftY()); // * Constants.MAX_VELOCITY_METERS_PER_SECOND;
     m_translationYSupplier =
-        () -> -modifyAxis(m_joystick.getLeftX()) * Constants.MAX_VELOCITY_METERS_PER_SECOND;
-    m_rotationSupplier =
-        () ->
-            -modifyAxis(m_joystick.getRightX()) * Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
+        () -> -modifyAxis(m_joystick.getLeftX()); // * Constants.MAX_VELOCITY_METERS_PER_SECOND;
+    m_rotationSupplier = () -> -modifyAxis(m_joystick.getRightX()); // *
+    // Constants.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND;
 
     addRequirements(driveTrain);
   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.swerveDrive(m_translationXSupplier, m_translationYSupplier, m_rotationSupplier);
+    m_driveTrain.drive(m_translationXSupplier, m_translationYSupplier, m_rotationSupplier);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_driveTrain.stopDrive();
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
   }
 
   private static double deadband(double value, double deadband) {

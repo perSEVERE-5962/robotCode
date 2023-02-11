@@ -49,53 +49,25 @@ public final class Constants {
   public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 10;
   public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 11;
   public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 12;
-  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(170.86);
+  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(0);
 
   public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 20;
   public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 21;
   public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 22;
-  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(16);
+  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0);
 
   public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 30;
   public static final int BACK_LEFT_MODULE_STEER_MOTOR = 31;
   public static final int BACK_LEFT_MODULE_STEER_ENCODER = 32;
-  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(13.36);
+  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(0);
 
   public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 40;
   public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41;
   public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 42;
-  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(37.27);
-  /**
-   * The maximum voltage that will be delivered to the drive motors.
-   *
-   * <p>This can be reduced to cap the robot's maximum speed. Typically, this is useful during
-   * initial testing of the robot.
-   */
-  public static final double MAX_VOLTAGE = 12; // 12.0;
+  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0);
 
-  /**
-   * The maximum velocity of the robot in meters per second.
-   *
-   * <p>This is a measure of how fast the robot should be able to drive in a straight line.
-   */
-  public static final double MAX_VELOCITY_METERS_PER_SECOND =
-      5880.0
-          / 60.0
-          / ((14.0 / 50.0)
-              * (25.0 / 19.0)
-              * (15.0 / 45.0)) // SdsModuleConfigurations.MK4I_L1.getDriveReduction()
-          * 0.10033 // SdsModuleConfigurations.MK4I_L1.getWheelDiameter()
-          * Math.PI;
-  /**
-   * The maximum angular velocity of the robot in radians per second.
-   *
-   * <p>This is a measure of how fast the robot can rotate in place.
-   */
-  // Here we calculate the theoretical maximum angular velocity. You can also
-  // replace this with a measured amount.
-  public static final double MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND =
-      MAX_VELOCITY_METERS_PER_SECOND
-          / Math.hypot(DRIVETRAIN_TRACKWIDTH_METERS / 2.0, DRIVETRAIN_WHEELBASE_METERS / 2.0);
+  public static final float PITCH_CLIMBING = 7.0f;
+  public static final float PITCH_ENGAGED = 2.5f;
 
   public static final class MotorControllerDeviceID {
     public static final int LinearSlideDeviceID = 30;
