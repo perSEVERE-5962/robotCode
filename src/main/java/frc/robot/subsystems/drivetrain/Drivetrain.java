@@ -26,7 +26,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import java.util.function.DoubleSupplier;
 
 public class Drivetrain extends SubsystemBase {
   private static final double MAX_VOLTAGE = 12.0;

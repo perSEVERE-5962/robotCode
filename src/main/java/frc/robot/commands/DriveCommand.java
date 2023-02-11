@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 import java.util.function.DoubleSupplier;
@@ -18,7 +17,8 @@ public class DriveCommand extends CommandBase {
   private DoubleSupplier m_rotationSupplier;
 
   /** Creates a new SwerveDriveCommand. */
-  public DriveCommand(Drivetrain driveTrain,
+  public DriveCommand(
+      Drivetrain driveTrain,
       DoubleSupplier translationXSupplier,
       DoubleSupplier translationYSupplier,
       DoubleSupplier rotationSupplier) {
@@ -40,15 +40,15 @@ public class DriveCommand extends CommandBase {
             m_translationXSupplier.getAsDouble(),
             m_translationYSupplier.getAsDouble(),
             m_rotationSupplier.getAsDouble())
-    /** Field Oriented */
-    // ChassisSpeeds.fromFieldRelativeSpeeds(
-    // translationXPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-    // translationYPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-    // rotationPercent *
-    // DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
-    // drivetrain.getRotation()
-    // )
-    );
+        /** Field Oriented */
+        // ChassisSpeeds.fromFieldRelativeSpeeds(
+        // translationXPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+        // translationYPercent * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
+        // rotationPercent *
+        // DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND,
+        // drivetrain.getRotation()
+        // )
+        );
   }
 
   // Called once the command ends or is interrupted.
@@ -57,5 +57,4 @@ public class DriveCommand extends CommandBase {
     // Stop the drivetrain
     m_driveTrain.drive(new ChassisSpeeds(0.0, 0.0, 0.0));
   }
-
 }

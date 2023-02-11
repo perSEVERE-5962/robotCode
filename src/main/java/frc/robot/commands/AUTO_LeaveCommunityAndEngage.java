@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -19,9 +18,9 @@ public class AUTO_LeaveCommunityAndEngage extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new GroupParRace_MoveToLine(drivetrain, lineDetector),
-      new ForwardDistance(drivetrain, -1, 10 /* Unknown so far */), // Moves foward fully past the line
-      new GroupSeqCom_EngageChargingStation(drivetrain, gyro)
-    );
+        new GroupParRace_MoveToLine(drivetrain, lineDetector),
+        new ForwardDistance(
+            drivetrain, -1, 10 /* Unknown so far */), // Moves foward fully past the line
+        new GroupSeqCom_EngageChargingStation(drivetrain, gyro));
   }
 }

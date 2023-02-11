@@ -15,8 +15,6 @@ public class GroupSeqCom_CheckIfEngaged extends SequentialCommandGroup {
   public GroupSeqCom_CheckIfEngaged(AHRS gyro) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new IfClimbing(gyro),
-      new IfLevel(gyro));
+    addCommands(new IfClimbing(gyro), new IfLevel(gyro));
   }
 }
