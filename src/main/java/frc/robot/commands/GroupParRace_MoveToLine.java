@@ -16,9 +16,6 @@ public class GroupParRace_MoveToLine extends ParallelRaceGroup {
   public GroupParRace_MoveToLine(Drivetrain driveTrain, LineDetector lineDetector) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new Move(driveTrain, 1, 0, 0),
-      new CrossLine(lineDetector)
-    );
+    addCommands(new Move(driveTrain, 1, 0, 0), new CrossLine(lineDetector));
   }
 }

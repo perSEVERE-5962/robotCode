@@ -16,8 +16,6 @@ public class GroupParRace_GetOnChargingStation extends ParallelRaceGroup {
   public GroupParRace_GetOnChargingStation(Drivetrain driveTrain, AHRS gyro) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new Move(driveTrain, -1, 0, 0),
-      new GroupSeqCom_CheckIfEngaged(gyro));
+    addCommands(new Move(driveTrain, -1, 0, 0), new GroupSeqCom_CheckIfEngaged(gyro));
   }
 }
