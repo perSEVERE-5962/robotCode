@@ -6,21 +6,21 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class StayEngaged extends PIDCommand {
   /** Creates a new StayEngaged. */
-  public StayEngaged(Drivetrain driveTrain) {
+  public StayEngaged(SwerveSubsystem driveTrain) {
     super(
         // The controller that the command will use
         new PIDController(0, 0, 0),
         // This should return the measurement
-        () -> driveTrain.getAverageEncoder(),
+        () -> driveTrain.getAveragePosition(),
         // This should return the setpoint (can also be a constant)
-        () -> driveTrain.getAveragePositionMeters(),
+        () -> driveTrain.getAveragePosition(),
         // This uses the output
         output -> {
           // Use the output here

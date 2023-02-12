@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -24,47 +29,112 @@ public final class Constants {
     public static final int kCoast = 1;
   }
 
-  // Swerve Drive Stuff
-  /**
-   * The left-to-right distance between the drivetrain wheels
-   *
-   * <p>Should be measured from center to center.
-   */
-  public static final double DRIVETRAIN_TRACKWIDTH_METERS = 0.632; // 24.875 inches
-  /**
-   * The front-to-back distance between the drivetrain wheels.
-   *
-   * <p>Should be measured from center to center.
-   */
-  public static final double DRIVETRAIN_WHEELBASE_METERS = 0.632; // 24.875 inches
+  public static final class ModuleConstants {
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
+    public static final double kDriveMotorGearRatio = 1 / 8.14; // 8.14:1
+    public static final double kTurningMotorGearRatio = 1 / (150 / 7); // 150/7:1
+    public static final double kDriveEncoderRot2Meter =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
+    public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
+    public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
+    public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
+    public static final double kPTurning = 0.5;
+  }
 
-  // public static final int DRIVETRAIN_PIGEON_ID = 0;
+  public static final class DriveConstants {
+
+    public static final double kTrackWidth = Units.inchesToMeters(24.857);
+    // Distance between right and left wheels
+    public static final double kWheelBase = Units.inchesToMeters(24.857);
+    // Distance between front and back wheels
+    public static final SwerveDriveKinematics kDriveKinematics =
+        new SwerveDriveKinematics(
+            new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
+            new Translation2d(kWheelBase / 2, kTrackWidth / 2),
+            new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
+            new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
+
+    public static final int kFrontLeftDriveMotorPort = 10;
+    public static final int kBackLeftDriveMotorPort = 30;
+    public static final int kFrontRightDriveMotorPort = 20;
+    public static final int kBackRightDriveMotorPort = 40;
+
+    public static final int kFrontLeftTurningMotorPort = 11;
+    public static final int kBackLeftTurningMotorPort = 31;
+    public static final int kFrontRightTurningMotorPort = 21;
+    public static final int kBackRightTurningMotorPort = 41;
+
+    public static final boolean kFrontLeftTurningEncoderReversed = true;
+    public static final boolean kBackLeftTurningEncoderReversed = true;
+    public static final boolean kFrontRightTurningEncoderReversed = true;
+    public static final boolean kBackRightTurningEncoderReversed = true;
+
+    public static final boolean kFrontLeftDriveEncoderReversed = true;
+    public static final boolean kBackLeftDriveEncoderReversed = true;
+    public static final boolean kFrontRightDriveEncoderReversed = false;
+    public static final boolean kBackRightDriveEncoderReversed = false;
+
+    public static final int kFrontLeftDriveAbsoluteEncoderPort = 12;
+    public static final int kBackLeftDriveAbsoluteEncoderPort = 32;
+    public static final int kFrontRightDriveAbsoluteEncoderPort = 22;
+    public static final int kBackRightDriveAbsoluteEncoderPort = 42;
+
+    public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
+    public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
+    public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
+    public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
+
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = -Math.toRadians(0);
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = -Math.toRadians(0);
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = -Math.toRadians(0);
+    public static final double kBackRightDriveAbsoluteEncoderOffsetRad = -Math.toRadians(0);
+
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 3.6576; // 12.0 ft/sec
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+
+    public static final double kTeleDriveMaxSpeedMetersPerSecond =
+        kPhysicalMaxSpeedMetersPerSecond / 4;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
+        kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+  }
+
+  public static final class AutoConstants {
+    public static final double kMaxSpeedMetersPerSecond =
+        DriveConstants.kPhysicalMaxSpeedMetersPerSecond / 4;
+    public static final double kMaxAngularSpeedRadiansPerSecond = //
+        DriveConstants.kPhysicalMaxAngularSpeedRadiansPerSecond / 10;
+    public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4;
+    public static final double kPXController = 1.5;
+    public static final double kPYController = 1.5;
+    public static final double kPThetaController = 3;
+
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
+        new TrapezoidProfile.Constraints(
+            kMaxAngularSpeedRadiansPerSecond, kMaxAngularAccelerationRadiansPerSecondSquared);
+  }
+
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+    public static final int kCoPilotControllerPort = 1;
+
+    public static final int kDriverYAxis = 1;
+    public static final int kDriverXAxis = 0;
+    public static final int kDriverRotAxis = 4;
+    public static final int kDriverFieldOrientedButtonIdx = 1;
+    public static final int kZeroHeadingButtonIdx = 2;
+
+    public static final double kDeadband = 0.05;
+  }
+
   public static final float Vert1 = 1;
   public static final float Vert2 = 2;
   public static final float Vert3 = 3;
   public static final float Hor1 = 1;
   public static final float Hor2 = 2;
   public static final float Hor3 = 3;
-
-  public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 40;
-  public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 41;
-  public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 42;
-  public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(3.16);
-
-  public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 30;
-  public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 31;
-  public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 32;
-  public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(11.25);
-
-  public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 20;
-  public static final int BACK_LEFT_MODULE_STEER_MOTOR = 21;
-  public static final int BACK_LEFT_MODULE_STEER_ENCODER = 22;
-  public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(13.89);
-
-  public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 10;
-  public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 11;
-  public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 12;
-  public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(350.16);
 
   public static final float PITCH_CLIMBING = 7.0f;
   public static final float PITCH_ENGAGED = 2.5f;
@@ -81,10 +151,5 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // raise?
     public static final double kMinOutput = -0.25; // lower ?
-  }
-
-  public static final class DriverOrientation {
-    public static final int kDriver = 0;
-    public static final int kField = 1;
   }
 }

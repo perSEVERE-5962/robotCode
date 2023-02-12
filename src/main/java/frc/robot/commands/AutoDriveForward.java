@@ -4,15 +4,16 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class AutoDriveForward extends CommandBase {
   // private double m_distance;
-  private Drivetrain m_driveTrain;
+  private SwerveSubsystem m_driveTrain;
   /** Creates a new AutoDriveForward. */
-  public AutoDriveForward(double Distance, Drivetrain driveTrain) {
+  public AutoDriveForward(double Distance, SwerveSubsystem driveTrain) {
     // m_distance = Distance;
     m_driveTrain = driveTrain;
     // Use addRequirements() here to declare subsystem dependencies.''
@@ -28,14 +29,11 @@ public class AutoDriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putNumber(
-        "frontLeftModule", m_driveTrain.m_frontLeftModule.getPosition().distanceMeters);
-    SmartDashboard.putNumber(
-        "frontRightModule", m_driveTrain.m_frontRightModule.getPosition().distanceMeters);
-    SmartDashboard.putNumber(
-        "backLeftModule", m_driveTrain.m_backLeftModule.getPosition().distanceMeters);
-    SmartDashboard.putNumber(
-        "backRightModule", m_driveTrain.m_backRightModule.getPosition().distanceMeters);
+    SwerveModulePosition[] swerveModulePosition = m_driveTrain.getSwerveModulePositions();
+    SmartDashboard.putNumber("frontLeft", swerveModulePosition[0].distanceMeters);
+    SmartDashboard.putNumber("frontRight", swerveModulePosition[1].distanceMeters);
+    SmartDashboard.putNumber("backLeft", swerveModulePosition[2].distanceMeters);
+    SmartDashboard.putNumber("backRight", swerveModulePosition[3].distanceMeters);
     // m_driveTrain.tankDrive(-0.5, -0.5);
     // m_driveTrain.moveDistanceWithPID(m_distance);
   }

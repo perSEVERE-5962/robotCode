@@ -7,14 +7,14 @@ package frc.robot.commands;
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class IfLevel extends CommandBase {
-  Drivetrain m_Drivetrain;
+  SwerveSubsystem swerveSubsystem;
   /** Creates a new IfLevel. */
-  public IfLevel(Drivetrain driveTrain) {
+  public IfLevel(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Drivetrain = driveTrain;
+    swerveSubsystem = driveTrain;
   }
 
   // Called when the command is initially scheduled.
@@ -32,6 +32,6 @@ public class IfLevel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_Drivetrain.getPitch() <= Constants.PITCH_ENGAGED;
+    return swerveSubsystem.getPitch() <= Constants.PITCH_ENGAGED;
   }
 }
