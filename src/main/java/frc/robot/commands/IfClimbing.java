@@ -7,12 +7,13 @@ package frc.robot.commands;
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class IfClimbing extends CommandBase {
-  Drivetrain m_driveTrain;
+  SwerveSubsystem m_drivetrain;
+
   /** Creates a new IfClimbing. */
-  public IfClimbing(Drivetrain driveTrain) {
+  public IfClimbing(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
     addRequirements(driveTrain);
