@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.LineDetector;
-import frc.robot.subsystems.LinearSlide;
+// import frc.robot.subsystems.LineDetector;
+// import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 /**
@@ -31,20 +31,20 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private static final LinearSlide Position = null;
-  private static final LinearSlide LinearSlide = null;
+  // private static final LinearSlide Position = null;
+  // private static final LinearSlide LinearSlide = null;
   private final XboxController m_driverController = new XboxController(0);
   private final Joystick m_copilotController = new Joystick(1);
 
-  private final Gripper m_Gripper = new Gripper();
-  private final Trigger m_ButtonA = new JoystickButton(m_copilotController, 1);
-  private final Trigger m_ButtonB = new JoystickButton(m_copilotController, 2);
+  private final Gripper m_gripper = new Gripper();
+  private final Trigger m_buttonA = new JoystickButton(m_copilotController, 1);
+  private final Trigger m_buttonB = new JoystickButton(m_copilotController, 2);
   // private AHRS m_Gyro = new AHRS(SPI.Port.kMXP);
 
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_driveTrain = new Drivetrain();
   private Camera m_camera = new Camera();
-  private LineDetector m_lineDetector = new LineDetector();
+  // private LineDetector m_lineDetector = new LineDetector();
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -62,9 +62,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     m_autonomousChooser.setDefaultOption(
-        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain, m_lineDetector));
+        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
     m_autonomousChooser.addOption(
-        "Past Community Line", new GroupSeqCom_MovePastLine(m_driveTrain, m_lineDetector));
+        "Past Community Line", new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
     m_autonomousChooser.addOption(
         "Onto Charging Station", new GroupParRace_GetOnChargingStation(m_driveTrain));
 
@@ -80,8 +80,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_ButtonA.onTrue(new CloseManipulator(m_Gripper));
-    m_ButtonB.onTrue(new OpenManipulator(m_Gripper));
+    m_buttonA.onTrue(new ManipulatorClose(m_gripper));
+    m_buttonB.onTrue(new ManipulatorOpen(m_gripper));
   }
 
   /**
