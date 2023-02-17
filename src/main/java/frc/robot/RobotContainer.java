@@ -37,6 +37,7 @@ import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import java.util.List;
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -50,16 +51,17 @@ public class RobotContainer {
   private final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
   private final Joystick m_copilotController = new Joystick(OIConstants.kCoPilotControllerPort);
 
-  private final Gripper m_Gripper = new Gripper();
-  private final Trigger m_ButtonA = new JoystickButton(m_copilotController, 1);
-  private final Trigger m_ButtonB = new JoystickButton(m_copilotController, 2);
+
+  private final Gripper m_gripper = new Gripper();
+  private final Trigger m_buttonA = new JoystickButton(m_copilotController, 1);
+  private final Trigger m_buttonB = new JoystickButton(m_copilotController, 2);
   // private AHRS m_Gyro = new AHRS(SPI.Port.kMXP);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = new SwerveSubsystem();
   private Camera m_camera = new Camera();
-  private LineDetector m_lineDetector = new LineDetector();
-  private SendableChooser<Integer> m_startPositionChooser = new SendableChooser<>();
+  // private LineDetector m_lineDetector = new LineDetector();
+  private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -74,12 +76,14 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_startPositionChooser.setDefaultOption(
-        "P1", Integer.valueOf(Constants.AutonomousStartPosition.position1));
-    m_startPositionChooser.addOption(
-        "P2", Integer.valueOf(Constants.AutonomousStartPosition.position2));
+    m_autonomousChooser.setDefaultOption(
+        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+    m_autonomousChooser.addOption(
+        "Past Community Line", new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
+    m_autonomousChooser.addOption(
+        "Onto Charging Station", new GroupParRace_GetOnChargingStation(m_driveTrain));
 
-    SmartDashboard.putData("Auto Start Position", m_startPositionChooser);
+    SmartDashboard.putData("Auto Start Position", m_autonomousChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
   }
@@ -94,8 +98,8 @@ public class RobotContainer {
     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
 
-    m_ButtonA.onTrue(new CloseManipulator(m_Gripper));
-    m_ButtonB.onTrue(new OpenManipulator(m_Gripper));
+    m_buttonA.onTrue(new ManipulatorClose(m_gripper));
+    m_buttonB.onTrue(new ManipulatorOpen(m_gripper));
   }
 
   /**
@@ -105,7 +109,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    Command command = new AUTO_LeaveCommunityAndEngage(m_driveTrain, m_lineDetector);
+    Command command = m_autonomousChooser.getSelected();
     // command = new CrossLine();
     // command = new AutoDriveForward(0, m_driveTrain);
     return command;

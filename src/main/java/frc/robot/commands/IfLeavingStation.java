@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Gripper;
+import frc.robot.Constants;
+import frc.robot.subsystems.drivetrain.Drivetrain;
 
-public class CloseManipulator extends CommandBase {
-  /** Creates a new CloseManipulator. */
-  Gripper m_Gripper;
-
-  public CloseManipulator(Gripper gripper) {
+public class IfLeavingStation extends CommandBase {
+  Drivetrain m_driveTrain;
+  /** Creates a new IfLeaving. */
+  public IfLeavingStation(Drivetrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Gripper = gripper;
-    addRequirements(gripper);
+    m_driveTrain = driveTrain;
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +23,7 @@ public class CloseManipulator extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_Gripper.close();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -34,6 +32,6 @@ public class CloseManipulator extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING;
   }
 }

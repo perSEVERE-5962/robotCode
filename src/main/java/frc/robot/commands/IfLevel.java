@@ -10,11 +10,13 @@ import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class IfLevel extends CommandBase {
-  SwerveSubsystem swerveSubsystem;
+  SwerveSubsystem m_driveTrain;
+
   /** Creates a new IfLevel. */
   public IfLevel(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    swerveSubsystem = driveTrain;
+    m_driveTrain = driveTrain;
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -32,6 +34,6 @@ public class IfLevel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return swerveSubsystem.getPitch() <= Constants.PITCH_ENGAGED;
+    return m_driveTrain.getPitch() <= Constants.PITCH_ENGAGED;
   }
 }
