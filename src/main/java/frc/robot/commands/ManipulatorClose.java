@@ -4,18 +4,17 @@
 
 package frc.robot.commands;
 
-// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.Gripper;
 
-public class IfLevel extends CommandBase {
-  Drivetrain m_driveTrain;
-  /** Creates a new IfLevel. */
-  public IfLevel(Drivetrain driveTrain) {
+public class ManipulatorClose extends CommandBase {
+  /** Creates a new CloseManipulator. */
+  Gripper m_gripper;
+
+  public ManipulatorClose(Gripper gripper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+    m_gripper = gripper;
+    addRequirements(gripper);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +23,9 @@ public class IfLevel extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_gripper.close();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -33,6 +34,6 @@ public class IfLevel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= Constants.PITCH_ENGAGED;
+    return true;
   }
 }

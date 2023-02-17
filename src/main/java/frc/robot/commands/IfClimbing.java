@@ -10,11 +10,12 @@ import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 public class IfClimbing extends CommandBase {
-  Drivetrain m_Drivetrain;
+  Drivetrain m_driveTrain;
   /** Creates a new IfClimbing. */
   public IfClimbing(Drivetrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Drivetrain = driveTrain;
+    m_driveTrain = driveTrain;
+    addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -32,6 +33,6 @@ public class IfClimbing extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_Drivetrain.getPitch() >= Constants.PITCH_CLIMBING;
+    return m_driveTrain.getPitch() >= Constants.PITCH_CLIMBING;
   }
 }

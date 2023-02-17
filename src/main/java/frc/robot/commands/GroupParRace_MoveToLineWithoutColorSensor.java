@@ -4,21 +4,20 @@
 
 package frc.robot.commands;
 
-// import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-// import frc.robot.subsystems.LineDetector;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.subsystems.drivetrain.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AUTO_LeaveCommunityAndEngage extends SequentialCommandGroup {
-  /** Creates a new GroupSeqCom_MovePastLineAndBack. */
-  public AUTO_LeaveCommunityAndEngage(Drivetrain drivetrain) {
+public class GroupParRace_MoveToLineWithoutColorSensor extends ParallelRaceGroup {
+  /** Creates a new GroupParRace_MoveToLineWithoutColorSensor. */
+  public GroupParRace_MoveToLineWithoutColorSensor(Drivetrain driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new GroupSeqCom_MovePastLineWithoutColorSensor(drivetrain),
-        new GroupSeqCom_EngageChargingStation(drivetrain));
+        new Move(driveTrain, 0.5, 0, 0),
+        new IfLeavingStation(driveTrain) // Checks if the pitch is sufficently less than 0
+        );
   }
 }

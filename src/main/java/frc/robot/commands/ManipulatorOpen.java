@@ -7,13 +7,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Gripper;
 
-public class OpenManipulator extends CommandBase {
+public class ManipulatorOpen extends CommandBase {
   /** Creates a new OpenManipulator. */
-  Gripper m_Gripper;
+  Gripper m_gripper;
 
-  public OpenManipulator(Gripper gripper) {
+  public ManipulatorOpen(Gripper gripper) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_Gripper = gripper;
+    m_gripper = gripper;
     addRequirements(gripper);
   }
 
@@ -24,7 +24,7 @@ public class OpenManipulator extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Gripper.open();
+    m_gripper.open();
   }
 
   // Called once the command ends or is interrupted.
