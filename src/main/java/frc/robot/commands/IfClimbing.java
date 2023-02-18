@@ -7,14 +7,15 @@ package frc.robot.commands;
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class IfClimbing extends CommandBase {
-  Drivetrain m_driveTrain;
+  SwerveSubsystem m_drivetrain;
+
   /** Creates a new IfClimbing. */
-  public IfClimbing(Drivetrain driveTrain) {
+  public IfClimbing(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
+    m_drivetrain = driveTrain;
     // addRequirements(driveTrain);
   }
 
@@ -33,6 +34,6 @@ public class IfClimbing extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() >= Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
+    return m_drivetrain.getPitch() >= Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
   }
 }

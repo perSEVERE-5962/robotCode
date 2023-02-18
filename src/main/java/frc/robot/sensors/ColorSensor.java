@@ -26,9 +26,9 @@ public class ColorSensor {
     // String colorString;
     m_colorMatcher.setConfidenceThreshold(.90);
     ColorMatchResult match = m_colorMatcher.matchClosestColor(Detected_Color);
-    if (match.color == Blue_range && match.confidence >= 0.81) {
+    if (match.color == Blue_range && match.confidence >= 0.8) {
       colorString = "Blue";
-    } else if (match.color == Red_range && match.confidence >= 0.81) {
+    } else if (match.color == Red_range && match.confidence >= 0.8) {
       colorString = "Red";
     } else {
       colorString = "Unknown Color";

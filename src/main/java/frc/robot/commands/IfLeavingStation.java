@@ -6,12 +6,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class IfLeavingStation extends CommandBase {
-  Drivetrain m_driveTrain;
+  SwerveSubsystem m_driveTrain;
   /** Creates a new IfLeaving. */
-  public IfLeavingStation(Drivetrain driveTrain) {
+  public IfLeavingStation(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
     // addRequirements(driveTrain);

@@ -6,14 +6,14 @@ package frc.robot.commands;
 
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GroupParRace_GetOnChargingStation extends ParallelRaceGroup {
   /** Creates a new GetOnChargingStation. */
-  public GroupParRace_GetOnChargingStation(Drivetrain driveTrain) {
+  public GroupParRace_GetOnChargingStation(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new Move(driveTrain, -1, 0, 0), new GroupSeqCom_CheckIfEngaged(driveTrain));
