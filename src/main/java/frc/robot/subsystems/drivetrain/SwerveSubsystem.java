@@ -1,6 +1,8 @@
 package frc.robot.subsystems.drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -116,6 +118,22 @@ public class SwerveSubsystem extends SubsystemBase {
         });
     SmartDashboard.putNumber("Robot Heading", getHeading());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+    //SmartDashboard.putNumber("LFDE", frontLeft.getDrivePosition());
+    //SmartDashboard.putNumber("LBDE", backLeft.getDrivePosition());
+    //SmartDashboard.putNumber("RFDE", frontRight.getDrivePosition());
+    //SmartDashboard.putNumber("RBDE", backRight.getDrivePosition());
+    // SmartDashboard.putNumber("LFSE", frontLeft.getTurningPosition());
+    // SmartDashboard.putNumber("LBSE", backLeft.getTurningPosition());
+    // SmartDashboard.putNumber("RFSE", frontRight.getTurningPosition());
+    // SmartDashboard.putNumber("RBSE", backRight.getTurningPosition());
+    // SmartDashboard.putNumber("LF RAD", frontLeft.getAbsoluteEncoderRad());
+    // SmartDashboard.putNumber("LB RAD", backLeft.getAbsoluteEncoderRad());
+    // SmartDashboard.putNumber("RF RAD", frontRight.getAbsoluteEncoderRad());
+    // SmartDashboard.putNumber("RB RAD", backRight.getAbsoluteEncoderRad());
+    SmartDashboard.putNumber("LF DEG", frontLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("LB DEG", backLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("RF DEG", frontRight.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("RB DEG", backRight.getAbsoluteEncoderAngle());
   }
 
   public void stopModules() {

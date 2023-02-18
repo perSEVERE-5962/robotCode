@@ -14,7 +14,7 @@ public class IfLeavingStation extends CommandBase {
   public IfLeavingStation(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+    // addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
