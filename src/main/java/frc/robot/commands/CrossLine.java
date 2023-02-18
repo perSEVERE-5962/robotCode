@@ -22,9 +22,6 @@ public class CrossLine extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Line Detector");
-    // shuffleboardTab.addString("CrossLine", () -> "");
-
     SmartDashboard.putString("CrossLine", "");
   }
 

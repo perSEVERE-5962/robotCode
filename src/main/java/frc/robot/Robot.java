@@ -27,17 +27,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Angle");
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-    Constants.PITCH_OFFSET = m_robotContainer.getDriveTrain().getPitch();
-    shuffleboardTab.addNumber("Pitch Offset", () -> Constants.PITCH_OFFSET);
-    shuffleboardTab.addNumber("Pitch", () -> m_robotContainer.getDriveTrain().getPitch());
-    shuffleboardTab.addNumber(
-        "Relative Pitch",
-        () -> m_robotContainer.getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
   }
 
   /**
@@ -49,7 +41,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // Runs the Scheduler.  This is responsible fobr polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
