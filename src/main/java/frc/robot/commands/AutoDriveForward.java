@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+// import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+// import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.Drivetrain;
@@ -11,7 +13,7 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 public class AutoDriveForward extends CommandBase {
   // private double m_distance;
   private Drivetrain m_driveTrain;
-  /** Creates a new AutoDriveForward. */
+  /** Creates a new AutoDriveForward */
   public AutoDriveForward(double Distance, Drivetrain driveTrain) {
     // m_distance = Distance;
     m_driveTrain = driveTrain;

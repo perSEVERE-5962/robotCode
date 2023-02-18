@@ -66,8 +66,9 @@ public final class Constants {
   public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 12;
   public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(359.12);
 
-  public static final float PITCH_CLIMBING = 7.0f;
-  public static final float PITCH_ENGAGED = 2.5f;
+  public static double PITCH_OFFSET = 0.0;
+  public static final float PITCH_CLIMBING = 10.0f;
+  public static final float PITCH_LEVEL = 2.0f;
 
   public static final class MotorControllerDeviceID {
     public static final int LinearSlideDeviceID = 30;

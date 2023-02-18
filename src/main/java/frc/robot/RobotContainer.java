@@ -68,7 +68,7 @@ public class RobotContainer {
     m_autonomousChooser.addOption(
         "Onto Charging Station", new GroupParRace_GetOnChargingStation(m_driveTrain));
 
-    SmartDashboard.putData("Auto Start Position", m_autonomousChooser);
+    SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
   }

@@ -14,7 +14,7 @@ public class IfLeavingStation extends CommandBase {
   public IfLeavingStation(Drivetrain driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+    // addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -32,6 +32,6 @@ public class IfLeavingStation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING;
+    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
   }
 }

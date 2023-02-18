@@ -25,7 +25,6 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -135,6 +134,7 @@ public class Drivetrain extends SubsystemBase {
 
     m_gyro.reset();
     resetEncoder();
+    // putEncoderDistanceOnShuffleBoard();
 
     m_odometry =
         new SwerveDriveOdometry(
@@ -231,13 +231,26 @@ public class Drivetrain extends SubsystemBase {
             + Math.abs(m_backRightModule.getDriveDistance())
             + Math.abs(m_frontLeftModule.getDriveDistance())
             + Math.abs(m_frontRightModule.getDriveDistance());
-    SmartDashboard.putNumber("Front Left Encoder", Math.abs(m_frontLeftModule.getDriveDistance()));
-    SmartDashboard.putNumber(
-        "Front Right Encoder", Math.abs(m_frontRightModule.getDriveDistance()));
-    SmartDashboard.putNumber("Back Left Encoder", Math.abs(m_backLeftModule.getDriveDistance()));
-    SmartDashboard.putNumber("Back Right Encoder", Math.abs(m_backRightModule.getDriveDistance()));
     return averagedistance / 4;
   }
+
+  /*
+    private void putEncoderDistanceOnShuffleBoard() {
+      ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Average Encoder Distance");
+
+      SmartDashboard.putNumber("Front Left Encoder", Math.abs(m_frontLeftModule.getDriveDistance()));
+      SmartDashboard.putNumber(
+          "Front Right Encoder", Math.abs(m_frontRightModule.getDriveDistance()));
+      SmartDashboard.putNumber("Back Left Encoder", Math.abs(m_backLeftModule.getDriveDistance()));
+      SmartDashboard.putNumber("Back Right Encoder", Math.abs(m_backRightModule.getDriveDistance()));
+
+      shuffleboardTab.addNumber("Front Left Encoder", () -> Math.abs(m_frontLeftModule.getDriveDistance()));
+      shuffleboardTab.addNumber(
+          "Front Right Encoder", () -> Math.abs(m_frontRightModule.getDriveDistance()));
+      shuffleboardTab.addNumber("Back Left Encoder", () -> Math.abs(m_backLeftModule.getDriveDistance()));
+      shuffleboardTab.addNumber("Back Right Encoder", () -> Math.abs(m_backRightModule.getDriveDistance()));
+    }
+  */
 
   public void resetEncoder() {
     ((CANSparkMax) m_frontLeftModule.getDriveMotor()).getEncoder().setPosition(0);
