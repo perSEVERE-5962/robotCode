@@ -7,15 +7,16 @@ package frc.robot.commands;
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class IfLevel extends CommandBase {
-  Drivetrain m_driveTrain;
+  SwerveSubsystem m_driveTrain;
+
   /** Creates a new IfLevel. */
-  public IfLevel(Drivetrain driveTrain) {
+  public IfLevel(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+    // addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.

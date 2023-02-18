@@ -5,7 +5,7 @@ package frc.robot.commands;
 
 // import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -13,7 +13,7 @@ import frc.robot.subsystems.drivetrain.Drivetrain;
 public class GroupSeqCom_EngageChargingStation extends SequentialCommandGroup {
 
   /** Creates a new EngageChargingStation. */
-  public GroupSeqCom_EngageChargingStation(Drivetrain driveTrain) {
+  public GroupSeqCom_EngageChargingStation(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     /*
