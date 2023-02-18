@@ -32,11 +32,9 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
 import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.LineDetector;
 import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import java.util.List;
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -50,7 +48,6 @@ public class RobotContainer {
   private static final double Trajectory = 0;
   private final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
   private final Joystick m_copilotController = new Joystick(OIConstants.kCoPilotControllerPort);
-
 
   private final Gripper m_gripper = new Gripper();
   private final Trigger m_buttonA = new JoystickButton(m_copilotController, 1);
