@@ -4,8 +4,7 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class ForwardDistance extends Move {
   private double distanceWanted;
@@ -14,9 +13,9 @@ public class ForwardDistance extends Move {
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
   public ForwardDistance(
-      Drivetrain driveTrain, double translationXSupplier, double distanceWantedMeters) {
+      SwerveSubsystem driveTrain, double translationXSupplier, double distanceWanted) {
     super(driveTrain, translationXSupplier, 0, 0);
-    this.distanceWanted = distanceWantedMeters;
+    this.distanceWanted = distanceWanted;
 
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,14 +24,12 @@ public class ForwardDistance extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_InitialDistance = m_driveTrain.getAverageEncoder();
-    SmartDashboard.putNumber("Initial Encoder Avg", m_driveTrain.getAverageEncoder());
+    m_InitialDistance = m_driveTrain.getAveragePosition();
   }
 
   @Override
   public boolean isFinished() {
-    SmartDashboard.putNumber("Current Encoder Avg", m_driveTrain.getAverageEncoder());
-    if (distanceWanted <= (m_driveTrain.getAverageEncoder() - m_InitialDistance)) return true;
+    if (distanceWanted <= (m_driveTrain.getAveragePosition() - m_InitialDistance)) return true;
 
     return false;
   }

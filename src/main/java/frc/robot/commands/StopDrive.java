@@ -8,12 +8,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class StopDrive extends CommandBase {
-  private final Drivetrain m_driveTrain;
+  private final SwerveSubsystem m_driveTrain;
 
-  public StopDrive(Drivetrain drive) {
+  public StopDrive(SwerveSubsystem drive) {
     m_driveTrain = drive;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drive);
@@ -26,7 +26,7 @@ public class StopDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.stopDrive();
+    m_driveTrain.stopModules();
   }
 
   // Called once the command ends or is interrupted.
