@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
@@ -79,7 +78,7 @@ public class SwerveModule {
   }
 
   public double getAbsoluteEncoderAngle() {
-    double angle = absoluteEncoder.getPosition()*(360/4096);
+    double angle = absoluteEncoder.getPosition();//*(360/4096);
     return angle;
   }
 
@@ -91,8 +90,9 @@ public class SwerveModule {
 
   public void resetEncoders() {
     driveEncoder.setPosition(0);
-    turningEncoder.setPosition(0);
-    absoluteEncoder.setPosition(0);
+    turningEncoder.setPosition(getAbsoluteEncoderRad());    
+//    turningEncoder.setPosition(0);
+//    absoluteEncoder.setPosition(0);
   }
 
   public SwerveModuleState getState() {

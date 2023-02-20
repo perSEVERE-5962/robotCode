@@ -2,12 +2,12 @@ package frc.robot.subsystems.drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -118,22 +118,6 @@ public class SwerveSubsystem extends SubsystemBase {
         });
     SmartDashboard.putNumber("Robot Heading", getHeading());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-    //SmartDashboard.putNumber("LFDE", frontLeft.getDrivePosition());
-    //SmartDashboard.putNumber("LBDE", backLeft.getDrivePosition());
-    //SmartDashboard.putNumber("RFDE", frontRight.getDrivePosition());
-    //SmartDashboard.putNumber("RBDE", backRight.getDrivePosition());
-    // SmartDashboard.putNumber("LFSE", frontLeft.getTurningPosition());
-    // SmartDashboard.putNumber("LBSE", backLeft.getTurningPosition());
-    // SmartDashboard.putNumber("RFSE", frontRight.getTurningPosition());
-    // SmartDashboard.putNumber("RBSE", backRight.getTurningPosition());
-    // SmartDashboard.putNumber("LF RAD", frontLeft.getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber("LB RAD", backLeft.getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber("RF RAD", frontRight.getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber("RB RAD", backRight.getAbsoluteEncoderRad());
-    SmartDashboard.putNumber("LF DEG", frontLeft.getAbsoluteEncoderAngle());
-    SmartDashboard.putNumber("LB DEG", backLeft.getAbsoluteEncoderAngle());
-    SmartDashboard.putNumber("RF DEG", frontRight.getAbsoluteEncoderAngle());
-    SmartDashboard.putNumber("RB DEG", backRight.getAbsoluteEncoderAngle());
   }
 
   public void stopModules() {
@@ -143,7 +127,7 @@ public class SwerveSubsystem extends SubsystemBase {
     backRight.stop();
   }
 
-  public void setModuleStates(edu.wpi.first.math.kinematics.SwerveModuleState[] desiredStates) {
+  public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(
         desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
     frontLeft.setDesiredState(desiredStates[0]);
@@ -172,5 +156,22 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public double getPitch() {
     return gyro.getPitch();
+  }
+
+
+  /**
+   * Set the wheels to an X pattern to plant the robot.
+   */
+  public void setWheelsToX() {
+    setModuleStates(new SwerveModuleState[] {
+      // front left
+      new SwerveModuleState(0.0, Rotation2d.fromDegrees(45.0)),
+      // front right
+      new SwerveModuleState(0.0, Rotation2d.fromDegrees(-45.0)),
+      // back left
+      new SwerveModuleState(0.0, Rotation2d.fromDegrees(135.0)),
+      // back right
+      new SwerveModuleState(0.0, Rotation2d.fromDegrees(-135.0))
+    });
   }
 }
