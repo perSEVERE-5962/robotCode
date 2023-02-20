@@ -22,7 +22,7 @@ public class SwerveModule {
 
   private final PIDController turningPidController;
 
-  //private final AnalogInput absoluteEncoder;
+  // private final AnalogInput absoluteEncoder;
   private final CANCoder absoluteEncoder;
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
@@ -84,7 +84,7 @@ public class SwerveModule {
 
   public double getAbsoluteEncoderRad() {
     double angle = Math.toRadians(getAbsoluteEncoderAngle());
-      angle -= absoluteEncoderOffsetRad;
+    angle -= absoluteEncoderOffsetRad;
     return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
   }
 

@@ -32,6 +32,6 @@ public class IfLeavingStation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING;
+    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
   }
 }

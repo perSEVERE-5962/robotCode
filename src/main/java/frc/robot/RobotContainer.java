@@ -10,6 +10,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,10 +21,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
+import frc.robot.sensors.ColorSensor;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
+
+import com.revrobotics.ColorMatch;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -60,6 +65,7 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+    configureShuffleBoard();
 
     m_autonomousChooser.setDefaultOption(
         "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
@@ -68,7 +74,7 @@ public class RobotContainer {
     m_autonomousChooser.addOption(
         "Onto Charging Station", new GroupParRace_GetOnChargingStation(m_driveTrain));
 
-    SmartDashboard.putData("Auto Start Position", m_autonomousChooser);
+    SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
   }
@@ -85,6 +91,21 @@ public class RobotContainer {
 
     m_buttonA.onTrue(new ManipulatorClose(m_gripper));
     m_buttonB.onTrue(new ManipulatorOpen(m_gripper));
+  }
+
+  private void configureShuffleBoard() {
+    ShuffleboardTab shuffleboardTab;
+    // Angle tab
+    shuffleboardTab = Shuffleboard.getTab("Angle");
+    shuffleboardTab.addNumber("Pitch Offset", () -> Constants.PITCH_OFFSET);
+    shuffleboardTab.addNumber("Pitch", () -> getDriveTrain().getPitch());
+    shuffleboardTab.addNumber("Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+
+    // Color sensor
+    shuffleboardTab = Shuffleboard.getTab("Line Detector");
+    // shuffleboardTab.addNumber("Confidence", () -> new ColorSensor().getConfidence());
+    // shuffleboardTab.addString("Color Name", () -> new ColorSensor().getColor());
+    // shuffleboardTab.addString("Hex Value", () -> new ColorSensor().getHex().toString());
   }
 
   /**
