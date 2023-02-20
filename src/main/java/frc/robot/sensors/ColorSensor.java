@@ -12,6 +12,7 @@ public class ColorSensor {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
   String colorString;
+  private ColorMatchResult match;
 
   private final Color Blue_range = new Color(30, 91, 133);
   // private final Color Red_range = new Color(0.561, 0.232, 0.114);
@@ -24,6 +25,7 @@ public class ColorSensor {
     // String colorString;
     m_colorMatcher.setConfidenceThreshold(.90);
     ColorMatchResult match = m_colorMatcher.matchClosestColor(Detected_Color);
+    this.match = match;
     if (match.color == Blue_range && match.confidence >= 0.8) {
       colorString = "Blue";
     } else if (match.color == Red_range && match.confidence >= 0.8) {
@@ -31,7 +33,6 @@ public class ColorSensor {
     } else {
       colorString = "Unknown Color";
     }
-    SmartDashboard.putNumber("Confidence", match.confidence);
     return colorString;
   }
 
@@ -39,5 +40,9 @@ public class ColorSensor {
     final ColorSensorV3 m_HexSensor = new ColorSensorV3(i2cPort);
     Color detectedHex = m_HexSensor.getColor();
     return detectedHex;
+  }
+
+  public double getConfidence() {
+    return this.match.confidence;
   }
 }

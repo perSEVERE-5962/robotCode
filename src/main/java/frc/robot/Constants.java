@@ -136,8 +136,9 @@ public final class Constants {
   public static final float Hor2 = 2;
   public static final float Hor3 = 3;
 
-  public static final float PITCH_CLIMBING = 7.0f;
-  public static final float PITCH_ENGAGED = 2.5f;
+  public static double PITCH_OFFSET = 0.0;
+  public static final float PITCH_CLIMBING = 10.0f;
+  public static final float PITCH_LEVEL = 2.0f;
 
   public static final class MotorControllerDeviceID {
     public static final int LinearSlideDeviceID = 30;

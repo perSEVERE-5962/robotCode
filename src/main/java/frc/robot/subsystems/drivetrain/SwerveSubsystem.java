@@ -1,8 +1,6 @@
 package frc.robot.subsystems.drivetrain;
 
 import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -11,6 +9,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -74,6 +73,7 @@ public class SwerveSubsystem extends SubsystemBase {
                 zeroHeading();
               } catch (Exception e) {
               }
+              Constants.PITCH_OFFSET = getPitch();
             })
         .start();
   }
@@ -118,10 +118,10 @@ public class SwerveSubsystem extends SubsystemBase {
         });
     SmartDashboard.putNumber("Robot Heading", getHeading());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-    //SmartDashboard.putNumber("LFDE", frontLeft.getDrivePosition());
-    //SmartDashboard.putNumber("LBDE", backLeft.getDrivePosition());
-    //SmartDashboard.putNumber("RFDE", frontRight.getDrivePosition());
-    //SmartDashboard.putNumber("RBDE", backRight.getDrivePosition());
+    // SmartDashboard.putNumber("LFDE", frontLeft.getDrivePosition());
+    // SmartDashboard.putNumber("LBDE", backLeft.getDrivePosition());
+    // SmartDashboard.putNumber("RFDE", frontRight.getDrivePosition());
+    // SmartDashboard.putNumber("RBDE", backRight.getDrivePosition());
     // SmartDashboard.putNumber("LFSE", frontLeft.getTurningPosition());
     // SmartDashboard.putNumber("LBSE", backLeft.getTurningPosition());
     // SmartDashboard.putNumber("RFSE", frontRight.getTurningPosition());

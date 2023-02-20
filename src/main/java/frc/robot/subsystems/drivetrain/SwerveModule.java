@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
@@ -23,7 +22,7 @@ public class SwerveModule {
 
   private final PIDController turningPidController;
 
-  //private final AnalogInput absoluteEncoder;
+  // private final AnalogInput absoluteEncoder;
   private final CANCoder absoluteEncoder;
   private final boolean absoluteEncoderReversed;
   private final double absoluteEncoderOffsetRad;
@@ -79,13 +78,13 @@ public class SwerveModule {
   }
 
   public double getAbsoluteEncoderAngle() {
-    double angle = absoluteEncoder.getPosition()*(360/4096);
+    double angle = absoluteEncoder.getPosition() * (360 / 4096);
     return angle;
   }
 
   public double getAbsoluteEncoderRad() {
     double angle = Math.toRadians(getAbsoluteEncoderAngle());
-      angle -= absoluteEncoderOffsetRad;
+    angle -= absoluteEncoderOffsetRad;
     return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
   }
 
