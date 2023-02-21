@@ -13,7 +13,7 @@ public class Gripper extends Pneumatics {
   DoubleSolenoid m_dsol1 = add_double_solenoid(0, 1);
   DoubleSolenoid m_dsol2 = add_double_solenoid(2, 3);
   /** Creates a new Gripper. */
-  public Gripper() {
+  private Gripper() {
     super();
   }
 

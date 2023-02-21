@@ -70,7 +70,8 @@ public final class Constants {
 
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(101.074);
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(17.754);
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(11.250+180);
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(11.250 + 180);
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(172.266);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 3.6576; // 12.0 ft/sec
@@ -161,34 +162,33 @@ public final class Constants {
     public static final double kPos2 = 10; // cone grid position 2
     public static final double kPos3 = 20; // cone grid position 3
     public static final double kSubStation = 20; // double substation/cone collection
-    }
+  }
 
-    public static final class ReachConstants {
-      public static final double kP = 0.5; // 0.1, 0, -0.1, -2
-      public static final double kI = 0; // 1e-4,
-      public static final double kD = 0; // 1, 0.5, 0.1
-      public static final double kIz = 0;
-      public static final double kFF = 0; // 0,
-      public static final double kMaxOutput = 0.5; // extend?
-      public static final double kMinOutput = -0.25; // retract ?
-      public static final float kRetractSoftLimit = 0; // kReverse
-      public static final float kExtendSoftLimit = 50; // kForward
-      public static final double kPos1 = 0; // cone grid position 1
-      public static final double kPos2 = 10; // cone grid position 2
-      public static final double kPos3 = 20; // cone grid position 3
-      public static final double kSubStation = 10; // double substation/cone collection
-    }
+  public static final class ReachConstants {
+    public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kIz = 0;
+    public static final double kFF = 0; // 0,
+    public static final double kMaxOutput = 0.5; // extend?
+    public static final double kMinOutput = -0.25; // retract ?
+    public static final float kRetractSoftLimit = 0; // kReverse
+    public static final float kExtendSoftLimit = 50; // kForward
+    public static final double kPos1 = 0; // cone grid position 1
+    public static final double kPos2 = 10; // cone grid position 2
+    public static final double kPos3 = 20; // cone grid position 3
+    public static final double kSubStation = 10; // double substation/cone collection
+  }
 
-    public static final class WristConstants {
-      public static final double kP = 0.5; // 0.1, 0, -0.1, -2
-      public static final double kI = 0; // 1e-4,
-      public static final double kD = 0; // 1, 0.5, 0.1
-      public static final double kIz = 0;
-      public static final double kFF = 0; // 0,
-      public static final double kMaxOutput = 0.5; // extend?
-      public static final double kMinOutput = -0.25; // retract ?
-      public static final float kLowerSoftLimit = 0; // kReverse
-      public static final float kRaiseSoftLimit = 10; // kForward
-    }
-  
+  public static final class WristConstants {
+    public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kIz = 0;
+    public static final double kFF = 0; // 0,
+    public static final double kMaxOutput = 0.5; // extend?
+    public static final double kMinOutput = -0.25; // retract ?
+    public static final float kLowerSoftLimit = 0; // kReverse
+    public static final float kRaiseSoftLimit = 10; // kForward
+  }
 }

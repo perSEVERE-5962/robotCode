@@ -19,12 +19,11 @@ public class ScoreConeOnGridPos3 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelCommandGroup(
-          // raise wrist & lift
-          new MoveWrist(WristConstants.kRaiseSoftLimit),
-          new MoveLift(LiftConstants.kPos3)),
-      new MoveReach(ReachConstants.kPos3),
-      new MoveWrist(WristConstants.kLowerSoftLimit),
-      new GripperOpen());
+        new ParallelCommandGroup(
+            // raise wrist & lift
+            new MoveWrist(WristConstants.kRaiseSoftLimit), new MoveLift(LiftConstants.kPos3)),
+        new MoveReach(ReachConstants.kPos3),
+        new MoveWrist(WristConstants.kLowerSoftLimit),
+        new GripperOpen());
   }
 }

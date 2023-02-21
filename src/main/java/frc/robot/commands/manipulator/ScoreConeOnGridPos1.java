@@ -21,8 +21,7 @@ public class ScoreConeOnGridPos1 extends SequentialCommandGroup {
     addCommands(
         new ParallelCommandGroup(
             // raise wrist & lift
-            new MoveWrist(WristConstants.kRaiseSoftLimit),
-            new MoveLift(LiftConstants.kPos1)),
+            new MoveWrist(WristConstants.kRaiseSoftLimit), new MoveLift(LiftConstants.kPos1)),
         new MoveReach(ReachConstants.kPos1),
         new MoveWrist(WristConstants.kLowerSoftLimit),
         new GripperOpen());

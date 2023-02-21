@@ -29,5 +29,4 @@ public class Pneumatics extends SubsystemBase {
   public void backward(DoubleSolenoid solenoid) {
     solenoid.set(DoubleSolenoid.Value.kReverse);
   }
-
 }

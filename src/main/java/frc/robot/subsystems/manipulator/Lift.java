@@ -5,31 +5,32 @@
 package frc.robot.subsystems.manipulator;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
-
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Lift extends SubsystemBase {
   private static Lift instance;
-  
+
   private CANSparkMax m_leadMotor;
   private CANSparkMax m_followMotor;
 
   private RelativeEncoder m_leadEncoder;
   // private RelativeEncoder m_followEncoder;
 
-  public Lift() {
+  private Lift() {
     // the lift uses two Neo motors connected to a single gearbox
     // we will configure one as the leader and the other the follower
-    m_leadMotor = new CANSparkMax(
-        Constants.CANDeviceIDs.kLiftLeadID,
-        com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
-    m_followMotor = new CANSparkMax(
-        Constants.CANDeviceIDs.kLiftFollowID,
-        com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_leadMotor =
+        new CANSparkMax(
+            Constants.CANDeviceIDs.kLiftLeadID,
+            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    m_followMotor =
+        new CANSparkMax(
+            Constants.CANDeviceIDs.kLiftFollowID,
+            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
 
     m_leadMotor.setInverted(false);
 
@@ -41,17 +42,15 @@ public class Lift extends SubsystemBase {
 
     m_leadMotor
         .getPIDController()
-        .setOutputRange(
-            Constants.LiftConstants.kMinOutput,
-            Constants.LiftConstants.kMaxOutput);
+        .setOutputRange(Constants.LiftConstants.kMinOutput, Constants.LiftConstants.kMaxOutput);
 
     m_followMotor.follow(m_leadMotor);
 
     m_leadEncoder = m_leadMotor.getEncoder();
     m_leadEncoder.setPosition(0);
-    
+
     // don't let the lift arm travel past the stop points
-    m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.LiftConstants.kRaiseSoftLimit);    
+    m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.LiftConstants.kRaiseSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.LiftConstants.kLowerSoftLimit);
   }
 
@@ -74,5 +73,4 @@ public class Lift extends SubsystemBase {
 
     return instance;
   }
-
 }

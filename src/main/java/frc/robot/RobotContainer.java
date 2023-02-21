@@ -15,13 +15,13 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
 import frc.robot.sensors.Camera;
+import frc.robot.sensors.ColorSensor;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 /**
@@ -32,21 +32,30 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
  */
 public class RobotContainer {
   private final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
-  private final XboxController m_copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+  private final XboxController m_copilotController =
+      new XboxController(OIConstants.kCoPilotControllerPort);
 
-  private final Trigger m_gridPos1 = new JoystickButton(m_copilotController, XboxController.Button.kA.value); 
-  private final Trigger m_gridPos2 = new JoystickButton(m_copilotController, XboxController.Button.kB.value); 
-  private final Trigger m_gridPos3 = new JoystickButton(m_copilotController, XboxController.Button.kX.value); 
-  private final Trigger m_resetManipulator = new JoystickButton(m_copilotController, XboxController.Button.kY.value);
-  private final Trigger m_grabCone = new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);  
-  private final Trigger m_releaseCone = new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value); 
-  private final Trigger m_initSubstation = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
-  private final Trigger m_retrieveFromSubstation = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
-  private final ColorSensor m_colorSensor = new ColorSensor();
+  private final Trigger m_gridPos1 =
+      new JoystickButton(m_copilotController, XboxController.Button.kA.value);
+  private final Trigger m_gridPos2 =
+      new JoystickButton(m_copilotController, XboxController.Button.kB.value);
+  private final Trigger m_gridPos3 =
+      new JoystickButton(m_copilotController, XboxController.Button.kX.value);
+  private final Trigger m_resetManipulator =
+      new JoystickButton(m_copilotController, XboxController.Button.kY.value);
+  private final Trigger m_grabCone =
+      new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
+  private final Trigger m_releaseCone =
+      new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
+  private final Trigger m_initSubstation =
+      new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
+  private final Trigger m_retrieveFromSubstation =
+      new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private Camera m_camera = new Camera();
+  private final ColorSensor m_colorSensor = new ColorSensor();
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -67,9 +76,9 @@ public class RobotContainer {
     m_autonomousChooser.setDefaultOption(
         "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
     m_autonomousChooser.addOption(
-        "Cross Line over Charge Station", new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
-    m_autonomousChooser.addOption(
-        "Cross Line", new GroupSeqCom_MovePastLine(m_driveTrain));
+        "Cross Line over Charge Station",
+        new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
+    m_autonomousChooser.addOption("Cross Line", new GroupSeqCom_MovePastLine(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -83,7 +92,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-/*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
+    /*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
 
     m_grabCone.onTrue(new GripperClose());
@@ -93,7 +102,7 @@ public class RobotContainer {
     m_gridPos2.onTrue(new ScoreConeOnGridPos2());
     m_gridPos3.onTrue(new ScoreConeOnGridPos3());
 
-    m_initSubstation.onTrue(new AlignGripperToDoubleSubstation());    
+    m_initSubstation.onTrue(new AlignGripperToDoubleSubstation());
     m_retrieveFromSubstation.onTrue(new GetConeFromDoubleSubstation());
     m_resetManipulator.onTrue(new ResetManipulator()); */
   }
@@ -185,5 +194,4 @@ public class RobotContainer {
   public Camera getCamera() {
     return m_camera;
   }
-
 }

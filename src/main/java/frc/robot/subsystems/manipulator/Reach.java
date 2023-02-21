@@ -5,25 +5,25 @@
 package frc.robot.subsystems.manipulator;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
-
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Reach extends SubsystemBase {
   private static Reach instance;
-  
+
   private CANSparkMax m_leadMotor;
-//  private CANSparkMax m_followMotor;
+  //  private CANSparkMax m_followMotor;
 
   private RelativeEncoder m_leadEncoder;
 
-  public Reach() {
-    m_leadMotor = new CANSparkMax(
-        Constants.CANDeviceIDs.kReachID,
-        com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+  private Reach() {
+    m_leadMotor =
+        new CANSparkMax(
+            Constants.CANDeviceIDs.kReachID,
+            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
     // m_followMotor = new CANSparkMax(
     //     Constants.CANDeviceIDs.kReachFollowID,
     //     com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -38,9 +38,7 @@ public class Reach extends SubsystemBase {
 
     m_leadMotor
         .getPIDController()
-        .setOutputRange(
-            Constants.ReachConstants.kMinOutput,
-            Constants.ReachConstants.kMaxOutput);
+        .setOutputRange(Constants.ReachConstants.kMinOutput, Constants.ReachConstants.kMaxOutput);
 
     // m_followMotor.follow(m_leadMotor);
 
@@ -48,8 +46,10 @@ public class Reach extends SubsystemBase {
     m_leadEncoder.setPosition(0);
 
     // don't let the reach arm travel past the stop points
-    m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.ReachConstants.kExtendSoftLimit);    
-    m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.ReachConstants.kRetractSoftLimit);
+    m_leadMotor.setSoftLimit(
+        SoftLimitDirection.kForward, Constants.ReachConstants.kExtendSoftLimit);
+    m_leadMotor.setSoftLimit(
+        SoftLimitDirection.kReverse, Constants.ReachConstants.kRetractSoftLimit);
   }
 
   public double getPosition() {
@@ -71,5 +71,4 @@ public class Reach extends SubsystemBase {
 
     return instance;
   }
-
 }

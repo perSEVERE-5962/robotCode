@@ -5,9 +5,8 @@
 package frc.robot.subsystems.manipulator;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
-
+import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,14 +15,15 @@ public class Wrist extends SubsystemBase {
   private static Wrist instance;
 
   private CANSparkMax m_leadMotor;
-//  private CANSparkMax m_followMotor;
+  //  private CANSparkMax m_followMotor;
 
   private RelativeEncoder m_leadEncoder;
 
-  public Wrist() {
-    m_leadMotor = new CANSparkMax(
-        Constants.CANDeviceIDs.kReachID,
-        com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+  private Wrist() {
+    m_leadMotor =
+        new CANSparkMax(
+            Constants.CANDeviceIDs.kReachID,
+            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
     // m_followMotor = new CANSparkMax(
     //     Constants.CANDeviceIDs.kReachFollowID,
     //     com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
@@ -38,9 +38,7 @@ public class Wrist extends SubsystemBase {
 
     m_leadMotor
         .getPIDController()
-        .setOutputRange(
-            Constants.WristConstants.kMinOutput,
-            Constants.WristConstants.kMaxOutput);
+        .setOutputRange(Constants.WristConstants.kMinOutput, Constants.WristConstants.kMaxOutput);
 
     // m_followMotor.follow(m_leadMotor);
 
@@ -48,7 +46,7 @@ public class Wrist extends SubsystemBase {
     m_leadEncoder.setPosition(0);
 
     // don't let the wrist travel past the stop points
-    m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.WristConstants.kLowerSoftLimit);    
+    m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.WristConstants.kLowerSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.WristConstants.kRaiseSoftLimit);
   }
 
@@ -61,7 +59,6 @@ public class Wrist extends SubsystemBase {
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 
-
   /**
    * @return the instance
    */
@@ -72,5 +69,4 @@ public class Wrist extends SubsystemBase {
 
     return instance;
   }
-
 }
