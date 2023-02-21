@@ -7,6 +7,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -172,5 +174,27 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public double getPitch() {
     return gyro.getPitch();
+  }
+
+  public void addDebugInfo() {
+    ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Swerve Subsystem Debug");
+    shuffleboardTab.addNumber("Robot Heading", () -> getHeading());
+    shuffleboardTab.addString("Robot Location", () -> getPose().getTranslation().toString());
+    shuffleboardTab.addNumber("LFDE", () -> frontLeft.getDrivePosition());
+    shuffleboardTab.addNumber("LBDE", () -> backLeft.getDrivePosition());
+    shuffleboardTab.addNumber("RFDE", () -> frontRight.getDrivePosition());
+    shuffleboardTab.addNumber("RBDE", () -> backRight.getDrivePosition());
+    shuffleboardTab.addNumber("LFSE", () -> frontLeft.getTurningPosition());
+    shuffleboardTab.addNumber("LBSE", () -> backLeft.getTurningPosition());
+    shuffleboardTab.addNumber("RFSE", () -> frontRight.getTurningPosition());
+    shuffleboardTab.addNumber("RBSE", () -> backRight.getTurningPosition());
+    shuffleboardTab.addNumber("LF RAD", () -> frontLeft.getAbsoluteEncoderRad());
+    shuffleboardTab.addNumber("LB RAD", () -> backLeft.getAbsoluteEncoderRad());
+    shuffleboardTab.addNumber("RF RAD", () -> frontRight.getAbsoluteEncoderRad());
+    shuffleboardTab.addNumber("RB RAD", () -> backRight.getAbsoluteEncoderRad());
+    shuffleboardTab.addNumber("LF DEG", () -> frontLeft.getAbsoluteEncoderAngle());
+    shuffleboardTab.addNumber("LB DEG", () -> backLeft.getAbsoluteEncoderAngle());
+    shuffleboardTab.addNumber("RF DEG", () -> frontRight.getAbsoluteEncoderAngle());
+    shuffleboardTab.addNumber("RB DEG", () -> backRight.getAbsoluteEncoderAngle());
   }
 }
