@@ -42,6 +42,7 @@ public class RobotContainer {
   private final Trigger m_releaseCone = new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value); 
   private final Trigger m_initSubstation = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
   private final Trigger m_retrieveFromSubstation = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
+  private final ColorSensor m_colorSensor = new ColorSensor();
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -103,13 +104,21 @@ public class RobotContainer {
     shuffleboardTab = Shuffleboard.getTab("Angle");
     shuffleboardTab.addNumber("Pitch Offset", () -> Constants.PITCH_OFFSET);
     shuffleboardTab.addNumber("Pitch", () -> getDriveTrain().getPitch());
-    shuffleboardTab.addNumber("Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+    shuffleboardTab.addNumber(
+        "Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
 
     // Color sensor
     shuffleboardTab = Shuffleboard.getTab("Line Detector");
-    // shuffleboardTab.addNumber("Confidence", () -> new ColorSensor().getConfidence());
-    // shuffleboardTab.addString("Color Name", () -> new ColorSensor().getColor());
-    // shuffleboardTab.addString("Hex Value", () -> new ColorSensor().getHex().toString());
+    shuffleboardTab.addNumber("Confidence", () -> m_colorSensor.getConfidence());
+    shuffleboardTab.addString("Color Name", () -> m_colorSensor.getColor());
+    shuffleboardTab.addString("Hex Value", () -> m_colorSensor.getHex().toString());
+
+    // Wheels
+    shuffleboardTab = Shuffleboard.getTab("Wheels");
+    shuffleboardTab.addNumber("Average Position", () -> getDriveTrain().getAveragePosition());
+
+    // Other
+    getDriveTrain().addDebugInfo();
   }
 
   /**

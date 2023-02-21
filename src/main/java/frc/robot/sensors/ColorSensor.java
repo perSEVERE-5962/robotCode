@@ -4,7 +4,7 @@ import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
 import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
 public class ColorSensor {
@@ -12,20 +12,21 @@ public class ColorSensor {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
   String colorString;
-  private ColorMatchResult match;
 
   private final Color Blue_range = new Color(30, 91, 133);
   // private final Color Red_range = new Color(0.561, 0.232, 0.114);
   private final Color Red_range = new Color(131, 89, 33);
 
-  public String getColor() {
+  public ColorSensor() {
     m_colorMatcher.addColorMatch(Blue_range);
     m_colorMatcher.addColorMatch(Red_range);
+  }
+
+  public String getColor() {
     Color Detected_Color = m_colorSensor.getColor();
     // String colorString;
     m_colorMatcher.setConfidenceThreshold(.90);
     ColorMatchResult match = m_colorMatcher.matchClosestColor(Detected_Color);
-    this.match = match;
     if (match.color == Blue_range && match.confidence >= 0.8) {
       colorString = "Blue";
     } else if (match.color == Red_range && match.confidence >= 0.8) {
@@ -43,6 +44,9 @@ public class ColorSensor {
   }
 
   public double getConfidence() {
-    return this.match.confidence;
+    Color Detected_Color = m_colorSensor.getColor();
+    m_colorMatcher.setConfidenceThreshold(.90);
+    ColorMatchResult match = m_colorMatcher.matchClosestColor(Detected_Color);
+    return match.confidence;
   }
 }
