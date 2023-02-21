@@ -53,10 +53,10 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
 
-    public static final boolean kFrontLeftTurningEncoderReversed = true;
-    public static final boolean kBackLeftTurningEncoderReversed = true;
-    public static final boolean kFrontRightTurningEncoderReversed = true;
-    public static final boolean kBackRightTurningEncoderReversed = true;
+    public static final boolean kFrontLeftTurningEncoderReversed = false;
+    public static final boolean kBackLeftTurningEncoderReversed = false;
+    public static final boolean kFrontRightTurningEncoderReversed = false;
+    public static final boolean kBackRightTurningEncoderReversed = false;
 
     public static final boolean kFrontLeftDriveEncoderReversed = true;
     public static final boolean kBackLeftDriveEncoderReversed = true;
@@ -68,10 +68,10 @@ public final class Constants {
     public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(0);
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(0);
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(0);
-    public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(0);
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(101.074);
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(17.754);
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(11.250+180);
+    public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(172.266);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;

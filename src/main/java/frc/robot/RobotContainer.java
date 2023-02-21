@@ -82,7 +82,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
+/*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
 
     m_grabCone.onTrue(new GripperClose());
@@ -94,7 +94,7 @@ public class RobotContainer {
 
     m_initSubstation.onTrue(new AlignGripperToDoubleSubstation());    
     m_retrieveFromSubstation.onTrue(new GetConeFromDoubleSubstation());
-    m_resetManipulator.onTrue(new ResetManipulator());
+    m_resetManipulator.onTrue(new ResetManipulator()); */
   }
 
   private void configureShuffleBoard() {
