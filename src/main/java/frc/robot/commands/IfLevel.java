@@ -34,6 +34,6 @@ public class IfLevel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= Constants.PITCH_ENGAGED;
+    return m_driveTrain.getPitch() <= Constants.PITCH_LEVEL - Constants.PITCH_OFFSET;
   }
 }

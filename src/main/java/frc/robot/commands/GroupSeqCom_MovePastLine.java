@@ -13,11 +13,11 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class GroupSeqCom_MovePastLine extends SequentialCommandGroup {
   /** Creates a new GroupSeqCom_MovePastLine. */
-  public GroupSeqCom_MovePastLine(SwerveSubsystem driveTrain, LineDetector lineDetector) {
+  public GroupSeqCom_MovePastLine(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new GroupParRace_MoveToLine(driveTrain, lineDetector),
+        new GroupParRace_MoveToLine(driveTrain),
         new ForwardDistance(driveTrain, 0.5, 1 /* Unknown */));
   }
 }

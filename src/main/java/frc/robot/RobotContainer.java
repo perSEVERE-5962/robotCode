@@ -7,34 +7,22 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.commands.manipulator.*;
 import frc.robot.sensors.Camera;
-import frc.robot.subsystems.Gripper;
-import frc.robot.subsystems.LinearSlide;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
-import java.util.List;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -43,21 +31,22 @@ import java.util.List;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private static final LinearSlide Position = null;
-  private static final LinearSlide LinearSlide = null;
-  private static final double Trajectory = 0;
   private final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
-  private final Joystick m_copilotController = new Joystick(OIConstants.kCoPilotControllerPort);
+  private final XboxController m_copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
 
-  private final Gripper m_gripper = new Gripper();
-  private final Trigger m_buttonA = new JoystickButton(m_copilotController, 1);
-  private final Trigger m_buttonB = new JoystickButton(m_copilotController, 2);
-  // private AHRS m_Gyro = new AHRS(SPI.Port.kMXP);
+  private final Trigger m_gridPos1 = new JoystickButton(m_copilotController, XboxController.Button.kA.value); 
+  private final Trigger m_gridPos2 = new JoystickButton(m_copilotController, XboxController.Button.kB.value); 
+  private final Trigger m_gridPos3 = new JoystickButton(m_copilotController, XboxController.Button.kX.value); 
+  private final Trigger m_resetManipulator = new JoystickButton(m_copilotController, XboxController.Button.kY.value);
+  private final Trigger m_grabCone = new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);  
+  private final Trigger m_releaseCone = new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value); 
+  private final Trigger m_initSubstation = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
+  private final Trigger m_retrieveFromSubstation = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
 
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem m_driveTrain = new SwerveSubsystem();
+  private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private Camera m_camera = new Camera();
-  // private LineDetector m_lineDetector = new LineDetector();
+
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -72,15 +61,16 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
+    configureShuffleBoard();
 
     m_autonomousChooser.setDefaultOption(
         "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
     m_autonomousChooser.addOption(
-        "Past Community Line", new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
+        "Cross Line over Charge Station", new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
     m_autonomousChooser.addOption(
-        "Onto Charging Station", new GroupParRace_GetOnChargingStation(m_driveTrain));
+        "Cross Line", new GroupSeqCom_MovePastLine(m_driveTrain));
 
-    SmartDashboard.putData("Auto Start Position", m_autonomousChooser);
+    SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
     SmartDashboard.putNumber("Camera Brightness", 50);
   }
@@ -92,11 +82,34 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
+/*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
 
-    m_buttonA.onTrue(new ManipulatorClose(m_gripper));
-    m_buttonB.onTrue(new ManipulatorOpen(m_gripper));
+    m_grabCone.onTrue(new GripperClose());
+    m_releaseCone.onTrue(new GripperOpen());
+
+    m_gridPos1.onTrue(new ScoreConeOnGridPos1());
+    m_gridPos2.onTrue(new ScoreConeOnGridPos2());
+    m_gridPos3.onTrue(new ScoreConeOnGridPos3());
+
+    m_initSubstation.onTrue(new AlignGripperToDoubleSubstation());    
+    m_retrieveFromSubstation.onTrue(new GetConeFromDoubleSubstation());
+    m_resetManipulator.onTrue(new ResetManipulator()); */
+  }
+
+  private void configureShuffleBoard() {
+    ShuffleboardTab shuffleboardTab;
+    // Angle tab
+    shuffleboardTab = Shuffleboard.getTab("Angle");
+    shuffleboardTab.addNumber("Pitch Offset", () -> Constants.PITCH_OFFSET);
+    shuffleboardTab.addNumber("Pitch", () -> getDriveTrain().getPitch());
+    shuffleboardTab.addNumber("Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+
+    // Color sensor
+    shuffleboardTab = Shuffleboard.getTab("Line Detector");
+    // shuffleboardTab.addNumber("Confidence", () -> new ColorSensor().getConfidence());
+    // shuffleboardTab.addString("Color Name", () -> new ColorSensor().getColor());
+    // shuffleboardTab.addString("Hex Value", () -> new ColorSensor().getHex().toString());
   }
 
   /**
@@ -105,58 +118,54 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     Command command = m_autonomousChooser.getSelected();
-    // command = new CrossLine();
-    // command = new AutoDriveForward(0, m_driveTrain);
     return command;
-    // return getAutonomousTrajectoryCommand();
   }
 
-  private Command getAutonomousTrajectoryCommand() {
-    // 1. Create trajectory settings
-    TrajectoryConfig trajectoryConfig =
-        new TrajectoryConfig(
-                AutoConstants.kMaxSpeedMetersPerSecond,
-                AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-            .setKinematics(DriveConstants.kDriveKinematics);
+  // private Command getAutonomousTrajectoryCommand() {
+  //   // 1. Create trajectory settings
+  //   TrajectoryConfig trajectoryConfig =
+  //       new TrajectoryConfig(
+  //               AutoConstants.kMaxSpeedMetersPerSecond,
+  //               AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+  //           .setKinematics(DriveConstants.kDriveKinematics);
 
-    // 2. Generate trajectory
-    Trajectory trajectory =
-        TrajectoryGenerator.generateTrajectory(
-            new Pose2d(0, 0, new Rotation2d(0)),
-            List.of(new Translation2d(1, 0), new Translation2d(1, -1)),
-            new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
-            trajectoryConfig);
+  //   // 2. Generate trajectory
+  //   Trajectory trajectory =
+  //       TrajectoryGenerator.generateTrajectory(
+  //           new Pose2d(0, 0, new Rotation2d(0)),
+  //           List.of(new Translation2d(1, 0), new Translation2d(1, -1)),
+  //           new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+  //           trajectoryConfig);
 
-    // 3. Define PID controllers for tracking trajectory
-    PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-    PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
-    ProfiledPIDController thetaController =
-        new ProfiledPIDController(
-            AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+  //   // 3. Define PID controllers for tracking trajectory
+  //   PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
+  //   PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
+  //   ProfiledPIDController thetaController =
+  //       new ProfiledPIDController(
+  //           AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
+  //   thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-    // 4. Construct command to follow trajectory
-    SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            trajectory,
-            m_driveTrain::getPose,
-            DriveConstants.kDriveKinematics,
-            xController,
-            yController,
-            thetaController,
-            m_driveTrain::setModuleStates,
-            m_driveTrain);
+  //   // 4. Construct command to follow trajectory
+  //   SwerveControllerCommand swerveControllerCommand =
+  //       new SwerveControllerCommand(
+  //           trajectory,
+  //           m_driveTrain::getPose,
+  //           DriveConstants.kDriveKinematics,
+  //           xController,
+  //           yController,
+  //           thetaController,
+  //           m_driveTrain::setModuleStates,
+  //           m_driveTrain);
 
-    // 5. Add some init and wrap-up, and return everything
-    return new SequentialCommandGroup(
-        new InstantCommand(() -> m_driveTrain.resetOdometry(trajectory.getInitialPose())),
-        swerveControllerCommand,
-        new InstantCommand(() -> m_driveTrain.stopModules()));
-  }
+  //   // 5. Add some init and wrap-up, and return everything
+  //   return new SequentialCommandGroup(
+  //       new InstantCommand(() -> m_driveTrain.resetOdometry(trajectory.getInitialPose())),
+  //       swerveControllerCommand,
+  //       new InstantCommand(() -> m_driveTrain.stopModules()));
+  // }
 
-  public SwerveSubsystem getDriveTrain() {
+  private SwerveSubsystem getDriveTrain() {
     return m_driveTrain;
   }
 
@@ -168,25 +177,4 @@ public class RobotContainer {
     return m_camera;
   }
 
-  private static double deadband(double value, double deadband) {
-    if (Math.abs(value) > deadband) {
-      if (value > 0.0) {
-        return (value - deadband) / (1.0 - deadband);
-      } else {
-        return (value + deadband) / (1.0 - deadband);
-      }
-    } else {
-      return 0.0;
-    }
-  }
-
-  private static double modifyAxis(double value) {
-    // Deadband
-    value = deadband(value, 0.05);
-
-    // Square the axis
-    value = Math.copySign(value * value, value);
-
-    return value;
-  }
 }
