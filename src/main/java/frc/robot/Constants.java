@@ -53,16 +53,6 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
 
-    public static final int kFrontLeftDriveMotorPort = 40;
-    public static final int kBackLeftDriveMotorPort = 20;
-    public static final int kFrontRightDriveMotorPort = 30;
-    public static final int kBackRightDriveMotorPort = 10;
-
-    public static final int kFrontLeftTurningMotorPort = 41;
-    public static final int kBackLeftTurningMotorPort = 21;
-    public static final int kFrontRightTurningMotorPort = 31;
-    public static final int kBackRightTurningMotorPort = 11;
-
     public static final boolean kFrontLeftTurningEncoderReversed = true;
     public static final boolean kBackLeftTurningEncoderReversed = true;
     public static final boolean kFrontRightTurningEncoderReversed = true;
@@ -72,11 +62,6 @@ public final class Constants {
     public static final boolean kBackLeftDriveEncoderReversed = true;
     public static final boolean kFrontRightDriveEncoderReversed = false;
     public static final boolean kBackRightDriveEncoderReversed = false;
-
-    public static final int kFrontLeftDriveAbsoluteEncoderPort = 42;
-    public static final int kBackLeftDriveAbsoluteEncoderPort = 22;
-    public static final int kFrontRightDriveAbsoluteEncoderPort = 32;
-    public static final int kBackRightDriveAbsoluteEncoderPort = 12;
 
     public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
@@ -139,17 +124,71 @@ public final class Constants {
   public static final float PITCH_CLIMBING = 10.0f;
   public static final float PITCH_LEVEL = 2.0f;
 
-  public static final class MotorControllerDeviceID {
-    public static final int LinearSlideDeviceID = 30;
+  public static final class CANDeviceIDs {
+    // drive motors
+    public static final int kFrontLeftDriveMotorID = 40;
+    public static final int kBackLeftDriveMotorID = 20;
+    public static final int kFrontRightDriveMotorID = 30;
+    public static final int kBackRightDriveMotorID = 10;
+    // steer motors
+    public static final int kFrontLeftTurningMotorID = 41;
+    public static final int kBackLeftTurningMotorID = 21;
+    public static final int kFrontRightTurningMotorID = 31;
+    public static final int kBackRightTurningMotorID = 11;
+    // absolute encoders
+    public static final int kFrontLeftDriveAbsoluteEncoderID = 42;
+    public static final int kBackLeftDriveAbsoluteEncoderID = 22;
+    public static final int kFrontRightDriveAbsoluteEncoderID = 32;
+    public static final int kBackRightDriveAbsoluteEncoderID = 12;
+    // manipulator
+    public static final int kLiftLeadID = 50;
+    public static final int kLiftFollowID = 51;
+    public static final int kReachID = 60;
+    public static final int kWristID = 70;
   }
 
-  public static final class LinearSlidePIDCoefficients {
-    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+  public static final class LiftConstants {
+    public static final double kP = 0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // raise?
     public static final double kMinOutput = -0.25; // lower ?
-  }
+    public static final float kLowerSoftLimit = 0; // kReverse
+    public static final float kRaiseSoftLimit = 50; // kForward
+    public static final double kPos1 = 0; // cone grid position 1
+    public static final double kPos2 = 10; // cone grid position 2
+    public static final double kPos3 = 20; // cone grid position 3
+    public static final double kSubStation = 20; // double substation/cone collection
+    }
+
+    public static final class ReachConstants {
+      public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+      public static final double kI = 0; // 1e-4,
+      public static final double kD = 0; // 1, 0.5, 0.1
+      public static final double kIz = 0;
+      public static final double kFF = 0; // 0,
+      public static final double kMaxOutput = 0.5; // extend?
+      public static final double kMinOutput = -0.25; // retract ?
+      public static final float kRetractSoftLimit = 0; // kReverse
+      public static final float kExtendSoftLimit = 50; // kForward
+      public static final double kPos1 = 0; // cone grid position 1
+      public static final double kPos2 = 10; // cone grid position 2
+      public static final double kPos3 = 20; // cone grid position 3
+      public static final double kSubStation = 10; // double substation/cone collection
+    }
+
+    public static final class WristConstants {
+      public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+      public static final double kI = 0; // 1e-4,
+      public static final double kD = 0; // 1, 0.5, 0.1
+      public static final double kIz = 0;
+      public static final double kFF = 0; // 0,
+      public static final double kMaxOutput = 0.5; // extend?
+      public static final double kMinOutput = -0.25; // retract ?
+      public static final float kLowerSoftLimit = 0; // kReverse
+      public static final float kRaiseSoftLimit = 10; // kForward
+    }
+  
 }

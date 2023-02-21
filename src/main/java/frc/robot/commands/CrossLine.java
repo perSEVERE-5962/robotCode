@@ -11,11 +11,11 @@ import frc.robot.subsystems.LineDetector;
 
 public class CrossLine extends CommandBase {
   /** Creates a new CrossLine. */
-  private LineDetector Line_Detector;
+  private LineDetector m_lineDetector;
   // private final String red = "Red Value";
   // private final String blue = "Blue Value";
-  public CrossLine(LineDetector Line_Detector) {
-    this.Line_Detector = Line_Detector;
+  public CrossLine() {
+    this.m_lineDetector = LineDetector.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -38,6 +38,6 @@ public class CrossLine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Line_Detector.Sensing_Color();
+    return m_lineDetector.Sensing_Color();
   }
 }

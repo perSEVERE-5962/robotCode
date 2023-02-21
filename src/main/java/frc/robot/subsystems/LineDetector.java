@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.sensors.ColorSensor;
 
 public class LineDetector extends SubsystemBase {
+  private static LineDetector instance;
+
   private ColorSensor Color_Sensor;
   private final String red = "Red";
   private final String blue = "Blue";
@@ -42,5 +44,16 @@ public class LineDetector extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  /**
+   * @return the instance
+   */
+  public static LineDetector getInstance() {
+    if (instance == null) {
+      instance = new LineDetector();
+    }
+
+    return instance;
   }
 }
