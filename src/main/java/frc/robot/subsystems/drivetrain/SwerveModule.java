@@ -39,7 +39,7 @@ public class SwerveModule {
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     absoluteEncoder = new CANCoder(absoluteEncoderId);
-    absoluteEncoder.setPosition(0);
+    // SAT CHANGE: absoluteEncoder.setPosition(0);
 
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
@@ -78,7 +78,8 @@ public class SwerveModule {
   }
 
   public double getAbsoluteEncoderAngle() {
-    double angle = absoluteEncoder.getPosition() * (360 / 4096);
+    double angle = absoluteEncoder.getPosition();
+    // SAT CHANGE: double angle = absoluteEncoder.getPosition()*(360/4096);
     return angle;
   }
 
@@ -90,8 +91,9 @@ public class SwerveModule {
 
   public void resetEncoders() {
     driveEncoder.setPosition(0);
-    turningEncoder.setPosition(0);
-    absoluteEncoder.setPosition(0);
+    turningEncoder.setPosition(getAbsoluteEncoderRad());
+    // SAT CHANGE: turningEncoder.setPosition(0);
+    // SAT CHANGE: absoluteEncoder.setPosition(0);
   }
 
   public SwerveModuleState getState() {

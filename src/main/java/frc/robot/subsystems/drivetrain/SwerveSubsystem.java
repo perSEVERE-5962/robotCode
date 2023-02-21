@@ -6,52 +6,55 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.CANDeviceIDs;
 import frc.robot.Constants.DriveConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
+  private static SwerveSubsystem instance;
+
   private final SwerveModule frontLeft =
       new SwerveModule(
-          DriveConstants.kFrontLeftDriveMotorPort,
-          DriveConstants.kFrontLeftTurningMotorPort,
+          CANDeviceIDs.kFrontLeftDriveMotorID,
+          CANDeviceIDs.kFrontLeftTurningMotorID,
           DriveConstants.kFrontLeftDriveEncoderReversed,
           DriveConstants.kFrontLeftTurningEncoderReversed,
-          DriveConstants.kFrontLeftDriveAbsoluteEncoderPort,
+          CANDeviceIDs.kFrontLeftDriveAbsoluteEncoderID,
           DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad,
           DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
 
   private final SwerveModule frontRight =
       new SwerveModule(
-          DriveConstants.kFrontRightDriveMotorPort,
-          DriveConstants.kFrontRightTurningMotorPort,
+          CANDeviceIDs.kFrontRightDriveMotorID,
+          CANDeviceIDs.kFrontRightTurningMotorID,
           DriveConstants.kFrontRightDriveEncoderReversed,
           DriveConstants.kFrontRightTurningEncoderReversed,
-          DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
+          CANDeviceIDs.kFrontRightDriveAbsoluteEncoderID,
           DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
           DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
 
   private final SwerveModule backLeft =
       new SwerveModule(
-          DriveConstants.kBackLeftDriveMotorPort,
-          DriveConstants.kBackLeftTurningMotorPort,
+          CANDeviceIDs.kBackLeftDriveMotorID,
+          CANDeviceIDs.kBackLeftTurningMotorID,
           DriveConstants.kBackLeftDriveEncoderReversed,
           DriveConstants.kBackLeftTurningEncoderReversed,
-          DriveConstants.kBackLeftDriveAbsoluteEncoderPort,
+          CANDeviceIDs.kBackLeftDriveAbsoluteEncoderID,
           DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
           DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
 
   private final SwerveModule backRight =
       new SwerveModule(
-          DriveConstants.kBackRightDriveMotorPort,
-          DriveConstants.kBackRightTurningMotorPort,
+          CANDeviceIDs.kBackRightDriveMotorID,
+          CANDeviceIDs.kBackRightTurningMotorID,
           DriveConstants.kBackRightDriveEncoderReversed,
           DriveConstants.kBackRightTurningEncoderReversed,
-          DriveConstants.kBackRightDriveAbsoluteEncoderPort,
+          CANDeviceIDs.kBackRightDriveAbsoluteEncoderID,
           DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
           DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
 
@@ -67,7 +70,7 @@ public class SwerveSubsystem extends SubsystemBase {
             backRight.getPosition()
           });
 
-  public SwerveSubsystem() {
+  private SwerveSubsystem() {
     new Thread(
             () -> {
               try {
@@ -118,24 +121,8 @@ public class SwerveSubsystem extends SubsystemBase {
           backLeft.getPosition(),
           backRight.getPosition()
         });
-    SmartDashboard.putNumber("Robot Heading", getHeading());
-    SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-    // SmartDashboard.putNumber("LFDE", frontLeft.getDrivePosition());
-    // SmartDashboard.putNumber("LBDE", backLeft.getDrivePosition());
-    // SmartDashboard.putNumber("RFDE", frontRight.getDrivePosition());
-    // SmartDashboard.putNumber("RBDE", backRight.getDrivePosition());
-    // SmartDashboard.putNumber("LFSE", frontLeft.getTurningPosition());
-    // SmartDashboard.putNumber("LBSE", backLeft.getTurningPosition());
-    // SmartDashboard.putNumber("RFSE", frontRight.getTurningPosition());
-    // SmartDashboard.putNumber("RBSE", backRight.getTurningPosition());
-    // SmartDashboard.putNumber("LF RAD", frontLeft.getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber("LB RAD", backLeft.getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber("RF RAD", frontRight.getAbsoluteEncoderRad());
-    // SmartDashboard.putNumber("RB RAD", backRight.getAbsoluteEncoderRad());
-    SmartDashboard.putNumber("LF DEG", frontLeft.getAbsoluteEncoderAngle());
-    SmartDashboard.putNumber("LB DEG", backLeft.getAbsoluteEncoderAngle());
-    SmartDashboard.putNumber("RF DEG", frontRight.getAbsoluteEncoderAngle());
-    SmartDashboard.putNumber("RB DEG", backRight.getAbsoluteEncoderAngle());
+    // SmartDashboard.putNumber("Robot Heading", getHeading());
+    // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
   }
 
   public void stopModules() {
@@ -145,7 +132,7 @@ public class SwerveSubsystem extends SubsystemBase {
     backRight.stop();
   }
 
-  public void setModuleStates(edu.wpi.first.math.kinematics.SwerveModuleState[] desiredStates) {
+  public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(
         desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
     frontLeft.setDesiredState(desiredStates[0]);
@@ -196,5 +183,31 @@ public class SwerveSubsystem extends SubsystemBase {
     shuffleboardTab.addNumber("LB DEG", () -> backLeft.getAbsoluteEncoderAngle());
     shuffleboardTab.addNumber("RF DEG", () -> frontRight.getAbsoluteEncoderAngle());
     shuffleboardTab.addNumber("RB DEG", () -> backRight.getAbsoluteEncoderAngle());
+  }
+
+  /** Set the wheels to an X pattern to plant the robot. */
+  public void setWheelsToX() {
+    setModuleStates(
+        new SwerveModuleState[] {
+          // front left
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(45.0)),
+          // front right
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(-45.0)),
+          // back left
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(135.0)),
+          // back right
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(-135.0))
+        });
+  }
+
+  /**
+   * @return the instance
+   */
+  public static SwerveSubsystem getInstance() {
+    if (instance == null) {
+      instance = new SwerveSubsystem();
+    }
+
+    return instance;
   }
 }
