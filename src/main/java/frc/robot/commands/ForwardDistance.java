@@ -1,23 +1,22 @@
-// Copyright (c) FIRST and other WPILib contributors.
+// Copyright (c) FIRST and other WPILib +.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
-
-public class ForwardDistance extends Forward {
-  
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
- private double m_distance;
+public class ForwardDistance extends Move {
+  private double distanceWanted;
+  private double m_InitialDistance;
+  // private DoubleSupplier m_translationYSupplier;
+  // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-public ForwardDistance(Drivetrain driveTrain, double speed, double distance){
-    super(driveTrain, speed);
-    m_distance= distance;
+  public ForwardDistance(
+      SwerveSubsystem driveTrain, double translationXSupplier, double distanceWanted) {
+    super(driveTrain, translationXSupplier, 0, 0);
+    this.distanceWanted = distanceWanted;
+
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,20 +24,13 @@ public ForwardDistance(Drivetrain driveTrain, double speed, double distance){
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    m_InitialDistance = m_driveTrain.getAveragePosition();
   }
 
-
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_driveTrain.stopDrive();
-  }
-
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getAverageEncoder()>=m_distance;
+    if (distanceWanted <= (m_driveTrain.getAveragePosition() - m_InitialDistance)) return true;
+
+    return false;
   }
 }

@@ -4,36 +4,28 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.Constants;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class TurnLeft extends CommandBase {
-  private Drivetrain m_driveTrain;
-  private DoubleSupplier m_zero;
-  private DoubleSupplier m_speed;
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
-  /** Creates a new Forward. */
-  public TurnLeft(Drivetrain driveTrain, double speed) {
-    m_speed = () -> -speed;
-    m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+public class IfLevel extends CommandBase {
+  SwerveSubsystem m_driveTrain;
+
+  /** Creates a new IfLevel. */
+  public IfLevel(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_driveTrain = driveTrain;
+    // addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_driveTrain.swerveDrive(m_zero, m_zero, m_speed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -42,6 +34,6 @@ public class TurnLeft extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_driveTrain.getPitch() <= Constants.PITCH_LEVEL - Constants.PITCH_OFFSET;
   }
 }

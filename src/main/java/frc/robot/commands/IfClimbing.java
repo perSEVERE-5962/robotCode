@@ -4,36 +4,28 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+import frc.robot.Constants;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class Backward extends CommandBase {
-  private Drivetrain m_driveTrain;
-  private DoubleSupplier m_zero;
-  private DoubleSupplier m_speed;
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
-  /** Creates a new Forward. */
-  public Backward(Drivetrain driveTrain, double speed) {
-    m_speed = () -> -speed;
-    m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+public class IfClimbing extends CommandBase {
+  SwerveSubsystem m_drivetrain;
+
+  /** Creates a new IfClimbing. */
+  public IfClimbing(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_drivetrain = driveTrain;
+    // addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_driveTrain.swerveDrive(m_speed, m_zero, m_zero);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -42,6 +34,6 @@ public class Backward extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_drivetrain.getPitch() >= Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
   }
 }

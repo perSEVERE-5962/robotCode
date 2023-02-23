@@ -4,44 +4,40 @@
 
 package frc.robot.commands;
 
-import java.util.function.DoubleSupplier;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.Drivetrain;
+// import frc.robot.sensors.ColorSensor;
+import frc.robot.subsystems.LineDetector;
 
-public class Left extends CommandBase {
-  private Drivetrain m_driveTrain;
-  private DoubleSupplier m_zero;
-  private DoubleSupplier m_speed;
-  //private DoubleSupplier m_translationYSupplier;
-  //private DoubleSupplier m_rotationSupplier;
-  /** Creates a new Forward. */
-  public Left(Drivetrain driveTrain, double speed) {
-    m_speed = () -> -speed;
-    m_driveTrain = driveTrain;
-    addRequirements(driveTrain);
+public class CrossLine extends CommandBase {
+  /** Creates a new CrossLine. */
+  private LineDetector m_lineDetector;
+  // private final String red = "Red Value";
+  // private final String blue = "Blue Value";
+  public CrossLine() {
+    this.m_lineDetector = LineDetector.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    SmartDashboard.putString("CrossLine", "");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_driveTrain.swerveDrive(m_zero, m_speed, m_zero);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    SmartDashboard.putString("CrossLine", "Line Found");
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_lineDetector.Sensing_Color();
   }
 }
