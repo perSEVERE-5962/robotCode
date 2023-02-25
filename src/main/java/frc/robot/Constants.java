@@ -145,7 +145,7 @@ public final class Constants {
     public static final int kLiftLeadID = 50;
     public static final int kLiftFollowID = 51;
     public static final int kReachID = 60;
-    public static final int kWristID = 70;
+    public static final int kWristID = 61;
   }
 
   public static final class LiftConstants {
