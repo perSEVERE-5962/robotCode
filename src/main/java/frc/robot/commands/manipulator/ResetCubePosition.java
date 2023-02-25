@@ -14,6 +14,6 @@ public class ResetCubePosition extends SequentialCommandGroup {
   public ResetCubePosition() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MoveLift(0), new MoveReach(0), new MoveWrist(0));
+    addCommands(new MoveLift(0), new MoveReach(0), new MoveWrist(0), new MoveLift(0));
   }
 }
