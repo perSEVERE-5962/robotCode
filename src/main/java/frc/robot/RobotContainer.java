@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
@@ -30,10 +31,18 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
+  private final XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final XboxController m_copilotController =
       new XboxController(OIConstants.kCoPilotControllerPort);
   Trigger yButton = new JoystickButton(m_copilotController, XboxController.Button.kY.value);
+  Trigger aButton = new JoystickButton(m_copilotController, XboxController.Button.kA.value);
+  Trigger bButton = new JoystickButton(m_copilotController, XboxController.Button.kB.value);
+  Trigger xButton = new JoystickButton(m_copilotController, XboxController.Button.kX.value);
+  Trigger AButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  Trigger BButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+  Trigger YButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  Trigger XButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  
 
   private final Trigger m_gridPos1 =
       new JoystickButton(m_copilotController, XboxController.Button.kA.value);
@@ -92,6 +101,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    aButton.onTrue(new ScorePostion1());
+    bButton.onTrue(new ScorePostion2());
+    yButton.onTrue(new ScorePostion3());
+    xButton.onTrue(new ResetPosition());
+
     /*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
 
@@ -130,15 +144,7 @@ public class RobotContainer {
     getDriveTrain().addDebugInfo();
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
-  private void configureButtonBindings() {
-    yButton.onTrue(new ScorePostion1());
-  }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
