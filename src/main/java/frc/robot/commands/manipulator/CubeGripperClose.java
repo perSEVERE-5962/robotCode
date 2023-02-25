@@ -7,7 +7,6 @@ package frc.robot.commands.manipulator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.manipulator.CubeGripper;
 
-
 public class CubeGripperClose extends CommandBase {
   /** Creates a new CloseManipulator. */
   CubeGripper m_cubegripper;

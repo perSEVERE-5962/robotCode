@@ -15,6 +15,10 @@ public class ScoreCubePosition3 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new MoveWrist(5), new MoveLift(0), new MoveReach(0), new MoveWrist(0), new CubeGripperOpen());
+        new MoveWrist(5),
+        new MoveLift(0),
+        new MoveReach(0),
+        new MoveWrist(0),
+        new CubeGripperOpen());
   }
 }

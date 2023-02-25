@@ -14,8 +14,6 @@ public class ReleaseCube extends SequentialCommandGroup {
   public ReleaseCube() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new GripperOpen()
-    );
+    addCommands(new GripperOpen());
   }
 }

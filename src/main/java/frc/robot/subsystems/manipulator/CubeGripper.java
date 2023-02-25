@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CubeGripper extends Pneumatics {
   private static CubeGripper instance;
 
-  DoubleSolenoid m_sol = add_double_solenoid(4,5);
+  DoubleSolenoid m_sol = add_double_solenoid(4, 5);
 
   /** Creates a new Gripper. */
   private CubeGripper() {
