@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ResetPosition extends SequentialCommandGroup {
-  /** Creates a new ResetPosition. */
-  public ResetPosition() {
+public class ReleaseCube extends SequentialCommandGroup {
+  /** Creates a new ReleaseCube. */
+  public ReleaseCube() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MoveLift(0), new MoveReach(0), new MoveWrist(0), new MoveLift(0));
+    addCommands(
+      new GripperOpen()
+    );
   }
 }
