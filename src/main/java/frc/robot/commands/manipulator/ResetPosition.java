@@ -14,10 +14,6 @@ public class ResetPosition extends SequentialCommandGroup {
   public ResetPosition() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new MoveLift(0),
-      new MoveReach(0),
-      new MoveWrist(0)
-    );
+    addCommands(new MoveLift(0), new MoveReach(0), new MoveWrist(0));
   }
 }

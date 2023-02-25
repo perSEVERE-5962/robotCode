@@ -15,10 +15,6 @@ public class ScorePostion1 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveLift(5),
-      new MoveReach(5),
-      new MoveWrist(5),
-      new GripperOpen()
-    );
+        new MoveWrist(5), new MoveLift(5), new MoveReach(5), new MoveWrist(5), new GripperOpen());
   }
 }

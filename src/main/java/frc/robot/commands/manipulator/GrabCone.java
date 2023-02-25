@@ -14,12 +14,6 @@ public class GrabCone extends SequentialCommandGroup {
   public GrabCone() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new MoveLift(0),
-      new MoveReach(0),
-      new MoveWrist(0),
-      new GripperOpen(),
-      new GripperClose()
-    );
+    addCommands(new GripperOpen(), new MoveReach(0), new GripperClose());
   }
 }
