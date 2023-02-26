@@ -7,8 +7,9 @@ package frc.robot.subsystems.manipulator;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AddToShuffleboard;
 import frc.robot.Constants;
 
 public class Reach extends SubsystemBase {
@@ -16,6 +17,7 @@ public class Reach extends SubsystemBase {
 
   private CANSparkMax m_leadMotor;
   //  private CANSparkMax m_followMotor;
+  private GenericEntry reach_position;
 
   private RelativeEncoder m_leadEncoder;
 
@@ -50,6 +52,8 @@ public class Reach extends SubsystemBase {
         SoftLimitDirection.kForward, Constants.ReachConstants.kExtendSoftLimit);
     m_leadMotor.setSoftLimit(
         SoftLimitDirection.kReverse, Constants.ReachConstants.kRetractSoftLimit);
+
+    reach_position = AddToShuffleboard.add("Manipulators", "Reach Position", "");
   }
 
   public double getPosition() {
@@ -57,7 +61,7 @@ public class Reach extends SubsystemBase {
   }
 
   public void moveToPositionWithPID(double position) {
-    SmartDashboard.putString("Co-Pilot Action", "moving reach to position " + position);
+    reach_position.setString("Moving to position " + position);
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 

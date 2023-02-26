@@ -36,6 +36,7 @@ public class MoveWrist extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    double wrist = m_wrist.getPosition();
+    return wrist >= m_position - 0.2;
   }
 }

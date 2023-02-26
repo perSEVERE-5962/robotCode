@@ -5,6 +5,7 @@
 package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -14,6 +15,9 @@ public class ResetPosition extends SequentialCommandGroup {
   public ResetPosition() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MoveLift(0), new MoveReach(0), new MoveWrist(0), new MoveLift(0));
+    addCommands( // new MoveLift(0), new MoveReach(0), new MoveWrist(0), new MoveLift(0)
+        new MoveLift(Constants.LiftConstants.kRaiseSoftLimit),
+        new MoveReach(Constants.ReachConstants.kRetractSoftLimit),
+        new MoveLift(Constants.LiftConstants.kLowerSoftLimit));
   }
 }

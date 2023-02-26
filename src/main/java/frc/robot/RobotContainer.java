@@ -47,14 +47,12 @@ public class RobotContainer {
   Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  Trigger co_lBumper =
-      new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
-  Trigger co_rBumper =
-      new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
-  Trigger dr_rBumper =
-      new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
-  Trigger dr_lBumper =
-      new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+  Trigger co_back = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
+  Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
+  Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+  Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
+  Trigger dr_lStickButton =
+      new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -108,10 +106,11 @@ public class RobotContainer {
     dr_bButton.onTrue(new ScoreCubePosition2());
     dr_yButton.onTrue(new ScoreCubePosition3());
     dr_xButton.onTrue(new ResetCubePosition());
-    co_lBumper.onTrue(new AlignGripperToDoubleSubstation());
-    co_rBumper.onTrue(new GrabCone());
-    dr_lBumper.onTrue(new AlignGripperToDoubleSubstation());
-    dr_rBumper.onTrue(new GrabCube());
+    co_back.onTrue(new AlignGripperToDoubleSubstation());
+    co_start.onTrue(new GrabCone());
+    dr_back.onTrue(new AlignGripperToDoubleSubstation());
+    dr_start.onTrue(new GrabCube());
+    dr_lStickButton.onTrue(new test());
 
     /*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
@@ -152,6 +151,10 @@ public class RobotContainer {
     shuffleboardTab.addNumber("Lift Encoder Position", () -> Lift.getInstance().getPosition());
     shuffleboardTab.addNumber("Reach Encoder Position", () -> Reach.getInstance().getPosition());
     shuffleboardTab.addNumber("Wrist Encoder Position", () -> Wrist.getInstance().getPosition());
+
+    // Driver station
+    shuffleboardTab = Shuffleboard.getTab("Driver Station");
+    // The values put into the driver station can be found in other files
 
     // Other
     getDriveTrain().addDebugInfo();

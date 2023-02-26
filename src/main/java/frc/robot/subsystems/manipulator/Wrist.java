@@ -7,8 +7,9 @@ package frc.robot.subsystems.manipulator;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AddToShuffleboard;
 import frc.robot.Constants;
 
 public class Wrist extends SubsystemBase {
@@ -16,6 +17,7 @@ public class Wrist extends SubsystemBase {
 
   private CANSparkMax m_leadMotor;
   //  private CANSparkMax m_followMotor;
+  private GenericEntry wrist_position;
 
   private RelativeEncoder m_leadEncoder;
 
@@ -48,6 +50,8 @@ public class Wrist extends SubsystemBase {
     // don't let the wrist travel past the stop points
     m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.WristConstants.kLowerSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.WristConstants.kRaiseSoftLimit);
+
+    wrist_position = AddToShuffleboard.add("Manipulators", "Wrist Position", "");
   }
 
   public double getPosition() {
@@ -55,7 +59,7 @@ public class Wrist extends SubsystemBase {
   }
 
   public void moveToPositionWithPID(double position) {
-    SmartDashboard.putString("Co-Pilot Action", "moving wrist to position " + position);
+    wrist_position.setString("Moving to position " + position);
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 
