@@ -19,9 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
-import frc.robot.sensors.Camera;
 import frc.robot.sensors.ColorSensor;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
+import frc.robot.subsystems.drivetrain.*;
+import frc.robot.subsystems.manipulator.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -53,7 +53,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  //private Camera m_camera = new Camera();
+  // private Camera m_camera = new Camera();
   private final ColorSensor m_colorSensor = new ColorSensor();
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -137,6 +137,12 @@ public class RobotContainer {
     // Wheels
     shuffleboardTab = Shuffleboard.getTab("Wheels");
     shuffleboardTab.addNumber("Average Position", () -> getDriveTrain().getAveragePosition());
+
+    // Manipulator
+    shuffleboardTab = Shuffleboard.getTab("Manipulators");
+    shuffleboardTab.addNumber("Lift Encoder Position", () -> Lift.getInstance().getPosition());
+    shuffleboardTab.addNumber("Reach Encoder Position", () -> Reach.getInstance().getPosition());
+    shuffleboardTab.addNumber("Wrist Encoder Position", () -> Wrist.getInstance().getPosition());
 
     // Other
     getDriveTrain().addDebugInfo();

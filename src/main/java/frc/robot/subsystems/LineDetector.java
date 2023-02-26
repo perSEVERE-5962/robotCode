@@ -22,7 +22,7 @@ public class LineDetector extends SubsystemBase {
   // private final ColorSensorV3 m_colorSensor_read_rgb_values = new ColorSensorV3(i2cPort);
   // Color detectedRGB = m_colorSensor_read_rgb_values.getColor();
   /** Creates a new LineDetector2. */
-  public LineDetector() {
+  private LineDetector() {
     Color_Sensor = new ColorSensor();
   }
 
