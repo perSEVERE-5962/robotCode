@@ -6,11 +6,13 @@ package frc.robot.subsystems.manipulator;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class CubeGripper extends Pneumatics {
+public class CubeGripper  extends SubsystemBase{
   private static CubeGripper instance;
+  private Pneumatics pneumatics = Pneumatics.getInstance();
 
-  DoubleSolenoid m_sol = add_double_solenoid(4, 5);
+  DoubleSolenoid m_sol = pneumatics.add_double_solenoid(4, 5);
 
   /** Creates a new Gripper. */
   private CubeGripper() {
@@ -19,12 +21,12 @@ public class CubeGripper extends Pneumatics {
 
   public void close() {
     SmartDashboard.putString("Driver Action", "closing cube gripper");
-    forward(m_sol);
+    pneumatics.forward(m_sol);
   }
 
   public void open() {
     SmartDashboard.putString("Driver Action", "opening cube gripper");
-    backward(m_sol);
+    pneumatics.backward(m_sol);
   }
 
   /**
