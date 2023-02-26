@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class CubeGripper  extends SubsystemBase{
+public class CubeGripper extends SubsystemBase {
   private static CubeGripper instance;
   private Pneumatics pneumatics = Pneumatics.getInstance();
 

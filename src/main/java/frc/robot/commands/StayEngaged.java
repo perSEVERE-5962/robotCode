@@ -4,35 +4,35 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class StayEngaged extends PIDCommand {
+public class StayEngaged extends CommandBase {
   /** Creates a new StayEngaged. */
+  SwerveSubsystem m_driveTrain;
+
   public StayEngaged(SwerveSubsystem driveTrain) {
-    super(
-        // The controller that the command will use
-        new PIDController(0, 0, 0),
-        // This should return the measurement
-        () -> driveTrain.getAveragePosition(),
-        // This should return the setpoint (can also be a constant)
-        () -> driveTrain.getAveragePosition(),
-        // This uses the output
-        output -> {
-          // Use the output here
-        });
     // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
+    m_driveTrain = driveTrain;
   }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    m_driveTrain.setWheelsToX();
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {}
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // Need to somehow detect if autonomous has ended in order to finish this command.
     return false;
   }
 }

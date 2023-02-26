@@ -23,6 +23,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
 import frc.robot.sensors.ColorSensor;
+import frc.robot.subsystems.*;
 import frc.robot.subsystems.drivetrain.*;
 import frc.robot.subsystems.manipulator.*;
 
@@ -77,10 +78,8 @@ public class RobotContainer {
 
     m_autonomousChooser.setDefaultOption(
         "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
-    m_autonomousChooser.addOption(
-        "Cross Line over Charge Station",
-        new GroupSeqCom_MovePastLineWithoutColorSensor(m_driveTrain));
-    m_autonomousChooser.addOption("Cross Line", new GroupSeqCom_MovePastLine(m_driveTrain));
+    m_autonomousChooser.addOption("Cross Line over Charge Station", new MovePastLine(m_driveTrain));
+    m_autonomousChooser.addOption("Cross Line", new MovePastLineWithColorSensor(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 

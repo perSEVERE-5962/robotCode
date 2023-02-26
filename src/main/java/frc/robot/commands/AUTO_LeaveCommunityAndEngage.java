@@ -16,8 +16,6 @@ public class AUTO_LeaveCommunityAndEngage extends SequentialCommandGroup {
   public AUTO_LeaveCommunityAndEngage(SwerveSubsystem drivetrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new GroupSeqCom_MovePastLineWithoutColorSensor(drivetrain),
-        new GroupSeqCom_EngageChargingStation(drivetrain));
+    addCommands(new MovePastLine(drivetrain), new EngageChargingStation(drivetrain));
   }
 }
