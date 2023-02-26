@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -81,7 +84,12 @@ public class RobotContainer {
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
-    SmartDashboard.putNumber("Camera Brightness", 50);
+    // SmartDashboard.putNumber("Camera Brightness", 50);
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable datatable = inst.getTable("CameraPublisher");
+    NetworkTable subtable = datatable.getSubTable("MainCamera");
+    NetworkTableEntry streamsEntry = subtable.getEntry("streams");
+    streamsEntry.setString("mjpeg:http://10.59.62.52:1181/stream.mjpg");
   }
 
   /**

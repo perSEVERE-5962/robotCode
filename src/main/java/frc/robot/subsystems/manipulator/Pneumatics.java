@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Pneumatics extends SubsystemBase {
   private Compressor m_pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
+  private static Pneumatics instance;
+
   /** Creates a new Pneumatics. */
-  public Pneumatics() {
+  private Pneumatics() {
     m_pcmCompressor.enableDigital();
   }
 
@@ -28,5 +30,17 @@ public class Pneumatics extends SubsystemBase {
 
   public void backward(DoubleSolenoid solenoid) {
     solenoid.set(DoubleSolenoid.Value.kReverse);
+  }
+
+
+  /**
+   * @return the instance
+   */
+  public static Pneumatics getInstance() {
+    if (instance == null) {
+      instance = new Pneumatics();
+    }
+
+    return instance;
   }
 }
