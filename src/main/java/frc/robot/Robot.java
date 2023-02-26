@@ -83,8 +83,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
-    m_robotContainer.setCameraBrightness(brightness);
+    // int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
+    // m_robotContainer.setCameraBrightness(brightness);
   }
 
   @Override

@@ -53,7 +53,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  private Camera m_camera = new Camera();
+  //private Camera m_camera = new Camera();
   private final ColorSensor m_colorSensor = new ColorSensor();
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -199,11 +199,11 @@ public class RobotContainer {
     return m_driveTrain;
   }
 
-  public void setCameraBrightness(int brightness) {
-    m_camera.setBrightness(brightness);
-  }
+  // public void setCameraBrightness(int brightness) {
+  //   m_camera.setBrightness(brightness);
+  // }
 
-  public Camera getCamera() {
-    return m_camera;
-  }
+  // public Camera getCamera() {
+  //   return m_camera;
+  // }
 }
