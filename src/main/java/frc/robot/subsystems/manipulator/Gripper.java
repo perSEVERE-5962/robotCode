@@ -6,12 +6,14 @@ package frc.robot.subsystems.manipulator;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Gripper extends Pneumatics {
+public class Gripper  extends SubsystemBase{
   private static Gripper instance;
+  private Pneumatics pneumatics = Pneumatics.getInstance();
 
-  DoubleSolenoid m_dsol1 = add_double_solenoid(0, 1);
-  DoubleSolenoid m_dsol2 = add_double_solenoid(2, 3);
+  DoubleSolenoid m_dsol1 = pneumatics.add_double_solenoid(0, 1);
+  DoubleSolenoid m_dsol2 = pneumatics.add_double_solenoid(2, 3);
   /** Creates a new Gripper. */
   private Gripper() {
     super();
@@ -19,14 +21,14 @@ public class Gripper extends Pneumatics {
 
   public void close() {
     SmartDashboard.putString("Co-Pilot Action", "closing gripper");
-    forward(m_dsol1);
-    forward(m_dsol2);
+    pneumatics.forward(m_dsol1);
+    pneumatics.forward(m_dsol2);
   }
 
   public void open() {
     SmartDashboard.putString("Co-Pilot Action", "opening gripper");
-    backward(m_dsol1);
-    backward(m_dsol2);
+    pneumatics.backward(m_dsol1);
+    pneumatics.backward(m_dsol2);
   }
 
   /**

@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -19,7 +22,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
-import frc.robot.sensors.Camera;
 import frc.robot.sensors.ColorSensor;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
@@ -53,7 +55,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  //private Camera m_camera = new Camera();
+  // private Camera m_camera = new Camera();
   private final ColorSensor m_colorSensor = new ColorSensor();
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -81,7 +83,12 @@ public class RobotContainer {
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
-    SmartDashboard.putNumber("Camera Brightness", 50);
+    // SmartDashboard.putNumber("Camera Brightness", 50);
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable datatable = inst.getTable("CameraPublisher");
+    NetworkTable subtable = datatable.getSubTable("MainCamera");
+    NetworkTableEntry streamsEntry = subtable.getEntry("streams");
+    streamsEntry.setString("mjpeg:http://10.59.62.52:1181/stream.mjpg");
   }
 
   /**

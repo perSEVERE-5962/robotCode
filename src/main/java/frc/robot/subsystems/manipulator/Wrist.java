@@ -22,7 +22,7 @@ public class Wrist extends SubsystemBase {
   private Wrist() {
     m_leadMotor =
         new CANSparkMax(
-            Constants.CANDeviceIDs.kReachID,
+            Constants.CANDeviceIDs.kWristID,
             com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
     // m_followMotor = new CANSparkMax(
     //     Constants.CANDeviceIDs.kReachFollowID,
