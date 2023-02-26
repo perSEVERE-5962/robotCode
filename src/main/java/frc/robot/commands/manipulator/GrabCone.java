@@ -4,23 +4,16 @@
 
 package frc.robot.commands.manipulator;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.*;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ResetManipulator extends SequentialCommandGroup {
-  /** Creates a new ResetManipulator. */
-  public ResetManipulator() {
+public class GrabCone extends SequentialCommandGroup {
+  /** Creates a new GrabCone. */
+  public GrabCone() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new ParallelCommandGroup(
-            // raise wrist & lift
-            new MoveWrist(WristConstants.kRaiseSoftLimit),
-            new MoveLift(LiftConstants.kRaiseSoftLimit)),
-        new MoveReach(ReachConstants.kRetractSoftLimit));
+    addCommands(new GripperOpen(), new MoveReach(0), new GripperClose());
   }
 }

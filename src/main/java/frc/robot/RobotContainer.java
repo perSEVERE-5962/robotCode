@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -31,26 +30,26 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
+  private final XboxController m_driverController =
+      new XboxController(OIConstants.kDriverControllerPort);
   private final XboxController m_copilotController =
       new XboxController(OIConstants.kCoPilotControllerPort);
-
-  private final Trigger m_gridPos1 =
-      new JoystickButton(m_copilotController, XboxController.Button.kA.value);
-  private final Trigger m_gridPos2 =
-      new JoystickButton(m_copilotController, XboxController.Button.kB.value);
-  private final Trigger m_gridPos3 =
-      new JoystickButton(m_copilotController, XboxController.Button.kX.value);
-  private final Trigger m_resetManipulator =
-      new JoystickButton(m_copilotController, XboxController.Button.kY.value);
-  private final Trigger m_grabCone =
+  Trigger co_yButton = new JoystickButton(m_copilotController, XboxController.Button.kY.value);
+  Trigger co_aButton = new JoystickButton(m_copilotController, XboxController.Button.kA.value);
+  Trigger co_bButton = new JoystickButton(m_copilotController, XboxController.Button.kB.value);
+  Trigger co_xButton = new JoystickButton(m_copilotController, XboxController.Button.kX.value);
+  Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+  Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  Trigger co_lBumper =
       new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
-  private final Trigger m_releaseCone =
+  Trigger co_rBumper =
       new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
-  private final Trigger m_initSubstation =
-      new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
-  private final Trigger m_retrieveFromSubstation =
-      new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
+  Trigger dr_rBumper =
+      new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  Trigger dr_lBumper =
+      new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -92,6 +91,19 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    co_aButton.onTrue(new ScorePostion1());
+    co_bButton.onTrue(new ScorePostion2());
+    co_yButton.onTrue(new ScorePostion3());
+    co_xButton.onTrue(new ResetPosition());
+    dr_aButton.onTrue(new ScoreCubePosition1());
+    dr_bButton.onTrue(new ScoreCubePosition2());
+    dr_yButton.onTrue(new ScoreCubePosition3());
+    dr_xButton.onTrue(new ResetCubePosition());
+    co_lBumper.onTrue(new AlignGripperToDoubleSubstation());
+    co_rBumper.onTrue(new GrabCone());
+    dr_lBumper.onTrue(new AlignGripperToDoubleSubstation());
+    dr_rBumper.onTrue(new GrabCube());
+
     /*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
         .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
 
