@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
+import frc.robot.sensors.Camera;
 import frc.robot.sensors.ColorSensor;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.drivetrain.*;
@@ -57,7 +58,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  // private Camera m_camera = new Camera();
+  private Camera m_camera = new Camera();
   private final ColorSensor m_colorSensor = new ColorSensor();
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -83,7 +84,8 @@ public class RobotContainer {
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
-    // SmartDashboard.putNumber("Camera Brightness", 50);
+    SmartDashboard.putNumber("Camera Brightness", 50);
+
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable datatable = inst.getTable("CameraPublisher");
     NetworkTable subtable = datatable.getSubTable("MainCamera");
@@ -212,11 +214,11 @@ public class RobotContainer {
     return m_driveTrain;
   }
 
-  // public void setCameraBrightness(int brightness) {
-  //   m_camera.setBrightness(brightness);
-  // }
+  public void setCameraBrightness(int brightness) {
+    m_camera.setBrightness(brightness);
+  }
 
-  // public Camera getCamera() {
-  //   return m_camera;
-  // }
+  public Camera getCamera() {
+    return m_camera;
+  }
 }

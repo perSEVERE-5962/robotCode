@@ -20,7 +20,8 @@ public class Camera {
     //    camera2 = CameraServer.startAutomaticCapture(1);
     server = CameraServer.getServer();
     camera1.setBrightness(50);
-    camera1.setResolution(640, 480);
+    camera1.setResolution(480, 320);
+    camera1.setFPS(20);
     //    camera2.setBrightness(50);
     //    camera2.setResolution(640, 480);
     server.setSource(camera1);
