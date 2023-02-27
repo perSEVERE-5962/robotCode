@@ -29,30 +29,37 @@ import frc.robot.subsystems.drivetrain.*;
 import frc.robot.subsystems.manipulator.*;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final XboxController m_driverController =
-      new XboxController(OIConstants.kDriverControllerPort);
-  private final XboxController m_copilotController =
-      new XboxController(OIConstants.kCoPilotControllerPort);
+  private final XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  private final XboxController m_copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
   Trigger co_yButton = new JoystickButton(m_copilotController, XboxController.Button.kY.value);
   Trigger co_aButton = new JoystickButton(m_copilotController, XboxController.Button.kA.value);
   Trigger co_bButton = new JoystickButton(m_copilotController, XboxController.Button.kB.value);
   Trigger co_xButton = new JoystickButton(m_copilotController, XboxController.Button.kX.value);
+  Trigger co_back = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
+  Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
+  Trigger co_lBumper = new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
+  Trigger co_rBumper = new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
+
   Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  Trigger co_back = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
-  Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
   Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
   Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
-  Trigger dr_lStickButton =
-      new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
+  Trigger dr_lBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+  Trigger dr_rBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+
+  Trigger dr_lStickButton = new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
+
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -61,7 +68,9 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(
         new DriveCommand(
@@ -92,9 +101,11 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
@@ -102,29 +113,26 @@ public class RobotContainer {
     co_bButton.onTrue(new ScorePostion2());
     co_yButton.onTrue(new ScorePostion3());
     co_xButton.onTrue(new ResetPosition());
+    co_back.onTrue(new AlignGripperToDoubleSubstation());
+    co_start.onTrue(new GrabCone());
+    co_lBumper.onTrue(new GripperClose());
+    co_rBumper.onTrue(new GripperOpen());
+
     dr_aButton.onTrue(new ScoreCubePosition1());
     dr_bButton.onTrue(new ScoreCubePosition2());
     dr_yButton.onTrue(new ScoreCubePosition3());
     dr_xButton.onTrue(new ResetCubePosition());
-    co_back.onTrue(new AlignGripperToDoubleSubstation());
-    co_start.onTrue(new GrabCone());
     dr_back.onTrue(new AlignGripperToDoubleSubstation());
     dr_start.onTrue(new GrabCube());
+    dr_lBumper.onTrue(new CubeGripperClose());
+    dr_rBumper.onTrue(new CubeGripperOpen());
+    
     dr_lStickButton.onTrue(new test());
 
-    /*     new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
-        .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
-
-    m_grabCone.onTrue(new GripperClose());
-    m_releaseCone.onTrue(new GripperOpen());
-
-    m_gridPos1.onTrue(new ScoreConeOnGridPos1());
-    m_gridPos2.onTrue(new ScoreConeOnGridPos2());
-    m_gridPos3.onTrue(new ScoreConeOnGridPos3());
-
-    m_initSubstation.onTrue(new AlignGripperToDoubleSubstation());
-    m_retrieveFromSubstation.onTrue(new GetConeFromDoubleSubstation());
-    m_resetManipulator.onTrue(new ResetManipulator()); */
+    /*
+     * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
+     * .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
+     */
   }
 
   private void configureShuffleBoard() {
@@ -171,46 +179,50 @@ public class RobotContainer {
   }
 
   // private Command getAutonomousTrajectoryCommand() {
-  //   // 1. Create trajectory settings
-  //   TrajectoryConfig trajectoryConfig =
-  //       new TrajectoryConfig(
-  //               AutoConstants.kMaxSpeedMetersPerSecond,
-  //               AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-  //           .setKinematics(DriveConstants.kDriveKinematics);
+  // // 1. Create trajectory settings
+  // TrajectoryConfig trajectoryConfig =
+  // new TrajectoryConfig(
+  // AutoConstants.kMaxSpeedMetersPerSecond,
+  // AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+  // .setKinematics(DriveConstants.kDriveKinematics);
 
-  //   // 2. Generate trajectory
-  //   Trajectory trajectory =
-  //       TrajectoryGenerator.generateTrajectory(
-  //           new Pose2d(0, 0, new Rotation2d(0)),
-  //           List.of(new Translation2d(1, 0), new Translation2d(1, -1)),
-  //           new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
-  //           trajectoryConfig);
+  // // 2. Generate trajectory
+  // Trajectory trajectory =
+  // TrajectoryGenerator.generateTrajectory(
+  // new Pose2d(0, 0, new Rotation2d(0)),
+  // List.of(new Translation2d(1, 0), new Translation2d(1, -1)),
+  // new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+  // trajectoryConfig);
 
-  //   // 3. Define PID controllers for tracking trajectory
-  //   PIDController xController = new PIDController(AutoConstants.kPXController, 0, 0);
-  //   PIDController yController = new PIDController(AutoConstants.kPYController, 0, 0);
-  //   ProfiledPIDController thetaController =
-  //       new ProfiledPIDController(
-  //           AutoConstants.kPThetaController, 0, 0, AutoConstants.kThetaControllerConstraints);
-  //   thetaController.enableContinuousInput(-Math.PI, Math.PI);
+  // // 3. Define PID controllers for tracking trajectory
+  // PIDController xController = new PIDController(AutoConstants.kPXController, 0,
+  // 0);
+  // PIDController yController = new PIDController(AutoConstants.kPYController, 0,
+  // 0);
+  // ProfiledPIDController thetaController =
+  // new ProfiledPIDController(
+  // AutoConstants.kPThetaController, 0, 0,
+  // AutoConstants.kThetaControllerConstraints);
+  // thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-  //   // 4. Construct command to follow trajectory
-  //   SwerveControllerCommand swerveControllerCommand =
-  //       new SwerveControllerCommand(
-  //           trajectory,
-  //           m_driveTrain::getPose,
-  //           DriveConstants.kDriveKinematics,
-  //           xController,
-  //           yController,
-  //           thetaController,
-  //           m_driveTrain::setModuleStates,
-  //           m_driveTrain);
+  // // 4. Construct command to follow trajectory
+  // SwerveControllerCommand swerveControllerCommand =
+  // new SwerveControllerCommand(
+  // trajectory,
+  // m_driveTrain::getPose,
+  // DriveConstants.kDriveKinematics,
+  // xController,
+  // yController,
+  // thetaController,
+  // m_driveTrain::setModuleStates,
+  // m_driveTrain);
 
-  //   // 5. Add some init and wrap-up, and return everything
-  //   return new SequentialCommandGroup(
-  //       new InstantCommand(() -> m_driveTrain.resetOdometry(trajectory.getInitialPose())),
-  //       swerveControllerCommand,
-  //       new InstantCommand(() -> m_driveTrain.stopModules()));
+  // // 5. Add some init and wrap-up, and return everything
+  // return new SequentialCommandGroup(
+  // new InstantCommand(() ->
+  // m_driveTrain.resetOdometry(trajectory.getInitialPose())),
+  // swerveControllerCommand,
+  // new InstantCommand(() -> m_driveTrain.stopModules()));
   // }
 
   private SwerveSubsystem getDriveTrain() {
