@@ -5,6 +5,7 @@
 package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,10 +16,9 @@ public class ScoreCubePosition3 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new MoveWrist(5),
-        new MoveLift(0),
-        new MoveReach(0),
-        new MoveWrist(0),
-        new CubeGripperOpen());
+        // new MoveWrist(5),
+        new MoveLift(Constants.LiftConstants.kPos3), new MoveReach(Constants.ReachConstants.kPos3));
+    // new MoveWrist(0),
+    // new CubeGripperOpen());
   }
 }

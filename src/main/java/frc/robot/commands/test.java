@@ -4,27 +4,32 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class StayEngaged extends CommandBase {
-  /** Creates a new StayEngaged. */
-  SwerveSubsystem m_driveTrain;
-
-  public StayEngaged(SwerveSubsystem driveTrain) {
+public class test extends CommandBase {
+  /** Creates a new test. */
+  public test() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_driveTrain.setWheelsToX();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    ChassisSpeeds speed = new ChassisSpeeds(0, 0.5, 0);
+    // Convert chassis speeds to individual module states
+    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(speed);
+
+    // Output each module states to wheels
+    SwerveSubsystem.getInstance().setModuleStates(moduleStates);
+  }
 
   // Called once the command ends or is interrupted.
   @Override

@@ -7,8 +7,9 @@ package frc.robot.subsystems.manipulator;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.SoftLimitDirection;
 import com.revrobotics.RelativeEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AddToShuffleboard;
 import frc.robot.Constants;
 
 public class Lift extends SubsystemBase {
@@ -19,6 +20,7 @@ public class Lift extends SubsystemBase {
 
   private RelativeEncoder m_leadEncoder;
   // private RelativeEncoder m_followEncoder;
+  private GenericEntry lift_position;
 
   private Lift() {
     // the lift uses two Neo motors connected to a single gearbox
@@ -52,6 +54,8 @@ public class Lift extends SubsystemBase {
     // don't let the lift arm travel past the stop points
     m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.LiftConstants.kRaiseSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.LiftConstants.kLowerSoftLimit);
+
+    lift_position = AddToShuffleboard.add("Manipulators", "Lift Position", "");
   }
 
   public double getPosition() {
@@ -59,7 +63,7 @@ public class Lift extends SubsystemBase {
   }
 
   public void moveToPositionWithPID(double position) {
-    SmartDashboard.putString("Co-Pilot Action", "moving lift to position " + position);
+    lift_position.setString("Moving to position " + position);
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 

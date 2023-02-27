@@ -36,6 +36,7 @@ public class MoveReach extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    double reach = m_reach.getPosition();
+    return reach >= m_position - 0.2;
   }
 }

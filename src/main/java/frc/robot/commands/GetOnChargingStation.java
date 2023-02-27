@@ -5,17 +5,17 @@
 package frc.robot.commands;
 
 // import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class GroupSeqCom_CheckIfEngaged extends SequentialCommandGroup {
-  /** Creates a new CheckIfEngaged. */
-  public GroupSeqCom_CheckIfEngaged(SwerveSubsystem driveTrain) {
+public class GetOnChargingStation extends ParallelRaceGroup {
+  /** Creates a new GetOnChargingStation. */
+  public GetOnChargingStation(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new IfClimbing(driveTrain), new IfLevel(driveTrain));
+    addCommands(new Move(driveTrain, -1, 0, 0), new CheckIfEngaged(driveTrain));
   }
 }

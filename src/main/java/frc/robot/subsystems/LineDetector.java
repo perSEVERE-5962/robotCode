@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 // import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 // import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.sensors.ColorSensor;
 
@@ -22,15 +21,15 @@ public class LineDetector extends SubsystemBase {
   // private final ColorSensorV3 m_colorSensor_read_rgb_values = new ColorSensorV3(i2cPort);
   // Color detectedRGB = m_colorSensor_read_rgb_values.getColor();
   /** Creates a new LineDetector2. */
-  public LineDetector() {
+  private LineDetector() {
     Color_Sensor = new ColorSensor();
   }
 
   public boolean Sensing_Color() {
-    SmartDashboard.putString("Color Name", Color_Sensor.getColor());
-    SmartDashboard.putString("Hex Value", Color_Sensor.getHex().toString());
+    // SmartDashboard.putString("Color Name", Color_Sensor.getColor());
+    // SmartDashboard.putString("Hex Value", Color_Sensor.getHex().toString());
     if (Color_Sensor.getColor() == red || Color_Sensor.getColor() == blue) {
-      SmartDashboard.putString("Testing_for_Color", Working);
+      // SmartDashboard.putString("Testing_for_Color", Working);
       return true;
     }
     // replace blue and red strings with the value as strings

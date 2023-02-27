@@ -4,28 +4,34 @@
 
 package frc.robot.subsystems.manipulator;
 
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AddToShuffleboard;
 
 public class CubeGripper extends SubsystemBase {
   private static CubeGripper instance;
   private Pneumatics pneumatics = Pneumatics.getInstance();
+  private boolean is_closing = false;
+  private GenericEntry m_entry;
 
   DoubleSolenoid m_sol = pneumatics.add_double_solenoid(4, 5);
 
   /** Creates a new Gripper. */
   private CubeGripper() {
     super();
+    if (m_entry == null) {
+      m_entry = AddToShuffleboard.add("Manipulators", "Is Cube Gripper Closing", is_closing);
+    }
   }
 
   public void close() {
-    SmartDashboard.putString("Driver Action", "closing cube gripper");
+    is_closing = true;
     pneumatics.forward(m_sol);
   }
 
   public void open() {
-    SmartDashboard.putString("Driver Action", "opening cube gripper");
+    is_closing = false;
     pneumatics.backward(m_sol);
   }
 

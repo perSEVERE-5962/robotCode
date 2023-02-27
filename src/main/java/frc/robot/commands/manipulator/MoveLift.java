@@ -36,6 +36,7 @@ public class MoveLift extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    double lift = m_lift.getPosition();
+    return lift >= m_position - 0.2;
   }
 }
