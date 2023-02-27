@@ -29,25 +29,26 @@ import frc.robot.subsystems.drivetrain.*;
 import frc.robot.subsystems.manipulator.*;
 
 /**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in
- * the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of
- * the robot (including
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  private final XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  private final XboxController m_copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+  private final XboxController m_driverController =
+      new XboxController(OIConstants.kDriverControllerPort);
+  private final XboxController m_copilotController =
+      new XboxController(OIConstants.kCoPilotControllerPort);
   Trigger co_yButton = new JoystickButton(m_copilotController, XboxController.Button.kY.value);
   Trigger co_aButton = new JoystickButton(m_copilotController, XboxController.Button.kA.value);
   Trigger co_bButton = new JoystickButton(m_copilotController, XboxController.Button.kB.value);
   Trigger co_xButton = new JoystickButton(m_copilotController, XboxController.Button.kX.value);
   Trigger co_back = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
   Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
-  Trigger co_lBumper = new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
-  Trigger co_rBumper = new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
+  Trigger co_lBumper =
+      new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
+  Trigger co_rBumper =
+      new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
   Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
@@ -55,11 +56,13 @@ public class RobotContainer {
   Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
   Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
   Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
-  Trigger dr_lBumper = new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
-  Trigger dr_rBumper = new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  Trigger dr_lBumper =
+      new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+  Trigger dr_rBumper =
+      new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
 
-  Trigger dr_lStickButton = new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
-
+  Trigger dr_lStickButton =
+      new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -68,9 +71,7 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
-  /**
-   * The container for the robot. Contains subsystems, OI devices, and commands.
-   */
+  /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(
         new DriveCommand(
@@ -101,11 +102,9 @@ public class RobotContainer {
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
+   * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
@@ -126,7 +125,7 @@ public class RobotContainer {
     dr_start.onTrue(new GrabCube());
     dr_lBumper.onTrue(new CubeGripperClose());
     dr_rBumper.onTrue(new CubeGripperOpen());
-    
+
     dr_lStickButton.onTrue(new test());
 
     /*
