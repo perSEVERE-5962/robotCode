@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
@@ -14,7 +16,12 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
  */
 public class AddToShuffleboard {
   public static GenericEntry add(String tab, String title, Object obj) {
+    NetworkTableInstance networkTableInstance = NetworkTableInstance.getDefault();
+    NetworkTable table = networkTableInstance.getTable(tab);
     ShuffleboardTab shuffleboardTab = Shuffleboard.getTab(tab);
-    return shuffleboardTab.add(title, obj).getEntry();
+    if (table.getEntry(title) == null) {
+      return shuffleboardTab.add(title, obj).getEntry();
+    }
+    return null;
   }
 }

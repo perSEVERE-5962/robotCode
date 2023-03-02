@@ -143,12 +143,6 @@ public class RobotContainer {
     shuffleboardTab.addNumber(
         "Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
 
-    // Color sensor
-    shuffleboardTab = Shuffleboard.getTab("Line Detector");
-    shuffleboardTab.addNumber("Confidence", () -> m_colorSensor.getConfidence());
-    shuffleboardTab.addString("Color Name", () -> m_colorSensor.getColor());
-    shuffleboardTab.addString("Hex Value", () -> m_colorSensor.getHex().toString());
-
     // Wheels
     shuffleboardTab = Shuffleboard.getTab("Wheels");
     shuffleboardTab.addNumber("Average Position", () -> getDriveTrain().getAveragePosition());
@@ -173,7 +167,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = m_autonomousChooser.getSelected();
+    // Command command = m_autonomousChooser.getSelected();
+    Command command = new CrossLine();
     return command;
   }
 
