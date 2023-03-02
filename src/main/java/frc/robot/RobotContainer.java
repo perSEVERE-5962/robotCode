@@ -86,7 +86,7 @@ public class RobotContainer {
     configureShuffleBoard();
 
     m_autonomousChooser.setDefaultOption(
-        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+        "Full Autonomous", new START(m_driveTrain));
     m_autonomousChooser.addOption("Cross Line over Charge Station", new MovePastLine(m_driveTrain));
     m_autonomousChooser.addOption("Cross Line", new MovePastLineWithColorSensor(m_driveTrain));
 
@@ -126,7 +126,7 @@ public class RobotContainer {
     dr_lBumper.onTrue(new CubeGripperClose());
     dr_rBumper.onTrue(new CubeGripperOpen());
 
-    dr_lStickButton.onTrue(new test());
+    //dr_lStickButton.onTrue(new test());
 
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
