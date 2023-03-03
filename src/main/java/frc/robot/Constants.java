@@ -126,6 +126,8 @@ public final class Constants {
   public static final float PITCH_CLIMBING = 10.0f;
   public static final float PITCH_LEVEL = 2.0f;
 
+  public static double YAW_OFFSET = 0.0;
+
   public static final class CANDeviceIDs {
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
@@ -191,7 +193,7 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kRaiseSoftLimit = 10; // kForward
+    public static final float kLowerSoftLimit = -47; // kReverse
+    public static final float kRaiseSoftLimit = 0; // kForward
   }
 }

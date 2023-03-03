@@ -17,6 +17,8 @@ public class ScorePostion1 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         // new MoveWrist(5), new MoveLift(5), new MoveReach(5), new MoveWrist(5), new GripperOpen()
-        new MoveLift(Constants.LiftConstants.kPos1), new MoveReach(Constants.ReachConstants.kPos1));
+        new MoveLift(Constants.LiftConstants.kPos1),
+        new MoveReach(Constants.ReachConstants.kPos1),
+        new MoveWrist(Constants.WristConstants.kLowerSoftLimit));
   }
 }

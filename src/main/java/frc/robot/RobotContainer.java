@@ -136,12 +136,15 @@ public class RobotContainer {
 
   private void configureShuffleBoard() {
     ShuffleboardTab shuffleboardTab;
+    String tab = "";
     // Angle tab
-    shuffleboardTab = Shuffleboard.getTab("Angle");
-    shuffleboardTab.addNumber("Pitch Offset", () -> Constants.PITCH_OFFSET);
-    shuffleboardTab.addNumber("Pitch", () -> getDriveTrain().getPitch());
-    shuffleboardTab.addNumber(
-        "Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+    tab = "Angle";
+    AddToShuffleboard.add(tab, "Absolute Pitch", getDriveTrain().getPitch());
+    AddToShuffleboard.add(tab, "Relative Pitch", getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+    AddToShuffleboard.add(tab, "Pitch Offset", Constants.PITCH_OFFSET);
+    AddToShuffleboard.add(tab, "Absolute Yaw", getDriveTrain().getYaw());
+    AddToShuffleboard.add(tab, "Relative Yaw", getDriveTrain().getYaw() - Constants.YAW_OFFSET);
+    AddToShuffleboard.add(tab, "Yaw Offset", Constants.YAW_OFFSET);
 
     // Wheels
     shuffleboardTab = Shuffleboard.getTab("Wheels");
