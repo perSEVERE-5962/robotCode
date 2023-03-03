@@ -79,6 +79,7 @@ public class SwerveSubsystem extends SubsystemBase {
               } catch (Exception e) {
               }
               Constants.PITCH_OFFSET = getPitch();
+              Constants.YAW_OFFSET = getYaw();
             })
         .start();
   }
@@ -161,6 +162,10 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public double getPitch() {
     return gyro.getPitch();
+  }
+
+  public double getYaw() {
+    return gyro.getYaw();
   }
 
   public void addDebugInfo() {

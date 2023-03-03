@@ -86,7 +86,7 @@ public class RobotContainer {
     configureShuffleBoard();
 
     m_autonomousChooser.setDefaultOption(
-        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+        "Full Autonomous", new START(m_driveTrain));
     m_autonomousChooser.addOption("Cross Line over Charge Station", new MovePastLine(m_driveTrain));
     m_autonomousChooser.addOption("Cross Line", new MovePastLineWithColorSensor(m_driveTrain));
 
@@ -126,7 +126,7 @@ public class RobotContainer {
     dr_lBumper.onTrue(new CubeGripperClose());
     dr_rBumper.onTrue(new CubeGripperOpen());
 
-    dr_lStickButton.onTrue(new test());
+    //dr_lStickButton.onTrue(new test());
 
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
@@ -136,18 +136,15 @@ public class RobotContainer {
 
   private void configureShuffleBoard() {
     ShuffleboardTab shuffleboardTab;
+    String tab = "";
     // Angle tab
-    shuffleboardTab = Shuffleboard.getTab("Angle");
-    shuffleboardTab.addNumber("Pitch Offset", () -> Constants.PITCH_OFFSET);
-    shuffleboardTab.addNumber("Pitch", () -> getDriveTrain().getPitch());
-    shuffleboardTab.addNumber(
-        "Relative Pitch", () -> getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
-
-    // Color sensor
-    shuffleboardTab = Shuffleboard.getTab("Line Detector");
-    shuffleboardTab.addNumber("Confidence", () -> m_colorSensor.getConfidence());
-    shuffleboardTab.addString("Color Name", () -> m_colorSensor.getColor());
-    shuffleboardTab.addString("Hex Value", () -> m_colorSensor.getHex().toString());
+    tab = "Angle";
+    AddToShuffleboard.add(tab, "Absolute Pitch", getDriveTrain().getPitch());
+    AddToShuffleboard.add(tab, "Relative Pitch", getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+    AddToShuffleboard.add(tab, "Pitch Offset", Constants.PITCH_OFFSET);
+    AddToShuffleboard.add(tab, "Absolute Yaw", getDriveTrain().getYaw());
+    AddToShuffleboard.add(tab, "Relative Yaw", getDriveTrain().getYaw() - Constants.YAW_OFFSET);
+    AddToShuffleboard.add(tab, "Yaw Offset", Constants.YAW_OFFSET);
 
     // Wheels
     shuffleboardTab = Shuffleboard.getTab("Wheels");
@@ -173,7 +170,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = m_autonomousChooser.getSelected();
+    // Command command = m_autonomousChooser.getSelected();
+    Command command = new CrossLine();
     return command;
   }
 

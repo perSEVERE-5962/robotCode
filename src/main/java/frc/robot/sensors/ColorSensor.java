@@ -3,11 +3,16 @@ package frc.robot.sensors;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.robot.AddToShuffleboard;
 
 public class ColorSensor {
+  private GenericEntry confidence_entry;
+  private GenericEntry hex_entry;
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
   private final ColorMatch m_colorMatcher = new ColorMatch();
@@ -34,19 +39,24 @@ public class ColorSensor {
     } else {
       colorString = "Unknown Color";
     }
+
+    if (confidence_entry == null) {
+      confidence_entry = AddToShuffleboard.add("Line Detector", "Confidence", match.confidence);
+    } else {
+      confidence_entry.setDouble(match.confidence);
+    }
+
     return colorString;
   }
 
   public Color getHex() {
     final ColorSensorV3 m_HexSensor = new ColorSensorV3(i2cPort);
     Color detectedHex = m_HexSensor.getColor();
+    if (hex_entry == null) {
+      hex_entry = AddToShuffleboard.add("Line Detector", "Hex", detectedHex);
+    } else {
+      hex_entry.setString(detectedHex.toHexString());
+    }
     return detectedHex;
-  }
-
-  public double getConfidence() {
-    Color Detected_Color = m_colorSensor.getColor();
-    m_colorMatcher.setConfidenceThreshold(.90);
-    ColorMatchResult match = m_colorMatcher.matchClosestColor(Detected_Color);
-    return match.confidence;
   }
 }
