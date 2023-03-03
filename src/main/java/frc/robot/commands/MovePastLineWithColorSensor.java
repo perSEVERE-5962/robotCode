@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
@@ -16,7 +17,7 @@ public class MovePastLineWithColorSensor extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new MoveToLineWithColorSensor(driveTrain),
+        new ParallelRaceGroup(new ForwardDistance(driveTrain, 0.5, 0.5), new CrossLine()),
         new ForwardDistance(driveTrain, 0.5, 1 /* Unknown */));
   }
 }

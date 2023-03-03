@@ -5,6 +5,7 @@
 package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -14,11 +15,6 @@ public class GrabCube extends SequentialCommandGroup {
   public GrabCube() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new MoveLift(0),
-        new MoveReach(0),
-        new MoveWrist(0),
-        new CubeGripperOpen(),
-        new CubeGripperClose());
+    addCommands(new MoveWrist(Constants.WristConstants.kLowerSoftLimit), new CubeGripperClose());
   }
 }

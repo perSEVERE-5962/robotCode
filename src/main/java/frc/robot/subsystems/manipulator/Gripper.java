@@ -18,7 +18,7 @@ public class Gripper extends SubsystemBase {
   /** Creates a new Gripper. */
   private Gripper() {
     super();
-    //AddToShuffleboard.add("Manipulators", "Is Gripper Closing", is_closing);
+    AddToShuffleboard.add("Manipulators", "Is Gripper Closing", is_closing);
   }
 
   public void close() {

@@ -7,9 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -22,8 +19,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
-import frc.robot.sensors.Camera;
-import frc.robot.sensors.ColorSensor;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.drivetrain.*;
 import frc.robot.subsystems.manipulator.*;
@@ -66,8 +61,8 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  private Camera m_camera = new Camera();
-  private final ColorSensor m_colorSensor = new ColorSensor();
+  // private Camera m_camera = new Camera();
+  // private final ColorSensor m_colorSensor = new ColorSensor();
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -86,19 +81,20 @@ public class RobotContainer {
     configureShuffleBoard();
 
     m_autonomousChooser.setDefaultOption(
-        "Full Autonomous", new START(m_driveTrain));
+        "Cross Line", new MovePastLineWithColorSensor(m_driveTrain));
     m_autonomousChooser.addOption("Cross Line over Charge Station", new MovePastLine(m_driveTrain));
-    m_autonomousChooser.addOption("Cross Line", new MovePastLineWithColorSensor(m_driveTrain));
+    m_autonomousChooser.addOption(
+        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
-    SmartDashboard.putNumber("Camera Brightness", 50);
+    // SmartDashboard.putNumber("Camera Brightness", 50);
 
-    NetworkTableInstance inst = NetworkTableInstance.getDefault();
-    NetworkTable datatable = inst.getTable("CameraPublisher");
-    NetworkTable subtable = datatable.getSubTable("MainCamera");
-    NetworkTableEntry streamsEntry = subtable.getEntry("streams");
-    streamsEntry.setString("mjpeg:http://10.59.62.52:1181/stream.mjpg");
+    // NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    // NetworkTable datatable = inst.getTable("CameraPublisher");
+    // NetworkTable subtable = datatable.getSubTable("MainCamera");
+    // NetworkTableEntry streamsEntry = subtable.getEntry("streams");
+    // streamsEntry.setString("mjpeg:http://10.59.62.52:1181/stream.mjpg");
   }
 
   /**
@@ -114,19 +110,19 @@ public class RobotContainer {
     co_xButton.onTrue(new ResetPosition());
     co_back.onTrue(new AlignGripperToDoubleSubstation());
     co_start.onTrue(new GrabCone());
-    co_lBumper.onTrue(new GripperClose());
-    co_rBumper.onTrue(new GripperOpen());
+    // co_lBumper.onTrue(new GripperClose());
+    // co_rBumper.onTrue(new GripperOpen());
 
     dr_aButton.onTrue(new ScoreCubePosition1());
     dr_bButton.onTrue(new ScoreCubePosition2());
     dr_yButton.onTrue(new ScoreCubePosition3());
     dr_xButton.onTrue(new ResetCubePosition());
-    dr_back.onTrue(new AlignGripperToDoubleSubstation());
+    dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
     dr_start.onTrue(new GrabCube());
-    dr_lBumper.onTrue(new CubeGripperClose());
-    dr_rBumper.onTrue(new CubeGripperOpen());
+    // dr_lBumper.onTrue(new CubeGripperClose());
+    // dr_rBumper.onTrue(new CubeGripperOpen());
 
-    //dr_lStickButton.onTrue(new test());
+    // dr_lStickButton.onTrue(new test());
 
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
@@ -140,7 +136,8 @@ public class RobotContainer {
     // Angle tab
     tab = "Angle";
     AddToShuffleboard.add(tab, "Absolute Pitch", getDriveTrain().getPitch());
-    AddToShuffleboard.add(tab, "Relative Pitch", getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
+    AddToShuffleboard.add(
+        tab, "Relative Pitch", getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
     AddToShuffleboard.add(tab, "Pitch Offset", Constants.PITCH_OFFSET);
     AddToShuffleboard.add(tab, "Absolute Yaw", getDriveTrain().getYaw());
     AddToShuffleboard.add(tab, "Relative Yaw", getDriveTrain().getYaw() - Constants.YAW_OFFSET);
@@ -226,11 +223,11 @@ public class RobotContainer {
     return m_driveTrain;
   }
 
-  public void setCameraBrightness(int brightness) {
-    m_camera.setBrightness(brightness);
-  }
+  // public void setCameraBrightness(int brightness) {
+  //   m_camera.setBrightness(brightness);
+  // }
 
-  public Camera getCamera() {
-    return m_camera;
-  }
+  // public Camera getCamera() {
+  //   return m_camera;
+  // }
 }

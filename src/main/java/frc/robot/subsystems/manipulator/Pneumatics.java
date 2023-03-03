@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Pneumatics extends SubsystemBase {
-  private Compressor m_pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
+  private Compressor m_pcmCompressor =
+      new Compressor(Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM);
   private static Pneumatics instance;
 
   /** Creates a new Pneumatics. */
@@ -20,7 +22,8 @@ public class Pneumatics extends SubsystemBase {
 
   public DoubleSolenoid add_double_solenoid(int channel1, int channel2) {
     DoubleSolenoid new_solenoid =
-        new DoubleSolenoid(PneumaticsModuleType.CTREPCM, channel1, channel2);
+        new DoubleSolenoid(
+            Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM, channel1, channel2);
     return new_solenoid;
   }
 

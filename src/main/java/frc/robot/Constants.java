@@ -149,6 +149,8 @@ public final class Constants {
     public static final int kLiftFollowID = 51;
     public static final int kReachID = 60;
     public static final int kWristID = 61;
+    // pmc
+    public static final int kPCMID = 3;
   }
 
   public static final class LiftConstants {
@@ -195,5 +197,6 @@ public final class Constants {
     public static final double kMinOutput = -0.25; // retract ?
     public static final float kLowerSoftLimit = -47; // kReverse
     public static final float kRaiseSoftLimit = 0; // kForward
+    public static final float kSubStation = -23; // half way down
   }
 }

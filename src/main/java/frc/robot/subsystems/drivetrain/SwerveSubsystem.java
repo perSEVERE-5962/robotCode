@@ -172,22 +172,22 @@ public class SwerveSubsystem extends SubsystemBase {
     ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Swerve Subsystem Debug");
     shuffleboardTab.addNumber("Robot Heading", () -> getHeading());
     shuffleboardTab.addString("Robot Location", () -> getPose().getTranslation().toString());
-    shuffleboardTab.addNumber("LFDE", () -> frontLeft.getDrivePosition());
-    shuffleboardTab.addNumber("LBDE", () -> backLeft.getDrivePosition());
-    shuffleboardTab.addNumber("RFDE", () -> frontRight.getDrivePosition());
-    shuffleboardTab.addNumber("RBDE", () -> backRight.getDrivePosition());
-    shuffleboardTab.addNumber("LFSE", () -> frontLeft.getTurningPosition());
-    shuffleboardTab.addNumber("LBSE", () -> backLeft.getTurningPosition());
-    shuffleboardTab.addNumber("RFSE", () -> frontRight.getTurningPosition());
-    shuffleboardTab.addNumber("RBSE", () -> backRight.getTurningPosition());
-    shuffleboardTab.addNumber("LF RAD", () -> frontLeft.getAbsoluteEncoderRad());
-    shuffleboardTab.addNumber("LB RAD", () -> backLeft.getAbsoluteEncoderRad());
-    shuffleboardTab.addNumber("RF RAD", () -> frontRight.getAbsoluteEncoderRad());
-    shuffleboardTab.addNumber("RB RAD", () -> backRight.getAbsoluteEncoderRad());
-    shuffleboardTab.addNumber("LF DEG", () -> frontLeft.getAbsoluteEncoderAngle());
-    shuffleboardTab.addNumber("LB DEG", () -> backLeft.getAbsoluteEncoderAngle());
-    shuffleboardTab.addNumber("RF DEG", () -> frontRight.getAbsoluteEncoderAngle());
-    shuffleboardTab.addNumber("RB DEG", () -> backRight.getAbsoluteEncoderAngle());
+    // shuffleboardTab.addNumber("LFDE", () -> frontLeft.getDrivePosition());
+    // shuffleboardTab.addNumber("LBDE", () -> backLeft.getDrivePosition());
+    // shuffleboardTab.addNumber("RFDE", () -> frontRight.getDrivePosition());
+    // shuffleboardTab.addNumber("RBDE", () -> backRight.getDrivePosition());
+    // shuffleboardTab.addNumber("LFSE", () -> frontLeft.getTurningPosition());
+    // shuffleboardTab.addNumber("LBSE", () -> backLeft.getTurningPosition());
+    // shuffleboardTab.addNumber("RFSE", () -> frontRight.getTurningPosition());
+    // shuffleboardTab.addNumber("RBSE", () -> backRight.getTurningPosition());
+    // shuffleboardTab.addNumber("LF RAD", () -> frontLeft.getAbsoluteEncoderRad());
+    // shuffleboardTab.addNumber("LB RAD", () -> backLeft.getAbsoluteEncoderRad());
+    // shuffleboardTab.addNumber("RF RAD", () -> frontRight.getAbsoluteEncoderRad());
+    // shuffleboardTab.addNumber("RB RAD", () -> backRight.getAbsoluteEncoderRad());
+    // shuffleboardTab.addNumber("LF DEG", () -> frontLeft.getAbsoluteEncoderAngle());
+    // shuffleboardTab.addNumber("LB DEG", () -> backLeft.getAbsoluteEncoderAngle());
+    // shuffleboardTab.addNumber("RF DEG", () -> frontRight.getAbsoluteEncoderAngle());
+    // shuffleboardTab.addNumber("RB DEG", () -> backRight.getAbsoluteEncoderAngle());
   }
 
   /** Set the wheels to an X pattern to plant the robot. */

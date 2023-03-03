@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -48,7 +47,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    // ResetGrippers resetGrippers = new ResetGrippers();
+    // resetGrippers.schedule();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -83,8 +85,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
-    m_robotContainer.setCameraBrightness(brightness);
+    // int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
+    // m_robotContainer.setCameraBrightness(brightness);
   }
 
   @Override

@@ -16,11 +16,9 @@ public class AlignGripperToDoubleSubstation extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // lower wrist & lift
-        new MoveWrist(WristConstants.kLowerSoftLimit),
         new MoveLift(LiftConstants.kSubStation),
-        // retract reach & open gripper
-        new MoveReach(ReachConstants.kPos1),
+        new MoveReach(ReachConstants.kSubStation),
+        new MoveWrist(WristConstants.kSubStation),
         new GripperOpen());
   }
 }

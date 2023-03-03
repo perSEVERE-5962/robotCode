@@ -5,21 +5,15 @@
 package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreCubePosition1 extends SequentialCommandGroup {
-  /** Creates a new ScoreCubePosition1. */
-  public ScoreCubePosition1() {
+public class ResetGrippers extends SequentialCommandGroup {
+  /** Creates a new ResetGrippers. */
+  public ResetGrippers() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new MoveWrist(Constants.WristConstants.kRaiseSoftLimit),
-        new MoveLift(Constants.LiftConstants.kPos1),
-        new MoveReach(Constants.ReachConstants.kPos1),
-        new MoveWrist(Constants.WristConstants.kLowerSoftLimit),
-        new CubeGripperOpen());
+    addCommands(new GripperClose(), new CubeGripperClose());
   }
 }

@@ -15,9 +15,6 @@ public class START extends ParallelCommandGroup {
   public START(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      new PrintLidarData(),
-      new AUTO_LeaveCommunityAndEngage(driveTrain)
-    );
+    addCommands(new PrintLidarData(), new AUTO_LeaveCommunityAndEngage(driveTrain));
   }
 }

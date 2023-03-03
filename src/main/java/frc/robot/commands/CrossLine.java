@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.networktables.GenericEntry;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.AddToShuffleboard;
 // import frc.robot.sensors.ColorSensor;
@@ -14,6 +13,7 @@ import frc.robot.subsystems.LineDetector;
 public class CrossLine extends CommandBase {
   /** Creates a new CrossLine. */
   private LineDetector m_lineDetector;
+
   private GenericEntry m_entry;
 
   Boolean is_line_found = false;
@@ -35,7 +35,7 @@ public class CrossLine extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //SmartDashboard.putBoolean("Is Line Crossed", is_line_found);
+    // SmartDashboard.putBoolean("Is Line Crossed", is_line_found);
     is_line_found = m_lineDetector.Sensing_Color();
     m_entry.setBoolean(is_line_found);
   }
@@ -47,6 +47,6 @@ public class CrossLine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;//m_lineDetector.Sensing_Color();
+    return is_line_found;
   }
 }
