@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -18,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Command m_driveCommand;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -40,17 +38,19 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // Runs the Scheduler.  This is responsible fobr polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Gyro Angle", m_robotContainer.getDriveTrain().getGyroAngle());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    // ResetGrippers resetGrippers = new ResetGrippers();
+    // resetGrippers.schedule();
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // m_robotContainer.getDriveTrain().resetEncoder();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -79,18 +80,13 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    m_driveCommand = m_robotContainer.getTeleopCommand();
-    if (m_driveCommand != null) {
-      m_driveCommand.schedule();
-    }
   }
 
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
-    m_robotContainer.setCameraBrightness(brightness);
+    // int brightness = (int) SmartDashboard.getNumber("Camera Brightness", 50);
+    // m_robotContainer.setCameraBrightness(brightness);
   }
 
   @Override
