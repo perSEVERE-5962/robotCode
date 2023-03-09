@@ -16,7 +16,7 @@ public class MoveToLine extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new Move(driveTrain, 0.5, 0, 0),
+        new Move(driveTrain, 1, 0, 0),
         new IfLeavingStation(driveTrain) // Checks if the pitch is sufficently less than 0
         );
   }

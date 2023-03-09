@@ -71,20 +71,20 @@ public class RobotContainer {
     m_driveTrain.setDefaultCommand(
         new DriveCommand(
             m_driveTrain,
-            () -> -m_driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
-            () -> !m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     // Configure the button bindings
     configureButtonBindings();
     configureShuffleBoard();
 
-    m_autonomousChooser.setDefaultOption(
-        "Cross Line", new MovePastLineWithColorSensor(m_driveTrain));
-    m_autonomousChooser.addOption("Cross Line over Charge Station", new MovePastLine(m_driveTrain));
+    m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
+    // m_autonomousChooser.addOption("Cross Line over Charge Station", new
+    // MovePastLine(m_driveTrain));
     m_autonomousChooser.addOption(
-        "Full Autonomous", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+        "Engage Charge Station", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -110,8 +110,8 @@ public class RobotContainer {
     co_xButton.onTrue(new ResetPosition());
     co_back.onTrue(new AlignGripperToDoubleSubstation());
     co_start.onTrue(new GrabCone());
-    // co_lBumper.onTrue(new GripperClose());
-    // co_rBumper.onTrue(new GripperOpen());
+    co_lBumper.onTrue(new GripperClose());
+    co_rBumper.onTrue(new GripperOpen());
 
     dr_aButton.onTrue(new ScoreCubePosition1());
     dr_bButton.onTrue(new ScoreCubePosition2());
@@ -119,8 +119,8 @@ public class RobotContainer {
     dr_xButton.onTrue(new ResetCubePosition());
     dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
     dr_start.onTrue(new GrabCube());
-    // dr_lBumper.onTrue(new CubeGripperClose());
-    // dr_rBumper.onTrue(new CubeGripperOpen());
+    dr_lBumper.onTrue(new CubeGripperClose());
+    dr_rBumper.onTrue(new CubeGripperOpen());
 
     // dr_lStickButton.onTrue(new test());
 
@@ -167,8 +167,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Command command = m_autonomousChooser.getSelected();
-    Command command = new CrossLine();
+    Command command = m_autonomousChooser.getSelected();
+    // Command command = new CrossLine();
     return command;
   }
 

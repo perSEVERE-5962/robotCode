@@ -18,6 +18,6 @@ public class MovePastLineWithColorSensor extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelRaceGroup(new ForwardDistance(driveTrain, 0.5, 0.5), new CrossLine()),
-        new ForwardDistance(driveTrain, 0.5, 1 /* Unknown */));
+        new ForwardDistance(driveTrain, 0.5, 0.5 /* Unknown */));
   }
 }
