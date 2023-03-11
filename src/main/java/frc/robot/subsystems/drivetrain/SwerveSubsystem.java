@@ -7,10 +7,12 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.AddToShuffleboard;
 import frc.robot.Constants;
 import frc.robot.Constants.CANDeviceIDs;
 import frc.robot.Constants.DriveConstants;
@@ -70,6 +72,12 @@ public class SwerveSubsystem extends SubsystemBase {
             backRight.getPosition()
           });
 
+  private GenericEntry frontLeftEntry;
+  private GenericEntry frontRightEntry;
+  private GenericEntry backLeftEntry;
+  private GenericEntry backRightEntry;
+  private GenericEntry averageEntry;
+
   private SwerveSubsystem() {
     new Thread(
             () -> {
@@ -82,6 +90,11 @@ public class SwerveSubsystem extends SubsystemBase {
               Constants.YAW_OFFSET = getYaw();
             })
         .start();
+    frontLeftEntry = AddToShuffleboard.add("Get Average Distance", "Front Left", 0);
+    frontRightEntry = AddToShuffleboard.add("Get Average Distance", "Front Right", 0);
+    backLeftEntry = AddToShuffleboard.add("Get Average Distance", "Back Left", 0);
+    backRightEntry = AddToShuffleboard.add("Get Average Distance", "Back Right", 0);
+    averageEntry = AddToShuffleboard.add("Get Average Distance", "Average", 0);
   }
 
   public void zeroHeading() {
@@ -124,6 +137,12 @@ public class SwerveSubsystem extends SubsystemBase {
         });
     // SmartDashboard.putNumber("Robot Heading", getHeading());
     // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+
+    frontLeftEntry.setDouble(frontLeft.getDrivePosition());
+    frontRightEntry.setDouble(frontRight.getDrivePosition());
+    backLeftEntry.setDouble(backLeft.getDrivePosition());
+    backRightEntry.setDouble(backRight.getDrivePosition());
+    averageEntry.setDouble(getAveragePosition());
   }
 
   public void stopModules() {

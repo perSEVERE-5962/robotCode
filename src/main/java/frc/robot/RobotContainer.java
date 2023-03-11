@@ -84,7 +84,7 @@ public class RobotContainer {
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
     m_autonomousChooser.addOption(
-        "Engage Charge Station", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+        "Engage Charge Station", new AutoEngageChargeStation(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -167,8 +167,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = m_autonomousChooser.getSelected();
-    // Command command = new CrossLine();
+    // Command command = m_autonomousChooser.getSelected();
+    Command command = new ForwardDistance(m_driveTrain, -0.5, 1);
     return command;
   }
 

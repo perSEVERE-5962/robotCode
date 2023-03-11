@@ -58,8 +58,8 @@ public final class Constants {
     public static final boolean kFrontRightTurningEncoderReversed = false;
     public static final boolean kBackRightTurningEncoderReversed = false;
 
-    public static final boolean kFrontLeftDriveEncoderReversed = true;
-    public static final boolean kBackLeftDriveEncoderReversed = true;
+    public static final boolean kFrontLeftDriveEncoderReversed = false;
+    public static final boolean kBackLeftDriveEncoderReversed = false;
     public static final boolean kFrontRightDriveEncoderReversed = false;
     public static final boolean kBackRightDriveEncoderReversed = false;
 
@@ -68,12 +68,18 @@ public final class Constants {
     public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(102.393);
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(20.039);
+    // Front Left
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(102.305 + 180);
+    // Back Left
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(17.842 + 180);
+    // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(12.744 + 180);
+        Math.toRadians(13.096 + 180);
+    // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(174.111 + 180);
+        Math.toRadians(173.057 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;

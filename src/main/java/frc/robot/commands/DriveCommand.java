@@ -48,7 +48,7 @@ public class DriveCommand extends CommandBase {
     // xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
     // ySpeed = Math.abs(ySpeed) > /*OIConstants.kDeadband*/ .4 ? ySpeed : 0.0;
     // turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
-    ySpeed = MathUtil.applyDeadband(ySpeed, 0.4);
+    ySpeed = MathUtil.applyDeadband(ySpeed, 0.15);
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.15);
     turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.15);
 
@@ -68,7 +68,7 @@ public class DriveCommand extends CommandBase {
     //          xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
     // } else {
     // Relative to robot
-    chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
+    chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed * -1);
     // }
 
     // 5. Convert chassis speeds to individual module states

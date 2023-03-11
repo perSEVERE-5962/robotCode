@@ -29,8 +29,9 @@ public class ForwardDistance extends Move {
 
   @Override
   public boolean isFinished() {
-    if (distanceWanted <= (m_driveTrain.getAveragePosition() - m_InitialDistance)) return true;
-
-    return false;
+    if (distanceWanted >= (m_driveTrain.getAveragePosition() - m_InitialDistance)) {
+      return false;
+    }
+    return true;
   }
 }
