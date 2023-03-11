@@ -17,10 +17,12 @@ public class ScorePostion3 extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         // new MoveWrist(5), new MoveLift(0), new MoveReach(0), new MoveWrist(0), new GripperOpen()
+        new GripperClose(),
         new MoveWrist(Constants.WristConstants.kRaiseSoftLimit),
         new MoveLift(Constants.LiftConstants.kPos3),
         new MoveReach(Constants.ReachConstants.kPos3),
-        new MoveWrist(Constants.WristConstants.kLowerSoftLimit),
-        new GripperOpen());
+        new MoveWrist(Constants.WristConstants.kLowerSoftLimit)
+        // new GripperOpen()
+        );
   }
 }

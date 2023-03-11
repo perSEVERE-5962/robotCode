@@ -6,16 +6,14 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class ForwardDistance extends Move {
-  private double distanceWanted;
-  private double m_InitialDistance;
-  // private DoubleSupplier m_translationYSupplier;
-  // private DoubleSupplier m_rotationSupplier;
+public class ForwardTime extends Move {
+  private double timeWanted;
+  private double m_InitialTime;
+
   /** Creates a new Forward. */
-  public ForwardDistance(
-      SwerveSubsystem driveTrain, double translationXSupplier, double distanceWanted) {
+  public ForwardTime(SwerveSubsystem driveTrain, double translationXSupplier, double timeWanted) {
     super(driveTrain, translationXSupplier, 0, 0);
-    this.distanceWanted = distanceWanted;
+    this.timeWanted = timeWanted;
 
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -24,14 +22,11 @@ public class ForwardDistance extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_InitialDistance = m_driveTrain.getAveragePosition();
+    m_InitialTime = System.currentTimeMillis();
   }
 
   @Override
   public boolean isFinished() {
-    if (distanceWanted >= (m_driveTrain.getAveragePosition() - m_InitialDistance)) {
-      return false;
-    }
-    return true;
+    return (System.currentTimeMillis() - m_InitialTime) >= timeWanted;
   }
 }

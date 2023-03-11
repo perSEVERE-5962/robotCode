@@ -58,8 +58,8 @@ public final class Constants {
     public static final boolean kFrontRightTurningEncoderReversed = false;
     public static final boolean kBackRightTurningEncoderReversed = false;
 
-    public static final boolean kFrontLeftDriveEncoderReversed = true;
-    public static final boolean kBackLeftDriveEncoderReversed = true;
+    public static final boolean kFrontLeftDriveEncoderReversed = false;
+    public static final boolean kBackLeftDriveEncoderReversed = false;
     public static final boolean kFrontRightDriveEncoderReversed = false;
     public static final boolean kBackRightDriveEncoderReversed = false;
 
@@ -68,22 +68,28 @@ public final class Constants {
     public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
+    // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(103.359 + 180);
+        Math.toRadians(102.305 + 180);
+    // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(17.578 + 180);
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(15.996);
-    public static final double kBackRightDriveAbsoluteEncoderOffsetRad = Math.toRadians(177.891);
+        Math.toRadians(17.842 + 180);
+    // Front Right
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(13.096 + 180);
+    // Back Right
+    public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(173.057 + 180);
 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 3.6576; // 12.0 ft/sec
+    public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond =
         kPhysicalMaxSpeedMetersPerSecond / 4;
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = //
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 5; // 3
+    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 5; // 3
   }
 
   // public static final class AutoConstants {
@@ -112,7 +118,7 @@ public final class Constants {
     public static final int kDriverFieldOrientedButtonIdx = 1;
     public static final int kZeroHeadingButtonIdx = 2;
 
-    public static final double kDeadband = 0.05;
+    public static final double kDeadband = 0.15; // 0.05;
   }
 
   public static final float Vert1 = 1;
@@ -195,8 +201,8 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = -47; // kReverse
+    public static final float kLowerSoftLimit = -55; // kReverse
     public static final float kRaiseSoftLimit = 0; // kForward
-    public static final float kSubStation = -23; // half way down
+    public static final float kSubStation = -46; // half way down
   }
 }
