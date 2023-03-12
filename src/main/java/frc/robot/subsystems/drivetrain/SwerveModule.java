@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.AnalogEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
@@ -145,5 +146,10 @@ public class SwerveModule {
 
   public void moveWithPidInches(double position) {
     driveMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void setAbsoluteEncoderPosition(double radians) {
+    absoluteEncoder.setPosition(Math.toDegrees(radians));
+    turningEncoder.setPosition(getAbsoluteEncoderRad());
   }
 }

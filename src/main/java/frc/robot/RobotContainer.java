@@ -57,6 +57,10 @@ public class RobotContainer {
   // Trigger dr_lStickButton =
   //    new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
 
+  // used to reset the drive wheels to the desired offsets
+  Trigger dr_resetToOffsets = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+
+
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   // private Camera m_camera = new Camera();
@@ -121,6 +125,8 @@ public class RobotContainer {
 
     // dr_lStickButton.onTrue(new test());
 
+    dr_resetToOffsets.onTrue(new ResetWheelPosition());
+    
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
      * .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));

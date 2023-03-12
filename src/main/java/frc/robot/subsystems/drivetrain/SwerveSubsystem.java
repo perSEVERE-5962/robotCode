@@ -285,4 +285,11 @@ public class SwerveSubsystem extends SubsystemBase {
 
     return instance;
   }
+
+  public void initialzeTurnEncoders() {
+    backRight.setAbsoluteEncoderPosition(Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad);
+    backLeft.setAbsoluteEncoderPosition(Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad);
+    frontRight.setAbsoluteEncoderPosition(Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad);
+    frontLeft.setAbsoluteEncoderPosition(Constants.DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad);
+  }
 }
