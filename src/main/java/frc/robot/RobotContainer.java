@@ -133,8 +133,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Command command = m_autonomousChooser.getSelected();
-    Command command = new MoveToPositions(m_driveTrain);
+    Command command = m_autonomousChooser.getSelected();
+    //Command command = new MoveToPositions(m_driveTrain);
     return command;
   }
 

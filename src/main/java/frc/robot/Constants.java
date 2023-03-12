@@ -91,8 +91,8 @@ public final class Constants {
         kPhysicalMaxSpeedMetersPerSecond / 4;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 5; // 3
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 5; // 3
+    //public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+    //public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
   }
 
   // public static final class AutoConstants {
@@ -214,6 +214,19 @@ public final class Constants {
     public static final String kAngle = "Angle";
     public static final String kLineDetector = "Line Detector";
     public static final String kSwerveSubsystem = "Swerve Subsystem";
+  }
+
+  public static final class GripperConstants {
+    public static final int kSensorChannel = 0;
+    public static final int kSol1_Channel1 = 4;
+    public static final int kSol1_Channel2 = 5;
+    public static final int kSol2_Channel1 = 2; // no longer used
+    public static final int kSol2_Channel2 = 3; // no longer used
+    public static final int kSol3_Channel1 = 0; // no longer used
+    public static final int kSol3_Channel2 = 1; // no longer used
+    public static final double kMinRange = 5;
+    public static final double kMaxRange = 8;
+    
   }
 
   // Pos 1: 66 inches
