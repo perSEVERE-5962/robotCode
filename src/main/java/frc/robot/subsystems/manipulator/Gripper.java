@@ -7,30 +7,32 @@ package frc.robot.subsystems.manipulator;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AddToShuffleboard;
+import frc.robot.Constants;
 
 public class Gripper extends SubsystemBase {
   private static Gripper instance;
   private Pneumatics pneumatics = Pneumatics.getInstance();
-  private Boolean is_closing = false;
+  private Boolean isClosing = false;
+  private String tab = Constants.tabs.kManipulators;
 
-  DoubleSolenoid m_dsol1 = pneumatics.add_double_solenoid(0, 1);
-  DoubleSolenoid m_dsol2 = pneumatics.add_double_solenoid(2, 3);
+  DoubleSolenoid m_dsol1 = pneumatics.add_double_solenoid(4, 5);
+  // DoubleSolenoid m_dsol2 = pneumatics.add_double_solenoid(2, 3);
   /** Creates a new Gripper. */
   private Gripper() {
     super();
-    AddToShuffleboard.add("Manipulators", "Is Gripper Closing", is_closing);
+    AddToShuffleboard.add(tab, "Is Gripper Closing", isClosing);
   }
 
   public void close() {
-    is_closing = true;
+    isClosing = true;
     pneumatics.forward(m_dsol1);
-    pneumatics.forward(m_dsol2);
+    // pneumatics.forward(m_dsol2);
   }
 
   public void open() {
-    is_closing = false;
+    isClosing = false;
     pneumatics.backward(m_dsol1);
-    pneumatics.backward(m_dsol2);
+    // pneumatics.backward(m_dsol2);
   }
 
   /**

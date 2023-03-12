@@ -17,7 +17,7 @@ public class Wrist extends SubsystemBase {
 
   private CANSparkMax m_leadMotor;
   //  private CANSparkMax m_followMotor;
-  private GenericEntry wrist_position;
+  private GenericEntry wristPositionEntry;
 
   private RelativeEncoder m_leadEncoder;
 
@@ -51,15 +51,17 @@ public class Wrist extends SubsystemBase {
     m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.WristConstants.kLowerSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.WristConstants.kRaiseSoftLimit);
 
-    wrist_position = AddToShuffleboard.add("Manipulators", "Wrist Position", "");
+    String tab = Constants.tabs.kManipulators;
+
+    AddToShuffleboard.add(tab, "Wrist Position", 0);
   }
 
   public double getPosition() {
-    return m_leadEncoder.getPosition();
+    double pos = m_leadEncoder.getPosition();
+    return pos;
   }
 
   public void moveToPositionWithPID(double position) {
-    wrist_position.setString("Moving to position " + position);
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 

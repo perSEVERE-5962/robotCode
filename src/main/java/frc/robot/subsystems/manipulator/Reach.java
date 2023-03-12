@@ -17,7 +17,7 @@ public class Reach extends SubsystemBase {
 
   private CANSparkMax m_leadMotor;
   //  private CANSparkMax m_followMotor;
-  private GenericEntry reach_position;
+  private GenericEntry reachPositionEntry;
 
   private RelativeEncoder m_leadEncoder;
 
@@ -53,15 +53,17 @@ public class Reach extends SubsystemBase {
     m_leadMotor.setSoftLimit(
         SoftLimitDirection.kReverse, Constants.ReachConstants.kRetractSoftLimit);
 
-    reach_position = AddToShuffleboard.add("Manipulators", "Reach Position", "");
+    String tab = Constants.tabs.kManipulators;
+
+    AddToShuffleboard.add(tab, "Reach Position", 0);
   }
 
   public double getPosition() {
-    return m_leadEncoder.getPosition();
+    double pos = m_leadEncoder.getPosition();
+    return pos;
   }
 
   public void moveToPositionWithPID(double position) {
-    reach_position.setString("Moving to position " + position);
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 

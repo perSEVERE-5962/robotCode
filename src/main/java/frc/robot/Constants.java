@@ -29,11 +29,14 @@ public final class Constants {
   }
 
   public static final class ModuleConstants {
-    public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
+    public static final double kWheelDiameterInches = 3.9;
     public static final double kDriveMotorGearRatio = 1 / 8.14; // 8.14:1
     public static final double kTurningMotorGearRatio = 1 / (150 / 7); // 150/7:1
     public static final double kDriveEncoderRot2Meter =
         kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
+    public static final double kDriveEncoderRot2Inch =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
     public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
     public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
     public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
@@ -68,18 +71,18 @@ public final class Constants {
     public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
-    // Front Left
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(102.305 + 180);
-    // Back Left
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(17.842 + 180);
-    // Front Right
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(13.096 + 180);
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(173.057 + 180);
+        Math.toRadians(182.637 + 180);
+    // Back Left
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(8.340 + 180);
+    // Front Right
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(13.535 + 180);
+    // Front Left
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(100.723 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -205,4 +208,14 @@ public final class Constants {
     public static final float kRaiseSoftLimit = 0; // kForward
     public static final float kSubStation = -46; // half way down
   }
+
+  public static final class tabs {
+    public static final String kManipulators = "Manipulators";
+    public static final String kAngle = "Angle";
+    public static final String kLineDetector = "Line Detector";
+    public static final String kSwerveSubsystem = "Swerve Subsystem";
+  }
+
+  // Pos 1: 66 inches
+  //
 }

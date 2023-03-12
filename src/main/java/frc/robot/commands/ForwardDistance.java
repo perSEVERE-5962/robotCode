@@ -8,7 +8,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class ForwardDistance extends Move {
   private double distanceWanted;
-  private double m_InitialDistance;
+
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
@@ -24,14 +24,14 @@ public class ForwardDistance extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_InitialDistance = m_driveTrain.getAveragePosition();
+    m_driveTrain.resetDrivePosition();
   }
 
   @Override
   public boolean isFinished() {
-    if (distanceWanted >= (m_driveTrain.getAveragePosition() - m_InitialDistance)) {
-      return false;
+    if (m_driveTrain.getAverageDistanceInches() >= distanceWanted) {
+      return true;
     }
-    return true;
+    return false;
   }
 }
