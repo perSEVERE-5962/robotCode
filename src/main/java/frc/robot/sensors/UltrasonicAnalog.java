@@ -7,22 +7,22 @@ package frc.robot.sensors;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class UltrasonicAnalog {
-	AnalogInput ultrasonic;
-	final double valueToInches = 2.3;
+  AnalogInput ultrasonic;
+  final double valueToInches = 2.3;
 
-	public UltrasonicAnalog(int channel) {
-		ultrasonic = new AnalogInput(channel);
-	}
+  public UltrasonicAnalog(int channel) {
+    ultrasonic = new AnalogInput(channel);
+  }
 
-	public double getRange() {
-		return ultrasonic.getVoltage() * valueToInches;
-	}
+  public double getRange() {
+    return ultrasonic.getVoltage() * valueToInches;
+  }
 
-	public double getVoltage() {
-		return ultrasonic.getVoltage();
-	}
-	public boolean isEnabled() {
-		return true;
-	}
+  public double getVoltage() {
+    return ultrasonic.getVoltage();
+  }
+
+  public boolean isEnabled() {
+    return true;
+  }
 }
-

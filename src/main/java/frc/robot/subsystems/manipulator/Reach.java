@@ -55,16 +55,20 @@ public class Reach extends SubsystemBase {
 
     String tab = Constants.tabs.kManipulators;
 
-    AddToShuffleboard.add(tab, "Reach Position", 0);
+    reachPositionEntry = AddToShuffleboard.add(tab, "Reach Position", 0);
   }
 
   public double getPosition() {
-    double pos = m_leadEncoder.getPosition();
-    return pos;
+    return m_leadEncoder.getPosition();
   }
 
   public void moveToPositionWithPID(double position) {
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  @Override
+  public void periodic() {
+    reachPositionEntry.setDouble(m_leadEncoder.getPosition());
   }
 
   /**

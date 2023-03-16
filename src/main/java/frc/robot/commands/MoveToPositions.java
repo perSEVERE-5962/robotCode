@@ -5,6 +5,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.commands.manipulator.MoveWrist;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,6 +20,9 @@ public class MoveToPositions extends SequentialCommandGroup {
     addCommands(
         new ForwardDistance(driveTrain, -0.5, 66),
         new SidewaysDistance(driveTrain, -0.5, 33),
-        new ForwardDistance(driveTrain, 0.5, 52));
+        new Turn(driveTrain, 0.5, 180),
+        new MoveWrist(Constants.WristConstants.kFloor),
+        new MoveOntoChargingStation(driveTrain),
+        new StayEngaged(driveTrain));
   }
 }

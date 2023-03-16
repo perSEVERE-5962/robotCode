@@ -9,27 +9,33 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AddToShuffleboard;
 import frc.robot.Constants.GripperConstants;
 import frc.robot.Constants.tabs;
-import frc.robot.sensors.UltrasonicAnalog;
 
 public class Gripper extends SubsystemBase {
   private static Gripper instance;
   private Pneumatics pneumatics = Pneumatics.getInstance();
   private Boolean isClosing = false;
   private String tab = tabs.kManipulators;
-  private UltrasonicAnalog sensor = new UltrasonicAnalog(GripperConstants.kSensorChannel);
 
-  DoubleSolenoid m_dsol1 = pneumatics.add_double_solenoid(GripperConstants.kSol1_Channel1, GripperConstants.kSol1_Channel2);
+  DoubleSolenoid m_dsol1 =
+      pneumatics.add_double_solenoid(
+          GripperConstants.kSol1_Channel1, GripperConstants.kSol1_Channel2);
   // the next two are solonoids on the robot from our week 1 competition, we will simply close
-  DoubleSolenoid m_dsol2 = pneumatics.add_double_solenoid(GripperConstants.kSol2_Channel1, GripperConstants.kSol2_Channel2);
-  DoubleSolenoid m_dsol3 = pneumatics.add_double_solenoid(GripperConstants.kSol3_Channel1, GripperConstants.kSol3_Channel2);
+  DoubleSolenoid m_dsol2 =
+      pneumatics.add_double_solenoid(
+          GripperConstants.kSol2_Channel1, GripperConstants.kSol2_Channel2);
+  DoubleSolenoid m_dsol3 =
+      pneumatics.add_double_solenoid(
+          GripperConstants.kSol3_Channel1, GripperConstants.kSol3_Channel2);
 
   /** Creates a new Gripper. */
   private Gripper() {
     super();
     AddToShuffleboard.add(tab, "Is Gripper Closing", isClosing);
     // make sure the unused solenoids are closed
-    pneumatics.backward(m_dsol2);
-    pneumatics.backward(m_dsol3);
+    //pneumatics.backward(m_dsol2);
+    //pneumatics.backward(m_dsol3)
+    m_dsol2.close();
+    m_dsol3.close();
   }
 
   public void close() {
