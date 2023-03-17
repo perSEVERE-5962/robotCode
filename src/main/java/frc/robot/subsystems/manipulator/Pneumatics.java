@@ -4,21 +4,16 @@
 
 package frc.robot.subsystems.manipulator;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Pneumatics extends SubsystemBase {
-  private Compressor m_pcmCompressor =
-      new Compressor(Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM);
   private static Pneumatics instance;
 
   /** Creates a new Pneumatics. */
-  private Pneumatics() {
-    m_pcmCompressor.enableDigital();
-  }
+  private Pneumatics() {}
 
   public DoubleSolenoid add_double_solenoid(int channel1, int channel2) {
     DoubleSolenoid new_solenoid =

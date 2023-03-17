@@ -9,8 +9,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.AnalogEncoder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 
@@ -22,7 +20,6 @@ public class SwerveModule {
   private final RelativeEncoder driveEncoder;
   private final RelativeEncoder turningEncoder;
 
-  private PIDController drivePidController;
   private PIDController turningPidController;
 
   // private final AnalogInput absoluteEncoder;
@@ -130,8 +127,6 @@ public class SwerveModule {
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
     turningMotor.set(
         turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
-    SmartDashboard.putString(
-        "Swerve[" + absoluteEncoder.getDeviceID() + "] state", state.toString());
   }
 
   public void stop() {

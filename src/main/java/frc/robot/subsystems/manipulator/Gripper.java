@@ -32,8 +32,8 @@ public class Gripper extends SubsystemBase {
     super();
     AddToShuffleboard.add(tab, "Is Gripper Closing", isClosing);
     // make sure the unused solenoids are closed
-    //pneumatics.backward(m_dsol2);
-    //pneumatics.backward(m_dsol3)
+    // pneumatics.backward(m_dsol2);
+    // pneumatics.backward(m_dsol3)
     m_dsol2.close();
     m_dsol3.close();
   }

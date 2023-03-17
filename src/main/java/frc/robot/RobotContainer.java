@@ -7,7 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,9 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
-import frc.robot.subsystems.*;
 import frc.robot.subsystems.drivetrain.*;
-import frc.robot.subsystems.manipulator.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -43,23 +43,32 @@ public class RobotContainer {
   Trigger co_rBumper =
       new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
-  // Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-  // Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-  // Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-  // Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  // Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
-  // Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
+  // Trigger dr_aButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kA.value);
+  // Trigger dr_bButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kB.value);
+  // Trigger dr_yButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kY.value);
+  // Trigger dr_xButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kX.value);
+  // Trigger dr_start = new JoystickButton(m_driverController,
+  // XboxController.Button.kStart.value);
+  // Trigger dr_back = new JoystickButton(m_driverController,
+  // XboxController.Button.kBack.value);
   // Trigger dr_lBumper =
-  //     new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+  // new JoystickButton(m_driverController,
+  // XboxController.Button.kLeftBumper.value);
   // Trigger dr_rBumper =
-  //     new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  // new JoystickButton(m_driverController,
+  // XboxController.Button.kRightBumper.value);
 
   // Trigger dr_lStickButton =
-  //    new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
+  // new JoystickButton(m_driverController,
+  // XboxController.Button.kLeftStick.value);
 
   // used to reset the drive wheels to the desired offsets
-  Trigger dr_resetToOffsets = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
-
+  Trigger dr_resetToOffsets =
+      new JoystickButton(m_driverController, XboxController.Button.kStart.value);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -68,7 +77,8 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
-  private Pneumatics pneumatics = Pneumatics.getInstance();
+  private Compressor m_pcmCompressor =
+      new Compressor(Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -80,13 +90,16 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
+    // enable the compressor
+    m_pcmCompressor.enableDigital();
+
     // Configure the button bindings
     configureButtonBindings();
 
     m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
-    m_autonomousChooser.addOption("Engage Charge Station", new START(m_driveTrain));
+    m_autonomousChooser.addOption("Left Engage Charge Station", new START(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -127,7 +140,7 @@ public class RobotContainer {
     // dr_lStickButton.onTrue(new test());
 
     dr_resetToOffsets.onTrue(new ResetWheelPosition());
-    
+
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
      * .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
@@ -140,8 +153,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Command command = m_autonomousChooser.getSelected();
-    Command command = new START(m_driveTrain);
+    Command command = m_autonomousChooser.getSelected();
+    // Command command = new START(m_driveTrain);
     return command;
   }
 
@@ -197,10 +210,11 @@ public class RobotContainer {
   }
 
   // public void setCameraBrightness(int brightness) {
-  //   m_camera.setBrightness(brightness);
+  // m_camera.setBrightness(brightness);
   // }
 
   // public Camera getCamera() {
-  //   return m_camera;
+  // return m_camera;
   // }
+
 }

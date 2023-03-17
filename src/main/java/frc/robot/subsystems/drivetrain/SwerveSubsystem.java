@@ -287,9 +287,13 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public void initialzeTurnEncoders() {
-    backRight.setAbsoluteEncoderPosition(Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad);
-    backLeft.setAbsoluteEncoderPosition(Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad);
-    frontRight.setAbsoluteEncoderPosition(Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad);
-    frontLeft.setAbsoluteEncoderPosition(Constants.DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad);
+    backRight.setAbsoluteEncoderPosition(
+        Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad);
+    backLeft.setAbsoluteEncoderPosition(
+        Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad);
+    frontRight.setAbsoluteEncoderPosition(
+        Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad);
+    frontLeft.setAbsoluteEncoderPosition(
+        Constants.DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad);
   }
 }

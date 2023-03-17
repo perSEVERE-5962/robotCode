@@ -14,13 +14,13 @@ public class AutoGripperClose extends GripperClose {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    sensor = new UltrasonicAnalog(Constants.GripperConstants.kSensorChannel);
+    sensor = UltrasonicAnalog.getInstance();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (sensor.getRange() > Constants.GripperConstants.kMinRange
-        && sensor.getRange() < Constants.GripperConstants.kMaxRange);
+    return (sensor.getRange() > Constants.UltrasonicConstants.kMinRange
+        && sensor.getRange() < Constants.UltrasonicConstants.kMaxRange);
   }
 }

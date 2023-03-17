@@ -5,13 +5,15 @@
 package frc.robot.sensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import frc.robot.Constants;
 
 public class UltrasonicAnalog {
-  AnalogInput ultrasonic;
-  final double valueToInches = 2.3;
+  private static UltrasonicAnalog instance;
+  private AnalogInput ultrasonic;
+  private final double valueToInches = 2.3;
 
-  public UltrasonicAnalog(int channel) {
-    ultrasonic = new AnalogInput(channel);
+  private UltrasonicAnalog() {
+    ultrasonic = new AnalogInput(Constants.UltrasonicConstants.kSensor_Analog_Channel);
   }
 
   public double getRange() {
@@ -24,5 +26,16 @@ public class UltrasonicAnalog {
 
   public boolean isEnabled() {
     return true;
+  }
+
+  /**
+   * @return the instance
+   */
+  public static UltrasonicAnalog getInstance() {
+    if (instance == null) {
+      instance = new UltrasonicAnalog();
+    }
+
+    return instance;
   }
 }

@@ -160,6 +160,7 @@ public final class Constants {
     public static final int kWristID = 61;
     // pmc
     public static final int kPCMID = 3;
+    public static final int kPCMID24V = 0;
   }
 
   public static final class LiftConstants {
@@ -204,10 +205,10 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = -44; // kReverse
+    public static final float kLowerSoftLimit = -44; // kReverse   /* was 55 */
     public static final float kRaiseSoftLimit = 0; // kForward
-    public static final float kFloor = -82;
-    public static final float kSubStation = -35; // half way down
+    public static final float kFloor = -82; // used to push ramp down on charge station
+    public static final float kSubStation = -35; // half way down /* was 46 */
   }
 
   public static final class tabs {
@@ -218,13 +219,18 @@ public final class Constants {
   }
 
   public static final class GripperConstants {
-    public static final int kSensorChannel = 0;
     public static final int kSol1_Channel1 = 4;
     public static final int kSol1_Channel2 = 5;
     public static final int kSol2_Channel1 = 2; // no longer used
     public static final int kSol2_Channel2 = 3; // no longer used
     public static final int kSol3_Channel1 = 0; // no longer used
     public static final int kSol3_Channel2 = 1; // no longer used
+  }
+
+  public static final class UltrasonicConstants {
+    public static final int kSensor_Analog_Channel = 0;
+    public static final int kSensor_PCM_Channel = 6; // analog ultrasonic sensor
+    public static final int kTrainSensor_PCM_Channel = 7; // used to train the sensor
     public static final double kMinRange = 5;
     public static final double kMaxRange = 8;
   }
