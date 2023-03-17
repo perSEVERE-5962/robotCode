@@ -68,6 +68,8 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
+  private Pneumatics pneumatics = Pneumatics.getInstance();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     m_driveTrain.setDefaultCommand(
@@ -84,8 +86,7 @@ public class RobotContainer {
     m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
-    m_autonomousChooser.addOption(
-        "Engage Charge Station", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+    m_autonomousChooser.addOption("Engage Charge Station", new START(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -139,8 +140,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //Command command = m_autonomousChooser.getSelected();
-    Command command = new MoveToPositions(m_driveTrain);
+    // Command command = m_autonomousChooser.getSelected();
+    Command command = new START(m_driveTrain);
     return command;
   }
 

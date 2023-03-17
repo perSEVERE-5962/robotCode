@@ -57,16 +57,20 @@ public class Lift extends SubsystemBase {
 
     String tab = Constants.tabs.kManipulators;
 
-    AddToShuffleboard.add(tab, "Lift Position", getPosition());
+    liftPositionEntry = AddToShuffleboard.add(tab, "Lift Position", getPosition());
   }
 
   public double getPosition() {
-    double pos = m_leadEncoder.getPosition();
-    return pos;
+    return m_leadEncoder.getPosition();
   }
 
   public void moveToPositionWithPID(double position) {
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  @Override
+  public void periodic() {
+    liftPositionEntry.setDouble(m_leadEncoder.getPosition());
   }
 
   /**

@@ -73,16 +73,16 @@ public final class Constants {
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(182.637 + 180);
+        Math.toRadians(179.297 + 180);
     // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(8.340 + 180);
+        Math.toRadians(12.832 + 180);
     // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(13.535 + 180);
+        Math.toRadians(13.008 + 180);
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(100.723 + 180);
+        Math.toRadians(100.635 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -91,8 +91,8 @@ public final class Constants {
         kPhysicalMaxSpeedMetersPerSecond / 4;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-    //public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    //public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+    // public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+    // public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
   }
 
   // public static final class AutoConstants {
@@ -204,9 +204,10 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = -55; // kReverse
+    public static final float kLowerSoftLimit = -44; // kReverse
     public static final float kRaiseSoftLimit = 0; // kForward
-    public static final float kSubStation = -46; // half way down
+    public static final float kFloor = -82;
+    public static final float kSubStation = -35; // half way down
   }
 
   public static final class tabs {
@@ -226,7 +227,6 @@ public final class Constants {
     public static final int kSol3_Channel2 = 1; // no longer used
     public static final double kMinRange = 5;
     public static final double kMaxRange = 8;
-    
   }
 
   // Pos 1: 66 inches

@@ -53,16 +53,20 @@ public class Wrist extends SubsystemBase {
 
     String tab = Constants.tabs.kManipulators;
 
-    AddToShuffleboard.add(tab, "Wrist Position", 0);
+    wristPositionEntry = AddToShuffleboard.add(tab, "Wrist Position", 0);
   }
 
   public double getPosition() {
-    double pos = m_leadEncoder.getPosition();
-    return pos;
+    return m_leadEncoder.getPosition();
   }
 
   public void moveToPositionWithPID(double position) {
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  @Override
+  public void periodic() {
+    wristPositionEntry.setDouble(m_leadEncoder.getPosition());
   }
 
   /**

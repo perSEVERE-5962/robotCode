@@ -2,18 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.obsolete;
 
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class IfLeavingStation extends CommandBase {
-  SwerveSubsystem m_driveTrain;
-  /** Creates a new IfLeaving. */
-  public IfLeavingStation(SwerveSubsystem driveTrain) {
+public class IfClimbing extends CommandBase {
+  SwerveSubsystem m_drivetrain;
+
+  /** Creates a new IfClimbing. */
+  public IfClimbing(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
+    m_drivetrain = driveTrain;
     // addRequirements(driveTrain);
   }
 
@@ -32,6 +34,6 @@ public class IfLeavingStation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
+    return m_drivetrain.getPitch() >= Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
   }
 }
