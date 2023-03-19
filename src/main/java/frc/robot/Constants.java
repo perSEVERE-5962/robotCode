@@ -73,16 +73,16 @@ public final class Constants {
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(179.297 + 180);
+        Math.toRadians(172.354 + 180);
     // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(12.832 + 180);
+        Math.toRadians(17.578 + 180);
     // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(13.008 + 180);
+        Math.toRadians(5.713 + 180);
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(100.635 + 180);
+        Math.toRadians(100.898 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -205,10 +205,12 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = -44; // kReverse   /* was 55 */
+    public static final float kLowerSoftLimit = -55; // kReverse   /* was 55 */
+    public static final float kScorePosition = -50;
     public static final float kRaiseSoftLimit = 0; // kForward
-    public static final float kFloor = -82; // used to push ramp down on charge station
+    public static final float kFloor = -90; // used to push ramp down on charge station
     public static final float kSubStation = -35; // half way down /* was 46 */
+    public static final float kClearChain = -15; // move away from chain before raising lift
   }
 
   public static final class tabs {
@@ -231,8 +233,8 @@ public final class Constants {
     public static final int kSensor_Analog_Channel = 0;
     public static final int kSensor_PCM_Channel = 6; // analog ultrasonic sensor
     public static final int kTrainSensor_PCM_Channel = 7; // used to train the sensor
-    public static final double kMinRange = 5;
-    public static final double kMaxRange = 8;
+    public static final double kMinRange = 6;
+    public static final double kMaxRange = 7;
   }
 
   // Pos 1: 66 inches

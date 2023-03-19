@@ -43,8 +43,7 @@ public class RobotContainer {
   Trigger co_rBumper =
       new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
-  // Trigger dr_aButton = new JoystickButton(m_driverController,
-  // XboxController.Button.kA.value);
+  Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   // Trigger dr_bButton = new JoystickButton(m_driverController,
   // XboxController.Button.kB.value);
   // Trigger dr_yButton = new JoystickButton(m_driverController,
@@ -99,7 +98,8 @@ public class RobotContainer {
     m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
-    m_autonomousChooser.addOption("Left Engage Charge Station", new START(m_driveTrain));
+    m_autonomousChooser.addOption("Red Auto", new RED_MoveToPositions(m_driveTrain));
+    m_autonomousChooser.addOption("Blue Auto", new BLUE_MoveToPositions(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -128,7 +128,7 @@ public class RobotContainer {
     co_lBumper.onTrue(new GripperClose());
     co_rBumper.onTrue(new GripperOpen());
 
-    // dr_aButton.onTrue(new ScoreCubePosition1());
+    dr_aButton.onTrue(new StayEngaged(m_driveTrain));
     // dr_bButton.onTrue(new ScoreCubePosition2());
     // dr_yButton.onTrue(new ScoreCubePosition3());
     // dr_xButton.onTrue(new ResetCubePosition());

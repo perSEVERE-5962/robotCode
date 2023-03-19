@@ -19,6 +19,6 @@ public class ResetPosition extends SequentialCommandGroup {
         new MoveLift(Constants.LiftConstants.kRaiseSoftLimit),
         new MoveReach(Constants.ReachConstants.kRetractSoftLimit),
         new MoveLift(Constants.LiftConstants.kLowerSoftLimit),
-        new MoveWrist(Constants.WristConstants.kRaiseSoftLimit));
+        new MoveWrist(Constants.WristConstants.kClearChain));
   }
 }

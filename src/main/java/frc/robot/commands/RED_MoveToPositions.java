@@ -10,11 +10,19 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class START extends SequentialCommandGroup {
-  /** Creates a new START. */
-  public START(SwerveSubsystem driveTrain) {
+public class RED_MoveToPositions extends SequentialCommandGroup {
+  /** Creates a new MoveToPositions. */
+  public RED_MoveToPositions(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new RED_MoveToPositions(driveTrain));
+    addCommands(
+        new ForwardDistance(driveTrain, -0.5, 66),
+        new SidewaysDistance(driveTrain, 0.5, 33),
+        // new Turn(driveTrain, 0.5, 175),
+        // new MoveWrist(Constants.WristConstants.kFloor),
+        // new MoveOntoChargingStation(driveTrain),
+        new ForwardDistance(driveTrain, 1, 20),
+        new ForwardWithGyro(driveTrain, 0.4),
+        new Turn(driveTrain, 0.5, 90));
   }
 }

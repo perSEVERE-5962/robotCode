@@ -40,13 +40,13 @@ public class Gripper extends SubsystemBase {
 
   public void close() {
     isClosing = true;
-    pneumatics.forward(m_dsol1);
+    pneumatics.backward(m_dsol1);
     // pneumatics.forward(m_dsol2);
   }
 
   public void open() {
     isClosing = false;
-    pneumatics.backward(m_dsol1);
+    pneumatics.forward(m_dsol1);
     // pneumatics.backward(m_dsol2);
   }
 
