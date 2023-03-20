@@ -60,6 +60,10 @@ public class Wrist extends SubsystemBase {
     return m_leadEncoder.getPosition();
   }
 
+  public void move(double speed) {
+    m_leadMotor.set(speed);
+  }
+
   public void moveToPositionWithPID(double position) {
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }

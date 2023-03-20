@@ -28,6 +28,7 @@ import frc.robot.subsystems.drivetrain.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private static RobotContainer instance;
   private final XboxController m_driverController =
       new XboxController(OIConstants.kDriverControllerPort);
   private final XboxController m_copilotController =
@@ -80,7 +81,7 @@ public class RobotContainer {
       new Compressor(Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  private RobotContainer() {
     m_driveTrain.setDefaultCommand(
         new DriveCommand(
             m_driveTrain,
@@ -217,4 +218,15 @@ public class RobotContainer {
   // return m_camera;
   // }
 
+  public static RobotContainer getInstance() {
+    if (instance == null) {
+      instance = new RobotContainer();
+    }
+
+    return instance;
+  }
+
+  public XboxController getCopilotController() {
+    return m_copilotController;
+  }
 }
