@@ -7,30 +7,47 @@ package frc.robot.subsystems.manipulator;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AddToShuffleboard;
+import frc.robot.Constants.GripperConstants;
+import frc.robot.Constants.tabs;
 
 public class Gripper extends SubsystemBase {
   private static Gripper instance;
   private Pneumatics pneumatics = Pneumatics.getInstance();
-  private Boolean is_closing = false;
+  private Boolean isClosing = false;
+  private String tab = tabs.kManipulators;
 
-  DoubleSolenoid m_dsol1 = pneumatics.add_double_solenoid(0, 1);
-  DoubleSolenoid m_dsol2 = pneumatics.add_double_solenoid(2, 3);
+  DoubleSolenoid m_dsol1 =
+      pneumatics.add_double_solenoid(
+          GripperConstants.kSol1_Channel1, GripperConstants.kSol1_Channel2);
+  // the next two are solonoids on the robot from our week 1 competition, we will simply close
+  DoubleSolenoid m_dsol2 =
+      pneumatics.add_double_solenoid(
+          GripperConstants.kSol2_Channel1, GripperConstants.kSol2_Channel2);
+  DoubleSolenoid m_dsol3 =
+      pneumatics.add_double_solenoid(
+          GripperConstants.kSol3_Channel1, GripperConstants.kSol3_Channel2);
+
   /** Creates a new Gripper. */
   private Gripper() {
     super();
-    AddToShuffleboard.add("Manipulators", "Is Gripper Closing", is_closing);
+    AddToShuffleboard.add(tab, "Is Gripper Closing", isClosing);
+    // make sure the unused solenoids are closed
+    // pneumatics.backward(m_dsol2);
+    // pneumatics.backward(m_dsol3)
+    m_dsol2.close();
+    m_dsol3.close();
   }
 
   public void close() {
-    is_closing = true;
-    pneumatics.forward(m_dsol1);
-    pneumatics.forward(m_dsol2);
+    isClosing = true;
+    pneumatics.backward(m_dsol1);
+    // pneumatics.forward(m_dsol2);
   }
 
   public void open() {
-    is_closing = false;
-    pneumatics.backward(m_dsol1);
-    pneumatics.backward(m_dsol2);
+    isClosing = false;
+    pneumatics.forward(m_dsol1);
+    // pneumatics.backward(m_dsol2);
   }
 
   /**

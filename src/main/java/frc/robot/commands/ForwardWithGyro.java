@@ -4,18 +4,15 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class ForwardDistance extends Move {
-  private double distanceWanted;
-
+public class ForwardWithGyro extends Move {
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-  public ForwardDistance(
-      SwerveSubsystem driveTrain, double translationXSupplier, double distanceWanted) {
+  public ForwardWithGyro(SwerveSubsystem driveTrain, double translationXSupplier) {
     super(driveTrain, translationXSupplier, 0, 0);
-    this.distanceWanted = distanceWanted;
 
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,13 +20,11 @@ public class ForwardDistance extends Move {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_driveTrain.resetDrivePosition();
-  }
+  public void initialize() {}
 
   @Override
   public boolean isFinished() {
-    if (m_driveTrain.getAverageDistanceInches() >= distanceWanted) {
+    if (m_driveTrain.getPitch() <= Constants.PITCH_LEVEL) {
       return true;
     }
     return false;

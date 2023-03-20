@@ -20,7 +20,7 @@ public class Lift extends SubsystemBase {
 
   private RelativeEncoder m_leadEncoder;
   // private RelativeEncoder m_followEncoder;
-  private GenericEntry lift_position;
+  private GenericEntry liftPositionEntry;
 
   private Lift() {
     // the lift uses two Neo motors connected to a single gearbox
@@ -55,7 +55,9 @@ public class Lift extends SubsystemBase {
     m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.LiftConstants.kRaiseSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.LiftConstants.kLowerSoftLimit);
 
-    lift_position = AddToShuffleboard.add("Manipulators", "Lift Position", "");
+    String tab = Constants.tabs.kManipulators;
+
+    liftPositionEntry = AddToShuffleboard.add(tab, "Lift Position", getPosition());
   }
 
   public double getPosition() {
@@ -63,8 +65,12 @@ public class Lift extends SubsystemBase {
   }
 
   public void moveToPositionWithPID(double position) {
-    lift_position.setString("Moving to position " + position);
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  @Override
+  public void periodic() {
+    liftPositionEntry.setDouble(m_leadEncoder.getPosition());
   }
 
   /**

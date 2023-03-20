@@ -14,10 +14,11 @@ import frc.robot.AddToShuffleboard;
 public class PrintLidarData extends CommandBase {
   NetworkTableInstance networkTable = NetworkTableInstance.getDefault();
   NetworkTable table = networkTable.getTable("lidar");
-  Boolean is_done = false;
-  GenericEntry entry;
+  Boolean isDone = false;
+  GenericEntry m_entry;
   /** Creates a new PrintLidarData. */
   public PrintLidarData() {
+    m_entry = AddToShuffleboard.add("LiDAR", "Action", "");
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,26 +26,26 @@ public class PrintLidarData extends CommandBase {
   @Override
   public void initialize() {
     table.putValue("action", NetworkTableValue.makeString(""));
-    entry = AddToShuffleboard.add("LiDAR", "Action", "");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     String action = table.getEntry("action").toString();
+    m_entry.setString(action);
     switch (action) {
       case "left":
-        entry.setString("Left");
+        m_entry.setString("Left");
         break;
       case "right":
-        entry.setString("Right");
+        m_entry.setString("Right");
         break;
       case "stop":
-        entry.setString("Stop");
-        is_done = true;
+        m_entry.setString("Stop");
+        isDone = true;
         break;
       default:
-        entry.setString("");
+        m_entry.setString("");
         break;
     }
   }
@@ -56,6 +57,6 @@ public class PrintLidarData extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return is_done;
+    return isDone;
   }
 }

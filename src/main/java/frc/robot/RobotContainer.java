@@ -7,10 +7,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,9 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
-import frc.robot.subsystems.*;
 import frc.robot.subsystems.drivetrain.*;
-import frc.robot.subsystems.manipulator.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,6 +28,7 @@ import frc.robot.subsystems.manipulator.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+  private static RobotContainer instance;
   private final XboxController m_driverController =
       new XboxController(OIConstants.kDriverControllerPort);
   private final XboxController m_copilotController =
@@ -46,18 +45,30 @@ public class RobotContainer {
       new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
   Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-  Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-  Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-  Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
-  Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
-  Trigger dr_lBumper =
-      new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
-  Trigger dr_rBumper =
-      new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  // Trigger dr_bButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kB.value);
+  // Trigger dr_yButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kY.value);
+  // Trigger dr_xButton = new JoystickButton(m_driverController,
+  // XboxController.Button.kX.value);
+  // Trigger dr_start = new JoystickButton(m_driverController,
+  // XboxController.Button.kStart.value);
+  // Trigger dr_back = new JoystickButton(m_driverController,
+  // XboxController.Button.kBack.value);
+  // Trigger dr_lBumper =
+  // new JoystickButton(m_driverController,
+  // XboxController.Button.kLeftBumper.value);
+  // Trigger dr_rBumper =
+  // new JoystickButton(m_driverController,
+  // XboxController.Button.kRightBumper.value);
 
-  Trigger dr_lStickButton =
-      new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
+  // Trigger dr_lStickButton =
+  // new JoystickButton(m_driverController,
+  // XboxController.Button.kLeftStick.value);
+
+  // used to reset the drive wheels to the desired offsets
+  Trigger dr_resetToOffsets =
+      new JoystickButton(m_driverController, XboxController.Button.kStart.value);
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
@@ -66,8 +77,11 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
+  private Compressor m_pcmCompressor =
+      new Compressor(Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  private RobotContainer() {
     m_driveTrain.setDefaultCommand(
         new DriveCommand(
             m_driveTrain,
@@ -76,15 +90,17 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
+    // enable the compressor
+    m_pcmCompressor.enableDigital();
+
     // Configure the button bindings
     configureButtonBindings();
-    configureShuffleBoard();
 
     m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
-    m_autonomousChooser.addOption(
-        "Engage Charge Station", new AUTO_LeaveCommunityAndEngage(m_driveTrain));
+    m_autonomousChooser.addOption("Red Auto", new RED_MoveToPositions(m_driveTrain));
+    m_autonomousChooser.addOption("Blue Auto", new BLUE_MoveToPositions(m_driveTrain));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
@@ -113,52 +129,23 @@ public class RobotContainer {
     co_lBumper.onTrue(new GripperClose());
     co_rBumper.onTrue(new GripperOpen());
 
-    dr_aButton.onTrue(new ScoreCubePosition1());
-    dr_bButton.onTrue(new ScoreCubePosition2());
-    dr_yButton.onTrue(new ScoreCubePosition3());
-    dr_xButton.onTrue(new ResetCubePosition());
-    dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
-    dr_start.onTrue(new GrabCube());
-    dr_lBumper.onTrue(new CubeGripperClose());
-    dr_rBumper.onTrue(new CubeGripperOpen());
+    dr_aButton.onTrue(new StayEngaged(m_driveTrain));
+    // dr_bButton.onTrue(new ScoreCubePosition2());
+    // dr_yButton.onTrue(new ScoreCubePosition3());
+    // dr_xButton.onTrue(new ResetCubePosition());
+    // dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
+    // dr_start.onTrue(new GrabCube());
+    // dr_lBumper.onTrue(new CubeGripperClose());
+    // dr_rBumper.onTrue(new CubeGripperOpen());
 
     // dr_lStickButton.onTrue(new test());
+
+    dr_resetToOffsets.onTrue(new ResetWheelPosition());
 
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
      * .onTrue(new InstantCommand(() -> m_driveTrain.zeroHeading()));
      */
-  }
-
-  private void configureShuffleBoard() {
-    ShuffleboardTab shuffleboardTab;
-    String tab = "";
-    // Angle tab
-    tab = "Angle";
-    AddToShuffleboard.add(tab, "Absolute Pitch", getDriveTrain().getPitch());
-    AddToShuffleboard.add(
-        tab, "Relative Pitch", getDriveTrain().getPitch() - Constants.PITCH_OFFSET);
-    AddToShuffleboard.add(tab, "Pitch Offset", Constants.PITCH_OFFSET);
-    AddToShuffleboard.add(tab, "Absolute Yaw", getDriveTrain().getYaw());
-    AddToShuffleboard.add(tab, "Relative Yaw", getDriveTrain().getYaw() - Constants.YAW_OFFSET);
-    AddToShuffleboard.add(tab, "Yaw Offset", Constants.YAW_OFFSET);
-
-    // Wheels
-    shuffleboardTab = Shuffleboard.getTab("Wheels");
-    shuffleboardTab.addNumber("Average Position", () -> getDriveTrain().getAveragePosition());
-
-    // Manipulator
-    shuffleboardTab = Shuffleboard.getTab("Manipulators");
-    shuffleboardTab.addNumber("Lift Encoder Position", () -> Lift.getInstance().getPosition());
-    shuffleboardTab.addNumber("Reach Encoder Position", () -> Reach.getInstance().getPosition());
-    shuffleboardTab.addNumber("Wrist Encoder Position", () -> Wrist.getInstance().getPosition());
-
-    // Driver station
-    shuffleboardTab = Shuffleboard.getTab("Driver Station");
-    // The values put into the driver station can be found in other files
-
-    // Other
-    getDriveTrain().addDebugInfo();
   }
 
   /**
@@ -168,7 +155,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command = m_autonomousChooser.getSelected();
-    // Command command = new CrossLine();
+    // Command command = new START(m_driveTrain);
     return command;
   }
 
@@ -224,10 +211,22 @@ public class RobotContainer {
   }
 
   // public void setCameraBrightness(int brightness) {
-  //   m_camera.setBrightness(brightness);
+  // m_camera.setBrightness(brightness);
   // }
 
   // public Camera getCamera() {
-  //   return m_camera;
+  // return m_camera;
   // }
+
+  public static RobotContainer getInstance() {
+    if (instance == null) {
+      instance = new RobotContainer();
+    }
+
+    return instance;
+  }
+
+  public XboxController getCopilotController() {
+    return m_copilotController;
+  }
 }

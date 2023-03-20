@@ -4,17 +4,21 @@
 
 package frc.robot.commands.manipulator;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.manipulator.Gripper;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.manipulator.Wrist;
 
-public class GripperClose extends CommandBase {
-  /** Creates a new CloseManipulator. */
-  Gripper m_gripper;
+public class WristCommand extends CommandBase {
+  XboxController controller = RobotContainer.getInstance().getCopilotController();
+  Wrist wrist = Wrist.getInstance();
 
-  public GripperClose() {
+  /** Creates a new WristCommand. */
+  public WristCommand() {
+
     // Use addRequirements() here to declare subsystem dependencies.
-    m_gripper = Gripper.getInstance();
-    addRequirements(m_gripper);
+    addRequirements(Wrist.getInstance());
   }
 
   // Called when the command is initially scheduled.
@@ -23,17 +27,20 @@ public class GripperClose extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    double speed = controller.getRawAxis(1) * -1;
+    wrist.move(MathUtil.applyDeadband(speed, 0.2));
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_gripper.close();
+    Wrist.getInstance().move(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

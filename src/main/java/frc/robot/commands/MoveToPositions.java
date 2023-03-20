@@ -4,18 +4,25 @@
 
 package frc.robot.commands;
 
-// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
+import frc.robot.commands.manipulator.MoveWrist;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AUTO_LeaveCommunityAndEngage extends SequentialCommandGroup {
-  /** Creates a new GroupSeqCom_MovePastLineAndBack. */
-  public AUTO_LeaveCommunityAndEngage(SwerveSubsystem drivetrain) {
+public class MoveToPositions extends SequentialCommandGroup {
+  /** Creates a new MoveToPositions. */
+  public MoveToPositions(SwerveSubsystem driveTrain) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new MovePastLine(drivetrain), new EngageChargingStation(drivetrain));
+    addCommands(
+        new ForwardDistance(driveTrain, -0.5, 66),
+        new SidewaysDistance(driveTrain, -0.5, 33),
+        new Turn(driveTrain, 0.5, 180),
+        new MoveWrist(Constants.WristConstants.kFloor),
+        new MoveOntoChargingStation(driveTrain),
+        new StayEngaged(driveTrain));
   }
 }

@@ -6,15 +6,15 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class ForwardDistance extends Move {
+public class SidewaysDistance extends Move {
   private double distanceWanted;
 
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-  public ForwardDistance(
-      SwerveSubsystem driveTrain, double translationXSupplier, double distanceWanted) {
-    super(driveTrain, translationXSupplier, 0, 0);
+  public SidewaysDistance(
+      SwerveSubsystem driveTrain, double translationYSupplier, double distanceWanted) {
+    super(driveTrain, 0, translationYSupplier, 0);
     this.distanceWanted = distanceWanted;
 
     addRequirements(driveTrain);

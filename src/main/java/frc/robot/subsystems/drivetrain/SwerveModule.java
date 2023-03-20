@@ -2,13 +2,13 @@ package frc.robot.subsystems.drivetrain;
 
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 
@@ -20,7 +20,7 @@ public class SwerveModule {
   private final RelativeEncoder driveEncoder;
   private final RelativeEncoder turningEncoder;
 
-  private final PIDController turningPidController;
+  private PIDController turningPidController;
 
   // private final AnalogInput absoluteEncoder;
   private final CANCoder absoluteEncoder;
@@ -44,6 +44,8 @@ public class SwerveModule {
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
 
+    driveMotor.setIdleMode(IdleMode.kBrake);
+
     driveMotor.setInverted(driveMotorReversed);
     turningMotor.setInverted(turningMotorReversed);
 
@@ -57,6 +59,15 @@ public class SwerveModule {
     driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
     turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
     turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
+
+    driveMotor.getPIDController().setP(0.1);
+    driveMotor.getPIDController().setI(0);
+    driveMotor.getPIDController().setD(0);
+
+    driveMotor.getPIDController().setIZone(0);
+    driveMotor.getPIDController().setFF(0);
+
+    driveMotor.getPIDController().setOutputRange(-0.5, 0.5);
 
     turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
@@ -92,6 +103,10 @@ public class SwerveModule {
     return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
   }
 
+  public void resetDriveEncoder() {
+    driveEncoder.setPosition(0);
+  }
+
   public void resetEncoders() {
     driveEncoder.setPosition(0);
     turningEncoder.setPosition(getAbsoluteEncoderRad());
@@ -112,8 +127,6 @@ public class SwerveModule {
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
     turningMotor.set(
         turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
-    SmartDashboard.putString(
-        "Swerve[" + absoluteEncoder.getDeviceID() + "] state", state.toString());
   }
 
   public void stop() {
@@ -124,5 +137,14 @@ public class SwerveModule {
   public SwerveModulePosition getPosition() {
     return new SwerveModulePosition(
         getDrivePosition(), Rotation2d.fromRadians(getAbsoluteEncoderRad()));
+  }
+
+  public void moveWithPidInches(double position) {
+    driveMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+  }
+
+  public void setAbsoluteEncoderPosition(double radians) {
+    absoluteEncoder.setPosition(Math.toDegrees(radians));
+    turningEncoder.setPosition(getAbsoluteEncoderRad());
   }
 }

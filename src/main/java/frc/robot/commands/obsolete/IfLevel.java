@@ -2,19 +2,21 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.manipulator;
+package frc.robot.commands.obsolete;
 
+// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.manipulator.Gripper;
+import frc.robot.Constants;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class GripperClose extends CommandBase {
-  /** Creates a new CloseManipulator. */
-  Gripper m_gripper;
+public class IfLevel extends CommandBase {
+  SwerveSubsystem m_driveTrain;
 
-  public GripperClose() {
+  /** Creates a new IfLevel. */
+  public IfLevel(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_gripper = Gripper.getInstance();
-    addRequirements(m_gripper);
+    m_driveTrain = driveTrain;
+    // addRequirements(driveTrain);
   }
 
   // Called when the command is initially scheduled.
@@ -27,13 +29,11 @@ public class GripperClose extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_gripper.close();
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return m_driveTrain.getPitch() <= Constants.PITCH_LEVEL - Constants.PITCH_OFFSET;
   }
 }

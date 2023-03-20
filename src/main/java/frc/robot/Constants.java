@@ -29,11 +29,14 @@ public final class Constants {
   }
 
   public static final class ModuleConstants {
-    public static final double kWheelDiameterMeters = Units.inchesToMeters(4);
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
+    public static final double kWheelDiameterInches = 3.9;
     public static final double kDriveMotorGearRatio = 1 / 8.14; // 8.14:1
     public static final double kTurningMotorGearRatio = 1 / (150 / 7); // 150/7:1
     public static final double kDriveEncoderRot2Meter =
         kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
+    public static final double kDriveEncoderRot2Inch =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
     public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
     public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
     public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
@@ -58,8 +61,8 @@ public final class Constants {
     public static final boolean kFrontRightTurningEncoderReversed = false;
     public static final boolean kBackRightTurningEncoderReversed = false;
 
-    public static final boolean kFrontLeftDriveEncoderReversed = true;
-    public static final boolean kBackLeftDriveEncoderReversed = true;
+    public static final boolean kFrontLeftDriveEncoderReversed = false;
+    public static final boolean kBackLeftDriveEncoderReversed = false;
     public static final boolean kFrontRightDriveEncoderReversed = false;
     public static final boolean kBackRightDriveEncoderReversed = false;
 
@@ -68,12 +71,18 @@ public final class Constants {
     public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(102.393);
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad = Math.toRadians(20.039);
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(12.744 + 180);
+    // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(174.111 + 180);
+        Math.toRadians(172.002 + 180);
+    // Back Left
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(12.920 + 180);
+    // Front Right
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(11.426 + 180);
+    // Front Left
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(101.689 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -82,8 +91,8 @@ public final class Constants {
         kPhysicalMaxSpeedMetersPerSecond / 4;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-    public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 5; // 3
-    public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 5; // 3
+    // public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
+    // public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
   }
 
   // public static final class AutoConstants {
@@ -151,6 +160,7 @@ public final class Constants {
     public static final int kWristID = 61;
     // pmc
     public static final int kPCMID = 3;
+    public static final int kPCMID24V = 0;
   }
 
   public static final class LiftConstants {
@@ -195,8 +205,38 @@ public final class Constants {
     public static final double kFF = 0; // 0,
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = -55; // kReverse
+    public static final float kLowerSoftLimit = -55; // kReverse   /* was 55 */
+    public static final float kScorePosition = -50;
     public static final float kRaiseSoftLimit = 0; // kForward
-    public static final float kSubStation = -46; // half way down
+    public static final float kFloor = -90; // used to push ramp down on charge station
+    public static final float kSubStation = -35; // half way down /* was 46 */
+    public static final float kClearChain = -15; // move away from chain before raising lift
   }
+
+  public static final class tabs {
+    public static final String kManipulators = "Manipulators";
+    public static final String kAngle = "Angle";
+    public static final String kLineDetector = "Line Detector";
+    public static final String kSwerveSubsystem = "Swerve Subsystem";
+  }
+
+  public static final class GripperConstants {
+    public static final int kSol1_Channel1 = 4;
+    public static final int kSol1_Channel2 = 5;
+    public static final int kSol2_Channel1 = 2; // no longer used
+    public static final int kSol2_Channel2 = 3; // no longer used
+    public static final int kSol3_Channel1 = 0; // no longer used
+    public static final int kSol3_Channel2 = 1; // no longer used
+  }
+
+  public static final class UltrasonicConstants {
+    public static final int kSensor_Analog_Channel = 0;
+    public static final int kSensor_PCM_Channel = 6; // analog ultrasonic sensor
+    public static final int kTrainSensor_PCM_Channel = 7; // used to train the sensor
+    public static final double kMinRange = 6;
+    public static final double kMaxRange = 7;
+  }
+
+  // Pos 1: 66 inches
+  //
 }

@@ -7,27 +7,29 @@ package frc.robot.subsystems.manipulator;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.AddToShuffleboard;
+import frc.robot.Constants;
 
 public class CubeGripper extends SubsystemBase {
   private static CubeGripper instance;
   private Pneumatics pneumatics = Pneumatics.getInstance();
-  private boolean is_closing = false;
+  private boolean isClosing = false;
+  private String tab = Constants.tabs.kManipulators;
 
   DoubleSolenoid m_sol = pneumatics.add_double_solenoid(4, 5);
 
   /** Creates a new Gripper. */
   private CubeGripper() {
     super();
-    AddToShuffleboard.add("Manipulators", "Is Cube Gripper Closing", is_closing);
+    AddToShuffleboard.add(tab, "Is Cube Gripper Closing", isClosing);
   }
 
   public void close() {
-    is_closing = true;
+    isClosing = true;
     pneumatics.forward(m_sol);
   }
 
   public void open() {
-    is_closing = false;
+    isClosing = false;
     pneumatics.backward(m_sol);
   }
 

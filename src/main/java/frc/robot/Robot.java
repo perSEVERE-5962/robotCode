@@ -4,9 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.sensors.UltrasonicAnalog;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,7 +21,14 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private Solenoid m_ultrasonic_solenoid =
+      new Solenoid(
+          Constants.CANDeviceIDs.kPCMID24V,
+          PneumaticsModuleType.CTREPCM,
+          Constants.UltrasonicConstants.kSensor_PCM_Channel);
+  private Solenoid m_trainning_soloenoid;
 
+  // UltrasonicAnalog sensor = new UltrasonicAnalog(Constants.GripperConstants.kSensorChannel);
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -26,7 +37,10 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = RobotContainer.getInstance();
+
+    // turn on the solenoid channel to power the ultrasonic sensor
+    m_ultrasonic_solenoid.set(true);
   }
 
   /**
@@ -43,6 +57,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Ultrasonic Range", UltrasonicAnalog.getInstance().getRange());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -93,6 +108,13 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
+    // enable the solenoid channel to allow for training the ultrasonic sensor
+    m_trainning_soloenoid =
+        new Solenoid(
+            Constants.CANDeviceIDs.kPCMID24V,
+            PneumaticsModuleType.CTREPCM,
+            Constants.UltrasonicConstants.kTrainSensor_PCM_Channel);
+    m_trainning_soloenoid.set(true);
   }
 
   /** This function is called periodically during test mode. */
