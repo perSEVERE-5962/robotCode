@@ -16,13 +16,22 @@ public class BLUE_MoveToPositions extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+        // Move backwards to score a piece
+        // new ForwardDistance(driveTrain, 0.5, 50),
+        // Move towards the front of the charging station
         new ForwardDistance(driveTrain, -0.5, 66),
-        new SidewaysDistance(driveTrain, -0.5, 33),
-        // new Turn(driveTrain, 0.5, 175),
-        // new MoveWrist(Constants.WristConstants.kFloor),
-        // new MoveOntoChargingStation(driveTrain),
-        new ForwardDistance(driveTrain, 1, 20),
-        new ForwardWithGyro(driveTrain, 0.4),
-        new Turn(driveTrain, 0.5, 181));
+        new SidewaysDistance(driveTrain, -0.5, 28),
+        /* Turn around, lower the arm, and then move onto the charging station
+        new Turn(driveTrain, 0.5, 175),
+        new MoveWrist(Constants.WristConstants.kFloor),
+        new MoveOntoChargingStation(driveTrain),
+        */
+        // Alt version: Move onto the charging station to change pitch, then fully move onto it
+        new ForwardWithGyro(driveTrain, 0.7, -6, false),
+        new ForwardWithGyro(driveTrain, 0.5, -8, false),
+        new ForwardWithGyro(driveTrain, 0.3, -10, false),
+        new ForwardWithGyro(driveTrain, 0.2, -14, false),
+        // Prevent the robot from falling off engage
+        new StayEngaged(driveTrain));
   }
 }

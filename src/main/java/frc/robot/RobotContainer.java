@@ -20,6 +20,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
 import frc.robot.subsystems.drivetrain.*;
+//import frc.robot.subsystems.manipulator.PLGMotor;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -80,8 +81,11 @@ public class RobotContainer {
   private Compressor m_pcmCompressor =
       new Compressor(Constants.CANDeviceIDs.kPCMID, PneumaticsModuleType.CTREPCM);
 
+  //private PLGMotor plgMotor = new PLGMotor();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
+
     m_driveTrain.setDefaultCommand(
         new DriveCommand(
             m_driveTrain,
@@ -89,6 +93,8 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+          //() -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
+          //  () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech)));
 
     // enable the compressor
     m_pcmCompressor.enableDigital();
@@ -99,8 +105,8 @@ public class RobotContainer {
     m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
-    m_autonomousChooser.addOption("Red Auto", new RED_MoveToPositions(m_driveTrain));
-    m_autonomousChooser.addOption("Blue Auto", new BLUE_MoveToPositions(m_driveTrain));
+    m_autonomousChooser.addOption("Red Auto", new MoveToPositions(m_driveTrain, (byte) 1));
+    m_autonomousChooser.addOption("Blue Auto", new MoveToPositions(m_driveTrain, (byte) -1));
 
     SmartDashboard.putData("Autonomous Mode", m_autonomousChooser);
 
