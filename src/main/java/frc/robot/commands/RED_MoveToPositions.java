@@ -22,7 +22,7 @@ public class RED_MoveToPositions extends SequentialCommandGroup {
         // new MoveWrist(Constants.WristConstants.kFloor),
         // new MoveOntoChargingStation(driveTrain),
         new ForwardDistance(driveTrain, 1, 20),
-        new ForwardWithGyro(driveTrain, 0.4),
+        // new ForwardWithGyro(driveTrain, 0.4),
         new Turn(driveTrain, 0.5, 90));
   }
 }

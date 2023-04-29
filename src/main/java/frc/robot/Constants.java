@@ -202,23 +202,26 @@ public final class Constants {
   }
 
   public static final class WristConstants {
-    public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+    public static final double kP = 4; //0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
     public static final double kFF = 0; // 0,
     public static final int kTicks = 8192;
     public static final float ticksPerDeg = (float) kTicks / 360.0f;
-    public static final double kMaxOutput = 1.0;//0.5; // extend?
-    public static final double kMinOutput = -1.0;//-0.25; // retract ?
+    public static final double kMaxOutput = 0.4; // 0.5; // extend?
+    public static final double kMinOutput = -1.0; // -0.25; // retract ?
     public static final Type kEncoderType = SparkMaxAlternateEncoder.Type.kQuadrature;
     // Insert degrees for the literal numbers
-    public static final float kLowerSoftLimit = (91.8f * ticksPerDeg) / kTicks; // kReverse   /* was 55 */ // Grabbing cone
+    public static final float kLowerSoftLimit =
+        (91.8f * ticksPerDeg) / kTicks; // kReverse   /* was 55 */ // Grabbing cone
     public static final float kScorePosition = (90.0f * ticksPerDeg) / kTicks;
     public static final float kRaiseSoftLimit = 0; // kForward
     // public static final float kFloor = -90; // used to push ramp down on charge station
-    public static final float kSubStation = (64.8f * ticksPerDeg) / kTicks; // half way down /* was 46 */ // Lining up to substation
-    public static final float kClearChain = (18.0f * ticksPerDeg) / kTicks; // move away from chain before raising lift
+    public static final float kSubStation =
+        (64.8f * ticksPerDeg) / kTicks; // half way down /* was 46 */ // Lining up to substation
+    public static final float kClearChain =
+        (18.0f * ticksPerDeg) / kTicks; // move away from chain before raising lift
   }
 
   public static final class tabs {

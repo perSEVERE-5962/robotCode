@@ -22,7 +22,7 @@ public class ScorePostion3 extends SequentialCommandGroup {
         new MoveLift(Constants.LiftConstants.kPos3),
         new MoveReach(Constants.ReachConstants.kPos3),
         new MoveWrist(Constants.WristConstants.kScorePosition)
-        //new GripperOpen()
+        // new GripperOpen()
         );
   }
 }
