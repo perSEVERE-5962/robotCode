@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 
 /*
- * This class exists in order to reduce verbosity whenever a\
+ * This class exists in order to reduce verbosity whenever a
  * new value needs to be added to the shuffleboard
  */
 public class AddToShuffleboard {

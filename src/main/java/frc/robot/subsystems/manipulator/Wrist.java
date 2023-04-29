@@ -16,9 +16,11 @@ public class Wrist extends SubsystemBase {
   private static Wrist instance;
 
   private CANSparkMax m_leadMotor;
-  //  private CANSparkMax m_followMotor;
+  // private CANSparkMax m_followMotor;
   private GenericEntry wristPositionEntry;
+  private GenericEntry wristPositionDegreesEntry;
 
+  // 8192 tricks per revolution
   private RelativeEncoder m_leadEncoder;
 
   private Wrist() {
@@ -27,10 +29,17 @@ public class Wrist extends SubsystemBase {
             Constants.CANDeviceIDs.kWristID,
             com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
     // m_followMotor = new CANSparkMax(
-    //     Constants.CANDeviceIDs.kReachFollowID,
-    //     com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    // Constants.CANDeviceIDs.kReachFollowID,
+    // com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    m_leadMotor.setInverted(false);
+    m_leadMotor.setInverted(true);
+
+    m_leadEncoder =
+        m_leadMotor.getAlternateEncoder(
+            Constants.WristConstants.kEncoderType, Constants.WristConstants.kTicks);
+    m_leadEncoder.setPosition(0);
+
+    m_leadMotor.getPIDController().setFeedbackDevice(m_leadEncoder);
 
     m_leadMotor.getPIDController().setP(Constants.WristConstants.kP);
     m_leadMotor.getPIDController().setI(Constants.WristConstants.kI);
@@ -44,9 +53,6 @@ public class Wrist extends SubsystemBase {
 
     // m_followMotor.follow(m_leadMotor);
 
-    m_leadEncoder = m_leadMotor.getEncoder();
-    m_leadEncoder.setPosition(0);
-
     // don't let the wrist travel past the stop points
     m_leadMotor.setSoftLimit(SoftLimitDirection.kForward, Constants.WristConstants.kLowerSoftLimit);
     m_leadMotor.setSoftLimit(SoftLimitDirection.kReverse, Constants.WristConstants.kRaiseSoftLimit);
@@ -54,6 +60,7 @@ public class Wrist extends SubsystemBase {
     String tab = Constants.tabs.kManipulators;
 
     wristPositionEntry = AddToShuffleboard.add(tab, "Wrist Position", 0);
+    wristPositionDegreesEntry = AddToShuffleboard.add(tab, "Wrist Pos Degrees", 0);
   }
 
   public double getPosition() {
@@ -70,7 +77,10 @@ public class Wrist extends SubsystemBase {
 
   @Override
   public void periodic() {
-    wristPositionEntry.setDouble(m_leadEncoder.getPosition());
+    double pos = m_leadEncoder.getPosition();
+    wristPositionEntry.setDouble(pos);
+    wristPositionDegreesEntry.setDouble(
+        (pos * Constants.WristConstants.kTicks) / Constants.WristConstants.ticksPerDeg);
   }
 
   /**

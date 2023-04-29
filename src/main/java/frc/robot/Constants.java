@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.revrobotics.SparkMaxAlternateEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder.Type;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
@@ -73,16 +75,16 @@ public final class Constants {
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(172.002 + 180);
+        Math.toRadians(171.650 + 180);
     // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(12.920 + 180);
+        Math.toRadians(18.896 + 180);
     // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(11.426 + 180);
+        Math.toRadians(10.635 + 180);
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(101.689 + 180);
+        Math.toRadians(101.953 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -118,7 +120,9 @@ public final class Constants {
     public static final int kDriverYAxis = 1;
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 4;
-    public static final int kDriverFieldOrientedButtonIdx = 1;
+    public static final int kDriverRotAxis_Logitech = 2;
+    public static final int kDriverFieldOrientedButtonIdx = 6;
+    public static final int kDriverFieldOrientedButtonIdx_Logitech = 1;
     public static final int kZeroHeadingButtonIdx = 2;
 
     public static final double kDeadband = 0.15; // 0.05;
@@ -203,14 +207,18 @@ public final class Constants {
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
     public static final double kFF = 0; // 0,
-    public static final double kMaxOutput = 0.5; // extend?
-    public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = -55; // kReverse   /* was 55 */
-    public static final float kScorePosition = -50;
+    public static final int kTicks = 8192;
+    public static final float ticksPerDeg = (float) kTicks / 360.0f;
+    public static final double kMaxOutput = 1.0;//0.5; // extend?
+    public static final double kMinOutput = -1.0;//-0.25; // retract ?
+    public static final Type kEncoderType = SparkMaxAlternateEncoder.Type.kQuadrature;
+    // Insert degrees for the literal numbers
+    public static final float kLowerSoftLimit = (91.8f * ticksPerDeg) / kTicks; // kReverse   /* was 55 */ // Grabbing cone
+    public static final float kScorePosition = (90.0f * ticksPerDeg) / kTicks;
     public static final float kRaiseSoftLimit = 0; // kForward
-    public static final float kFloor = -90; // used to push ramp down on charge station
-    public static final float kSubStation = -35; // half way down /* was 46 */
-    public static final float kClearChain = -15; // move away from chain before raising lift
+    // public static final float kFloor = -90; // used to push ramp down on charge station
+    public static final float kSubStation = (64.8f * ticksPerDeg) / kTicks; // half way down /* was 46 */ // Lining up to substation
+    public static final float kClearChain = (18.0f * ticksPerDeg) / kTicks; // move away from chain before raising lift
   }
 
   public static final class tabs {
@@ -236,7 +244,4 @@ public final class Constants {
     public static final double kMinRange = 6;
     public static final double kMaxRange = 7;
   }
-
-  // Pos 1: 66 inches
-  //
 }

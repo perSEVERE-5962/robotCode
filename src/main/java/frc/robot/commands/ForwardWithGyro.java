@@ -4,16 +4,24 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class ForwardWithGyro extends Move {
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
+  private double pitchWanted;
+  private boolean useGreaterThan = false;
   /** Creates a new Forward. */
-  public ForwardWithGyro(SwerveSubsystem driveTrain, double translationXSupplier) {
+  public ForwardWithGyro(
+      SwerveSubsystem driveTrain,
+      double translationXSupplier,
+      double pitchWanted,
+      boolean useGreaterThan) {
     super(driveTrain, translationXSupplier, 0, 0);
-
+    this.pitchWanted = pitchWanted;
+    if (useGreaterThan) {
+      this.useGreaterThan = true;
+    }
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -24,7 +32,9 @@ public class ForwardWithGyro extends Move {
 
   @Override
   public boolean isFinished() {
-    if (m_driveTrain.getPitch() <= Constants.PITCH_LEVEL) {
+    if (useGreaterThan && m_driveTrain.getPitch() >= this.pitchWanted) {
+      return true;
+    } else if (!useGreaterThan && m_driveTrain.getPitch() <= this.pitchWanted) {
       return true;
     }
     return false;

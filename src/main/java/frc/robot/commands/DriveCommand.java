@@ -27,10 +27,13 @@ public class DriveCommand extends CommandBase {
     this.ySpdFunction = ySpdFunction;
     this.turningSpdFunction = turningSpdFunction;
     this.fieldOrientedFunction = fieldOrientedFunction;
-    // this.xLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
-    // this.yLimiter = new SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
+    // this.xLimiter = new
+    // SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
+    // this.yLimiter = new
+    // SlewRateLimiter(DriveConstants.kTeleDriveMaxAccelerationUnitsPerSecond);
     // this.turningLimiter =
-    //     new SlewRateLimiter(DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond);
+    // new
+    // SlewRateLimiter(DriveConstants.kTeleDriveMaxAngularAccelerationUnitsPerSecond);
     addRequirements(swerveSubsystem);
   }
 
@@ -47,29 +50,32 @@ public class DriveCommand extends CommandBase {
     // 2. Apply deadband
     // xSpeed = Math.abs(xSpeed) > OIConstants.kDeadband ? xSpeed : 0.0;
     // ySpeed = Math.abs(ySpeed) > /*OIConstants.kDeadband*/ .4 ? ySpeed : 0.0;
-    // turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed : 0.0;
+    // turningSpeed = Math.abs(turningSpeed) > OIConstants.kDeadband ? turningSpeed
+    // : 0.0;
     ySpeed = MathUtil.applyDeadband(ySpeed, 0.15);
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.15);
-    turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.15);
+    turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.4); // 0.15 for xbox
 
     // 3. Make the driving smoother
-    // xSpeed = xLimiter.calculate(xSpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
-    // ySpeed = yLimiter.calculate(ySpeed) * DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
+    // xSpeed = xLimiter.calculate(xSpeed) *
+    // DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
+    // ySpeed = yLimiter.calculate(ySpeed) *
+    // DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
     // turningSpeed =
-    //     turningLimiter.calculate(turningSpeed)
-    //         * DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
+    // turningLimiter.calculate(turningSpeed)
+    // * DriveConstants.kTeleDriveMaxAngularSpeedRadiansPerSecond;
 
     // 4. Construct desired chassis speeds
     ChassisSpeeds chassisSpeeds;
-    // if (fieldOrientedFunction.getAsBoolean()) {
-    // Relative to field
-    //  chassisSpeeds =
-    //      ChassisSpeeds.fromFieldRelativeSpeeds(
-    //          xSpeed, ySpeed, turningSpeed, swerveSubsystem.getRotation2d());
-    // } else {
-    // Relative to robot
-    chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed * -1);
-    // }
+    if (fieldOrientedFunction.getAsBoolean()) {
+      // Relative to field
+      chassisSpeeds =
+          ChassisSpeeds.fromFieldRelativeSpeeds(
+              xSpeed, ySpeed * -1, turningSpeed * -1, swerveSubsystem.getRotation2d());
+    } else {
+      // Relative to robot
+      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed * -1);
+    }
 
     // 5. Convert chassis speeds to individual module states
     SwerveModuleState[] moduleStates =

@@ -11,6 +11,8 @@ public class StayEngaged extends CommandBase {
   /** Creates a new StayEngaged. */
   SwerveSubsystem m_driveTrain;
 
+  private long initialTime;
+
   public StayEngaged(SwerveSubsystem driveTrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_driveTrain = driveTrain;
@@ -19,20 +21,24 @@ public class StayEngaged extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_driveTrain.setWheelsToX();
+    initialTime = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_driveTrain.setWheelsToX();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // m_driveTrain.stopModules();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return System.currentTimeMillis() - initialTime > 500;
   }
 }

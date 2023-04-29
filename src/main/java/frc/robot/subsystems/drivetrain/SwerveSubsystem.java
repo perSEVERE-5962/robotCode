@@ -85,6 +85,8 @@ public class SwerveSubsystem extends SubsystemBase {
   private GenericEntry absoluteYawEntry;
   private GenericEntry relativeYawEntry;
 
+  // private GenericEntry frontLeftAngle;
+
   private SwerveSubsystem() {
     new Thread(
             () -> {
@@ -93,10 +95,11 @@ public class SwerveSubsystem extends SubsystemBase {
                 zeroHeading();
               } catch (Exception e) {
               }
-              Constants.PITCH_OFFSET = getPitch();
-              Constants.YAW_OFFSET = getYaw();
             })
         .start();
+
+    Constants.PITCH_OFFSET = getPitch();
+    Constants.YAW_OFFSET = getYaw();
 
     String tab = Constants.tabs.kSwerveSubsystem;
 
@@ -118,6 +121,10 @@ public class SwerveSubsystem extends SubsystemBase {
 
     AddToShuffleboard.add(tab, "Pitch Offset", Constants.PITCH_OFFSET);
     AddToShuffleboard.add(tab, "Yaw Offset", Constants.YAW_OFFSET);
+
+    // frontLeftAngle = AddToShuffleboard.add("X Wheels", "Angle",
+    // frontLeft.getAbsoluteEncoderRad());
+    // AddToShuffleboard.add("X Wheels", "Target Angle", Math.toRadians(-45));
   }
 
   public void zeroHeading() {
@@ -173,6 +180,8 @@ public class SwerveSubsystem extends SubsystemBase {
 
     // SmartDashboard.putNumber("Robot Heading", getHeading());
     // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+
+    // frontLeftAngle.setDouble(frontLeft.getAbsoluteEncoderRad());
   }
 
   public void stopModules() {
@@ -202,10 +211,10 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public double getAveragePosition() {
     double averagedistance =
-        frontLeft.getDrivePosition()
-            + frontRight.getDrivePosition()
-            + backLeft.getDrivePosition()
-            + backRight.getDrivePosition();
+        Math.abs(frontLeft.getDrivePosition())
+            + Math.abs(frontRight.getDrivePosition())
+            + Math.abs(backLeft.getDrivePosition())
+            + Math.abs(backRight.getDrivePosition());
     return averagedistance * 0.25;
   }
 
@@ -265,13 +274,13 @@ public class SwerveSubsystem extends SubsystemBase {
     setModuleStates(
         new SwerveModuleState[] {
           // front left
-          new SwerveModuleState(0.0, Rotation2d.fromDegrees(45.0)),
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(-45.0)),
           // front right
-          new SwerveModuleState(0.0, Rotation2d.fromDegrees(-45.0)),
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(45.0)),
           // back left
-          new SwerveModuleState(0.0, Rotation2d.fromDegrees(135.0)),
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(-135.0)),
           // back right
-          new SwerveModuleState(0.0, Rotation2d.fromDegrees(-135.0))
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(135.0))
         });
   }
 
