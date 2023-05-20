@@ -160,8 +160,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = m_autonomousChooser.getSelected();
-    // Command command = new START(m_driveTrain);
+    // Command command = m_autonomousChooser.getSelected();
+    Command command = new FindAprilTagAndMove();
     return command;
   }
 

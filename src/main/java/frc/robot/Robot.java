@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
           PneumaticsModuleType.CTREPCM,
           Constants.UltrasonicConstants.kSensor_PCM_Channel);
   private Solenoid m_trainning_soloenoid;
+  private DetectAprilTags detector = new DetectAprilTags();
 
   // UltrasonicAnalog sensor = new UltrasonicAnalog(Constants.GripperConstants.kSensorChannel);
   /**
@@ -41,6 +42,9 @@ public class Robot extends TimedRobot {
 
     // turn on the solenoid channel to power the ultrasonic sensor
     m_ultrasonic_solenoid.set(true);
+
+    // Starts up the camera and thread to detect april tags
+    detector.initDetector();
   }
 
   /**
