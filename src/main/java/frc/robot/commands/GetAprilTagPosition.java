@@ -9,11 +9,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.DetectAprilTags;
 
-public class FindAprilTagAndMove extends CommandBase {
+public class GetAprilTagPosition extends CommandBase {
   double[] pos = {0, 0, 0};
   double[] rot = {0, 0, 0};
   /** Creates a new FindAprilTagAndMove. */
-  public FindAprilTagAndMove() {
+  public GetAprilTagPosition() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,21 +26,23 @@ public class FindAprilTagAndMove extends CommandBase {
   public void execute() {
     pos = DetectAprilTags.getAprilTagPos();
     double x = pos[0];
-    NetworkTableEntry entry = NetworkTableInstance.getDefault().getEntry("Move");
+    NetworkTableEntry entry = NetworkTableInstance.getDefault().getEntry("TagMove");
     String movement = "";
     int detections = DetectAprilTags.aprilTagsDetected();
     if (detections == 1) {
       if (x < -0.2) {
-        movement = "Move left";
+        movement = "l"; // Move left
       } else if (x > 0.2) {
-        movement = "Move right";
+        movement = "r"; // Move right
       } else {
-        movement = "Move forward";
+        movement = "f"; // Move forwards
       }
     } else if (detections > 1) {
-      movement = "Too many april tags";
+      movement = "m"; // Too many tags found
     } else if (detections == 0) {
-      movement = "April tag not found";
+      movement = "o"; // No tags found
+    } else {
+      movement = "e"; // Anything else, somehow
     }
     entry.setString(movement);
   }

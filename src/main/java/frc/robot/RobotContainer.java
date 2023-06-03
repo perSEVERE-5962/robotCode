@@ -161,7 +161,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Command command = m_autonomousChooser.getSelected();
-    Command command = new FindAprilTagAndMove();
+    Command command = new MoveToAprilTag(m_driveTrain);
     return command;
   }
 

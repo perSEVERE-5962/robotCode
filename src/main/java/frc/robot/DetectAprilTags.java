@@ -32,7 +32,7 @@ public class DetectAprilTags {
   static double[] posArray = {0, 0, 0};
   static double[] rotArray = {0, 0, 0};
   static int amountOfDetections = 0;
-  //ArrayList<Double> rotArray = new ArrayList<Double>();
+  // ArrayList<Double> rotArray = new ArrayList<Double>();
 
   public void initDetector() {
     var visionThread = new Thread(() -> apriltagVisionThreadProc());
@@ -152,7 +152,9 @@ public class DetectAprilTags {
 
   /**
    * Pos 0 (X): Left/right
+   *
    * <p>Pos 1 (Y): Up/down
+   *
    * <p>Pos 2 (Z): Forward/backward
    */
   public static double[] getAprilTagPos() {
@@ -161,7 +163,9 @@ public class DetectAprilTags {
 
   /**
    * Rot 0 (Pitch)
+   *
    * <p>Rot 1 (Yaw)
+   *
    * <p>Rot 2 (Roll)
    */
   public static double[] getAprilTagRot() {

@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -56,12 +58,30 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible fobr polling buttons, adding newly-scheduled
+    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Ultrasonic Range", UltrasonicAnalog.getInstance().getRange());
+    NetworkTableEntry entryX = NetworkTableInstance.getDefault().getEntry("Tag Pos X");
+    NetworkTableEntry entryY = NetworkTableInstance.getDefault().getEntry("Tag Pos Y");
+    NetworkTableEntry entryZ = NetworkTableInstance.getDefault().getEntry("Tag Pos Z");
+    NetworkTableEntry entryRotX = NetworkTableInstance.getDefault().getEntry("Tag Rot X");
+    NetworkTableEntry entryRotY = NetworkTableInstance.getDefault().getEntry("Tag Rot Y");
+    NetworkTableEntry entryRotZ = NetworkTableInstance.getDefault().getEntry("Tag Rot Z");
+    NetworkTableEntry angle = NetworkTableInstance.getDefault().getEntry("Angle to tag");
+    double[] pos = DetectAprilTags.getAprilTagPos();
+    double[] rotPos = DetectAprilTags.getAprilTagRot();
+    if (pos != null && rotPos != null) {
+      entryX.setDouble(pos[0]);
+      entryY.setDouble(pos[1]);
+      entryZ.setDouble(pos[2]);
+      entryRotX.setDouble(rotPos[0]);
+      entryRotY.setDouble(rotPos[1]);
+      entryRotZ.setDouble(rotPos[2]);
+      angle.setDouble(Math.toDegrees(Math.atan2(pos[0], pos[2])));
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
