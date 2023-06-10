@@ -15,7 +15,9 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
 import java.util.ArrayList;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -29,10 +31,12 @@ import org.opencv.imgproc.Imgproc;
  * <p>Be aware that the performance on this is much worse than a coprocessor solution!
  */
 public class DetectAprilTags {
-  static double[] posArray = {0, 0, 0};
-  static double[] rotArray = {0, 0, 0};
-  static int amountOfDetections = 0;
-  // ArrayList<Double> rotArray = new ArrayList<Double>();
+  //static double[][] posArray = new double[10][3];
+  //static double[][] rotArray = new double[10][3];
+  private static ArrayList<double[]> posArray = new ArrayList<>();
+  private static ArrayList<double[]> rotArray = new ArrayList<>();
+  public static int amountOfDetections = 0;
+  private static ArrayList<Integer> tagId = new ArrayList<>();
 
   public void initDetector() {
     var visionThread = new Thread(() -> apriltagVisionThreadProc());
@@ -96,9 +100,13 @@ public class DetectAprilTags {
       // have not seen any tags yet
       tags.clear();
 
+      tagId.clear();
+      posArray.clear();
+      rotArray.clear();
       for (AprilTagDetection detection : detections) {
         // remember we saw this tag
         tags.add((long) detection.getId());
+        tagId.add(detection.getId());
 
         // draw lines around the tag
         for (var i = 0; i <= 3; i++) {
@@ -131,12 +139,10 @@ public class DetectAprilTags {
         Rotation3d rot = pose.getRotation();
 
         // Set the values to their respective arrays
-        posArray[0] = pose.getX();
-        posArray[1] = pose.getY();
-        posArray[2] = pose.getZ();
-        rotArray[0] = rot.getX();
-        rotArray[1] = rot.getY();
-        rotArray[2] = rot.getZ();
+        double[] positions = {pose.getX(), pose.getY(), pose.getZ()};
+        double[] rotations = {rot.getX(), rot.getY(), rot.getZ()};
+        posArray.add(positions);
+        rotArray.add(rotations);
       }
 
       // put list of tags onto dashboard
@@ -156,9 +162,15 @@ public class DetectAprilTags {
    * <p>Pos 1 (Y): Up/down
    *
    * <p>Pos 2 (Z): Forward/backward
+   * 
+   * @return The position of the april tag index specified, or null if such april tag doesn't exist.
    */
-  public static double[] getAprilTagPos() {
-    return posArray;
+  public static double[] getAprilTagPos(int index) {
+    posArray.trimToSize();
+    if (index > posArray.size() - 1) {
+      return null;
+    }
+    return posArray.get(index);
   }
 
   /**
@@ -167,12 +179,50 @@ public class DetectAprilTags {
    * <p>Rot 1 (Yaw)
    *
    * <p>Rot 2 (Roll)
+   * 
+   * @return The rotation of the april tag index specified, or null if such april tag doesn't exist.
    */
-  public static double[] getAprilTagRot() {
-    return rotArray;
+  public static double[] getAprilTagRot(int index) {
+    rotArray.trimToSize();
+    if (index > rotArray.size() - 1) {
+      return null;
+    }
+    return rotArray.get(index);
   }
 
-  public static int aprilTagsDetected() {
-    return amountOfDetections;
+  public static Integer getAprilTagId(int index) {
+    tagId.trimToSize();
+    if (index > tagId.size() - 1) {
+      return null;
+    }
+    return tagId.get(index);
+  }
+
+  public static void displayAprilTagInformation() {
+    for (int i = 0; i < amountOfDetections; i++) {
+      double[] pos = getAprilTagPos(i);
+      double[] rotPos = getAprilTagRot(i);
+      Integer id = getAprilTagId(i);
+      NetworkTableEntry entryX = NetworkTableInstance.getDefault().getEntry("Tag Pos X: " + i);
+      NetworkTableEntry entryY = NetworkTableInstance.getDefault().getEntry("Tag Pos Y: " + i);
+      NetworkTableEntry entryZ = NetworkTableInstance.getDefault().getEntry("Tag Pos Z: " + i);
+      NetworkTableEntry entryRotX = NetworkTableInstance.getDefault().getEntry("Tag Rot X: " + i);
+      NetworkTableEntry entryRotY = NetworkTableInstance.getDefault().getEntry("Tag Rot Y: " + i);
+      NetworkTableEntry entryRotZ = NetworkTableInstance.getDefault().getEntry("Tag Rot Z: " + i);
+      NetworkTableEntry angle = NetworkTableInstance.getDefault().getEntry("Angle to tag: " + i);
+      NetworkTableEntry ID = NetworkTableInstance.getDefault().getEntry("Tag ID: " + i);
+      NetworkTableEntry count = NetworkTableInstance.getDefault().getEntry("Tag count");
+      if (pos != null && rotPos != null && id != null) {
+        count.setInteger(amountOfDetections);
+        ID.setInteger(id);
+        entryX.setDouble(pos[0]);
+        entryY.setDouble(pos[1]);
+        entryZ.setDouble(pos[2]);
+        entryRotX.setDouble(rotPos[0]);
+        entryRotY.setDouble(rotPos[1]);
+        entryRotZ.setDouble(rotPos[2]);
+        angle.setDouble(Math.toDegrees(Math.atan2(pos[0], pos[2])));
+      }
+    }
   }
 }

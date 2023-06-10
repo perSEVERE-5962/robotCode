@@ -24,11 +24,14 @@ public class GetAprilTagPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pos = DetectAprilTags.getAprilTagPos();
-    double x = pos[0];
+    pos = DetectAprilTags.getAprilTagPos(0);
+    double x = 0;
+    if (pos != null) {
+      x = pos[0];
+    }
     NetworkTableEntry entry = NetworkTableInstance.getDefault().getEntry("TagMove");
     String movement = "";
-    int detections = DetectAprilTags.aprilTagsDetected();
+    int detections = DetectAprilTags.amountOfDetections;
     if (detections == 1) {
       if (x < -0.2) {
         movement = "l"; // Move left

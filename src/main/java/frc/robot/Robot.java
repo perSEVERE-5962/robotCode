@@ -64,24 +64,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Ultrasonic Range", UltrasonicAnalog.getInstance().getRange());
-    NetworkTableEntry entryX = NetworkTableInstance.getDefault().getEntry("Tag Pos X");
-    NetworkTableEntry entryY = NetworkTableInstance.getDefault().getEntry("Tag Pos Y");
-    NetworkTableEntry entryZ = NetworkTableInstance.getDefault().getEntry("Tag Pos Z");
-    NetworkTableEntry entryRotX = NetworkTableInstance.getDefault().getEntry("Tag Rot X");
-    NetworkTableEntry entryRotY = NetworkTableInstance.getDefault().getEntry("Tag Rot Y");
-    NetworkTableEntry entryRotZ = NetworkTableInstance.getDefault().getEntry("Tag Rot Z");
-    NetworkTableEntry angle = NetworkTableInstance.getDefault().getEntry("Angle to tag");
-    double[] pos = DetectAprilTags.getAprilTagPos();
-    double[] rotPos = DetectAprilTags.getAprilTagRot();
-    if (pos != null && rotPos != null) {
-      entryX.setDouble(pos[0]);
-      entryY.setDouble(pos[1]);
-      entryZ.setDouble(pos[2]);
-      entryRotX.setDouble(rotPos[0]);
-      entryRotY.setDouble(rotPos[1]);
-      entryRotZ.setDouble(rotPos[2]);
-      angle.setDouble(Math.toDegrees(Math.atan2(pos[0], pos[2])));
-    }
+    DetectAprilTags.displayAprilTagInformation();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
