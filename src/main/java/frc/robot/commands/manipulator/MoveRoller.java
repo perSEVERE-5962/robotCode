@@ -5,16 +5,17 @@
 package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.manipulator.CubeGripper;
+import frc.robot.subsystems.manipulator.Roller;
 
-public class CubeGripperOpen extends CommandBase {
-  /** Creates a new OpenManipulator. */
-  CubeGripper m_cubegripper;
-
-  public CubeGripperOpen() {
+public class MoveRoller extends CommandBase {
+  /** Creates a new MoveRoller. */
+  private Roller m_Roller;
+  private double velocity;
+  public MoveRoller(double velocity) {
+    m_Roller = Roller.get_instance();
+    this.velocity = velocity;
+    addRequirements(m_Roller);
     // Use addRequirements() here to declare subsystem dependencies.
-    m_cubegripper = CubeGripper.getInstance();
-    addRequirements(m_cubegripper);
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +25,7 @@ public class CubeGripperOpen extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_cubegripper.open();
+    m_Roller.moveWithVelocity(velocity);
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +35,6 @@ public class CubeGripperOpen extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -2,21 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.obsolete;
+package frc.robot.obsolete.commands.manipulator;
 
-// import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
+import frc.robot.obsolete.subsystems.CubeGripper;
 
-public class IfLevel extends CommandBase {
-  SwerveSubsystem m_driveTrain;
+public class CubeGripperClose extends CommandBase {
+  /** Creates a new CloseManipulator. */
+  CubeGripper m_cubegripper;
 
-  /** Creates a new IfLevel. */
-  public IfLevel(SwerveSubsystem driveTrain) {
+  public CubeGripperClose() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
-    // addRequirements(driveTrain);
+    m_cubegripper = CubeGripper.getInstance();
+    addRequirements(m_cubegripper);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +23,9 @@ public class IfLevel extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_cubegripper.close();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -34,6 +34,6 @@ public class IfLevel extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= Constants.PITCH_LEVEL - Constants.PITCH_OFFSET;
+    return true;
   }
 }

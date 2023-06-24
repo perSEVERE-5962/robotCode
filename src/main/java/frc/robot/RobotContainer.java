@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.manipulator.*;
+import frc.robot.obsolete.commands.manipulator.GrabCone;
+import frc.robot.obsolete.commands.manipulator.GripperClose;
+import frc.robot.obsolete.commands.manipulator.GripperOpen;
 import frc.robot.subsystems.drivetrain.*;
 // import frc.robot.subsystems.manipulator.PLGMotor;
 

@@ -75,16 +75,16 @@ public final class Constants {
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(171.650 + 180);
+        Math.toRadians(170.859 + 180);
     // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(18.896 + 180);
+        Math.toRadians(18.633 + 180);
     // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(10.635 + 180);
+        Math.toRadians(12.305 + 180);
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(101.953 + 180);
+        Math.toRadians(101.250 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -201,6 +201,12 @@ public final class Constants {
     public static final double kSubStation = 0; // double substation/cone collection
   }
 
+  public static final class RollerConstants {
+    public static final double kMinOutput = -1;
+    public static final double kMaxOutput = 1;
+  }
+
+  // Unused but I need this to still exist
   public static final class WristConstants {
     public static final double kP = 4; // 0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,

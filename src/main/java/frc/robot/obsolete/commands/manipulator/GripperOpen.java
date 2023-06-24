@@ -2,19 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.obsolete;
+package frc.robot.obsolete.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
+import frc.robot.obsolete.subsystems.Gripper;
 
-public class IfLeavingStation extends CommandBase {
-  SwerveSubsystem m_driveTrain;
-  /** Creates a new IfLeaving. */
-  public IfLeavingStation(SwerveSubsystem driveTrain) {
+public class GripperOpen extends CommandBase {
+  /** Creates a new OpenManipulator. */
+  Gripper m_gripper;
+
+  public GripperOpen() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
-    // addRequirements(driveTrain);
+    m_gripper = Gripper.getInstance();
+    addRequirements(m_gripper);
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +23,9 @@ public class IfLeavingStation extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_gripper.open();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -32,6 +34,6 @@ public class IfLeavingStation extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_driveTrain.getPitch() <= -Constants.PITCH_CLIMBING - Constants.PITCH_OFFSET;
+    return true;
   }
 }
