@@ -5,7 +5,6 @@
 package frc.robot.subsystems.manipulator;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,12 +14,11 @@ public class Roller extends SubsystemBase {
 
   private CANSparkMax m_leadMotor;
 
-  private RelativeEncoder m_leadEncoder;
   /** Creates a new Roller. */
   public Roller() {
     m_leadMotor =
         new CANSparkMax(
-            Constants.CANDeviceIDs.kReachID,
+            Constants.CANDeviceIDs.kRollerId,
             com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushed);
 
     m_leadMotor.setInverted(false);
@@ -28,11 +26,6 @@ public class Roller extends SubsystemBase {
     m_leadMotor
         .getPIDController()
         .setOutputRange(Constants.RollerConstants.kMinOutput, Constants.RollerConstants.kMaxOutput);
-
-    // m_followMotor.follow(m_leadMotor);
-
-    m_leadEncoder = m_leadMotor.getEncoder();
-    m_leadEncoder.setPosition(0);
   }
 
   public void moveWithVelocity(double velocity) {

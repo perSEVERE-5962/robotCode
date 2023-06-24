@@ -162,6 +162,7 @@ public final class Constants {
     public static final int kLiftFollowID = 51;
     public static final int kReachID = 60;
     public static final int kWristID = 61;
+    public static final int kRollerId = 62;
     // pmc
     public static final int kPCMID = 3;
     public static final int kPCMID24V = 0;

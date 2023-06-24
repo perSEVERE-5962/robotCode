@@ -47,6 +47,8 @@ public class RobotContainer {
       new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
   Trigger co_rBumper =
       new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
+  Trigger co_lTrigger = new JoystickButton(m_copilotController, XboxController.Axis.kLeftTrigger.value);
+  Trigger co_rTrigger = new JoystickButton(m_copilotController, XboxController.Axis.kRightTrigger.value);
 
   Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   // Trigger dr_bButton = new JoystickButton(m_driverController,
@@ -137,6 +139,8 @@ public class RobotContainer {
     co_start.onTrue(new GrabCone());
     co_lBumper.onTrue(new GripperClose());
     co_rBumper.onTrue(new GripperOpen());
+    co_lTrigger.onTrue(new MoveRoller(60));
+    co_rTrigger.onTrue(new MoveRoller(-60));
 
     dr_aButton.onTrue(new StayEngaged(m_driveTrain));
     // dr_bButton.onTrue(new ScoreCubePosition2());
@@ -164,7 +168,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Command command = m_autonomousChooser.getSelected();
-    Command command = new MoveToAprilTag(m_driveTrain);
+    Command command = new MoveRoller(60);
     return command;
   }
 
