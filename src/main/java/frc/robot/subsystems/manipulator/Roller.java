@@ -28,8 +28,8 @@ public class Roller extends SubsystemBase {
         .setOutputRange(Constants.RollerConstants.kMinOutput, Constants.RollerConstants.kMaxOutput);
   }
 
-  public void moveWithVelocity(double velocity) {
-    m_leadMotor.getPIDController().setReference(velocity, CANSparkMax.ControlType.kVelocity);
+  public void moveWithVoltage(double voltage) {
+    m_leadMotor.getPIDController().setReference(voltage, CANSparkMax.ControlType.kVoltage);
   }
 
   public static Roller get_instance() {

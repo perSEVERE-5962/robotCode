@@ -4,16 +4,17 @@
 
 package frc.robot.commands.manipulator;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.manipulator.Roller;
 
 public class MoveRoller extends CommandBase {
   /** Creates a new MoveRoller. */
   private Roller m_Roller;
-  private double velocity;
-  public MoveRoller(double velocity) {
+  public MoveRoller() {
     m_Roller = Roller.get_instance();
-    this.velocity = velocity;
     addRequirements(m_Roller);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -25,7 +26,17 @@ public class MoveRoller extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Roller.moveWithVelocity(velocity);
+    double r_triggerValue = RobotContainer.getInstance().getCopilotController().getRightTriggerAxis();
+    double l_triggerValue = RobotContainer.getInstance().getCopilotController().getLeftTriggerAxis();
+    float negative = -1.0f;
+    if (r_triggerValue > l_triggerValue) {
+      negative = 1.0f;
+    }
+    double triggerValue = Math.abs(r_triggerValue - l_triggerValue);
+    // Sets a specific amount of voltage using a multiplier
+    double speed = Constants.RollerConstants.kMaxVoltage * (triggerValue * negative);
+  
+    m_Roller.moveWithVoltage(speed);
   }
 
   // Called once the command ends or is interrupted.

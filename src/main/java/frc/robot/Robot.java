@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.manipulator.MoveRoller;
 import frc.robot.sensors.UltrasonicAnalog;
 
 /**
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
           Constants.UltrasonicConstants.kSensor_PCM_Channel);
   private Solenoid m_trainning_soloenoid;*/
   private DetectAprilTags detector = new DetectAprilTags();
+  private MoveRoller roller = new MoveRoller();
 
   // UltrasonicAnalog sensor = new UltrasonicAnalog(Constants.GripperConstants.kSensorChannel);
   /**
@@ -100,6 +102,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    roller.schedule();
   }
 
   /** This function is called periodically during operator control. */

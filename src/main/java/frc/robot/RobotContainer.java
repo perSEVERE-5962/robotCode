@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,8 +48,6 @@ public class RobotContainer {
       new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
   Trigger co_rBumper =
       new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
-  Trigger co_lTrigger = new JoystickButton(m_copilotController, XboxController.Axis.kLeftTrigger.value);
-  Trigger co_rTrigger = new JoystickButton(m_copilotController, XboxController.Axis.kRightTrigger.value);
 
   Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   // Trigger dr_bButton = new JoystickButton(m_driverController,
@@ -67,7 +66,6 @@ public class RobotContainer {
   // Trigger dr_rBumper =
   // new JoystickButton(m_driverController,
   // XboxController.Button.kRightBumper.value);
-
   // Trigger dr_lStickButton =
   // new JoystickButton(m_driverController,
   // XboxController.Button.kLeftStick.value);
@@ -139,8 +137,6 @@ public class RobotContainer {
     co_start.onTrue(new GrabCone());
     co_lBumper.onTrue(new GripperClose());
     co_rBumper.onTrue(new GripperOpen());
-    co_lTrigger.onTrue(new MoveRoller(60));
-    co_rTrigger.onTrue(new MoveRoller(-60));
 
     dr_aButton.onTrue(new StayEngaged(m_driveTrain));
     // dr_bButton.onTrue(new ScoreCubePosition2());
@@ -167,8 +163,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Command command = m_autonomousChooser.getSelected();
-    Command command = new MoveRoller(60);
+    Command command = m_autonomousChooser.getSelected();
+    // Command command = new MoveRoller(60);
     return command;
   }
 

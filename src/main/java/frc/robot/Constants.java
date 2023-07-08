@@ -205,6 +205,7 @@ public final class Constants {
   public static final class RollerConstants {
     public static final double kMinOutput = -1;
     public static final double kMaxOutput = 1;
+    public static final double kMaxVoltage = 3;
   }
 
   // Unused but I need this to still exist
