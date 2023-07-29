@@ -75,16 +75,16 @@ public final class Constants {
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(170.859 + 180);
+        Math.toRadians(170.508 + 180);
     // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(18.633 + 180);
+        Math.toRadians(17.754 + 180);
     // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(12.305 + 180);
+        Math.toRadians(15.820 + 180);
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(101.250 + 180);
+        Math.toRadians(101.514 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -169,67 +169,98 @@ public final class Constants {
   }
 
   public static final class LiftConstants {
+    // PID
     public static final double kP = 0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
     public static final double kFF = 0; // 0,
+
+    // Limits
     public static final double kMaxOutput = 0.5; // raise?
     public static final double kMinOutput = -0.25; // lower ?
     public static final float kLowerSoftLimit = 0; // kReverse
     public static final float kRaiseSoftLimit = 21; // kForward
-    public static final double kPos1 = 8; // cone grid position 1
-    public static final double kPos2 = 8; // cone grid position 2
-    public static final double kPos3 = 21; // cone grid position 3
-    // public static final double[] position = {kPos1, kPos2, kPos3};
-    public static final double kSubStation = 21; // double substation/cone collection
+
+    // Cone
+    public static final double kConeScorePos1 = 8;
+    public static final double kConeScorePos2 = 8;
+    public static final double kConeScorePos3 = 21;
+    public static final double kConeSubStation = 8; // double substation
+
+    // Cube
+    public static final double kCubeScorePos1 = 8;
+    public static final double kCubeScorePos2 = 8;
+    public static final double kCubeScorePos3 = 21;
+    public static final double kCubeSubStation = 8; // double substation
   }
 
   public static final class ReachConstants {
+    // PID
     public static final double kP = 0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
     public static final double kFF = 0; // 0,
+
+    // Limits
     public static final double kMaxOutput = 0.5; // extend?
     public static final double kMinOutput = -0.25; // retract ?
     public static final float kRetractSoftLimit = 0; // kReverse
     public static final float kExtendSoftLimit = 15.5f; // kForward
-    public static final double kPos1 = 0; // cone grid position 1
-    public static final double kPos2 = 0; // cone grid position 2
-    public static final double kPos3 = 15.5; // cone grid position 3
-    // public static final double[] position = {kPos1, kPos2, kPos3};
-    public static final double kSubStation = 0; // double substation/cone collection
+
+    // Cone
+    public static final double kConeScorePos1 = 0;
+    public static final double kConeScorePos2 = 0;
+    public static final double kConeScorePos3 = 15.5;
+    public static final double kConeSubStation = 0; // double substation
+
+    // Cube
+    public static final double kCubeScorePos1 = 0;
+    public static final double kCubeScorePos2 = 0;
+    public static final double kCubeScorePos3 = 15.5;
+    public static final double kCubeSubStation = 0; // double substation
+  }
+
+  public static final class WristConstants {
+    // PID
+    public static final double kP = 12; // 0.5; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kIz = 0;
+    public static final double kFF = 0; // 0,
+
+    // Globals
+    // Insert degrees for the literal numbers
+    public static final int kTicks = 8192;
+    public static final float ticksPerDeg = (float) kTicks / 360.0f;
+    public static final Type kEncoderType = SparkMaxAlternateEncoder.Type.kQuadrature;
+    public static final double kManualVoltage = 8;
+
+    // Limits
+    public static final double kMaxOutput = 1.0; // 0.5; // extend?
+    public static final double kMinOutput = -1.0; // -0.25; // retract ?
+    public static final float kRaiseSoftLimit = 0; // kForward
+    public static final float kClearChain = 0; // Redundent
+    public static final float kLowerSoftLimit = (80f * ticksPerDeg) / kTicks; // kReverse
+
+    // Cones
+    public static final float kConeScorePosition1 = (72.0f * ticksPerDeg) / kTicks;
+    public static final float kConeScorePosition2 = (74.5f * ticksPerDeg) / kTicks;
+    public static final float kConeScorePosition3 = (72.0f * ticksPerDeg) / kTicks;
+    public static final float kConeSubStation = (66f * ticksPerDeg) / kTicks;
+
+    // Cubes
+    public static final float kCubeScorePosition1 = (75.0f * ticksPerDeg) / kTicks;
+    public static final float kCubeScorePosition2 = (75.0f * ticksPerDeg) / kTicks;
+    public static final float kCubeScorePosition3 = (70.0f * ticksPerDeg) / kTicks;
+    public static final float kCubeSubStation = (70f * ticksPerDeg) / kTicks;
   }
 
   public static final class RollerConstants {
     public static final double kMinOutput = -1;
     public static final double kMaxOutput = 1;
-    public static final double kMaxVoltage = 3;
-  }
-
-  // Unused but I need this to still exist
-  public static final class WristConstants {
-    public static final double kP = 4; // 0.5; // 0.1, 0, -0.1, -2
-    public static final double kI = 0; // 1e-4,
-    public static final double kD = 0; // 1, 0.5, 0.1
-    public static final double kIz = 0;
-    public static final double kFF = 0; // 0,
-    public static final int kTicks = 8192;
-    public static final float ticksPerDeg = (float) kTicks / 360.0f;
-    public static final double kMaxOutput = 0.4; // 0.5; // extend?
-    public static final double kMinOutput = -1.0; // -0.25; // retract ?
-    public static final Type kEncoderType = SparkMaxAlternateEncoder.Type.kQuadrature;
-    // Insert degrees for the literal numbers
-    public static final float kLowerSoftLimit =
-        (91.8f * ticksPerDeg) / kTicks; // kReverse   /* was 55 */ // Grabbing cone
-    public static final float kScorePosition = (90.0f * ticksPerDeg) / kTicks;
-    public static final float kRaiseSoftLimit = 0; // kForward
-    // public static final float kFloor = -90; // used to push ramp down on charge station
-    public static final float kSubStation =
-        (64.8f * ticksPerDeg) / kTicks; // half way down /* was 46 */ // Lining up to substation
-    public static final float kClearChain =
-        (18.0f * ticksPerDeg) / kTicks; // move away from chain before raising lift
+    public static final double kMaxVoltage = 5;
   }
 
   public static final class tabs {
@@ -239,6 +270,7 @@ public final class Constants {
     public static final String kSwerveSubsystem = "Swerve Subsystem";
   }
 
+  /** Unused */
   public static final class GripperConstants {
     public static final int kSol1_Channel1 = 4;
     public static final int kSol1_Channel2 = 5;

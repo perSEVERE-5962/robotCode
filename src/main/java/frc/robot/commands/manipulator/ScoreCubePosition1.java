@@ -19,9 +19,9 @@ public class ScoreCubePosition1 extends SequentialCommandGroup {
     addCommands(
         new CubeGripperClose(),
         new MoveWrist(Constants.WristConstants.kRaiseSoftLimit),
-        new MoveLift(Constants.LiftConstants.kPos1),
-        new MoveReach(Constants.ReachConstants.kPos1),
-        new MoveWrist(Constants.WristConstants.kLowerSoftLimit)
+        new MoveLift(Constants.LiftConstants.kCubeScorePos1),
+        new MoveReach(Constants.ReachConstants.kCubeScorePos1),
+        new MoveWrist(Constants.WristConstants.kCubeScorePosition1)
         // new CubeGripperOpen()
         );
   }

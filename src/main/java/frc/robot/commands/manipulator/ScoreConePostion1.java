@@ -10,19 +10,15 @@ import frc.robot.Constants;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScorePostion2 extends SequentialCommandGroup {
-  /** Creates a new ScorePostion2. */
-  public ScorePostion2() {
+public class ScoreConePostion1 extends SequentialCommandGroup {
+  /** Creates a new ScorePostion1. */
+  public ScoreConePostion1() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // new MoveWrist(5), new MoveLift(0), new MoveReach(0), new MoveReach(0), new GripperOpen()
-        // new GripperClose(),
         new MoveWrist(Constants.WristConstants.kClearChain),
-        new MoveLift(Constants.LiftConstants.kPos2),
-        new MoveReach(Constants.ReachConstants.kPos2),
-        new MoveWrist(Constants.WristConstants.kScorePosition)
-        // new GripperOpen()
-        );
+        new MoveLift(Constants.LiftConstants.kConeScorePos1),
+        new MoveReach(Constants.ReachConstants.kConeScorePos1),
+        new MoveWrist(Constants.WristConstants.kConeScorePosition1));
   }
 }

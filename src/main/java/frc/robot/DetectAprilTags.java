@@ -17,7 +17,6 @@ import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
 import java.util.ArrayList;
 import org.opencv.core.Mat;
 import org.opencv.core.Point;
@@ -31,8 +30,8 @@ import org.opencv.imgproc.Imgproc;
  * <p>Be aware that the performance on this is much worse than a coprocessor solution!
  */
 public class DetectAprilTags {
-  //static double[][] posArray = new double[10][3];
-  //static double[][] rotArray = new double[10][3];
+  // static double[][] posArray = new double[10][3];
+  // static double[][] rotArray = new double[10][3];
   private static ArrayList<double[]> posArray = new ArrayList<>();
   private static ArrayList<double[]> rotArray = new ArrayList<>();
   public static int amountOfDetections = 0;
@@ -162,7 +161,7 @@ public class DetectAprilTags {
    * <p>Pos 1 (Y): Up/down
    *
    * <p>Pos 2 (Z): Forward/backward
-   * 
+   *
    * @return The position of the april tag index specified, or null if such april tag doesn't exist.
    */
   public static double[] getAprilTagPos(int index) {
@@ -179,7 +178,7 @@ public class DetectAprilTags {
    * <p>Rot 1 (Yaw)
    *
    * <p>Rot 2 (Roll)
-   * 
+   *
    * @return The rotation of the april tag index specified, or null if such april tag doesn't exist.
    */
   public static double[] getAprilTagRot(int index) {

@@ -6,7 +6,6 @@ package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.*;
-import frc.robot.obsolete.commands.manipulator.CubeGripperOpen;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -17,10 +16,10 @@ public class AlignCubeGripperToDoubleSubstation extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new MoveLift(LiftConstants.kSubStation),
-        new MoveReach(ReachConstants.kSubStation),
-        new MoveWrist(WristConstants.kSubStation)
-        //new CubeGripperOpen()
-      );
+        new MoveLift(LiftConstants.kCubeSubStation),
+        new MoveReach(ReachConstants.kCubeSubStation),
+        new MoveWrist(WristConstants.kCubeSubStation)
+        // new CubeGripperOpen()
+        );
   }
 }

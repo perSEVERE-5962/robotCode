@@ -7,16 +7,17 @@ package frc.robot.commands.manipulator;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.manipulator.Wrist;
 
-public class MoveWrist extends CommandBase {
-  /** Creates a new Lift. */
+public class MoveWristManual extends CommandBase {
+  /** Creates a new MoveWristManual. */
   private Wrist m_wrist;
 
-  private double m_position;
+  private double voltage;
 
-  public MoveWrist(double position) {
+  public MoveWristManual(double voltage) {
     m_wrist = Wrist.getInstance();
-    m_position = position;
+    this.voltage = voltage;
     addRequirements(m_wrist);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -26,17 +27,18 @@ public class MoveWrist extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_wrist.moveToPositionWithPID(m_position);
+    m_wrist.moveWithVoltage(voltage);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_wrist.moveWithVoltage(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double wrist = m_wrist.getPosition();
-    return wrist >= m_position;
+    return false;
   }
 }
