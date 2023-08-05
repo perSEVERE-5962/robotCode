@@ -4,11 +4,15 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class SquareToWall extends Move {
   private final float ALIGNMENT_THRESHOLD = 1;
+
+  private NetworkTable table;
 
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
@@ -16,16 +20,20 @@ public class SquareToWall extends Move {
   public SquareToWall(SwerveSubsystem driveTrain) {
 
     super(driveTrain, 0, 0, 1);
+
+    table = NetworkTableInstance.getDefault().getTable("laser_scan");
+
     SmartDashboard.putString("Constructing square-to-wall", "");
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
-
   @Override
   public boolean isFinished() {
-    
-    float angle = 
+    float angle = table.getValue("angle_to_move").getFloat();
+
+    System.out.println(angle);
+
     if (Math.abs(angle) < ALIGNMENT_THRESHOLD) {
       return true;
     }
