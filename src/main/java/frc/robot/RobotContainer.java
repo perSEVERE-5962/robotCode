@@ -45,7 +45,7 @@ public class RobotContainer {
   // Trigger co_rBumper =
   //    new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
-  // Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   // Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   // Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
@@ -126,7 +126,7 @@ public class RobotContainer {
     // co_lBumper.onTrue(new GripperClose());
     // co_rBumper.onTrue(new GripperOpen());
 
-    // dr_aButton.onTrue(new ScoreCubePosition1());
+    dr_aButton.onTrue(new SquareToWall(m_driveTrain));
     // dr_bButton.onTrue(new ScoreCubePosition2());
     // dr_yButton.onTrue(new ScoreCubePosition3());
     dr_xButton.onTrue(new ResetWristPosition());
