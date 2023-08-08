@@ -12,6 +12,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 public class SquareToWall extends Move {
   private final float ALIGNMENT_THRESHOLD = 1;
 
+  
   private NetworkTable table;
 
   // private DoubleSupplier m_translationYSupplier;
@@ -21,6 +22,7 @@ public class SquareToWall extends Move {
 
     super(driveTrain, 0, 0, 1);
 
+    
     table = NetworkTableInstance.getDefault().getTable("laser_scan");
 
     
