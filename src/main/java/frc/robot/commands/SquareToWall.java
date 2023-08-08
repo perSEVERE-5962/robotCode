@@ -23,7 +23,7 @@ public class SquareToWall extends Move {
 
     table = NetworkTableInstance.getDefault().getTable("laser_scan");
 
-    SmartDashboard.putString("Constructing square-to-wall", "");
+    
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -32,7 +32,7 @@ public class SquareToWall extends Move {
   public boolean isFinished() {
     float angle = table.getValue("angle_to_move").getFloat();
 
-    System.out.println(angle);
+    SmartDashboard.putString("Angle to turn: ", Float.toString(angle));
 
     if (Math.abs(angle) < ALIGNMENT_THRESHOLD) {
       return true;
