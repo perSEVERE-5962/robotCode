@@ -18,7 +18,6 @@ public class ResetWristPosition extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Wrist wrist = Wrist.getInstance();
-    wrist.resetPositionTo0();
+    Wrist.getInstance().resetPositionTo0();
   }
 }

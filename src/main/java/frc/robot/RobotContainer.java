@@ -132,8 +132,8 @@ public class RobotContainer {
     dr_xButton.onTrue(new ResetWristPosition());
     // dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
     // dr_start.onTrue(new GrabCube());
-    dr_lBumper.whileTrue(new MoveWristManual(Constants.WristConstants.kManualVoltage));
-    dr_rBumper.whileTrue(new MoveWristManual(-Constants.WristConstants.kManualVoltage));
+    dr_lBumper.whileTrue(new MoveSubsystemsManual(Constants.WristConstants.kManualVoltage));
+    dr_rBumper.whileTrue(new MoveSubsystemsManual(-Constants.WristConstants.kManualVoltage));
 
     // dr_lStickButton.onTrue(new test());
 
@@ -225,5 +225,9 @@ public class RobotContainer {
 
   public XboxController getCopilotController() {
     return m_copilotController;
+  }
+
+  public XboxController getDriverController() {
+    return m_driverController;
   }
 }
