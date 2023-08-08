@@ -26,6 +26,10 @@ public class SquareToWall extends Move {
     
     table = NetworkTableInstance.getDefault().getTable("laser_scan");
 
+    double angle = Math.toDegrees(table.getValue("angle_to_move").getDouble());
+
+    SmartDashboard.putString("Angle to turn: ", Double.toString(angle));
+
     
     addRequirements(driveTrain);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -33,7 +37,7 @@ public class SquareToWall extends Move {
 
   @Override
   public boolean isFinished() {
-    double angle = Math.toDegrees(table.getValue("angle_to_move").getFloat());
+    double angle = Math.toDegrees(table.getValue("angle_to_move").getDouble());
 
     SmartDashboard.putString("Angle to turn: ", Double.toString(angle));
 
