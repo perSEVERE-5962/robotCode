@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
+import java.lang.Math;
 
 public class SquareToWall extends Move {
   private final float ALIGNMENT_THRESHOLD = 1;
@@ -32,9 +33,9 @@ public class SquareToWall extends Move {
 
   @Override
   public boolean isFinished() {
-    float angle = table.getValue("angle_to_move").getFloat();
+    double angle = Math.toDegrees(table.getValue("angle_to_move").getFloat());
 
-    SmartDashboard.putString("Angle to turn: ", Float.toString(angle));
+    SmartDashboard.putString("Angle to turn: ", Double.toString(angle));
 
     if (Math.abs(angle) < ALIGNMENT_THRESHOLD) {
       return true;
