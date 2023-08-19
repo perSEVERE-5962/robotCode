@@ -35,11 +35,11 @@ public class MoveSubsystemsManual extends CommandBase {
     XboxController driverController = RobotContainer.getInstance().getDriverController();
     if (driverController.getAButton()) {
       m_wrist.moveWithVoltage(voltage); // Move wrist
-    } /*else if (driverController.getBButton()) {
+    } else if (driverController.getBButton()) {
       m_reach.moveWithVoltage(voltage * 2); // Move reach
     } else if (driverController.getYButton()) {
       m_lift.moveWithVoltage(voltage / 3); // Move lift
-    }*/
+    }
   }
 
   // Called once the command ends or is interrupted.

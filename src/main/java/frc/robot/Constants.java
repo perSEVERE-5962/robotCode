@@ -75,16 +75,16 @@ public final class Constants {
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(170.771 + 180);
+        Math.toRadians(170.332 + 180);
     // Back Left
     public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(19.424 + 180);
+        Math.toRadians(18.105 + 180);
     // Front Right
     public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(12.393 + 180);
+        Math.toRadians(11.953 + 180);
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(93.867 + 180);
+        Math.toRadians(100.020 + 180);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
@@ -183,8 +183,8 @@ public final class Constants {
     public static final float kRaiseSoftLimit = 21; // kForward
 
     // Cone
-    public static final double kConeScorePos1 = 8;
-    public static final double kConeScorePos2 = 8;
+    public static final double kConeScorePos1 = 0;
+    public static final double kConeScorePos2 = 0;
     public static final double kConeScorePos3 = 20;
     public static final double kConeSubStation = 8; // double substation
 
@@ -197,14 +197,14 @@ public final class Constants {
 
   public static final class ReachConstants {
     // PID
-    public static final double kP = 0.5; // 0.1, 0, -0.1, -2
+    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
     public static final double kFF = 0; // 0,
 
     // Limits
-    public static final double kMaxOutput = 0.5; // extend?
+    public static final double kMaxOutput = 0.4; // extend?
     public static final double kMinOutput = -0.25; // retract ?
     public static final float kRetractSoftLimit = 0; // kReverse
     public static final float kExtendSoftLimit = 15.5f; // kForward
@@ -222,9 +222,13 @@ public final class Constants {
     public static final double kCubeSubStation = 0; // double substation
   }
 
+  public static final float DEGREES(float val) {
+    return ((val * (8192.0f / 360.0f)) / 8192.0f );
+  }
+
   public static final class WristConstants {
     // PID
-    public static final double kP = 12; // 0.5; // 0.1, 0, -0.1, -2
+    public static final double kP = 10; // 0.5; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
@@ -241,20 +245,20 @@ public final class Constants {
     public static final double kMaxOutput = 1.0; // 0.5; // extend?
     public static final double kMinOutput = -1.0; // -0.25; // retract ?
     public static final float kRaiseSoftLimit = 0; // kForward // How far back the wrist can go
-    public static final float kClearChain = (10.0f * ticksPerDeg) / kTicks; // Clear chain for the cone
-    public static final float kLowerSoftLimit = (90.0f * ticksPerDeg) / kTicks; // kReverse // How far forward the wrist can go
+    public static final float kClearChain = DEGREES(10); // Clear chain for the cone
+    public static final float kLowerSoftLimit = DEGREES(90); // kReverse // How far forward the wrist can go
 
     // Cones
-    public static final float kConeScorePosition1 = (72.0f * ticksPerDeg) / kTicks;
-    public static final float kConeScorePosition2 = (80.0f * ticksPerDeg) / kTicks;
-    public static final float kConeScorePosition3 = (87.0f * ticksPerDeg) / kTicks;
-    public static final float kConeSubStation = (66f * ticksPerDeg) / kTicks;
+    public static final float kConeScorePosition1 = DEGREES(72);
+    public static final float kConeScorePosition2 = DEGREES(72);
+    public static final float kConeScorePosition3 = DEGREES(87);
+    public static final float kConeSubStation = DEGREES(66);
 
     // Cubes (Unused)
-    public static final float kCubeScorePosition1 = (75.0f * ticksPerDeg) / kTicks;
-    public static final float kCubeScorePosition2 = (75.0f * ticksPerDeg) / kTicks;
-    public static final float kCubeScorePosition3 = (70.0f * ticksPerDeg) / kTicks;
-    public static final float kCubeSubStation = (70f * ticksPerDeg) / kTicks;
+    public static final float kCubeScorePosition1 = DEGREES(75);
+    public static final float kCubeScorePosition2 = DEGREES(75);
+    public static final float kCubeScorePosition3 = DEGREES(70);
+    public static final float kCubeSubStation = DEGREES(70);
   }
 
   public static final class RollerConstants {
