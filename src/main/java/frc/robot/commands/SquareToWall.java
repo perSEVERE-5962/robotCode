@@ -11,7 +11,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import java.lang.Math;
 
 public class SquareToWall extends Move {
-  private final float ALIGNMENT_THRESHOLD = 1;
+  private final float ALIGNMENT_THRESHOLD = 20;
 
   
   private NetworkTable table;
