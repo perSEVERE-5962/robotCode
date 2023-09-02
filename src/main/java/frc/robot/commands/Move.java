@@ -32,6 +32,8 @@ public class Move extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
+  
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -67,5 +69,11 @@ public class Move extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+
+  protected void SetRotationSupplier(float value)
+  {
+    this.rotationSupplier = value;
   }
 }
