@@ -49,7 +49,7 @@ public class RobotContainer {
   // Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   // Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  // Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
+  Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
   // Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
   Trigger dr_lBumper =
       new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
@@ -130,14 +130,14 @@ public class RobotContainer {
     // dr_bButton.onTrue(new ScoreCubePosition2());
     // dr_yButton.onTrue(new ScoreCubePosition3());
     dr_xButton.onTrue(new ResetWristPosition());
-    // dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
+    dr_back.onTrue(new StayEngaged());
     // dr_start.onTrue(new GrabCube());
     dr_lBumper.whileTrue(new MoveSubsystemsManual(Constants.WristConstants.kManualVoltage));
     dr_rBumper.whileTrue(new MoveSubsystemsManual(-Constants.WristConstants.kManualVoltage));
 
     // dr_lStickButton.onTrue(new test());
 
-    dr_resetToOffsets.onTrue(new ResetWheelPosition());
+    dr_resetToOffsets.onTrue(new ResetWheels());
 
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)

@@ -24,7 +24,7 @@ public class EngageChargingStation extends SequentialCommandGroup {
      */
     addCommands(
         new GetOnChargingStation(driveTrain), // Drive until pitch changes
-        new StayEngaged(driveTrain));
+        new StayEngaged());
     // new StopDrive(driveTrain));
   }
 }

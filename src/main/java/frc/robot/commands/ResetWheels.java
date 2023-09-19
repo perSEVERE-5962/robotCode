@@ -2,32 +2,29 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.manipulator;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.manipulator.Wrist;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class MoveWrist extends CommandBase {
-  /** Creates a new Lift. */
-  private Wrist m_wrist;
-
-  private double m_position;
-
-  public MoveWrist(double position) {
-    m_wrist = Wrist.getInstance();
-    m_position = position;
-    addRequirements(m_wrist);
+public class ResetWheels extends CommandBase {
+  /** Creates a new ResetWheels. */
+  SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
+  private long initialTime;
+  public ResetWheels() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    initialTime = System.currentTimeMillis();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println(m_position);
-    //m_wrist.moveToPositionWithPID(m_position);
+    m_driveTrain.setWheelsTo0();
   }
 
   // Called once the command ends or is interrupted.
@@ -37,7 +34,6 @@ public class MoveWrist extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double wrist = m_wrist.getPosition();
-    return wrist >= m_position;
+    return System.currentTimeMillis() - initialTime > 1000;
   }
 }

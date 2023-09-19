@@ -38,6 +38,6 @@ public class MoveToPositions extends SequentialCommandGroup {
         new ForwardWithGyro(driveTrain, 0.2, -14, false),
         new ForwardWithGyro(driveTrain, 0.2, -14, true),
         // Prevent the robot from falling off engage
-        new StayEngaged(driveTrain));
+        new StayEngaged());
   }
 }

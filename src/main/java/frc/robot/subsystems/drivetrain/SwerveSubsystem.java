@@ -73,19 +73,14 @@ public class SwerveSubsystem extends SubsystemBase {
             backRight.getPosition()
           });
 
-  private GenericEntry frontLeftPosEntry;
-  private GenericEntry frontRightPosEntry;
-  private GenericEntry backLeftPosEntry;
-  private GenericEntry backRightPosEntry;
-  private GenericEntry averagePosEntry;
-  private GenericEntry averageDistEntry;
-
-  private GenericEntry absolutePitchEntry;
-  private GenericEntry relativePitchEntry;
-  private GenericEntry absoluteYawEntry;
-  private GenericEntry relativeYawEntry;
-
-  // private GenericEntry frontLeftAngle;
+  private GenericEntry backLeftEncoderAngle;
+  private GenericEntry backRightEncoderAngle;
+  private GenericEntry frontLeftEncoderAngle;
+  private GenericEntry frontRightEncoderAngle;
+  private GenericEntry backLeftEncoderAngleM360;
+  private GenericEntry backRightEncoderAngleM360;
+  private GenericEntry frontLeftEncoderAngleM360;
+  private GenericEntry frontRightEncoderAngleM360;
 
   private SwerveSubsystem() {
     new Thread(
@@ -103,24 +98,14 @@ public class SwerveSubsystem extends SubsystemBase {
 
     String tab = Constants.tabs.kSwerveSubsystem;
 
-    frontLeftPosEntry = AddToShuffleboard.add(tab, "Front Left Pos", frontLeft.getDrivePosition());
-    frontRightPosEntry =
-        AddToShuffleboard.add(tab, "Front Right Pos", frontRight.getDrivePosition());
-    backLeftPosEntry = AddToShuffleboard.add(tab, "Back Left Pos", backLeft.getDrivePosition());
-    backRightPosEntry = AddToShuffleboard.add(tab, "Back Right Pos", backRight.getDrivePosition());
-    averagePosEntry = AddToShuffleboard.add(tab, "Average Position", getAveragePosition());
-    averageDistEntry = AddToShuffleboard.add(tab, "Average Distance", getAverageDistanceInches());
-
-    tab = Constants.tabs.kAngle;
-
-    absolutePitchEntry = AddToShuffleboard.add(tab, "Absolute Pitch", getPitch());
-    relativePitchEntry =
-        AddToShuffleboard.add(tab, "Relative Pitch", getPitch() - Constants.PITCH_OFFSET);
-    absoluteYawEntry = AddToShuffleboard.add(tab, "Absolute Yaw", getYaw());
-    relativeYawEntry = AddToShuffleboard.add(tab, "Relative Yaw", getYaw() - Constants.YAW_OFFSET);
-
-    AddToShuffleboard.add(tab, "Pitch Offset", Constants.PITCH_OFFSET);
-    AddToShuffleboard.add(tab, "Yaw Offset", Constants.YAW_OFFSET);
+    backLeftEncoderAngle = AddToShuffleboard.add(tab, "BL Angle", 0);
+    backRightEncoderAngle = AddToShuffleboard.add(tab, "BR Angle", 0);
+    frontLeftEncoderAngle = AddToShuffleboard.add(tab, "FL Angle", 0);
+    frontRightEncoderAngle = AddToShuffleboard.add(tab, "FR Angle", 0);
+    backLeftEncoderAngleM360 = AddToShuffleboard.add(tab, "BL Angle Mod 360", 0);
+    backRightEncoderAngleM360 = AddToShuffleboard.add(tab, "BR Angle Mod 360", 0);
+    frontLeftEncoderAngleM360 = AddToShuffleboard.add(tab, "FL Angle Mod 360", 0);
+    frontRightEncoderAngleM360 = AddToShuffleboard.add(tab, "FR Angle Mod 360", 0);
 
     // frontLeftAngle = AddToShuffleboard.add("X Wheels", "Angle",
     // frontLeft.getAbsoluteEncoderRad());
@@ -166,17 +151,18 @@ public class SwerveSubsystem extends SubsystemBase {
           backRight.getPosition()
         });
 
-    frontLeftPosEntry.setDouble(frontLeft.getDrivePosition());
-    frontRightPosEntry.setDouble(frontRight.getDrivePosition());
-    backLeftPosEntry.setDouble(backLeft.getDrivePosition());
-    backRightPosEntry.setDouble(backRight.getDrivePosition());
-    averagePosEntry.setDouble(getAveragePosition());
-    averageDistEntry.setDouble(getAverageDistanceInches());
-
-    absolutePitchEntry.setDouble(getPitch());
-    relativePitchEntry.setDouble(getPitch() - Constants.PITCH_OFFSET);
-    absoluteYawEntry.setDouble(getYaw());
-    relativeYawEntry.setDouble(getYaw() - Constants.PITCH_OFFSET);
+    double blAngle = backLeft.getAbsoluteEncoderAngle();
+    double brAngle = backRight.getAbsoluteEncoderAngle();
+    double flAngle = frontLeft.getAbsoluteEncoderAngle();
+    double frAngle = frontRight.getAbsoluteEncoderAngle();
+    backLeftEncoderAngle.setDouble(blAngle);
+    backRightEncoderAngle.setDouble(brAngle);
+    frontLeftEncoderAngle.setDouble(flAngle);
+    frontRightEncoderAngle.setDouble(frAngle);
+    backLeftEncoderAngleM360.setDouble(blAngle % 360);
+    backRightEncoderAngleM360.setDouble(brAngle % 360);
+    frontLeftEncoderAngleM360.setDouble(flAngle % 360);
+    frontRightEncoderAngleM360.setDouble(frAngle % 360);
 
     // SmartDashboard.putNumber("Robot Heading", getHeading());
     // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
@@ -198,6 +184,15 @@ public class SwerveSubsystem extends SubsystemBase {
     frontRight.setDesiredState(desiredStates[1]);
     backLeft.setDesiredState(desiredStates[2]);
     backRight.setDesiredState(desiredStates[3]);
+  }
+
+    public void setAbsloluteModuleStates(SwerveModuleState[] desiredStates) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(
+        desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+    frontLeft.setDesiredAbsoluteState(desiredStates[0]);
+    frontRight.setDesiredAbsoluteState(desiredStates[1]);
+    backLeft.setDesiredAbsoluteState(desiredStates[2]);
+    backRight.setDesiredAbsoluteState(desiredStates[3]);
   }
 
   public SwerveModulePosition[] getSwerveModulePositions() {
@@ -284,6 +279,20 @@ public class SwerveSubsystem extends SubsystemBase {
         });
   }
 
+  public void setWheelsTo0() {
+    setAbsloluteModuleStates(
+        new SwerveModuleState[] {
+          // front left
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetDeg)),
+          // front right
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg)),
+          // back left
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetDeg)),
+          // back right
+          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg))
+        });
+  }
+
   /**
    * @return the instance
    */
@@ -295,14 +304,4 @@ public class SwerveSubsystem extends SubsystemBase {
     return instance;
   }
 
-  public void initialzeTurnEncoders() {
-    backRight.setAbsoluteEncoderPosition(
-        Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad);
-    backLeft.setAbsoluteEncoderPosition(
-        Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad);
-    frontRight.setAbsoluteEncoderPosition(
-        Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad);
-    frontLeft.setAbsoluteEncoderPosition(
-        Constants.DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad);
-  }
 }

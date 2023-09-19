@@ -32,6 +32,6 @@ public class BLUE_MoveToPositions extends SequentialCommandGroup {
         new ForwardWithGyro(driveTrain, 0.3, -10, false),
         new ForwardWithGyro(driveTrain, 0.2, -14, false),
         // Prevent the robot from falling off engage
-        new StayEngaged(driveTrain));
+        new StayEngaged());
   }
 }
