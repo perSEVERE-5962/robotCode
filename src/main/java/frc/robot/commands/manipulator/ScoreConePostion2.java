@@ -16,7 +16,7 @@ public class ScoreConePostion2 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        //new MoveWrist(Constants.WristConstants.kClearChain),
+        // new MoveWrist(Constants.WristConstants.kClearChain),
         new MoveLift(Constants.LiftConstants.kConeScorePos2),
         new MoveReach(Constants.ReachConstants.kConeScorePos2),
         new MoveWrist(Constants.WristConstants.kConeScorePosition2));

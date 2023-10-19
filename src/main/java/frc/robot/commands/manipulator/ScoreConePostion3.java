@@ -18,7 +18,7 @@ public class ScoreConePostion3 extends SequentialCommandGroup {
     addCommands(
         // new MoveWrist(5), new MoveLift(0), new MoveReach(0), new MoveWrist(0), new GripperOpen()
         // new GripperClose(),
-        //new MoveWrist(Constants.WristConstants.kClearChain),
+        // new MoveWrist(Constants.WristConstants.kClearChain),
         new MoveReach(Constants.ReachConstants.kConeScorePos3),
         new MoveLift(Constants.LiftConstants.kConeScorePos3),
         new MoveWrist(Constants.WristConstants.kConeScorePosition3)

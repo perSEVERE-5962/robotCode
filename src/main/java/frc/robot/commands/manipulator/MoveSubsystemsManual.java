@@ -14,6 +14,7 @@ import frc.robot.subsystems.manipulator.Wrist;
 public class MoveSubsystemsManual extends CommandBase {
   /** Creates a new MoveWristManual. */
   private Wrist m_wrist = Wrist.getInstance();
+
   private Reach m_reach = Reach.getInstance();
   private Lift m_lift = Lift.getInstance();
 

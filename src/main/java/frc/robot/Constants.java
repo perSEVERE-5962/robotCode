@@ -19,6 +19,10 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  private static final double BACK_RIGHT_OFFSET = 170.684;
+  private static final double BACK_LEFT_OFFSET = 18.545;
+  private static final double FRONT_RIGHT_OFFSET = 12.393;
+  private static final double FRONT_LEFT_OFFSET = 100.020;
 
   public static final class AutonomousStartPosition {
     public static final int position1 = 1;
@@ -74,17 +78,13 @@ public final class Constants {
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
     // Back Right
-    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg =
-        170.332 + 180;
+    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = BACK_RIGHT_OFFSET + 180;
     // Back Left
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg =
-        18.105 + 180;
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = BACK_LEFT_OFFSET + 180;
     // Front Right
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg =
-        11.953 + 180;
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = FRONT_RIGHT_OFFSET + 180;
     // Front Left
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg =
-        100.020 + 180;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = FRONT_LEFT_OFFSET + 180;
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
@@ -199,6 +199,7 @@ public final class Constants {
     public static final double kConeScorePos1 = 0;
     public static final double kConeScorePos2 = 0;
     public static final double kConeScorePos3 = 20;
+    public static final double kConeScoreAuto = 20;
     public static final double kConeSubStation = 8; // double substation
 
     // Cubes (Unused)
@@ -225,7 +226,8 @@ public final class Constants {
     // Cone
     public static final double kConeScorePos1 = 0;
     public static final double kConeScorePos2 = 0;
-    public static final double kConeScorePos3 = 15.14;
+    public static final double kConeScorePos3 = 15;
+    public static final double kConeScoreAuto = 15;
     public static final double kConeSubStation = 0; // double substation
 
     // Cubes (Unused)
@@ -236,7 +238,7 @@ public final class Constants {
   }
 
   public static final float DEGREES(float val) {
-    return ((val * (8192.0f / 360.0f)) / 8192.0f );
+    return ((val * (8192.0f / 360.0f)) / 8192.0f);
   }
 
   public static final class WristConstants {
@@ -259,12 +261,14 @@ public final class Constants {
     public static final double kMinOutput = -1.0; // -0.25; // retract ?
     public static final float kRaiseSoftLimit = 0; // kForward // How far back the wrist can go
     public static final float kClearChain = DEGREES(10); // Clear chain for the cone
-    public static final float kLowerSoftLimit = DEGREES(90); // kReverse // How far forward the wrist can go
+    public static final float kLowerSoftLimit =
+        DEGREES(90); // kReverse // How far forward the wrist can go
 
     // Cones
     public static final float kConeScorePosition1 = DEGREES(72);
     public static final float kConeScorePosition2 = DEGREES(72);
     public static final float kConeScorePosition3 = DEGREES(87);
+    public static final float kConeScoreAuto = DEGREES(75);
     public static final float kConeSubStation = DEGREES(66);
 
     // Cubes (Unused)
@@ -278,6 +282,9 @@ public final class Constants {
     public static final double kMinOutput = -1;
     public static final double kMaxOutput = 1;
     public static final double kMaxVoltage = 5;
+    // Values assume LT is intake
+    public static final int kIntakeCone = 1;
+    public static final int kIntakeCube = -1;
   }
 
   public static final class tabs {

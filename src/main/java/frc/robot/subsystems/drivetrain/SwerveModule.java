@@ -21,6 +21,7 @@ public class SwerveModule {
   private final RelativeEncoder turningEncoder;
 
   private PIDController turningPidController;
+  private PIDController resetController;
 
   // private final AnalogInput absoluteEncoder;
   private final CANCoder absoluteEncoder;
@@ -71,6 +72,8 @@ public class SwerveModule {
 
     turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
+
+    resetController = new PIDController(0.01, 0, 0);
 
     resetEncoders();
   }
@@ -142,15 +145,16 @@ public class SwerveModule {
         turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
   }
 
-  public void setDesiredAbsoluteState(SwerveModuleState state) {
+  public void setResetState(SwerveModuleState state) {
     if (Math.abs(state.speedMetersPerSecond) < 0.001) {
       stop();
       return;
     }
-    state = SwerveModuleState.optimize(state, getState().angle);
+
     driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
     turningMotor.set(
-        turningPidController.calculate(getAbsoluteEncoderAngle(), state.angle.getRadians()));
+      -(resetController.calculate(getAbsoluteEncoderAngle(), state.angle.getDegrees() + 180))
+      );
   }
 
   public void stop() {

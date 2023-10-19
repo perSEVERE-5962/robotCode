@@ -4,9 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.ctre.phoenix.sensors.CANCoder;
-
+import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wheels extends SubsystemBase {
@@ -17,9 +16,7 @@ public class Wheels extends SubsystemBase {
   /** Creates a new Wheels. */
   public Wheels(int motorId, int encoderId) {
     m_leadMotor =
-        new CANSparkMax(
-            motorId,
-            com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+        new CANSparkMax(motorId, com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
     // m_followMotor = new CANSparkMax(
     // Constants.CANDeviceIDs.kReachFollowID,
     // com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);

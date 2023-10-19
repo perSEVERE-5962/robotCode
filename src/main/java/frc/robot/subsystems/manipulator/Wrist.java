@@ -67,9 +67,9 @@ public class Wrist extends SubsystemBase {
     return m_leadEncoder.getPosition();
   }
 
-  public void resetPositionTo0() {
-    m_leadEncoder.setPosition(0);
-  }
+  // public void resetPositionTo0() {
+  //  m_leadEncoder.setPosition(0);
+  // }
 
   public void move(double speed) {
     m_leadMotor.set(speed);
@@ -85,7 +85,7 @@ public class Wrist extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double pos = m_leadEncoder.getPosition();
+    double pos = getPosition();
     wristPositionEntry.setDouble(pos);
     wristPositionDegreesEntry.setDouble(
         (pos * Constants.WristConstants.kTicks) / Constants.WristConstants.ticksPerDeg);

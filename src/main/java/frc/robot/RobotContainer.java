@@ -39,13 +39,13 @@ public class RobotContainer {
   Trigger co_bButton = new JoystickButton(m_copilotController, XboxController.Button.kB.value);
   Trigger co_xButton = new JoystickButton(m_copilotController, XboxController.Button.kX.value);
   Trigger co_back = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
-  // Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
-  // Trigger co_lBumper =
-  //    new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
-  // Trigger co_rBumper =
-  //    new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
+  Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
+  Trigger co_lBumper =
+     new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
+  Trigger co_rBumper =
+     new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
-  Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  // Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   // Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   // Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
   Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
@@ -93,7 +93,8 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
+    m_autonomousChooser.setDefaultOption("Score Auto", new ScoreAuto());
+    m_autonomousChooser.addOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
     m_autonomousChooser.addOption("Red Auto", new MoveToPositions(m_driveTrain, (byte) 1));
@@ -122,11 +123,11 @@ public class RobotContainer {
     co_yButton.onTrue(new ScoreConePostion3());
     co_xButton.onTrue(new ResetPosition());
     co_back.onTrue(new AlignGripperToDoubleSubstation());
-    // co_start.onTrue(new GrabCone());
-    // co_lBumper.onTrue(new GripperClose());
-    // co_rBumper.onTrue(new GripperOpen());
+    co_start.onTrue(new GrabCone());
+    co_lBumper.onTrue(new SetInvertRoller(false));
+    co_rBumper.onTrue(new SetInvertRoller(true));
 
-    dr_aButton.onTrue(new SquareToWall(m_driveTrain));
+    // dr_aButton.onTrue(new ScoreCubePosition1());
     // dr_bButton.onTrue(new ScoreCubePosition2());
     // dr_yButton.onTrue(new ScoreCubePosition3());
     dr_xButton.onTrue(new ResetWristPosition());

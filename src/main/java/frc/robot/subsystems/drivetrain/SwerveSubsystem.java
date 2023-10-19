@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivetrain;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -21,7 +22,7 @@ import frc.robot.Constants.DriveConstants;
 public class SwerveSubsystem extends SubsystemBase {
   private static SwerveSubsystem instance;
 
-  private final SwerveModule frontLeft =
+  public final SwerveModule frontLeft =
       new SwerveModule(
           CANDeviceIDs.kFrontLeftDriveMotorID,
           CANDeviceIDs.kFrontLeftTurningMotorID,
@@ -186,13 +187,13 @@ public class SwerveSubsystem extends SubsystemBase {
     backRight.setDesiredState(desiredStates[3]);
   }
 
-    public void setAbsloluteModuleStates(SwerveModuleState[] desiredStates) {
-    SwerveDriveKinematics.desaturateWheelSpeeds(
-        desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
-    frontLeft.setDesiredAbsoluteState(desiredStates[0]);
-    frontRight.setDesiredAbsoluteState(desiredStates[1]);
-    backLeft.setDesiredAbsoluteState(desiredStates[2]);
-    backRight.setDesiredAbsoluteState(desiredStates[3]);
+  public void setResetStates(SwerveModuleState[] desiredStates) {
+    //SwerveDriveKinematics.desaturateWheelSpeeds(
+    //    desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+    frontLeft.setResetState(desiredStates[0]);
+    frontRight.setResetState(desiredStates[1]);
+    backLeft.setResetState(desiredStates[2]);
+    backRight.setResetState(desiredStates[3]);
   }
 
   public SwerveModulePosition[] getSwerveModulePositions() {
@@ -231,6 +232,14 @@ public class SwerveSubsystem extends SubsystemBase {
     frontRight.resetDriveEncoder();
     backLeft.resetDriveEncoder();
     backRight.resetDriveEncoder();
+    // resetOdometry(getPose());
+  }
+
+  public void resetModuleEncoders() {
+    frontLeft.resetEncoders();
+    frontRight.resetEncoders();
+    backLeft.resetEncoders();
+    backRight.resetEncoders();
     // resetOdometry(getPose());
   }
 
@@ -280,16 +289,28 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public void setWheelsTo0() {
-    setAbsloluteModuleStates(
+    setResetStates(
         new SwerveModuleState[] {
           // front left
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetDeg)),
+          new SwerveModuleState(
+              0.1,
+              Rotation2d.fromDegrees(
+                  Constants.DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetDeg)),
           // front right
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg)),
+          new SwerveModuleState(
+              0.1,
+              Rotation2d.fromDegrees(
+                  Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg)),
           // back left
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetDeg)),
+          new SwerveModuleState(
+              0.1,
+              Rotation2d.fromDegrees(
+                  Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetDeg)),
           // back right
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg))
+          new SwerveModuleState(
+              0.1,
+              Rotation2d.fromDegrees(
+                  Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetDeg))
         });
   }
 
@@ -303,5 +324,4 @@ public class SwerveSubsystem extends SubsystemBase {
 
     return instance;
   }
-
 }

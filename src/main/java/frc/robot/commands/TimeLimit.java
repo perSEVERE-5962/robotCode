@@ -5,15 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class ResetWheels extends CommandBase {
-  /** Creates a new ResetWheels. */
-  SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-
-  private long initialTime;
-
-  public ResetWheels() {
+public class TimeLimit extends CommandBase {
+  long initialTime = 0;
+  long desiredMilliseconds = 0;
+  /** Creates a new TimeLimit. */
+  public TimeLimit(long milliseconds) {
+    desiredMilliseconds = milliseconds;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,10 +23,7 @@ public class ResetWheels extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    //System.out.println(SwerveSubsystem.getInstance().frontLeft.getAbsoluteEncoderAngle());
-    m_driveTrain.setWheelsTo0();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -37,10 +32,6 @@ public class ResetWheels extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (System.currentTimeMillis() - initialTime > 1000) {
-      m_driveTrain.resetModuleEncoders();
-      return true;
-    }
-    return false;
+    return (System.currentTimeMillis() - initialTime) >= desiredMilliseconds;
   }
 }

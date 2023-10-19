@@ -5,19 +5,23 @@
 package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-// import frc.robot.subsystems.manipulator.Wrist;
+import frc.robot.subsystems.manipulator.Roller;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ResetWristPosition extends InstantCommand {
-  public ResetWristPosition() {
+public class SetInvertRoller extends InstantCommand {
+  private Roller m_roller;
+  private boolean invert = false;
+  public SetInvertRoller(boolean invert) {
+    m_roller = Roller.get_instance();
+    this.invert = invert;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Wrist.getInstance().resetPositionTo0();
+    m_roller.invertRoller = invert ? -1 : 1;
   }
 }

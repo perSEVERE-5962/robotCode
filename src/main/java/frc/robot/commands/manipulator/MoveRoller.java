@@ -36,7 +36,7 @@ public class MoveRoller extends CommandBase {
     }
     double triggerValue = Math.abs(r_triggerValue - l_triggerValue);
     // Sets a specific amount of voltage using a multiplier
-    double speed = Constants.RollerConstants.kMaxVoltage * (triggerValue * negative);
+    double speed = Constants.RollerConstants.kMaxVoltage * (triggerValue * negative) * m_Roller.invertRoller;
 
     m_Roller.moveWithVoltage(speed);
   }
