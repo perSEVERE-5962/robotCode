@@ -24,7 +24,7 @@ public class ResetWheelPosition extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    swerveDrive.initialzeTurnEncoders();
+    // swerveDrive.initialzeTurnEncoders();
   }
 
   // Called once the command ends or is interrupted.

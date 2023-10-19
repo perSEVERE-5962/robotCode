@@ -21,6 +21,7 @@
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/Ungrouped/navX-Sensor[4]": "Gyro",
       "/SmartDashboard/Auto Start Position": "String Chooser",
+      "/SmartDashboard/Autonomous Mode": "String Chooser",
       "/SmartDashboard/auto chooser": "String Chooser",
       "/SmartDashboard/drivercontrol": "String Chooser"
     }
@@ -43,8 +44,5 @@
         "open": true
       }
     }
-  },
-  "NetworkTables View": {
-    "visible": false
   }
 }

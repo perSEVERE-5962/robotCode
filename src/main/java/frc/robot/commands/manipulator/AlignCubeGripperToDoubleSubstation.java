@@ -16,9 +16,10 @@ public class AlignCubeGripperToDoubleSubstation extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new MoveLift(LiftConstants.kSubStation),
-        new MoveReach(ReachConstants.kSubStation),
-        new MoveWrist(WristConstants.kSubStation),
-        new CubeGripperOpen());
+        new MoveLift(LiftConstants.kCubeSubStation),
+        new MoveReach(ReachConstants.kCubeSubStation),
+        new MoveWrist(WristConstants.kCubeSubStation)
+        // new CubeGripperOpen()
+        );
   }
 }

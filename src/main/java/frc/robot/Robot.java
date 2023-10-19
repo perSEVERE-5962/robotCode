@@ -4,13 +4,15 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
+// import edu.wpi.first.wpilibj.PneumaticsModuleType;
+// import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.manipulator.*;
 import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.manipulator.Reach;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,12 +23,14 @@ import frc.robot.sensors.UltrasonicAnalog;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Solenoid m_ultrasonic_solenoid =
+  /*private Solenoid m_ultrasonic_solenoid =
       new Solenoid(
           Constants.CANDeviceIDs.kPCMID24V,
           PneumaticsModuleType.CTREPCM,
           Constants.UltrasonicConstants.kSensor_PCM_Channel);
-  private Solenoid m_trainning_soloenoid;
+  private Solenoid m_trainning_soloenoid;*/
+  private DetectAprilTags detector = new DetectAprilTags();
+  private MoveRoller roller = new MoveRoller();
 
   // UltrasonicAnalog sensor = new UltrasonicAnalog(Constants.GripperConstants.kSensorChannel);
   /**
@@ -40,7 +44,10 @@ public class Robot extends TimedRobot {
     m_robotContainer = RobotContainer.getInstance();
 
     // turn on the solenoid channel to power the ultrasonic sensor
-    m_ultrasonic_solenoid.set(true);
+    // m_ultrasonic_solenoid.set(true);
+
+    // Starts up the camera and thread to detect april tags
+    detector.initDetector();
   }
 
   /**
@@ -52,19 +59,20 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible fobr polling buttons, adding newly-scheduled
+    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("Ultrasonic Range", UltrasonicAnalog.getInstance().getRange());
+    DetectAprilTags.displayAprilTagInformation();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    // ResetGrippers resetGrippers = new ResetGrippers();
-    // resetGrippers.schedule();
+    Reach reach = Reach.getInstance();
+    reach.moveToPositionWithPID(0);
   }
 
   @Override
@@ -95,6 +103,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    roller.schedule();
   }
 
   /** This function is called periodically during operator control. */
@@ -109,12 +118,12 @@ public class Robot extends TimedRobot {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
     // enable the solenoid channel to allow for training the ultrasonic sensor
-    m_trainning_soloenoid =
+    /*m_trainning_soloenoid =
         new Solenoid(
             Constants.CANDeviceIDs.kPCMID24V,
             PneumaticsModuleType.CTREPCM,
             Constants.UltrasonicConstants.kTrainSensor_PCM_Channel);
-    m_trainning_soloenoid.set(true);
+    m_trainning_soloenoid.set(true);*/
   }
 
   /** This function is called periodically during test mode. */

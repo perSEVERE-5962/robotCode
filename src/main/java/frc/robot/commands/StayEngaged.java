@@ -9,13 +9,12 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class StayEngaged extends CommandBase {
   /** Creates a new StayEngaged. */
-  SwerveSubsystem m_driveTrain;
+  SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
 
   private long initialTime;
 
-  public StayEngaged(SwerveSubsystem driveTrain) {
+  public StayEngaged() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_driveTrain = driveTrain;
   }
 
   // Called when the command is initially scheduled.

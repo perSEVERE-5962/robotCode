@@ -66,6 +66,10 @@ public class Reach extends SubsystemBase {
     m_leadMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
   }
 
+  public void moveWithVoltage(double voltage) {
+    m_leadMotor.getPIDController().setReference(voltage, CANSparkMax.ControlType.kVoltage);
+  }
+
   @Override
   public void periodic() {
     reachPositionEntry.setDouble(m_leadEncoder.getPosition());

@@ -6,6 +6,7 @@ package frc.robot.commands.manipulator;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.obsolete.commands.manipulator.CubeGripperClose;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,9 +19,9 @@ public class ScoreCubePosition1 extends SequentialCommandGroup {
     addCommands(
         new CubeGripperClose(),
         new MoveWrist(Constants.WristConstants.kRaiseSoftLimit),
-        new MoveLift(Constants.LiftConstants.kPos1),
-        new MoveReach(Constants.ReachConstants.kPos1),
-        new MoveWrist(Constants.WristConstants.kLowerSoftLimit)
+        new MoveLift(Constants.LiftConstants.kCubeScorePos1),
+        new MoveReach(Constants.ReachConstants.kCubeScorePos1),
+        new MoveWrist(Constants.WristConstants.kCubeScorePosition1)
         // new CubeGripperOpen()
         );
   }

@@ -41,31 +41,22 @@ public class RobotContainer {
   Trigger co_back = new JoystickButton(m_copilotController, XboxController.Button.kBack.value);
   Trigger co_start = new JoystickButton(m_copilotController, XboxController.Button.kStart.value);
   Trigger co_lBumper =
-      new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
+     new JoystickButton(m_copilotController, XboxController.Button.kLeftBumper.value);
   Trigger co_rBumper =
-      new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
+     new JoystickButton(m_copilotController, XboxController.Button.kRightBumper.value);
 
-  Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-  // Trigger dr_bButton = new JoystickButton(m_driverController,
-  // XboxController.Button.kB.value);
-  // Trigger dr_yButton = new JoystickButton(m_driverController,
-  // XboxController.Button.kY.value);
-  // Trigger dr_xButton = new JoystickButton(m_driverController,
-  // XboxController.Button.kX.value);
-  // Trigger dr_start = new JoystickButton(m_driverController,
-  // XboxController.Button.kStart.value);
-  // Trigger dr_back = new JoystickButton(m_driverController,
-  // XboxController.Button.kBack.value);
-  // Trigger dr_lBumper =
-  // new JoystickButton(m_driverController,
-  // XboxController.Button.kLeftBumper.value);
-  // Trigger dr_rBumper =
-  // new JoystickButton(m_driverController,
-  // XboxController.Button.kRightBumper.value);
-
+  // Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
+  // Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
+  // Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  Trigger dr_back = new JoystickButton(m_driverController, XboxController.Button.kBack.value);
+  // Trigger dr_start = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+  Trigger dr_lBumper =
+      new JoystickButton(m_driverController, XboxController.Button.kLeftBumper.value);
+  Trigger dr_rBumper =
+      new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
   // Trigger dr_lStickButton =
-  // new JoystickButton(m_driverController,
-  // XboxController.Button.kLeftStick.value);
+  //    new JoystickButton(m_driverController, XboxController.Button.kLeftStick.value);
 
   // used to reset the drive wheels to the desired offsets
   Trigger dr_resetToOffsets =
@@ -102,7 +93,8 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    m_autonomousChooser.setDefaultOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
+    m_autonomousChooser.setDefaultOption("Score Auto", new ScoreAuto());
+    m_autonomousChooser.addOption("Cross Line", new CrossTheLineWithTime(m_driveTrain));
     // m_autonomousChooser.addOption("Cross Line over Charge Station", new
     // MovePastLine(m_driveTrain));
     m_autonomousChooser.addOption("Red Auto", new MoveToPositions(m_driveTrain, (byte) 1));
@@ -126,27 +118,27 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    co_aButton.onTrue(new ScorePostion1());
-    co_bButton.onTrue(new ScorePostion2());
-    co_yButton.onTrue(new ScorePostion3());
+    co_aButton.onTrue(new ScoreConePostion1());
+    co_bButton.onTrue(new ScoreConePostion2());
+    co_yButton.onTrue(new ScoreConePostion3());
     co_xButton.onTrue(new ResetPosition());
     co_back.onTrue(new AlignGripperToDoubleSubstation());
     co_start.onTrue(new GrabCone());
-    co_lBumper.onTrue(new GripperClose());
-    co_rBumper.onTrue(new GripperOpen());
+    co_lBumper.onTrue(new SetInvertRoller(false));
+    co_rBumper.onTrue(new SetInvertRoller(true));
 
-    dr_aButton.onTrue(new StayEngaged(m_driveTrain));
+    // dr_aButton.onTrue(new ScoreCubePosition1());
     // dr_bButton.onTrue(new ScoreCubePosition2());
     // dr_yButton.onTrue(new ScoreCubePosition3());
-    // dr_xButton.onTrue(new ResetCubePosition());
-    // dr_back.onTrue(new AlignCubeGripperToDoubleSubstation());
+    dr_xButton.onTrue(new ResetWristPosition());
+    dr_back.onTrue(new StayEngaged());
     // dr_start.onTrue(new GrabCube());
-    // dr_lBumper.onTrue(new CubeGripperClose());
-    // dr_rBumper.onTrue(new CubeGripperOpen());
+    dr_lBumper.whileTrue(new MoveSubsystemsManual(Constants.WristConstants.kManualVoltage));
+    dr_rBumper.whileTrue(new MoveSubsystemsManual(-Constants.WristConstants.kManualVoltage));
 
     // dr_lStickButton.onTrue(new test());
 
-    dr_resetToOffsets.onTrue(new ResetWheelPosition());
+    dr_resetToOffsets.onTrue(new ResetWheels());
 
     /*
      * new JoystickButton(m_driverController, OIConstants.kZeroHeadingButtonIdx)
@@ -161,7 +153,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command = m_autonomousChooser.getSelected();
-    // Command command = new START(m_driveTrain);
+    // Command command = new MoveRoller(60);
     return command;
   }
 
@@ -234,5 +226,9 @@ public class RobotContainer {
 
   public XboxController getCopilotController() {
     return m_copilotController;
+  }
+
+  public XboxController getDriverController() {
+    return m_driverController;
   }
 }
