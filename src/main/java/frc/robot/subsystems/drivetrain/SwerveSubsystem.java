@@ -3,18 +3,15 @@ package frc.robot.subsystems.drivetrain;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.AddToShuffleboard;
 import frc.robot.Constants;
 import frc.robot.Constants.CANDeviceIDs;
 import frc.robot.Constants.DriveConstants;
@@ -74,15 +71,6 @@ public class SwerveSubsystem extends SubsystemBase {
             backRight.getPosition()
           });
 
-  private GenericEntry backLeftEncoderAngle;
-  private GenericEntry backRightEncoderAngle;
-  private GenericEntry frontLeftEncoderAngle;
-  private GenericEntry frontRightEncoderAngle;
-  private GenericEntry backLeftEncoderAngleM360;
-  private GenericEntry backRightEncoderAngleM360;
-  private GenericEntry frontLeftEncoderAngleM360;
-  private GenericEntry frontRightEncoderAngleM360;
-
   private SwerveSubsystem() {
     new Thread(
             () -> {
@@ -93,24 +81,6 @@ public class SwerveSubsystem extends SubsystemBase {
               }
             })
         .start();
-
-    Constants.PITCH_OFFSET = getPitch();
-    Constants.YAW_OFFSET = getYaw();
-
-    String tab = Constants.tabs.kSwerveSubsystem;
-
-    backLeftEncoderAngle = AddToShuffleboard.add(tab, "BL Angle", 0);
-    backRightEncoderAngle = AddToShuffleboard.add(tab, "BR Angle", 0);
-    frontLeftEncoderAngle = AddToShuffleboard.add(tab, "FL Angle", 0);
-    frontRightEncoderAngle = AddToShuffleboard.add(tab, "FR Angle", 0);
-    backLeftEncoderAngleM360 = AddToShuffleboard.add(tab, "BL Angle Mod 360", 0);
-    backRightEncoderAngleM360 = AddToShuffleboard.add(tab, "BR Angle Mod 360", 0);
-    frontLeftEncoderAngleM360 = AddToShuffleboard.add(tab, "FL Angle Mod 360", 0);
-    frontRightEncoderAngleM360 = AddToShuffleboard.add(tab, "FR Angle Mod 360", 0);
-
-    // frontLeftAngle = AddToShuffleboard.add("X Wheels", "Angle",
-    // frontLeft.getAbsoluteEncoderRad());
-    // AddToShuffleboard.add("X Wheels", "Target Angle", Math.toRadians(-45));
   }
 
   public void zeroHeading() {
@@ -151,24 +121,6 @@ public class SwerveSubsystem extends SubsystemBase {
           backLeft.getPosition(),
           backRight.getPosition()
         });
-
-    double blAngle = backLeft.getAbsoluteEncoderAngle();
-    double brAngle = backRight.getAbsoluteEncoderAngle();
-    double flAngle = frontLeft.getAbsoluteEncoderAngle();
-    double frAngle = frontRight.getAbsoluteEncoderAngle();
-    backLeftEncoderAngle.setDouble(blAngle);
-    backRightEncoderAngle.setDouble(brAngle);
-    frontLeftEncoderAngle.setDouble(flAngle);
-    frontRightEncoderAngle.setDouble(frAngle);
-    backLeftEncoderAngleM360.setDouble(blAngle % 360);
-    backRightEncoderAngleM360.setDouble(brAngle % 360);
-    frontLeftEncoderAngleM360.setDouble(flAngle % 360);
-    frontRightEncoderAngleM360.setDouble(frAngle % 360);
-
-    // SmartDashboard.putNumber("Robot Heading", getHeading());
-    // SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
-
-    // frontLeftAngle.setDouble(frontLeft.getAbsoluteEncoderRad());
   }
 
   public void stopModules() {
@@ -188,7 +140,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public void setResetStates(SwerveModuleState[] desiredStates) {
-    //SwerveDriveKinematics.desaturateWheelSpeeds(
+    // SwerveDriveKinematics.desaturateWheelSpeeds(
     //    desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
     frontLeft.setResetState(desiredStates[0]);
     frontRight.setResetState(desiredStates[1]);
@@ -215,11 +167,11 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public double convertPositionToDistance(double position) {
-    return Units.metersToInches(position) / (Constants.ModuleConstants.kDriveEncoderRot2Inch);
+    return Units.metersToInches(position) / (Constants.ModuleConstants.L1.kDriveEncoderRot2Inch);
   }
 
   public double convertDistanceToPosition(double distance) {
-    return (distance * Constants.ModuleConstants.kDriveMotorGearRatio)
+    return (distance * Constants.ModuleConstants.L1.kDriveMotorGearRatio)
         / (Math.PI * Constants.ModuleConstants.kWheelDiameterInches);
   }
 

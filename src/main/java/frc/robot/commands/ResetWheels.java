@@ -9,12 +9,14 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class ResetWheels extends CommandBase {
   /** Creates a new ResetWheels. */
-  SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
+  SwerveSubsystem driveTrain;
 
   private long initialTime;
 
-  public ResetWheels() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public ResetWheels(SwerveSubsystem driveTrain) {
+    addRequirements(driveTrain);
+
+    this.driveTrain = driveTrain;
   }
 
   // Called when the command is initially scheduled.
@@ -26,8 +28,8 @@ public class ResetWheels extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //System.out.println(SwerveSubsystem.getInstance().frontLeft.getAbsoluteEncoderAngle());
-    m_driveTrain.setWheelsTo0();
+    // System.out.println(SwerveSubsystem.getInstance().frontLeft.getAbsoluteEncoderAngle());
+    driveTrain.setWheelsTo0();
   }
 
   // Called once the command ends or is interrupted.
@@ -38,7 +40,7 @@ public class ResetWheels extends CommandBase {
   @Override
   public boolean isFinished() {
     if (System.currentTimeMillis() - initialTime > 1000) {
-      m_driveTrain.resetModuleEncoders();
+      driveTrain.resetModuleEncoders();
       return true;
     }
     return false;
