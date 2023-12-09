@@ -35,13 +35,22 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
-    m_driveTrain.setDefaultCommand(
+    /*m_driveTrain.setDefaultCommand(
         new DriveCommand(
             m_driveTrain,
             () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
-            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
+            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech)));*/
+
+    m_driveTrain.setDefaultCommand(
+        new DriveCommandWithThrottle(
+            m_driveTrain,
+            () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
+            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech),
+            () -> m_driverController.getRawAxis(3)));
 
     configureButtonBindings();
   }
