@@ -6,11 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class Move extends CommandBase {
+public class Move extends Command {
   protected SwerveSubsystem m_driveTrain;
   private double translationXSupplier;
   private double translationYSupplier;

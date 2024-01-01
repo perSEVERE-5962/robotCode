@@ -4,14 +4,20 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.sensors.CANCoder;
+//import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Wheels extends SubsystemBase {
   private CANSparkMax m_leadMotor;
   // private CANSparkMax m_followMotor;
-  CANCoder m_encoder;
+  CANcoder m_encoder;
+
+
 
   /** Creates a new Wheels. */
   public Wheels(int motorId, int encoderId) {
@@ -23,7 +29,17 @@ public class Wheels extends SubsystemBase {
 
     m_leadMotor.setInverted(true);
 
-    m_encoder = new CANCoder(encoderId);
+    m_encoder = new CANcoder(encoderId, Constants.DriveConstants.kCanBusName);
+    
+    /* Configure CANcoder */
+    var toApply = new CANcoderConfiguration();
+
+    /* User can change the configs if they want, or leave it empty for factory-default */
+    m_encoder.getConfigurator().apply(toApply);
+
+    /* Speed up signals to an appropriate rate */
+    m_encoder.getPosition().setUpdateFrequency(100);
+    m_encoder.getVelocity().setUpdateFrequency(100);    
   }
 
   public void turn(double speed) {

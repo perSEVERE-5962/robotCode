@@ -1,6 +1,8 @@
 package frc.robot.subsystems.drivetrain;
 
-import com.ctre.phoenix.sensors.CANCoder;
+import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -9,6 +11,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.ModuleConstants;
 
@@ -24,7 +27,7 @@ public class SwerveModule {
   private PIDController resetController;
 
   // private final AnalogInput absoluteEncoder;
-  private final CANCoder absoluteEncoder;
+  private final CANcoder absoluteEncoder;
   private final boolean absoluteEncoderReversed;
   private double absoluteEncoderOffsetRad;
 
@@ -39,8 +42,17 @@ public class SwerveModule {
 
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
-    absoluteEncoder = new CANCoder(absoluteEncoderId);
+    absoluteEncoder = new CANcoder(absoluteEncoderId, Constants.DriveConstants.kCanBusName);
     // SAT CHANGE: absoluteEncoder.setPosition(0);
+    /* Configure CANcoder */
+    var toApply = new CANcoderConfiguration();
+
+    /* User can change the configs if they want, or leave it empty for factory-default */
+    absoluteEncoder.getConfigurator().apply(toApply);
+
+    /* Speed up signals to an appropriate rate */
+    absoluteEncoder.getPosition().setUpdateFrequency(100);
+    absoluteEncoder.getVelocity().setUpdateFrequency(100);
 
     driveMotor = new CANSparkMax(driveMotorId, MotorType.kBrushless);
     turningMotor = new CANSparkMax(turningMotorId, MotorType.kBrushless);
@@ -103,7 +115,7 @@ public class SwerveModule {
   }
 
   public double getAbsoluteEncoderAngle() {
-    double angle = absoluteEncoder.getPosition();
+    double angle = absoluteEncoder.getPosition().getValueAsDouble();
     // SAT CHANGE: double angle = absoluteEncoder.getPosition()*(360/4096);
     return angle;
   }

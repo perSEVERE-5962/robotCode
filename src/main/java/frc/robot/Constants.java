@@ -55,7 +55,7 @@ public final class Constants {
   }
 
   public static final class DriveConstants {
-
+    public static final String kCanBusName = "rio";
     public static final double kTrackWidth = Units.inchesToMeters(24.857);
     // Distance between right and left wheels
     public static final double kWheelBase = Units.inchesToMeters(24.857);

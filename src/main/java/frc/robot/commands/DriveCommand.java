@@ -3,13 +3,13 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-public class DriveCommand extends CommandBase {
+public class DriveCommand extends Command {
 
   private final SwerveSubsystem swerveSubsystem;
   private final DoubleSupplier xSpdFunction, ySpdFunction, turningSpdFunction;
