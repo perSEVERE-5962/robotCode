@@ -17,8 +17,6 @@ public class Wheels extends SubsystemBase {
   // private CANSparkMax m_followMotor;
   CANcoder m_encoder;
 
-
-
   /** Creates a new Wheels. */
   public Wheels(int motorId, int encoderId) {
     m_leadMotor =

@@ -40,8 +40,8 @@ public class RobotContainer {
             m_driveTrain,
             () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
-            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech)));*/
+            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));*/
 
     m_driveTrain.setDefaultCommand(
         new DriveCommandWithThrottle(
