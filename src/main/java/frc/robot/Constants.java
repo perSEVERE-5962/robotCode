@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
@@ -17,10 +18,10 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  private static final double BACK_RIGHT_OFFSET = 170.684;
-  private static final double BACK_LEFT_OFFSET = 18.545;
-  private static final double FRONT_RIGHT_OFFSET = 12.393;
-  private static final double FRONT_LEFT_OFFSET = 100.020;
+  private static final double BACK_RIGHT_OFFSET = 0.478760;
+  private static final double BACK_LEFT_OFFSET = 0.051025;
+  private static final double FRONT_RIGHT_OFFSET = 0.034180;
+  private static final double FRONT_LEFT_OFFSET = 0.278320;
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -83,13 +84,13 @@ public final class Constants {
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
     // Back Right
-    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = BACK_RIGHT_OFFSET + 180;
+    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees() + 180;
     // Back Left
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = BACK_LEFT_OFFSET + 180;
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees() + 180;
     // Front Right
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = FRONT_RIGHT_OFFSET + 180;
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180;
     // Front Left
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = FRONT_LEFT_OFFSET + 180;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180;
 
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
