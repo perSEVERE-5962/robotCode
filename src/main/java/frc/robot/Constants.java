@@ -157,4 +157,12 @@ public final class Constants {
     public static final int kPCMID = 3;
     public static final int kPCMID24V = 0;
   }
+
+  public static final class SpeakerConstants {
+    // The speaker has 2 april tags from it
+    public static final int kSpeakerAprilTag1Id = 0;
+    public static final int kSpeakerAprilTag2Id = 0;
+    public static final Vec3 kOriginFromSpeaker = new Vec3(0.0, 0.0, 0.0);
+    public static final Vec3 kMoveToPosition = new Vec3(0.0, 0.0, 0.0);
+  }
 }

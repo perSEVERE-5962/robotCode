@@ -3,6 +3,7 @@ package frc.robot.subsystems.drivetrain;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -129,6 +130,14 @@ public class SwerveSubsystem extends SubsystemBase {
     frontRight.stop();
     backLeft.stop();
     backRight.stop();
+  }
+
+  public void move(double x, double y, double rot) {
+    ChassisSpeeds chassisSpeeds;
+    chassisSpeeds = new ChassisSpeeds(x, y, rot);
+    SwerveModuleState[] moduleStates =
+        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    setModuleStates(moduleStates);
   }
 
   public void setModuleStates(SwerveModuleState[] desiredStates) {
