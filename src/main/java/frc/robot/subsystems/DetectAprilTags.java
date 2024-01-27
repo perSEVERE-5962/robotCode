@@ -13,6 +13,7 @@ import edu.wpi.first.cscore.CvSource;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -42,7 +43,7 @@ public class DetectAprilTags {
   private static ArrayList<Integer> tagId = new ArrayList<>();
 
   private final String family = "tag36h11"; // Usual tag family that FRC uses
-  private final double tagSize = 0.172; // Default: 1524 // Units are in meters
+  private final double tagSize = Units.inchesToMeters(6.5); // Units are in meters
   private final double[] focalData = {
     1011.3749416937393, 1008.5391755084075, 645.4955139388737, 508.32877656020196
   }; // 1280 x 720 camera

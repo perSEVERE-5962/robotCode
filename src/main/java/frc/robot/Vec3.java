@@ -15,10 +15,20 @@ public class Vec3 {
         this.z = z;
     }
 
+    public Vec3(double[] pos) {
+        this.x = pos[0];
+        this.y = pos[1];
+        this.z = pos[2];
+    }
+
     public void setAll(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public double[] toDoubleArray() {
+        return new double[] {this.x, this.y, this.z};
     }
 
     public double length() {
