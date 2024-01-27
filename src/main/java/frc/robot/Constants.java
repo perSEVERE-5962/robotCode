@@ -25,7 +25,7 @@ public final class Constants {
 
   public static final int TEAM_COLOR_RED = 1;
   public static final int TEAM_COLOR_BLUE = 2;
-  public static int kTeamColor = TEAM_COLOR_RED;
+  public static int kTeamColor = TEAM_COLOR_BLUE;
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -164,7 +164,7 @@ public final class Constants {
 
   public static final class SpeakerConstants {
     // The speaker has 2 april tags from it
-    public static final int kSpeakerBlueAprilTag1Id = 7;
+    public static final int kSpeakerBlueAprilTag1Id = 0;
     public static final int kSpeakerBlueAprilTag2Id = 8;
     public static final int kSpeakerRedAprilTag1Id = 4;
     public static final int kSpeakerRedAprilTag2Id = 3;
