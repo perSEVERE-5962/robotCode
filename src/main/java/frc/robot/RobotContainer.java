@@ -14,8 +14,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivetrain.*;
-// import frc.robot.subsystems.manipulator.PLGMotor;
+import frc.robot.Constants.CANDeviceIDs;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -29,6 +30,8 @@ public class RobotContainer {
       new XboxController(OIConstants.kDriverControllerPort);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
+  private final Intake intake=new Intake(false,CANDeviceIDs.kIntakeMotorID);
+  private final Intake feeder=new Intake(false,CANDeviceIDs.kFeederMotorID);
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
