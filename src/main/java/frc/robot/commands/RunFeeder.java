@@ -5,10 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Intake;
 
-public class Feeder extends Command {
+public class RunFeeder extends Command {
+  private Intake Feeder;
   /** Creates a new Feeder. */
-  public Feeder() {
+  public RunFeeder(Intake Feeder) {
+    this.Feeder=Feeder;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,11 +21,16 @@ public class Feeder extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    Feeder.run(-1);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    Feeder.run(0);
+    
+  }
 
   // Returns true when the command should end.
   @Override
