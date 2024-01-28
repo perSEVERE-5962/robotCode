@@ -25,12 +25,12 @@ public class ChangeLED extends Command {
 
   @Override
   public void end(boolean interrupted) {
-   // m_notification.setColor(0);
+    m_notification.setColor(0);
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
 
   }
 

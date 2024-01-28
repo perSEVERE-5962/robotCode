@@ -172,6 +172,7 @@ public final class Constants {
 
   public static final class ColorConstants {
     public static final int BlueHue = 103;
+    public static final int YellowHue = 20;
    
 
 

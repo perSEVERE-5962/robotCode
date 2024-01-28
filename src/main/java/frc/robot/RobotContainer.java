@@ -37,7 +37,7 @@ public class RobotContainer {
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
   
   Trigger dr_ChangeLED =
-      new JoystickButton(m_driverController, XboxController.Button.kX.value);
+      new JoystickButton(m_driverController, XboxController.Button.kY.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
@@ -69,7 +69,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
-    dr_ChangeLED.onTrue(new ChangeLED(m_notification, ColorConstants.BlueHue));
+    dr_ChangeLED.toggleOnTrue(new ChangeLED(m_notification, ColorConstants.YellowHue));
   }
 
   /**
