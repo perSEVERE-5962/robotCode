@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivetrain.*;
 import frc.robot.Constants.CANDeviceIDs;
@@ -33,6 +34,8 @@ public class RobotContainer {
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private final Intake intake=new Intake(false,CANDeviceIDs.kIntakeMotorID);
   private final Intake feeder=new Intake(true,CANDeviceIDs.kFeederMotorID);
+  private final UltrasonicAnalog feederUltrasonic=new UltrasonicAnalog(Constants.UltrasonicConstants.kFeeder_Analog_Channel,Constants.UltrasonicConstants.kFeeder_PCM_Channel);
+  private final UltrasonicAnalog intakeUltrasonic=new UltrasonicAnalog(Constants.UltrasonicConstants.kIntake_Analog_Channel,Constants.UltrasonicConstants.kIntake_PCM_Channel);
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
@@ -70,8 +73,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
-    dr_aButton.toggleOnTrue(new RunIntake(intake));
-    dr_bButton.toggleOnTrue(new RunFeeder(feeder));
+    dr_aButton.toggleOnTrue(new RunIntake(intake,intakeUltrasonic));
+    dr_bButton.toggleOnTrue(new RunFeeder(feeder,feederUltrasonic));
 
   }
 

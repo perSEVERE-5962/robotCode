@@ -6,11 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+import frc.robot.sensors.UltrasonicAnalog;
 
 public class RunFeeder extends Command {
   private Intake feeder;
+  private UltrasonicAnalog feederUltrasonic;
   /** Creates a new Feeder. */
-  public RunFeeder(Intake feeder) {
+  public RunFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
+    this.feederUltrasonic=feederUltrasonic;
     this.feeder=feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
@@ -36,6 +39,11 @@ public class RunFeeder extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    double Range_of_feeder=feederUltrasonic.getRange();
+    if(Range_of_feeder<=2.3){
+      return true;
+    }else{
+      return false;
+    }
   }
 }
