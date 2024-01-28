@@ -30,14 +30,14 @@ public class RobotContainer {
       new XboxController(OIConstants.kDriverControllerPort);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  private final Intake intake = new Intake(false,CANDeviceIDs.kIntakeMotorID);
-  private final Intake feeder = new Intake(false,CANDeviceIDs.kFeederMotorID);
+ // private final Intake intake = new Intake(false,CANDeviceIDs.kIntakeMotorID);
+ // private final Intake feeder = new Intake(false,CANDeviceIDs.kFeederMotorID);
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
-    Trigger dr_runTheShooter =
-      new JoystickButton(m_driverController, XboxController.Button.kRightBumper.value);
+  Trigger dr_runTheShooter =
+      new JoystickButton(m_driverController, XboxController.Button.kX.value);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
     /*m_driveTrain.setDefaultCommand(
@@ -68,7 +68,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
-    dr_runTheShooter.onTrue(new RunShooter(shooter));
+    dr_runTheShooter.toggleOnTrue(new RunShooter(shooter));
   }
 
   /**
