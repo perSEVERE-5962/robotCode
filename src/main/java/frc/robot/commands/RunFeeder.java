@@ -8,11 +8,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class RunFeeder extends Command {
-  private Intake Feeder;
+  private Intake feeder;
   /** Creates a new Feeder. */
-  public RunFeeder(Intake Feeder) {
-    this.Feeder=Feeder;
+  public RunFeeder(Intake feeder) {
+    this.feeder=feeder;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -22,13 +23,13 @@ public class RunFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Feeder.run(-1);
+    feeder.run(-1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Feeder.run(0);
+    feeder.run(0);
     
   }
 

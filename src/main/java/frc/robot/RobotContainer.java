@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OIConstants;
@@ -31,10 +32,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private final Intake intake=new Intake(false,CANDeviceIDs.kIntakeMotorID);
-  private final Intake feeder=new Intake(false,CANDeviceIDs.kFeederMotorID);
+  private final Intake feeder=new Intake(true,CANDeviceIDs.kFeederMotorID);
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+      Trigger dr_aButton = new JoystickButton(m_driverController ,XboxController.Button.kA.value);
+      Trigger dr_bButton = new JoystickButton(m_driverController ,XboxController.Button.kB.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
@@ -45,6 +48,7 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
             () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech)));*/
+  
 
     m_driveTrain.setDefaultCommand(
         new DriveCommandWithThrottle(
@@ -66,6 +70,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+    dr_aButton.toggleOnTrue(new RunIntake(intake));
+    dr_bButton.toggleOnTrue(new RunFeeder(feeder));
+
   }
 
   /**
