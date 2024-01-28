@@ -14,9 +14,9 @@ public class Shooter extends SubsystemBase {
   private CANSparkMax topMotor;
   private CANSparkMax bottomMotor;
   /** Creates a new Intake. */
-  public Shooter() {
-    topMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter1MotorID, CANSparkMaxLowLevel.MotorType.kBrushless);
-    bottomMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter2MotorID, CANSparkMaxLowLevel.MotorType.kBrushless);
+  public Shooter(int kShooter1MotorID, int kShooter2MotorID) {
+    topMotor = new CANSparkMax(kShooter1MotorID, CANSparkMaxLowLevel.MotorType.kBrushless);
+    bottomMotor = new CANSparkMax(kShooter2MotorID, CANSparkMaxLowLevel.MotorType.kBrushless);
   }
 
 
