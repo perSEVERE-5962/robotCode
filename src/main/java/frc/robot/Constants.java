@@ -169,4 +169,12 @@ public final class Constants {
     public static final int kSpeakerRedAprilTag1Id = 4;
     public static final int kSpeakerRedAprilTag2Id = 3;
   }
+
+  public static final class ColorConstants {
+    public static final int BlueHue = 103;
+   
+
+
+
+  }
 }

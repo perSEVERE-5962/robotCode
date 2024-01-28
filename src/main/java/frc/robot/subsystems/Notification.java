@@ -32,7 +32,7 @@ public class Notification extends SubsystemBase {
 
   public void setColor(int hue) {
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
-        m_ledBuffer.setHSV(i, hue, 255, 128);   // could also do .setRGB if we want that color system
+        m_ledBuffer.setHSV(i, hue, 255, 208);   // could also do .setRGB if we want that color system
     }
     m_led.setData(m_ledBuffer);
 }

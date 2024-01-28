@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.drivetrain.*;
 // import frc.robot.subsystems.manipulator.PLGMotor;
 
@@ -29,9 +31,13 @@ public class RobotContainer {
       new XboxController(OIConstants.kDriverControllerPort);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
+  private final Notification m_notification = new Notification();
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+  
+  Trigger dr_ChangeLED =
+      new JoystickButton(m_driverController, XboxController.Button.kX.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
@@ -63,6 +69,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+    dr_ChangeLED.onTrue(new ChangeLED(m_notification, ColorConstants.BlueHue));
   }
 
   /**
