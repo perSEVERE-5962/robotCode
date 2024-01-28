@@ -10,11 +10,11 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class RunShooter extends SubsystemBase {
+public class Shooter extends SubsystemBase {
   private CANSparkMax topMotor;
   private CANSparkMax bottomMotor;
   /** Creates a new Intake. */
-  public RunShooter() {
+  public Shooter() {
     topMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter1MotorID, CANSparkMaxLowLevel.MotorType.kBrushless);
     bottomMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter2MotorID, CANSparkMaxLowLevel.MotorType.kBrushless);
   }
