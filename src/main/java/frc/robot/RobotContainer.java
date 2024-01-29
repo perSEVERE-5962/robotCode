@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +18,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.Notification;
 import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
 import frc.robot.Constants.CANDeviceIDs;
 
@@ -39,9 +39,12 @@ public class RobotContainer {
   private final Intake feeder=new Intake(true,CANDeviceIDs.kFeederMotorID);
   private final UltrasonicAnalog feederUltrasonic=new UltrasonicAnalog(Constants.UltrasonicConstants.kFeeder_Analog_Channel,Constants.UltrasonicConstants.kFeeder_PCM_Channel);
   private final UltrasonicAnalog intakeUltrasonic=new UltrasonicAnalog(Constants.UltrasonicConstants.kIntake_Analog_Channel,Constants.UltrasonicConstants.kIntake_PCM_Channel);
+  private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+  Trigger dr_runTheShooter =
+      new JoystickButton(m_driverController, XboxController.Button.kX.value);
   
   Trigger dr_ChangeLED =
       new JoystickButton(m_driverController, XboxController.Button.kY.value);
