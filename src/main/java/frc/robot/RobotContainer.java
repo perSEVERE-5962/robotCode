@@ -89,7 +89,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = new Move(m_driveTrain, 0, 0, 0);
+    Command command = new UpdateTagInfo();
     return command;
   }
 
