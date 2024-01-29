@@ -1,9 +1,0 @@
-Will need to make a subsystem for:
-    Intake (CAN ID: _)
-    Shooter (CAN ID: _)
-    Loader (CAN ID: _)
-
-Will need to make a command for:
-    Intaking
-    Shooting
-    Loading
