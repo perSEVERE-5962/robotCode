@@ -12,8 +12,10 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
+import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.drivetrain.*;
 // import frc.robot.subsystems.manipulator.PLGMotor;
 
@@ -29,28 +31,32 @@ public class RobotContainer {
       new XboxController(OIConstants.kDriverControllerPort);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
+  private final Notification m_notification = new Notification();
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+  
+  Trigger dr_ChangeLED =
+      new JoystickButton(m_driverController, XboxController.Button.kY.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
-    /*m_driveTrain.setDefaultCommand(
+    m_driveTrain.setDefaultCommand(
         new DriveCommand(
             m_driveTrain,
             () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
-            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech)));*/
+            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
-    m_driveTrain.setDefaultCommand(
+    /*m_driveTrain.setDefaultCommand(
         new DriveCommandWithThrottle(
             m_driveTrain,
             () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
             () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech),
-            () -> m_driverController.getRawAxis(3)));
+            () -> m_driverController.getRawAxis(3)));*/
 
     configureButtonBindings();
   }
@@ -63,6 +69,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+    dr_ChangeLED.toggleOnTrue(new ChangeLED(m_notification, ColorConstants.YellowHue));
   }
 
   /**

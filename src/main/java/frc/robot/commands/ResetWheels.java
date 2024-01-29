@@ -34,15 +34,13 @@ public class ResetWheels extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    driveTrain.resetModuleEncoders();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (System.currentTimeMillis() - initialTime > 1000) {
-      driveTrain.resetModuleEncoders();
-      return true;
-    }
-    return false;
+    return System.currentTimeMillis() - initialTime > 1000;
   }
 }

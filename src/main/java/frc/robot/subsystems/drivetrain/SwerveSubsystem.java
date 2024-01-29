@@ -3,11 +3,13 @@ package frc.robot.subsystems.drivetrain;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -130,6 +132,14 @@ public class SwerveSubsystem extends SubsystemBase {
     backRight.stop();
   }
 
+  public void move(double x, double y, double rot) {
+    ChassisSpeeds chassisSpeeds;
+    chassisSpeeds = new ChassisSpeeds(x, y, rot);
+    SwerveModuleState[] moduleStates =
+        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    setModuleStates(moduleStates);
+  }
+
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(
         desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
@@ -203,10 +213,16 @@ public class SwerveSubsystem extends SubsystemBase {
     return gyro.getYaw();
   }
 
-  public void addDebugInfo() {
+  public GenericEntry[] addDebugInfo() {
     ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Swerve Subsystem Debug");
-    shuffleboardTab.addNumber("Robot Heading", () -> getHeading());
-    shuffleboardTab.addString("Robot Location", () -> getPose().getTranslation().toString());
+    GenericEntry[] entries = {null, null, null, null};
+    entries[0] = shuffleboardTab.add("BR Angle", 0).getEntry();
+    entries[1] = shuffleboardTab.add("BL Angle", 0).getEntry();
+    entries[2] = shuffleboardTab.add("FR Angle", 0).getEntry();
+    entries[3] = shuffleboardTab.add("FL Angle", 0).getEntry();
+    return entries;
+    // shuffleboardTab.addNumber("Robot Heading", () -> getHeading());
+    // shuffleboardTab.addString("Robot Location", () -> getPose().getTranslation().toString());
     // shuffleboardTab.addNumber("LFDE", () -> frontLeft.getDrivePosition());
     // shuffleboardTab.addNumber("LBDE", () -> backLeft.getDrivePosition());
     // shuffleboardTab.addNumber("RFDE", () -> frontRight.getDrivePosition());
