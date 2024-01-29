@@ -152,13 +152,8 @@ public final class Constants {
     public static final int kFrontRightDriveAbsoluteEncoderID = 32;
     public static final int kBackRightDriveAbsoluteEncoderID = 12;
     // manipulator
-    public static final int kLiftLeadID = 50;
-    public static final int kLiftFollowID = 51;
-    public static final int kReachID = 60;
-    public static final int kWristID = 61;
-    public static final int kRollerId = 62;
-    // pmc
-    public static final int kPCMID = 3;
+    public static final int kIntakeMotorID = 50;
+    public static final int kFeederMotorID = 51;
     public static final int kPCMID24V = 0;
   }
 
@@ -173,9 +168,12 @@ public final class Constants {
   public static final class ColorConstants {
     public static final int BlueHue = 103;
     public static final int YellowHue = 20;
-   
-
-
-
+  public static final class UltrasonicConstants {
+    public static final int kIntake_Analog_Channel = 0;
+    public static final int kIntake_PCM_Channel = 0;
+ public static final int kFeeder_Analog_Channel = 1;
+    public static final int kFeeder_PCM_Channel = 1;
+    public static final double kMinRange = 6;
+    public static final double kMaxRange = 7;
   }
 }

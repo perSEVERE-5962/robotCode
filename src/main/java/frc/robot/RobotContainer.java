@@ -10,14 +10,17 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Notification;
+import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.drivetrain.*;
-// import frc.robot.subsystems.manipulator.PLGMotor;
+import frc.robot.Constants.CANDeviceIDs;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,12 +35,18 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private final Notification m_notification = new Notification();
+  private final Intake intake=new Intake(false,CANDeviceIDs.kIntakeMotorID);
+  private final Intake feeder=new Intake(true,CANDeviceIDs.kFeederMotorID);
+  private final UltrasonicAnalog feederUltrasonic=new UltrasonicAnalog(Constants.UltrasonicConstants.kFeeder_Analog_Channel,Constants.UltrasonicConstants.kFeeder_PCM_Channel);
+  private final UltrasonicAnalog intakeUltrasonic=new UltrasonicAnalog(Constants.UltrasonicConstants.kIntake_Analog_Channel,Constants.UltrasonicConstants.kIntake_PCM_Channel);
 
   Trigger dr_resetToOffsets =
       new JoystickButton(m_driverController, XboxController.Button.kStart.value);
   
   Trigger dr_ChangeLED =
       new JoystickButton(m_driverController, XboxController.Button.kY.value);
+      Trigger dr_aButton = new JoystickButton(m_driverController ,XboxController.Button.kA.value);
+      Trigger dr_bButton = new JoystickButton(m_driverController ,XboxController.Button.kB.value);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   private RobotContainer() {
@@ -70,6 +79,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
     dr_ChangeLED.toggleOnTrue(new ChangeLED(m_notification, ColorConstants.YellowHue));
+    dr_aButton.toggleOnTrue(new RunIntake(intake,intakeUltrasonic));
+    dr_bButton.toggleOnTrue(new RunFeeder(feeder,feederUltrasonic));
   }
 
   /**
