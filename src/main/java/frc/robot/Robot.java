@@ -22,16 +22,17 @@ import frc.robot.subsystems.DetectAprilTags;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-
-  /**
-   * This function is run when the robot is first started up and should be used for any
-   * initialization code.
-   */
   private Solenoid m_ultrasonic_solenoid =
     new Solenoid(
         Constants.CANDeviceIDs.kPCMID24V,
         PneumaticsModuleType.CTREPCM,
         Constants.UltrasonicConstants.kIntake_PCM_Channel);
+        
+
+  /**
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
+   */
   @Override
   public void robotInit() {
     m_ultrasonic_solenoid.set(true);

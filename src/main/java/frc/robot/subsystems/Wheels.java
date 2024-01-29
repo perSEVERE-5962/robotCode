@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 
 //import com.ctre.phoenix.sensors.CANCoder;
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
-import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
