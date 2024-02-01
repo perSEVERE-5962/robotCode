@@ -23,7 +23,7 @@ public class Wheels extends SubsystemBase {
         new CANSparkMax(motorId, MotorType.kBrushless);
     // m_followMotor = new CANSparkMax(
     // Constants.CANDeviceIDs.kReachFollowID,
-    // com.revrobotics.CANSparkMaxLowLevel.MotorType.kBrushless);
+    // com.revrobotics.CANSparkLowLevel.MotorType.kBrushless);
 
     m_leadMotor.setInverted(true);
 

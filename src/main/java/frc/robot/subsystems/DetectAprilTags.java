@@ -18,6 +18,7 @@ import edu.wpi.first.networktables.IntegerArrayPublisher;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Vec3;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import org.opencv.imgproc.Imgproc;
  *
  * <p>Be aware that the performance on this is much worse than a coprocessor solution!
  */
-public class DetectAprilTags {
+public class DetectAprilTags extends SubsystemBase {
   private static DetectAprilTags instance;
 
   private static Vec3 posSingle = new Vec3(0, 0, 0);
@@ -45,19 +46,25 @@ public class DetectAprilTags {
   private final String family = "tag36h11"; // Usual tag family that FRC uses
   private final double tagSize = Units.inchesToMeters(6.5); // Units are in meters
   private final double[] focalData = {
-    1011.3749416937393, 1008.5391755084075, 645.4955139388737, 508.32877656020196
+    1011.3749416937393/4,
+    1008.5391755084075/4,
+    645.4955139388737/4,
+    508.32877656020196/4
   }; // 1280 x 720 camera
 
   private final int brightness = 50;
-  private final int resWidth = 1280;
-  private final int resHeight = 720;
+  private final int resWidth = 1280/4;
+  private final int resHeight = 720/4;
   private final int fps = 30;
 
-  public static void activate() {
+  // Dividing some values by some amount makes the resolution worse but makes the fps better
+
+  public static DetectAprilTags activate() {
     if (instance == null) {
       instance = new DetectAprilTags();
       instance.initDetector();
     }
+    return instance;
   }
 
   private void initDetector() {

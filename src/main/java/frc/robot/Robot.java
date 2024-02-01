@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 // import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -20,6 +22,12 @@ import frc.robot.subsystems.DetectAprilTags;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
+  private Solenoid m_ultrasonic_solenoid =
+    new Solenoid(
+        Constants.CANDeviceIDs.kPCMID24V,
+        PneumaticsModuleType.CTREPCM,
+        Constants.UltrasonicConstants.kIntake_PCM_Channel);
+        
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -27,6 +35,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    m_ultrasonic_solenoid.set(true);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
