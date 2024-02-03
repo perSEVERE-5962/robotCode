@@ -15,7 +15,7 @@ public class RunIntakeFeeder extends Command {
   private Notification notification;
   private UltrasonicAnalog feederUltrasonic;
   /** Creates a new Feeder. */
-  public RunFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic, Notification notification) {
+  public RunIntakeFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic, Notification notification) {
     this.feederUltrasonic=feederUltrasonic;
     this.intakefeeder=feeder;
     this.notification = notification;
@@ -51,6 +51,7 @@ public class RunIntakeFeeder extends Command {
       return true;
     }else{
       return false;
+      
     }
      
   }
