@@ -5,12 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.RunShooterFeeder;
-import frc.robot.commands.SpinUpShooter;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorConstants;
-import frc.robot.commands.ChangeLED;
-import frc.robot.commands.StopShooter;
 import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
@@ -26,7 +21,7 @@ public class Shoot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SpinUpShooter(shooter),
         new RunShooterFeeder(feeder, feederSensor),
-        new ChangeLED(changeLight, ColorConstants.YellowHue),
+        new ChangeLED(changeLight, ColorConstants.RedHue),
         new StopShooter(shooter));
   }
 }

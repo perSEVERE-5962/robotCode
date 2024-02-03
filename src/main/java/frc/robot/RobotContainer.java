@@ -39,7 +39,7 @@ public class RobotContainer {
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private final Notification m_notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
-  private final Intake intake = new Intake(false, CANDeviceIDs.kIntakeMotorID);
+  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
   private final Intake feeder = new Intake(true, CANDeviceIDs.kFeederMotorID);
   private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
@@ -102,7 +102,7 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
 
     dr_bButton.toggleOnTrue(new BigIntakeCommandGroup(intake, intakeUltrasonic, m_notification, feeder));   
-    dr_bButton.toggleOnTrue(new RunIntakeFeeder(feeder, feederUltrasonic));   
+   // dr_bButton.toggleOnTrue(new RunIntakeFeeder(feeder, feederUltrasonic));   
     dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
     dr_yButton.toggleOnTrue(new RunIntake(intake, intakeUltrasonic));
     dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
