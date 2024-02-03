@@ -51,5 +51,6 @@ public class RunFeeder extends Command {
     }else{
       return false;
     }
+     System.out.println("Range="+ range_of_feeder);
   }
 }
