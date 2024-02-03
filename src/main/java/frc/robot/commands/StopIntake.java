@@ -5,36 +5,41 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter;
-public class StopShooter extends Command {
-  private Shooter motors;
-  /** Creates a new StopShooter. */
-  public StopShooter(Shooter motors) {
+import frc.robot.subsystems.Intake;
+
+public class StopIntake extends Command {
+  
+  private Intake intake;
+
+  /** Creates a new RunIntake. */
+  public StopIntake(Intake intake) {
+    
+    this.intake = intake;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.motors = motors;
-    addRequirements(motors);
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double shooterSpeed = 0;
-    motors.runShooter(shooterSpeed);
+    intake.run(0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-     motors.runShooter(0);
+    intake.run(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+      return true;
+    
   }
 }

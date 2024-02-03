@@ -4,15 +4,13 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 // import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.DetectAprilTags;
+import frc.robot.subsystems.DetectAprilTags; 
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -23,12 +21,7 @@ import frc.robot.subsystems.DetectAprilTags;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Solenoid m_ultrasonic_solenoid =
-    new Solenoid(
-        Constants.CANDeviceIDs.kPCMID24V,
-        PneumaticsModuleType.CTREPCM,
-        Constants.UltrasonicConstants.kIntake_PCM_Channel);
-        
+ 
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,13 +29,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    m_ultrasonic_solenoid.set(true);
+  
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
     DetectAprilTags.activate();
     SmartDashboard.putNumber("ShooterSpeed", 100);
   }
+  
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -53,7 +47,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+
+
+   // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.

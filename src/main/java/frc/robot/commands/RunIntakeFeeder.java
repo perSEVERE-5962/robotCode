@@ -6,44 +6,53 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Notification;
+import frc.robot.Constants.ColorConstants;
 import frc.robot.sensors.UltrasonicAnalog;
 
-public class RunFeeder extends Command {
-  private Intake feeder;
+public class RunIntakeFeeder extends Command {
+  private Intake intakefeeder ;
+  private Notification notification;
   private UltrasonicAnalog feederUltrasonic;
   /** Creates a new Feeder. */
-  public RunFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
+  public RunIntakeFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic, Notification notification) {
     this.feederUltrasonic=feederUltrasonic;
-    this.feeder=feeder;
+    this.intakefeeder=feeder;
+    this.notification = notification;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() { }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feeder.run(-1);
+    intakefeeder.run(-1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feeder.run(0);
+    intakefeeder.run(0);
     
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double Range_of_feeder=feederUltrasonic.getRange();
-    if(Range_of_feeder<=2.3){
+    double range_of_feeder=feederUltrasonic.getRange();
+    System.out.println("Range="+ range_of_feeder);
+    if(range_of_feeder<=2.3){
+      notification.setColor(ColorConstants.BlueHue);
+
       return true;
     }else{
       return false;
+      
     }
+     
   }
 }

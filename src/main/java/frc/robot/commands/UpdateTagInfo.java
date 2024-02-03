@@ -65,7 +65,6 @@ public class UpdateTagInfo extends Command {
       }
     }
 
-    System.out.println(TagInfo.tag1Pos.x.getDouble(0));
   }
 
   // Called once the command ends or is interrupted.

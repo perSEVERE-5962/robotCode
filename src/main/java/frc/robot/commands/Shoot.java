@@ -22,7 +22,7 @@ public class Shoot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     RobotContainer instance = RobotContainer.getInstance();
     addCommands(new SpinUpShooter(instance.getShooter()),
-        new RunFeeder(instance.getFeeder(), instance.getFeederSensor()),
+        new RunShooterFeeder(instance.getFeeder(), instance.getFeederSensor()),
         new ChangeLED(instance.getNotification(), ColorConstants.YellowHue),
         new StopShooter(instance.getShooter()));
   }

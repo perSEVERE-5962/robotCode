@@ -95,7 +95,7 @@ public final class Constants {
     public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180;
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180;
-
+                                                              
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
         Math.toRadians(kBackRightDriveAbsoluteEncoderOffsetDeg);
@@ -154,7 +154,7 @@ public final class Constants {
     // manipulator
     public static final int kIntakeMotorID = 50;
     public static final int kFeederMotorID = 51;
-    public static final int kPCMID24V = 0;
+    public static final int kPCMID24V = 1;
     public static final int kShooter1MotorID = 52;
     public static final int kShooter2MotorID = 53;
   }
@@ -170,6 +170,7 @@ public final class Constants {
   public static final class ColorConstants {
     public static final int BlueHue = 103;
     public static final int YellowHue = 20;
+    public static final int RedHue = 0;
   }
 
   public static final class UltrasonicConstants {
