@@ -26,7 +26,7 @@ public class Shoot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(new SpinUpShooter(shooter),
         new RunShooterFeeder(feeder, feederSensor),
-        new ChangeLED(changeLight, ColorConstants.YellowHue),
+        new ChangeLED(changeLight, ColorConstants.RedHue),
         new StopShooter(shooter));
   }
 }
