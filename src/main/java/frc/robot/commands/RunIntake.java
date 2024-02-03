@@ -5,16 +5,20 @@
 package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+import frc.robot.Constants.ColorConstants;
 import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Notification;
 
 
 public class RunIntake extends Command {
  private UltrasonicAnalog intakeUltrasonic;
+ public Notification notification;
   private Intake intake;
   /** Creates a new RunIntake. */
-  public RunIntake(Intake intake, UltrasonicAnalog intakeUltrasonic) {
+  public RunIntake(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification notification) {
     this.intakeUltrasonic=intakeUltrasonic;
     this.intake=intake;
+    this.notification = notification;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intake);
   }
@@ -22,6 +26,7 @@ public class RunIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    notification.setColor(ColorConstants.RedHue); 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,8 +46,10 @@ public class RunIntake extends Command {
   public boolean isFinished() {
     double Range_of_intake=intakeUltrasonic.getRange();
     if(Range_of_intake<=2.3){
+      notification.setColor(ColorConstants.YellowHue);
       return true;
     }else{
+      notification.setColor(ColorConstants.RedHue);
       return false;
     }
   }
