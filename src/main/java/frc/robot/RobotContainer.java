@@ -70,9 +70,9 @@ public class RobotContainer {
     configureButtonBindings();
 
     if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
-      SpeakerTagInfo.kTeamColor = SpeakerTagInfo.TEAM_COLOR_BLUE;
+      Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
     } else {
-      SpeakerTagInfo.kTeamColor = SpeakerTagInfo.TEAM_COLOR_RED;
+      Constants.kTeamColor = Constants.TEAM_COLOR_RED;
     }
   }
 

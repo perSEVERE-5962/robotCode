@@ -23,6 +23,10 @@ public final class Constants {
   private static final double FRONT_RIGHT_OFFSET = 0.034180;
   private static final double FRONT_LEFT_OFFSET = 0.278320;
 
+  public static final int TEAM_COLOR_BLUE = 0;
+  public static final int TEAM_COLOR_RED = 1;
+  public static int kTeamColor = 0;
+
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
@@ -167,5 +171,15 @@ public final class Constants {
     public static final int kFeeder_PCM_Channel = 1;
     public static final double kMinRange = 6;
     public static final double kMaxRange = 7;
+  }
+
+  public static final class SpeakerConstants {
+      // The speaker has 2 april tags from it
+      public static final int kBlueSpeakerAprilTag1Id = 0;
+      public static final int kBlueSpeakerAprilTag2Id = 8;
+      public static final int kRedSpeakerAprilTag1Id = 4;
+      public static final int kRedSpeakerAprilTag2Id = 3;
+      // Blue: 7 center, 8 side
+      // Red: 4 center, 3 side
   }
 }
