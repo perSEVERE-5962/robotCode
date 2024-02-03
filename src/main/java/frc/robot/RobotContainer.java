@@ -104,4 +104,17 @@ public class RobotContainer {
 
     return instance;
   }
+  public Shooter getShooter(){
+    return shooter;
+  }
+  public Intake getFeeder(){
+    return feeder;
+  }
+  public UltrasonicAnalog getFeederSensor(){
+    return feederUltrasonic;
+  }
+  public Notification getNotification(){
+    return m_notification;
+  }
 }
+
