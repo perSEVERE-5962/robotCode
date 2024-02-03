@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class RunShooter extends Command {
@@ -21,7 +22,9 @@ public class RunShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    motors.runShooter(1);
+    double shooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 0);
+    System.out.println(shooterSpeed);
+    motors.runShooter(shooterSpeed);
   }
 
   // Called once the command ends or is interrupted.
