@@ -35,15 +35,15 @@ public class TagInfo {
         };
 
         /** Left/right */
-        public double getEntryX() {
+        public double getX() {
             return this.entryX.getDouble(0);
         }
         /** Height */
-        public double getEntryY() {
+        public double getY() {
             return this.entryY.getDouble(0);
         }
         /** Distance */
-        public double getEntryZ() {
+        public double getZ() {
             return this.entryZ.getDouble(0);
         }
 

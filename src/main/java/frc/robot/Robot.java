@@ -72,8 +72,8 @@ public class Robot extends TimedRobot {
     CommandScheduler.getInstance().run();
     speakerTag1Info.update();
     speakerTag2Info.update();
-    speakerTag1Info.getEntry().setDouble(speakerTag1Info.getPos().getEntryZ());
-    speakerTag2Info.getEntry().setDouble(speakerTag2Info.getPos().getEntryZ());
+    speakerTag1Info.getEntry().setDouble(speakerTag1Info.getPos().getZ());
+    speakerTag2Info.getEntry().setDouble(speakerTag2Info.getPos().getZ());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
