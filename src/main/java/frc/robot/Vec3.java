@@ -6,9 +6,22 @@ package frc.robot;
 
 /** Shorter way to express X/Y/Z values */
 public class Vec3 {
-    public double x = 0;
-    public double y = 0;
-    public double z = 0;
+    private double x = 0;
+    private double y = 0;
+    private double z = 0;
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
     public Vec3(double x, double y, double z) {
         this.x = x;
         this.y = y;

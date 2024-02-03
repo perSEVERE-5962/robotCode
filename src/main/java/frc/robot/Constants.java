@@ -23,10 +23,6 @@ public final class Constants {
   private static final double FRONT_RIGHT_OFFSET = 0.034180;
   private static final double FRONT_LEFT_OFFSET = 0.278320;
 
-  public static final int TEAM_COLOR_RED = 1;
-  public static final int TEAM_COLOR_BLUE = 2;
-  public static int kTeamColor = TEAM_COLOR_BLUE;
-
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
@@ -157,14 +153,6 @@ public final class Constants {
     public static final int kPCMID24V = 0;
     public static final int kShooter1MotorID = 52;
     public static final int kShooter2MotorID = 53;
-  }
-
-  public static final class SpeakerConstants {
-    // The speaker has 2 april tags from it
-    public static final int kSpeakerBlueAprilTag1Id = 0;
-    public static final int kSpeakerBlueAprilTag2Id = 8;
-    public static final int kSpeakerRedAprilTag1Id = 4;
-    public static final int kSpeakerRedAprilTag2Id = 3;
   }
 
   public static final class ColorConstants {

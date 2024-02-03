@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.SpeakerTagInfo.*;
 import frc.robot.subsystems.DetectAprilTags;
 
 /**
@@ -27,6 +28,9 @@ public class Robot extends TimedRobot {
         Constants.CANDeviceIDs.kPCMID24V,
         PneumaticsModuleType.CTREPCM,
         Constants.UltrasonicConstants.kIntake_PCM_Channel);
+
+  private int speakerTag1Id = 0;
+  private int speakerTag2Id = 0;
         
 
   /**
@@ -40,6 +44,13 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
     DetectAprilTags.activate();
+    // Speaker IDs
+    // speakerTag1Id = SpeakerTagInfo.kTeamColor == SpeakerTagInfo.TEAM_COLOR_BLUE ? SpeakerIds.kBlueSpeakerAprilTag1Id : SpeakerIds.kRedSpeakerAprilTag1Id;
+    // speakerTag2Id = SpeakerTagInfo.kTeamColor == SpeakerTagInfo.TEAM_COLOR_BLUE ? SpeakerIds.kBlueSpeakerAprilTag2Id : SpeakerIds.kRedSpeakerAprilTag2Id;
+
+    // Manual override
+    speakerTag1Id = SpeakerIds.kBlueSpeakerAprilTag1Id;
+    speakerTag2Id = SpeakerIds.kBlueSpeakerAprilTag2Id;
   }
 
   /**
@@ -56,6 +67,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    SpeakerTagInfo.update(speakerTag1Id, speakerTag2Id);
+    SpeakerTagInfo.display();
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

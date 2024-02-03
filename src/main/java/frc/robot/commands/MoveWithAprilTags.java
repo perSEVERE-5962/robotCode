@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.TagInfo;
+import frc.robot.SpeakerTagInfo;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
@@ -35,10 +35,10 @@ public class MoveWithAprilTags extends Command {
   @Override
   public void execute() {
     ChassisSpeeds chassisSpeeds;
-    if (TagInfo.tag1Pos.x.getDouble(0) > 0.5) { // Too far right
+    if (SpeakerTagInfo.tag1Pos.x.getDouble(0) > 0.5) { // Too far right
       speedX = -0.5;
       validX = false;
-    } else if (TagInfo.tag1Pos.x.getDouble(0) < -0.5) { // Too far left
+    } else if (SpeakerTagInfo.tag1Pos.x.getDouble(0) < -0.5) { // Too far left
       speedX = 0.5;
       validX = false;
 
@@ -46,11 +46,11 @@ public class MoveWithAprilTags extends Command {
       validX = true;
     }
 
-    if (TagInfo.tag1Pos.z.getDouble(0) > 1) { // Too far backwards
+    if (SpeakerTagInfo.tag1Pos.z.getDouble(0) > 1) { // Too far backwards
       speedZ = 0.5;
       validZ = false;
 
-    } else if (TagInfo.tag1Pos.z.getDouble(0) < 1) { // Too far forwards
+    } else if (SpeakerTagInfo.tag1Pos.z.getDouble(0) < 1) { // Too far forwards
       speedZ = -0.5;
       validZ = false;
 
@@ -58,10 +58,10 @@ public class MoveWithAprilTags extends Command {
       validZ = true;
     }
 
-    if (TagInfo.tag1Rot.y.getDouble(0) > 0.5) {
+    if (SpeakerTagInfo.tag1Rot.y.getDouble(0) > 0.5) {
       speedRot = -0.5;
       validRot = false;
-    } else if (TagInfo.tag1Rot.y.getDouble(0) < -0.5) {
+    } else if (SpeakerTagInfo.tag1Rot.y.getDouble(0) < -0.5) {
       speedRot = 0.5;
       validRot = false;
 
