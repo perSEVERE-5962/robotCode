@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 // import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -28,10 +29,28 @@ public class Robot extends TimedRobot {
         PneumaticsModuleType.CTREPCM,
         Constants.UltrasonicConstants.kIntake_PCM_Channel);
 
-  private int speakerTag1Id = 0;
-  private int speakerTag2Id = 0;
   private TagInfo speakerTag1Info;
   private TagInfo speakerTag2Info;
+
+  @Override
+  public void driverStationConnected() {
+    if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
+      Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
+    } else {
+      Constants.kTeamColor = Constants.TEAM_COLOR_RED;
+    }
+
+    // Speaker IDs
+    int speakerTag1Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id : Constants.SpeakerConstants.kRedSpeakerAprilTag1Id;
+    int speakerTag2Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id : Constants.SpeakerConstants.kRedSpeakerAprilTag2Id;
+
+    // Manual override
+    // speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
+    // speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
+
+    speakerTag1Info = new TagInfo(speakerTag1Id);
+    speakerTag2Info = new TagInfo(speakerTag2Id);
+  }
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -44,16 +63,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
     DetectAprilTags.activate();
-    // Speaker IDs
-    // speakerTag1Id = SpeakerTagInfo.kTeamColor == SpeakerTagInfo.TEAM_COLOR_BLUE ? SpeakerIds.kBlueSpeakerAprilTag1Id : SpeakerIds.kRedSpeakerAprilTag1Id;
-    // speakerTag2Id = SpeakerTagInfo.kTeamColor == SpeakerTagInfo.TEAM_COLOR_BLUE ? SpeakerIds.kBlueSpeakerAprilTag2Id : SpeakerIds.kRedSpeakerAprilTag2Id;
-
-    // Manual override
-    speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
-    speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
-
-    speakerTag1Info = new TagInfo(speakerTag1Id);
-    speakerTag2Info = new TagInfo(speakerTag2Id);
   }
 
   /**
@@ -70,10 +79,12 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    speakerTag1Info.update();
-    speakerTag2Info.update();
-    speakerTag1Info.getEntry().setDouble(speakerTag1Info.getPos().getZ());
-    speakerTag2Info.getEntry().setDouble(speakerTag2Info.getPos().getZ());
+    if (speakerTag1Info != null && speakerTag2Info != null) {
+      speakerTag1Info.update();
+      speakerTag2Info.update();
+      speakerTag1Info.getEntry().setDouble(speakerTag1Info.getPos().getZ());
+      speakerTag2Info.getEntry().setDouble(speakerTag2Info.getPos().getZ());
+    }
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

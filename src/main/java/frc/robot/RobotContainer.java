@@ -68,12 +68,6 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(3)));*/
 
     configureButtonBindings();
-
-    if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
-      Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
-    } else {
-      Constants.kTeamColor = Constants.TEAM_COLOR_RED;
-    }
   }
 
   /**
