@@ -6,19 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Notification;
-import frc.robot.Constants.ColorConstants;
 import frc.robot.sensors.UltrasonicAnalog;
 
 public class RunIntakeFeeder extends Command {
   private Intake intakefeeder ;
-  private Notification notification;
   private UltrasonicAnalog feederUltrasonic;
   /** Creates a new Feeder. */
-  public RunIntakeFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic, Notification notification) {
+  public RunIntakeFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
     this.feederUltrasonic=feederUltrasonic;
     this.intakefeeder=feeder;
-    this.notification = notification;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
@@ -46,8 +42,7 @@ public class RunIntakeFeeder extends Command {
     double range_of_feeder=feederUltrasonic.getRange();
     System.out.println("Range="+ range_of_feeder);
     if(range_of_feeder<=2.3){
-      notification.setColor(ColorConstants.BlueHue);
-
+     
       return true;
     }else{
       return false;
