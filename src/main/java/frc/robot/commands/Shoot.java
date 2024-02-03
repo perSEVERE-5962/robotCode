@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.RunFeeder;
+import frc.robot.commands.RunShooterFeeder;
 import frc.robot.commands.SpinUpShooter;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorConstants;
