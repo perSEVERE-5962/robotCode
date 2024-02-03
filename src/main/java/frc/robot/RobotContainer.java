@@ -104,7 +104,7 @@ public class RobotContainer {
     dr_ChangeLED.toggleOnTrue(new ChangeLED(m_notification, ColorConstants.YellowHue));
     dr_bButton.toggleOnTrue(new RunIntakeFeeder(feeder, feederUltrasonic));   
     dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
-    dr_runTheShooter.onTrue(new Shoot()); 
+    dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
   }
 
   /**
@@ -127,18 +127,6 @@ public class RobotContainer {
     }
 
     return instance;
-  }
-  public Shooter getShooter(){
-    return shooter;
-  }
-  public Intake getFeeder(){
-    return feeder;
-  }
-  public UltrasonicAnalog getFeederSensor(){
-    return feederUltrasonic;
-  }
-  public Notification getNotification(){
-    return m_notification;
   }
 }
 
