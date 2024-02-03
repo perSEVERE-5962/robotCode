@@ -11,19 +11,22 @@ import frc.robot.RobotContainer;
 import frc.robot.Constants.ColorConstants;
 import frc.robot.commands.ChangeLED;
 import frc.robot.commands.StopShooter;
+import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Notification;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Shoot extends SequentialCommandGroup {
   /** Creates a new Shoot. */
-  public Shoot() {
+  public Shoot(Shooter shooter, Intake feeder, UltrasonicAnalog feederSensor, Notification changeLight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    RobotContainer instance = RobotContainer.getInstance();
-    addCommands(new SpinUpShooter(instance.getShooter()),
-        new RunShooterFeeder(instance.getFeeder(), instance.getFeederSensor()),
-        new ChangeLED(instance.getNotification(), ColorConstants.YellowHue),
-        new StopShooter(instance.getShooter()));
+    addCommands(new SpinUpShooter(shooter),
+        new RunShooterFeeder(feeder, feederSensor),
+        new ChangeLED(changeLight, ColorConstants.YellowHue),
+        new StopShooter(shooter));
   }
 }
