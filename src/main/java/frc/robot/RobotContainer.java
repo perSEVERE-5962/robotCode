@@ -80,7 +80,7 @@ public class RobotContainer {
     dr_ChangeLED.toggleOnTrue(new ChangeLED(m_notification, ColorConstants.YellowHue));    
     dr_aButton.toggleOnTrue(new RunIntake(intake,intakeUltrasonic));
     dr_bButton.toggleOnTrue(new RunFeeder(feeder,feederUltrasonic));
-    dr_runTheShooter.toggleOnTrue(new RunShooter(shooter)); 
+    dr_runTheShooter.onTrue(new SpinUpShooter(shooter)); 
   }
 
   /**

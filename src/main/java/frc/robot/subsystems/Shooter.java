@@ -17,11 +17,10 @@ public class Shooter extends SubsystemBase {
     bottomMotor = new CANSparkMax(kShooter2MotorID, MotorType.kBrushless);
   }
 
-
-  public void runShooter(double speed) {
+public void runShooter(double speed) {
     topMotor.set(-1*speed);
     bottomMotor.set(speed);
-  }
+}
 
 
   @Override
