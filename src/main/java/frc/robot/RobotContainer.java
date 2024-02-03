@@ -100,10 +100,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+
     dr_ChangeLED.toggleOnTrue(new ChangeLED(m_notification, ColorConstants.YellowHue));
     dr_bButton.toggleOnTrue(new RunIntakeFeeder(feeder, feederUltrasonic));   
     dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
-    dr_runTheShooter.toggleOnTrue(new RunShooter(shooter)); 
+    dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
   }
 
   /**
@@ -128,3 +129,4 @@ public class RobotContainer {
     return instance;
   }
 }
+
