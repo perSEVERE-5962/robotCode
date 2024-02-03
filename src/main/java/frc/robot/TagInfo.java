@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.DetectAprilTags;
 
@@ -98,14 +101,13 @@ public class TagInfo {
     private TagRotation tagRotEntries;
 
     private int tagId = -1;
-    private GenericEntry tagEntry;
+    private boolean hasEntry = false;
 
     public TagInfo(int tagId) {
         this.tagTable = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("tag" + tagId);
         this.tagPosEntries = new TagPosition(this.tagTable);
         this.tagRotEntries = new TagRotation(this.tagTable);
         this.tagId = tagId;
-        this.tagEntry = Shuffleboard.getTab("April Tag Info").add("Tag " + tagId, 0).getEntry();
     }
 
     public int getId() {
@@ -120,8 +122,18 @@ public class TagInfo {
         return tagRotEntries;
     }
 
-    public GenericEntry getEntry() {
-        return tagEntry;
+    public void updateShuffleboard() {
+        if (!this.hasEntry) {
+            String tab = "April Tag Info";
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " pos X", () -> getPos().getX());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " pos Y", () -> getPos().getY());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " pos Z", () -> getPos().getZ());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " rot X", () -> getRot().getX());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " rot Y", () -> getRot().getY());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " rot Z", () -> getRot().getZ());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " dyaw", () -> getRot().getDyaw());
+            this.hasEntry = true;
+        }
     }
 
     public void update() {

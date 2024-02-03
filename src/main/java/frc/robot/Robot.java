@@ -34,22 +34,22 @@ public class Robot extends TimedRobot {
 
   @Override
   public void driverStationConnected() {
-    if (DriverStation.getAlliance().equals(DriverStation.Alliance.Blue)) {
+    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
       Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
     } else {
       Constants.kTeamColor = Constants.TEAM_COLOR_RED;
     }
 
     // Speaker IDs
-    int speakerTag1Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id : Constants.SpeakerConstants.kRedSpeakerAprilTag1Id;
-    int speakerTag2Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id : Constants.SpeakerConstants.kRedSpeakerAprilTag2Id;
+    // int speakerTag1Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id : Constants.SpeakerConstants.kRedSpeakerAprilTag1Id;
+    // int speakerTag2Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id : Constants.SpeakerConstants.kRedSpeakerAprilTag2Id;
 
     // Manual override
-    // speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
-    // speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
+    // int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
+    // int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
 
-    speakerTag1Info = new TagInfo(speakerTag1Id);
-    speakerTag2Info = new TagInfo(speakerTag2Id);
+    // speakerTag1Info = new TagInfo(speakerTag1Id);
+    // speakerTag2Info = new TagInfo(speakerTag2Id);
   }
 
   /**
@@ -63,6 +63,15 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
     DetectAprilTags.activate();
+
+    // Manual override
+    int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
+    int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
+
+    speakerTag1Info = new TagInfo(speakerTag1Id);
+    speakerTag2Info = new TagInfo(speakerTag2Id);
+    speakerTag1Info.updateShuffleboard();
+    speakerTag2Info.updateShuffleboard();
   }
 
   /**
@@ -82,8 +91,6 @@ public class Robot extends TimedRobot {
     if (speakerTag1Info != null && speakerTag2Info != null) {
       speakerTag1Info.update();
       speakerTag2Info.update();
-      speakerTag1Info.getEntry().setDouble(speakerTag1Info.getPos().getZ());
-      speakerTag2Info.getEntry().setDouble(speakerTag2Info.getPos().getZ());
     }
   }
 
