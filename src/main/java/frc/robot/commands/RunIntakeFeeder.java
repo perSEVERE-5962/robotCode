@@ -10,14 +10,14 @@ import frc.robot.subsystems.Notification;
 import frc.robot.Constants.ColorConstants;
 import frc.robot.sensors.UltrasonicAnalog;
 
-public class RunFeeder extends Command {
-  private Intake feeder;
+public class RunIntakeFeeder extends Command {
+  private Intake intakefeeder ;
   private Notification notification;
   private UltrasonicAnalog feederUltrasonic;
   /** Creates a new Feeder. */
   public RunFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic, Notification notification) {
     this.feederUltrasonic=feederUltrasonic;
-    this.feeder=feeder;
+    this.intakefeeder=feeder;
     this.notification = notification;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
@@ -30,13 +30,13 @@ public class RunFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    feeder.run(-1);
+    intakefeeder.run(-1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    feeder.run(0);
+    intakefeeder.run(0);
     
   }
 
