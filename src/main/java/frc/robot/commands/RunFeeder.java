@@ -43,14 +43,15 @@ public class RunFeeder extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double Range_of_feeder=feederUltrasonic.getRange();
-    if(Range_of_feeder<=2.3){
+    double range_of_feeder=feederUltrasonic.getRange();
+    System.out.println("Range="+ range_of_feeder);
+    if(range_of_feeder<=2.3){
       notification.setColor(ColorConstants.BlueHue);
 
       return true;
     }else{
       return false;
     }
-     System.out.println("Range="+ range_of_feeder);
+     
   }
 }
