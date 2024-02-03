@@ -38,11 +38,12 @@ public class RunIntake extends Command {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    double Range_of_intake=intakeUltrasonic.getRange();
-    if(Range_of_intake<=2.3){
-      return true;
-    }else{
+    public boolean isFinished() {
+     double range_of_intake=intakeUltrasonic.getRange();
+     System.out.println("range =" + range_of_intake);
+     if(range_of_intake<=2.3){
+       return true;
+     }else{
       return false;
     }
   }

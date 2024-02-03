@@ -154,7 +154,7 @@ public final class Constants {
     // manipulator
     public static final int kIntakeMotorID = 50;
     public static final int kFeederMotorID = 51;
-    public static final int kPCMID24V = 0;
+    public static final int kPCMID24V = 1;
     public static final int kShooter1MotorID = 52;
     public static final int kShooter2MotorID = 53;
   }
