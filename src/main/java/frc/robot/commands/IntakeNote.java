@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.ColorConstants;
@@ -15,16 +16,16 @@ import frc.robot.subsystems.Notification;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeNote extends SequentialCommandGroup {
   /** Creates a new IntakeNote. */
-  public IntakeNote(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification changeLight, Intake feeder) {
+  public IntakeNote(Intake intake, UltrasonicAnalog intakeUltrasonic, UltrasonicAnalog feederUltrasonic, Notification changeLight, Intake feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ParallelRaceGroup(
+      new ParallelCommandGroup(
         new SequentialCommandGroup(
           new RunIntake(intake, intakeUltrasonic),
           new ChangeLED(changeLight, ColorConstants.BlueHue)
         ),
-        new RunIntakeFeeder(feeder, intakeUltrasonic)
+        new RunIntakeFeeder(feeder, feederUltrasonic)
       ),
       new StopIntake(intake)
     );

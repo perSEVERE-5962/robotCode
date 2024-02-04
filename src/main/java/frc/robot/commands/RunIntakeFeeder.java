@@ -26,7 +26,7 @@ public class RunIntakeFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakefeeder.run(-1);
+    intakefeeder.run(1);
   }
 
   // Called once the command ends or is interrupted.
