@@ -11,7 +11,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
 
 
-public class TurnToZeroo extends Command {
+public class TurnToZero extends Command {
   private double initialYaw;
   private double rotationDirection;
   private double rotationSpeed;
@@ -20,7 +20,7 @@ public class TurnToZeroo extends Command {
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-  public TurnToZeroo(SwerveSubsystem driveTrain, double rotationSpeed) {
+  public TurnToZero(SwerveSubsystem driveTrain, double rotationSpeed) {
     this.driveTrain = driveTrain;
     this.rotationSpeed = rotationSpeed;
 
@@ -33,10 +33,10 @@ public class TurnToZeroo extends Command {
   public void initialize() {
     initialYaw = driveTrain.getYaw();
     if (initialYaw <= 0) {
-      rotationDirection = 1;
+      rotationDirection = -.22;
     }
     else {
-      rotationDirection = -1;
+      rotationDirection = .22;
     }
   }
 

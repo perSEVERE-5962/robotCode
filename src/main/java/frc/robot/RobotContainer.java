@@ -103,7 +103,7 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
 
     dr_bButton.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic, m_notification, feeder));   
-    dr_xButton.onTrue(new TurnToZeroo(m_driveTrain, 1));   
+    dr_xButton.onTrue(new TurnToZero(m_driveTrain, 1));   
     dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
     dr_yButton.toggleOnTrue(new RunIntake(intake, intakeUltrasonic));
    // dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
