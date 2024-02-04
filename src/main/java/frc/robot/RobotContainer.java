@@ -101,7 +101,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
 
-    dr_bButton.toggleOnTrue(new BigIntakeCommandGroup(intake, intakeUltrasonic, m_notification, feeder));   
+    dr_bButton.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, m_notification, feeder));   
    // dr_bButton.toggleOnTrue(new RunIntakeFeeder(feeder, feederUltrasonic));   
     dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
     dr_yButton.toggleOnTrue(new RunIntake(intake, intakeUltrasonic));
