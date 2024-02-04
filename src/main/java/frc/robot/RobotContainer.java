@@ -49,8 +49,9 @@ public class RobotContainer {
   Trigger dr_resetToOffsets = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
   Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
   Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
-  Trigger dr_runTheShooter = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  //Trigger dr_runTheShooter = new JoystickButton(m_driverController, XboxController.Button.kX.value);
   Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
+  Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
   private Solenoid m_intake_solenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
       PneumaticsModuleType.REVPH,
@@ -102,10 +103,10 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
 
     dr_bButton.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic, m_notification, feeder));   
-   // dr_bButton.toggleOnTrue(new RunIntakeFeeder(feeder, feederUltrasonic));   
+    dr_xButton.onTrue(new TurnToZeroo(m_driveTrain, 1));   
     dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
     dr_yButton.toggleOnTrue(new RunIntake(intake, intakeUltrasonic));
-    dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
+   // dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
   }
 
   /**
