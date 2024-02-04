@@ -7,17 +7,25 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class MoveWithDistance extends Move {
+public class MoveWithDistance extends Command {
   private double distanceWanted;
+  private SwerveSubsystem m_driveTrain;
+  private double speed;
 
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
   public MoveWithDistance(
-      SwerveSubsystem driveTrain, double translationXSupplier, double distanceWanted) {
-    super(driveTrain, translationXSupplier, 0, 0);
+      SwerveSubsystem driveTrain, double speed, double distanceWanted) {
+    this.speed = speed;
+    this.m_driveTrain = driveTrain;
     this.distanceWanted = distanceWanted;
 
     addRequirements(driveTrain);
@@ -28,6 +36,34 @@ public class MoveWithDistance extends Move {
   @Override
   public void initialize() {
     m_driveTrain.resetDrivePosition();
+  }
+
+
+  @Override
+  public void execute() {
+    double distance = m_driveTrain.getAverageDistanceInches();
+    double currentSpeed = speed;
+    if (distance >= 0.5 * distanceWanted && distance <= 0.25 * distanceWanted ){
+      currentSpeed = 0.20 * speed;
+
+    }
+    else if (distance >= 0.25 * distanceWanted){
+      currentSpeed = 0.10 * speed;
+    }
+
+
+    ChassisSpeeds chassisSpeeds;
+    chassisSpeeds = new ChassisSpeeds(currentSpeed, 0, 0);
+    SwerveModuleState[] moduleStates =
+        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+
+    // Output each module states to wheels
+    m_driveTrain.setModuleStates(moduleStates);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    m_driveTrain.stopModules();
   }
 
   @Override

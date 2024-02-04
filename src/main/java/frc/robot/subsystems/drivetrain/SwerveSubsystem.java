@@ -117,6 +117,7 @@ public class SwerveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("GyroYaw", getYaw());
+    SmartDashboard.putNumber("Average Distance Inches",getAverageDistanceInches() );
     odometer.update(
         getRotation2d(),
         new SwerveModulePosition[] {
