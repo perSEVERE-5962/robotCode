@@ -12,7 +12,6 @@ public class SpinUpShooter extends Command {
   private Shooter motors;
   private long start;
   public SpinUpShooter(Shooter motors) {
-    start = System.currentTimeMillis();
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
     addRequirements(motors);
@@ -21,6 +20,7 @@ public class SpinUpShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    start = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

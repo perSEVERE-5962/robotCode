@@ -4,41 +4,153 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
+
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import frc.robot.subsystems.DetectAprilTags;
 
 /** April tag information for the speaker */
 public class TagInfo {
     public static NetworkTable aprilTagTable = NetworkTableInstance.getDefault().getTable("apriltags");
-    public static class tag1Pos {
-        public static NetworkTable table = aprilTagTable.getSubTable("tag1pos");
-        public static NetworkTableEntry x = table.getEntry("x");
-        public static NetworkTableEntry y = table.getEntry("y");
-        public static NetworkTableEntry z = table.getEntry("z");
+
+    private NetworkTable tagTable;
+
+    public class TagPosition {
+        private NetworkTable tagPosTable;
+        private NetworkTableEntry entryX;
+        private NetworkTableEntry entryY;
+        private NetworkTableEntry entryZ;
+
+        private TagPosition(NetworkTable table) {
+            this.tagPosTable = table.getSubTable("pos");
+            this.entryX = tagPosTable.getEntry("x");
+            this.entryY = tagPosTable.getEntry("y");
+            this.entryZ = tagPosTable.getEntry("z");
+        }
+
+        public NetworkTable getPosTable() {
+            return this.tagPosTable;
+        };
+
+        /** Left/right */
+        public double getX() {
+            return this.entryX.getDouble(0);
+        }
+        /** Height */
+        public double getY() {
+            return this.entryY.getDouble(0);
+        }
+        /** Distance */
+        public double getZ() {
+            return this.entryZ.getDouble(0);
+        }
+
+        public Vec3 getAll() {
+            return new Vec3(this.entryX.getDouble(0), this.entryY.getDouble(0), this.entryZ.getDouble(0));
+        }
+    }
+    private TagPosition tagPosEntries;
+
+    public class TagRotation {
+        private NetworkTable tagRotTable;
+        private NetworkTableEntry entryX;
+        private NetworkTableEntry entryY;
+        private NetworkTableEntry entryZ;
+
+        private NetworkTableEntry dyaw;
+
+        private TagRotation(NetworkTable table) {
+            this.tagRotTable = table.getSubTable("rot");
+            this.entryX = tagRotTable.getEntry("x");
+            this.entryY = tagRotTable.getEntry("y");
+            this.entryZ = tagRotTable.getEntry("z");
+            this.dyaw = tagRotTable.getEntry("dyaw");
+        }
+
+        public NetworkTable getRotTable() {
+            return this.tagRotTable;
+        };
+
+        /** Pitch */
+        public double getX() {
+            return this.entryX.getDouble(0);
+        }
+        /** Yaw */
+        public double getY() {
+            return this.entryY.getDouble(0);
+        }
+        /** Roll */
+        public double getZ() {
+            return this.entryZ.getDouble(0);
+        }
+
+        /** Positive = left; Negative = right */
+        public double getDyaw() {
+            return this.dyaw.getDouble(0);
+        }
+
+        public Vec3 getAll() {
+            return new Vec3(this.entryX.getDouble(0), this.entryY.getDouble(0), this.entryZ.getDouble(0));
+        }
+    }
+    private TagRotation tagRotEntries;
+
+    private int tagId = -1;
+    private boolean hasEntry = false;
+
+    public TagInfo(int tagId) {
+        this.tagTable = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("tag" + tagId);
+        this.tagPosEntries = new TagPosition(this.tagTable);
+        this.tagRotEntries = new TagRotation(this.tagTable);
+        this.tagId = tagId;
     }
 
-    public static class tag2Pos {
-        public static NetworkTable table = aprilTagTable.getSubTable("tag2pos");
-        public static NetworkTableEntry x = table.getEntry("x");
-        public static NetworkTableEntry y = table.getEntry("y");
-        public static NetworkTableEntry z = table.getEntry("z");
+    public int getId() {
+        return this.tagId;
     }
 
-    public static class tag1Rot {
-        public static NetworkTable table = aprilTagTable.getSubTable("tag1rot");
-        public static NetworkTableEntry x = table.getEntry("x");
-        public static NetworkTableEntry y = table.getEntry("y");
-        public static NetworkTableEntry z = table.getEntry("z");
+    public TagPosition getPos() {
+        return tagPosEntries;
     }
 
-    public static class tag2Rot {
-        public static NetworkTable table = aprilTagTable.getSubTable("tag2rot");
-        public static NetworkTableEntry x = table.getEntry("x");
-        public static NetworkTableEntry y = table.getEntry("y");
-        public static NetworkTableEntry z = table.getEntry("z");
+    public TagRotation getRot() {
+        return tagRotEntries;
     }
 
-    public static NetworkTableEntry tag1DYawEntry = NetworkTableInstance.getDefault().getEntry("angletotag1");
-    public static NetworkTableEntry tag2DYawEntry = NetworkTableInstance.getDefault().getEntry("angletotag2");
+    public void updateShuffleboard() {
+        if (!this.hasEntry) {
+            String tab = "April Tag Info";
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " pos X", () -> getPos().getX());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " pos Y", () -> getPos().getY());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " pos Z", () -> getPos().getZ());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " rot X", () -> getRot().getX());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " rot Y", () -> getRot().getY());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " rot Z", () -> getRot().getZ());
+            Shuffleboard.getTab(tab).addDouble("Tag " + this.tagId + " dyaw", () -> getRot().getDyaw());
+            this.hasEntry = true;
+        }
+    }
+
+    public void update() {
+        int index = this.tagId;
+        if (index != -1) {
+            Vec3 tagPos = DetectAprilTags.getAprilTagPos(index);
+            Vec3 tagRot = DetectAprilTags.getAprilTagRot(index);
+            if (tagPos != null && tagRot != null) {
+                double angleToTag = Math.toDegrees(Math.atan2(tagPos.getX(), tagPos.getZ()));
+                tagPosEntries.entryX.setDouble(tagPos.getX());
+                tagPosEntries.entryY.setDouble(tagPos.getY());
+                tagPosEntries.entryZ.setDouble(tagPos.getZ());
+                tagRotEntries.entryX.setDouble(tagRot.getX());
+                tagRotEntries.entryY.setDouble(tagRot.getY());
+                tagRotEntries.entryZ.setDouble(tagRot.getZ());
+                tagRotEntries.dyaw.setDouble(angleToTag);
+            }
+        }
+    }
 }

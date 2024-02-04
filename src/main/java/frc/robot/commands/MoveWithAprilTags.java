@@ -34,11 +34,11 @@ public class MoveWithAprilTags extends Command {
   // Called every time the scheduler runs while the command is scheduled.       read in the xyz
   @Override
   public void execute() {
-    ChassisSpeeds chassisSpeeds;
-    if (TagInfo.tag1Pos.x.getDouble(0) > 0.5) { // Too far right
+    /*ChassisSpeeds chassisSpeeds;
+    if (SpeakerTagInfo.tag1Pos.x.getDouble(0) > 0.5) { // Too far right
       speedX = -0.5;
       validX = false;
-    } else if (TagInfo.tag1Pos.x.getDouble(0) < -0.5) { // Too far left
+    } else if (SpeakerTagInfo.tag1Pos.x.getDouble(0) < -0.5) { // Too far left
       speedX = 0.5;
       validX = false;
 
@@ -46,11 +46,11 @@ public class MoveWithAprilTags extends Command {
       validX = true;
     }
 
-    if (TagInfo.tag1Pos.z.getDouble(0) > 1) { // Too far backwards
+    if (SpeakerTagInfo.tag1Pos.z.getDouble(0) > 1) { // Too far backwards
       speedZ = 0.5;
       validZ = false;
 
-    } else if (TagInfo.tag1Pos.z.getDouble(0) < 1) { // Too far forwards
+    } else if (SpeakerTagInfo.tag1Pos.z.getDouble(0) < 1) { // Too far forwards
       speedZ = -0.5;
       validZ = false;
 
@@ -58,10 +58,10 @@ public class MoveWithAprilTags extends Command {
       validZ = true;
     }
 
-    if (TagInfo.tag1Rot.y.getDouble(0) > 0.5) {
+    if (SpeakerTagInfo.tag1Rot.y.getDouble(0) > 0.5) {
       speedRot = -0.5;
       validRot = false;
-    } else if (TagInfo.tag1Rot.y.getDouble(0) < -0.5) {
+    } else if (SpeakerTagInfo.tag1Rot.y.getDouble(0) < -0.5) {
       speedRot = 0.5;
       validRot = false;
 
@@ -76,7 +76,7 @@ public class MoveWithAprilTags extends Command {
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     // Output each module states to wheels
-    m_driveTrain.setModuleStates(moduleStates);
+    m_driveTrain.setModuleStates(moduleStates);*/
   }
 
   // Called once the command ends or is interrupted.
