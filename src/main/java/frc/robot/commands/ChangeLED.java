@@ -25,7 +25,6 @@ public class ChangeLED extends Command {
 
   @Override
   public void end(boolean interrupted) {
-    //m_notification.setColor(0);
   }
 
   @Override

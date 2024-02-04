@@ -22,7 +22,7 @@ public class Notification extends SubsystemBase {
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
-    setColor(ColorConstants.YellowHue);
+    setColor(ColorConstants.RedHue);
   }
 
 
