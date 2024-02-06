@@ -4,24 +4,27 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ColorConstants;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.sensors.UltrasonicAnalog;
+//import frc.robot.sensors.UltrasonicAnalog;
+//import frc.robot.commands.RunIntakeFeeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
-import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Shoot extends SequentialCommandGroup {
-  /** Creates a new Shoot. */
-  public Shoot(Shooter shooter, Intake feeder, UltrasonicAnalog feederSensor, Notification changeLight) {
+public class IntakeParallelGroup extends ParallelRaceGroup {
+  /** Creates a new IntakeParallelGroup. */
+  public IntakeParallelGroup(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification changeLight, Intake feeder) {
+    addCommands(
+      new IntakeSequentialGroup( intake,  intakeUltrasonic,  changeLight),
+      new RunIntakeFeeder(feeder, intakeUltrasonic)
+      );
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new SpinUpShooter(shooter),
-        new RunShooterFeeder(feeder, feederSensor),
-        new ChangeLED(changeLight, ColorConstants.RedHue),
-        new StopShooter(shooter));
+
+    //addCommands (new IntakeSequentialGroup(), new RunIntakeFeeder());
+
   }
 }

@@ -44,17 +44,17 @@ public class DetectAprilTags extends SubsystemBase {
   private static ArrayList<Integer> tagId = new ArrayList<>();
 
   private final String family = "tag36h11"; // Usual tag family that FRC uses
-  private final double tagSize = Units.inchesToMeters(6.5); // Units are in meters
+  private final double tagSize = Units.inchesToMeters(6.75); // Units are in meters
   private final double[] focalData = {
-    1011.3749416937393/4,
-    1008.5391755084075/4,
-    645.4955139388737/4,
-    508.32877656020196/4
+    1011.3749416937393,
+    1008.5391755084075,
+    645.4955139388737,
+    508.32877656020196
   }; // 1280 x 720 camera
 
   private final int brightness = 50;
-  private final int resWidth = 1280/4;
-  private final int resHeight = 720/4;
+  private final int resWidth = 1280;
+  private final int resHeight = 720;
   private final int fps = 30;
 
   // Dividing some values by some amount makes the resolution worse but makes the fps better
@@ -252,13 +252,13 @@ public class DetectAprilTags extends SubsystemBase {
       if (pos != null && rotPos != null && id != null) {
         count.setInteger(amountOfDetections);
         ID.setInteger(id);
-        entryX.setDouble(pos.x);
-        entryY.setDouble(pos.y);
-        entryZ.setDouble(pos.z);
-        entryRotX.setDouble(rotPos.x);
-        entryRotY.setDouble(rotPos.y);
-        entryRotZ.setDouble(rotPos.z);
-        angle.setDouble(Math.toDegrees(Math.atan2(pos.x, pos.z)));
+        entryX.setDouble(pos.getX());
+        entryY.setDouble(pos.getY());
+        entryZ.setDouble(pos.getZ());
+        entryRotX.setDouble(rotPos.getX());
+        entryRotY.setDouble(rotPos.getY());
+        entryRotZ.setDouble(rotPos.getZ());
+        angle.setDouble(Math.toDegrees(Math.atan2(pos.getX(), pos.getZ())));
       }
     }
   }
