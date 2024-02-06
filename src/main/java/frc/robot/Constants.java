@@ -23,9 +23,9 @@ public final class Constants {
   private static final double FRONT_RIGHT_OFFSET = 0.034180;
   private static final double FRONT_LEFT_OFFSET = 0.278320;
 
+  public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
-  public static final int TEAM_COLOR_BLUE = 2;
-  public static int kTeamColor = TEAM_COLOR_BLUE;
+  public static int kTeamColor = 0;
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -95,7 +95,7 @@ public final class Constants {
     public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180;
     // Front Left
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180;
-
+                                                              
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
         Math.toRadians(kBackRightDriveAbsoluteEncoderOffsetDeg);
@@ -159,17 +159,10 @@ public final class Constants {
     public static final int kShooter2MotorID = 53;
   }
 
-  public static final class SpeakerConstants {
-    // The speaker has 2 april tags from it
-    public static final int kSpeakerBlueAprilTag1Id = 0;
-    public static final int kSpeakerBlueAprilTag2Id = 8;
-    public static final int kSpeakerRedAprilTag1Id = 4;
-    public static final int kSpeakerRedAprilTag2Id = 3;
-  }
-
   public static final class ColorConstants {
     public static final int BlueHue = 103;
     public static final int YellowHue = 20;
+    public static final int RedHue = 0;
   }
 
   public static final class UltrasonicConstants {
@@ -179,5 +172,15 @@ public final class Constants {
     public static final int kFeeder_PCM_Channel = 1;
     public static final double kMinRange = 6;
     public static final double kMaxRange = 7;
+  }
+
+  public static final class SpeakerConstants {
+      // The speaker has 2 april tags from it
+      public static final int kBlueSpeakerAprilTag1Id = 0;
+      public static final int kBlueSpeakerAprilTag2Id = 8;
+      public static final int kRedSpeakerAprilTag1Id = 4;
+      public static final int kRedSpeakerAprilTag2Id = 3;
+      // Blue: 7 center, 8 side
+      // Red: 4 center, 3 side
   }
 }

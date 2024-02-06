@@ -21,12 +21,12 @@ public class RunIntakeFeeder extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() { }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakefeeder.run(-1);
+    intakefeeder.run(1);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,12 +39,15 @@ public class RunIntakeFeeder extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-     double range_of_feeder=feederUltrasonic.getRange();
-     System.out.println("Range="+ range_of_feeder);
-     if(range_of_feeder<=2.3){
-       return true;
-     }else{
-    return false;
-     }
+    double range_of_feeder=feederUltrasonic.getRange();
+    System.out.println("Range="+ range_of_feeder);
+    if(range_of_feeder<=2.3){
+     
+      return true;
+    }else{
+      return false;
+      
+    }
+     
   }
 }
