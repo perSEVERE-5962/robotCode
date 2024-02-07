@@ -22,6 +22,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -35,6 +36,7 @@ import frc.robot.subsystems.drivetrain.*;
 public class RobotContainer {
   private static RobotContainer instance;
   private final XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
+  private final XboxController m_testController = new XboxController(OIConstants.kCoPilotControllerPort);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
   private final Notification m_notification = new Notification();
@@ -46,12 +48,14 @@ public class RobotContainer {
   private final UltrasonicAnalog intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
       UltrasonicConstants.kIntake_PCM_Channel);
 
+
   Trigger dr_resetToOffsets = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
-  Trigger dr_aButton = new JoystickButton(m_driverController, XboxController.Button.kA.value);
-  Trigger dr_bButton = new JoystickButton(m_driverController, XboxController.Button.kB.value);
   //Trigger dr_runTheShooter = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  Trigger dr_yButton = new JoystickButton(m_driverController, XboxController.Button.kY.value);
-  Trigger dr_xButton = new JoystickButton(m_driverController, XboxController.Button.kX.value);
+  Trigger dr_kLeftBumper= new JoystickButton( m_driverController, XboxController.Button.kLeftBumper.value);
+  Trigger dr_kRightBumper= new JoystickButton( m_driverController, XboxController.Button.kRightBumper.value);
+  Trigger ts_kLeftBumper= new JoystickButton( m_testController, XboxController.Button.kLeftBumper.value);
+  Trigger ts_kRightBumper= new JoystickButton( m_testController, XboxController.Button.kRightBumper.value);
+  Trigger ts_buttonB =new JoystickButton(m_testController,XboxController.Button.kB.value);
   private Solenoid m_intake_solenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
       PneumaticsModuleType.REVPH,
@@ -101,12 +105,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+      
+    dr_kLeftBumper.toggleOnTrue(new Shoot(shooter,feeder, feederUltrasonic, m_notification));
+    dr_kRightBumper.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic,feederUltrasonic, m_notification ,feeder));
+    ts_kLeftBumper.toggleOnTrue(new RunIntake(intake, intakeUltrasonic,ts_buttonB.getAsBoolean()));
+    ts_kRightBumper.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic,ts_buttonB.getAsBoolean()));
+    
 
-    dr_bButton.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic, m_notification, feeder));   
-    //dr_xButton.onTrue(new TurnToZero(m_driveTrain, 1));
-    dr_xButton.onTrue(new MoveWithDistance(m_driveTrain, -0.5, 33));      
-    dr_aButton.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic));
-    dr_yButton.toggleOnTrue(new RunIntake(intake, intakeUltrasonic));
    // dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
   }
 

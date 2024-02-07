@@ -11,11 +11,12 @@ import frc.robot.subsystems.Intake;
 public class RunShooterFeeder extends Command {
   private Intake shooterfeeder;
   private UltrasonicAnalog feederUltrasonic;
-
+  private boolean isReversed=false;
   /** Creates a new Feeder. */
-  public RunShooterFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
+  public RunShooterFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic,boolean isReversed) {
     this.feederUltrasonic = feederUltrasonic;
     this.shooterfeeder = feeder;
+    this.isReversed=isReversed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
@@ -28,7 +29,12 @@ public class RunShooterFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterfeeder.run(-1);
+    if(isReversed==false){
+      shooterfeeder.run(-1);
+    }else if(isReversed==true){
+      shooterfeeder.run(1);
+    }
+  
   }
 
   // Called once the command ends or is interrupted.
