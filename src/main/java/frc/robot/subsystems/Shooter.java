@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,6 +16,8 @@ public class Shooter extends SubsystemBase {
   public Shooter(int kShooter1MotorID, int kShooter2MotorID) {
     topMotor = new CANSparkMax(kShooter1MotorID, MotorType.kBrushless);
     bottomMotor = new CANSparkMax(kShooter2MotorID, MotorType.kBrushless);
+    topMotor.setIdleMode(IdleMode.kCoast);
+    bottomMotor.setIdleMode(IdleMode.kCoast);
   }
 
 public void runShooter(double speed) {

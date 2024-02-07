@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+
 import frc.robot.sensors.UltrasonicAnalog;
 
 public class RunIntake extends Command {
@@ -36,7 +37,7 @@ public class RunIntake extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.run(0);
+  //  intake.run(0);
   }
 
   // Returns true when the command should end.
