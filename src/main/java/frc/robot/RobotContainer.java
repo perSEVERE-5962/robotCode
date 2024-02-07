@@ -138,5 +138,8 @@ checkNote = checkNoteValue ;
   public static boolean getNoteCheck (){
     return checkNote ;
   }
+  public double getTargetShootVelocity(){
+    return 5676;
+  }
 }
 
