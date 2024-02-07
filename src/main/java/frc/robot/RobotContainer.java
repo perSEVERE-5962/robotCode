@@ -131,5 +131,8 @@ public class RobotContainer {
 
     return instance;
   }
+  public double getTargetShootVelocity(){
+    return 5676;
+  }
 }
 
