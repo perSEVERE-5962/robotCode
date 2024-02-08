@@ -20,7 +20,7 @@ public class IntakeSequentialGroup extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand())
     addCommands(
       new RunIntake(intake, intakeUltrasonic),
-      new ChangeLED(changeLight, ColorConstants.BlueHue)
+      new ChangeLED(changeLight, ColorConstants.BlueHue, true)
     );
   }
 }

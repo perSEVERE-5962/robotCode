@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class SpinUpShooter extends Command {
   private Shooter motors;
   private long start;
+  private double shooterSpeed;
   public SpinUpShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
@@ -20,13 +23,14 @@ public class SpinUpShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    start = System.currentTimeMillis();
+    shooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 0);
+    shooterSpeed = (shooterSpeed/100)*Constants.kmaxShooterRPM;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double shooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 0);
+    
     System.out.println(shooterSpeed);
     motors.runShooter(shooterSpeed);
   }
@@ -39,9 +43,7 @@ public class SpinUpShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    long finish = System.currentTimeMillis();
-    long timeElapsed = finish - start;
-    if (timeElapsed / 1000 >= 2) {
+    if (motors.getVelocity() >= shooterSpeed) {
       return true;
     }
     return false;

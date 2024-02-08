@@ -22,7 +22,7 @@ public final class Constants {
   private static final double BACK_LEFT_OFFSET = 0.051025;
   private static final double FRONT_RIGHT_OFFSET = 0.034180;
   private static final double FRONT_LEFT_OFFSET = 0.278320;
-
+  public static final double kmaxShooterRPM = 5676;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
