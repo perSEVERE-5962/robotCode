@@ -4,23 +4,23 @@
 
 package frc.robot.commands;
 
-
-import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+
 public class StopFeeder extends Command {
   /** Creates a new StopFeeder. */
   private Intake feeder;
+
   public StopFeeder(Intake feeder) {
-this.feeder=feeder;
+    this.feeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

@@ -6,6 +6,16 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import java.util.List;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -113,13 +123,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
     
-    dr_kRightBumper.toggleOnTrue(new Shoot(shooter, feeder, feederUltrasonic,m_notification ));
-    dr_kLeftBumper.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,m_notification ,feeder));
+    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic,m_notification ));
+    dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,m_notification ,feeder));
 
 
     ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     ts_kLeftBumper.onTrue(new RunIntake(intake,intakeUltrasonic));
-    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic,false));
+    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic));
     ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder,feederUltrasonic));
     ts_buttonB.onTrue(new StopAll(feeder,intake,shooter));
 
