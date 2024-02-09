@@ -6,7 +6,6 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -21,6 +20,7 @@ import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
+
 
 
 /**
@@ -55,6 +55,11 @@ public class RobotContainer {
   Trigger dr_kRightBumper= new JoystickButton( m_driverController, XboxController.Button.kRightBumper.value);
   Trigger ts_kLeftBumper= new JoystickButton( m_testController, XboxController.Button.kLeftBumper.value);
   Trigger ts_kRightBumper= new JoystickButton( m_testController, XboxController.Button.kRightBumper.value);
+  Trigger dr_rightTrigger =new JoystickButton(m_testController,XboxController.Axis.kRightTrigger.value);
+  Trigger ts_rightTrigger =new JoystickButton(m_testController,XboxController.Axis.kRightTrigger.value);
+  Trigger dr_leftTrigger =new JoystickButton(m_testController,XboxController.Axis.kLeftTrigger.value);
+  Trigger ts_lefttTrigger =new JoystickButton(m_testController,XboxController.Axis.kLeftTrigger.value);
+
   Trigger ts_buttonB =new JoystickButton(m_testController,XboxController.Button.kB.value);
   private Solenoid m_intake_solenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
@@ -105,12 +110,18 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
-      
-    dr_kLeftBumper.toggleOnTrue(new Shoot(shooter,feeder, feederUltrasonic, m_notification));
-    dr_kRightBumper.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic,feederUltrasonic, m_notification ,feeder));
-    ts_kLeftBumper.toggleOnTrue(new RunIntake(intake, intakeUltrasonic,ts_buttonB.getAsBoolean()));
-    ts_kRightBumper.toggleOnTrue(new RunShooterFeeder(feeder,feederUltrasonic,ts_buttonB.getAsBoolean()));
     
+    dr_kRightBumper.toggleOnTrue(new Shoot(shooter, feeder, feederUltrasonic,m_notification ));
+    dr_kLeftBumper.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,m_notification ,feeder));
+
+
+    ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
+    ts_kLeftBumper.onTrue(new RunIntake(intake,intakeUltrasonic));
+    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic,false));
+    ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder,feederUltrasonic));
+    ts_buttonB.onTrue(new StopAll(feeder,intake,shooter));
+
+
 
    // dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
   }
