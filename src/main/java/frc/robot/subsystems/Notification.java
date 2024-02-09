@@ -13,6 +13,7 @@ import frc.robot.Constants.ColorConstants;
 public class Notification extends SubsystemBase {
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
+  private boolean noteState;
 
 
   /** Creates a new Intake. */
@@ -22,7 +23,7 @@ public class Notification extends SubsystemBase {
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
-    setColor(ColorConstants.RedHue);
+    updateState(false);
   }
 
 
@@ -32,10 +33,18 @@ public class Notification extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-  public void setColor(int hue) {
+  public void updateState(boolean noteState) {
+    this.noteState = noteState;
+    int hue = ColorConstants.RedHue;
+    if(noteState = true){
+      hue = ColorConstants.BlueHue;
+    }
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
         m_ledBuffer.setHSV(i, hue, 255, 255);   // could also do .setRGB if we want that color system
     }
     m_led.setData(m_ledBuffer);
 }
+public boolean getNoteState(){
+    return noteState;
+  }
 }

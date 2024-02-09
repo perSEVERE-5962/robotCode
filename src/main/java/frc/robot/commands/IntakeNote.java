@@ -22,13 +22,13 @@ public class IntakeNote extends SequentialCommandGroup {
   public IntakeNote(Intake intake, UltrasonicAnalog intakeUltrasonic, UltrasonicAnalog feederUltrasonic, Notification changeLight, Intake feeder ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-   boolean checkForNote=RobotContainer.getNoteCheck() ;
+   boolean checkForNote=changeLight.getNoteState() ;
     if (checkForNote == noteRequired) {
     addCommands(
       new ParallelCommandGroup(
         new SequentialCommandGroup(
           new RunIntake(intake, intakeUltrasonic),
-          new ChangeLED(changeLight, ColorConstants.BlueHue, true)
+          new ChangeLED(changeLight, true)
         ),
         new RunIntakeFeeder(feeder, feederUltrasonic)
       ),

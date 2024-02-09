@@ -60,7 +60,6 @@ public class RobotContainer {
       Constants.CANDeviceIDs.kPCMID24V,
       PneumaticsModuleType.REVPH,
       Constants.UltrasonicConstants.kFeeder_PCM_Channel);
-private static boolean checkNote =false ;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -131,15 +130,8 @@ private static boolean checkNote =false ;
 
     return instance;
   }
-
-  public static void setNoteCheck(boolean checkNoteValue) {
-checkNote = checkNoteValue ; 
-  }
-  public static boolean getNoteCheck (){
-    return checkNote ;
-  }
   public double getTargetShootVelocity(){
-    return 5676;
+    return Constants.kmaxShooterRPM;
   }
 }
 

@@ -21,11 +21,11 @@ public class Shoot extends SequentialCommandGroup {
   public Shoot(Shooter shooter, Intake feeder, UltrasonicAnalog feederSensor, Notification changeLight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-   boolean checkForNote=RobotContainer.getNoteCheck() ;
+   boolean checkForNote=changeLight.getNoteState() ;
     if (checkForNote == noteRequired) {
       addCommands(new SpinUpShooter(shooter),
           new RunShooterFeeder(feeder, feederSensor),
-          new ChangeLED(changeLight, ColorConstants.RedHue, false),
+          new ChangeLED(changeLight, false),
           new StopShooter(shooter));
     }
   }
