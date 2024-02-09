@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -31,6 +32,7 @@ public final class Constants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
     public static final double kPTurning = 0.5;
+    
 
     // L1 swerve
     public static final class L1 {
@@ -116,8 +118,18 @@ public final class Constants {
         kPhysicalMaxSpeedMetersPerSecond / 4;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-    // public static final double kTeleDriveMaxAccelerationUnitsPerSecond = 3;
-    // public static final double kTeleDriveMaxAngularAccelerationUnitsPerSecond = 3;
+    public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3;
+    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI /4;
+
+    public static final double kPXController = 1.5;
+    public static final double kPYController = 1.5;
+    public static final double kPThetaController = 3;
+
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
+                new TrapezoidProfile.Constraints(
+                        kTeleDriveMaxAngularSpeedRadiansPerSecond,
+                        kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared);
+
   }
 
   public static final class OIConstants {
