@@ -12,7 +12,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class MoveWithAprilTags extends Command {
-  private SwerveSubsystem m_driveTrain;
+  private SwerveSubsystem driveTrain;
   private double speedX = 0;
   private boolean validX = false;
   private double speedZ = 0;
@@ -22,7 +22,7 @@ public class MoveWithAprilTags extends Command {
 
   /** Creates a new Forward. */
     public MoveWithAprilTags(SwerveSubsystem m_driveTrain) {
-    this.m_driveTrain = m_driveTrain;
+    this.driveTrain = m_driveTrain;
     addRequirements();
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -75,13 +75,13 @@ public class MoveWithAprilTags extends Command {
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     // Output each module states to wheels
-    m_driveTrain.setModuleStates(moduleStates);
+    driveTrain.setModuleStates(moduleStates);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_driveTrain.stopModules();
+    driveTrain.stopModules();
   }
 
   // Returns true when the command should end.    check to see if all are zero pat will givr values

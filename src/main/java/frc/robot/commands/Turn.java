@@ -24,12 +24,12 @@ public class Turn extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initialYaw = m_driveTrain.getYaw();
+    initialYaw = driveTrain.getYaw();
   }
 
   @Override
   public boolean isFinished() {
-    if (m_driveTrain.getYaw() >= Math.abs(initialYaw - degreesWanted)) {
+    if (driveTrain.getYaw() >= Math.abs(initialYaw - degreesWanted)) {
       return true;
     }
     return false;

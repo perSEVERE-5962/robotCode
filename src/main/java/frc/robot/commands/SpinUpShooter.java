@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class SpinUpShooter extends Command {
   private Shooter motors;
   private double shooterSpeed;
+  
   public SpinUpShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
