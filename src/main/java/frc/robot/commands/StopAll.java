@@ -4,22 +4,24 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.sensors.UltrasonicAnalog;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Notification;
+import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class BigIntakeCommandGroup extends SequentialCommandGroup {
-  /** Creates a new IntakeCommandGroup. */
-  public BigIntakeCommandGroup(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification changeLight, Intake feeder) {
+public class StopAll extends ParallelCommandGroup {
+  /** Creates a new StopAll. */
+  public StopAll(Intake feeder,Intake intake, Shooter moter) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new IntakeParallelGroup(intake, intakeUltrasonic, changeLight, feeder),
-    new StopIntake(intake)
+       new ParallelCommandGroup(
+          new StopFeeder(feeder),
+          new StopIntake(intake),
+          new StopShooter(moter)
+        )
     );
   }
 }

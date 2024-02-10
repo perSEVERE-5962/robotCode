@@ -5,15 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.subsystems.Notification;
 
 public class ChangeLED extends Command {
-  private final Notification m_notification;
+  private final Notification notification;
   private boolean noteState;
 
   public ChangeLED(Notification notification, boolean noteState) {
-    m_notification = notification;
+    this.notification = notification;
     addRequirements(notification);
     this.noteState = noteState;
 
@@ -21,7 +20,7 @@ public class ChangeLED extends Command {
 
   @Override
   public void initialize() {
-    m_notification.updateState(noteState);
+    notification.updateState(noteState);
   }
 
   @Override
