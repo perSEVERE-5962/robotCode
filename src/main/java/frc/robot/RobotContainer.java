@@ -6,11 +6,24 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+import java.util.List;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
@@ -35,52 +48,57 @@ import frc.robot.subsystems.drivetrain.*;
  */
 public class RobotContainer {
   private static RobotContainer instance;
-  private final XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-  private final XboxController m_testController = new XboxController(OIConstants.kCoPilotControllerPort);
+
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
-  private final Notification m_notification = new Notification();
+  private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+  private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
   private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID);
-  private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
-      UltrasonicConstants.kFeeder_PCM_Channel);
-  private final UltrasonicAnalog intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
-      UltrasonicConstants.kIntake_PCM_Channel);
 
-
-  Trigger dr_resetToOffsets = new JoystickButton(m_driverController, XboxController.Button.kStart.value);
-  //Trigger dr_runTheShooter = new JoystickButton(m_driverController, XboxController.Button.kX.value);
-  Trigger dr_kLeftBumper= new JoystickButton( m_driverController, XboxController.Button.kLeftBumper.value);
-  Trigger dr_kRightBumper= new JoystickButton( m_driverController, XboxController.Button.kRightBumper.value);
-  Trigger ts_kLeftBumper= new JoystickButton( m_testController, XboxController.Button.kLeftBumper.value);
-  Trigger ts_kRightBumper= new JoystickButton( m_testController, XboxController.Button.kRightBumper.value);
-  Trigger dr_rightTrigger =new JoystickButton(m_testController,XboxController.Axis.kRightTrigger.value);
-  Trigger ts_rightTrigger =new JoystickButton(m_testController,XboxController.Axis.kRightTrigger.value);
-  Trigger dr_leftTrigger =new JoystickButton(m_testController,XboxController.Axis.kLeftTrigger.value);
-  Trigger ts_lefttTrigger =new JoystickButton(m_testController,XboxController.Axis.kLeftTrigger.value);
-
-  Trigger ts_buttonB =new JoystickButton(m_testController,XboxController.Button.kB.value);
-  private Solenoid m_intake_solenoid = new Solenoid(
+  // Intake sensors
+  private Solenoid intakeSolenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
       PneumaticsModuleType.REVPH,
       Constants.UltrasonicConstants.kIntake_PCM_Channel);
-  private Solenoid m_feeder_solenoid = new Solenoid(
+  private final UltrasonicAnalog intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
+      UltrasonicConstants.kIntake_PCM_Channel);
+
+  // feeder sensors
+  private Solenoid feederSolenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
       PneumaticsModuleType.REVPH,
       Constants.UltrasonicConstants.kFeeder_PCM_Channel);
+  private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
+      UltrasonicConstants.kFeeder_PCM_Channel);
+
+
+
+  // Driver Controller
+  private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
+  private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
+  private final Trigger dr_kLeftBumper= new JoystickButton( driverController, XboxController.Button.kLeftBumper.value);
+  private final Trigger dr_kRightBumper= new JoystickButton( driverController, XboxController.Button.kRightBumper.value);
+
+  // Test Controller
+  private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
+  private final Trigger ts_kLeftBumper= new JoystickButton( testController, XboxController.Button.kLeftBumper.value);
+  private final Trigger ts_lefttTrigger =new JoystickButton(testController,XboxController.Axis.kLeftTrigger.value);
+  private final Trigger ts_kRightBumper= new JoystickButton( testController, XboxController.Button.kRightBumper.value);
+  private final Trigger ts_rightTrigger =new JoystickButton(testController,XboxController.Axis.kRightTrigger.value);
+  private final Trigger ts_buttonB =new JoystickButton(testController,XboxController.Button.kB.value);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   private RobotContainer() {
-    m_driveTrain.setDefaultCommand(
+    driveTrain.setDefaultCommand(
         new DriveCommand(
-            m_driveTrain,
-            () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis),
-            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+            driveTrain,
+            () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
     /*
      * m_driveTrain.setDefaultCommand(
@@ -95,8 +113,8 @@ public class RobotContainer {
      */
 
     configureButtonBindings();
-    m_intake_solenoid.set(true);
-    m_feeder_solenoid.set(true);
+    intakeSolenoid.set(true);
+    feederSolenoid.set(true);
 
   }
 
@@ -109,21 +127,17 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+    dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     
-    dr_kRightBumper.toggleOnTrue(new Shoot(shooter, feeder, feederUltrasonic,m_notification ));
-    dr_kLeftBumper.toggleOnTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,m_notification ,feeder));
+    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic,notification ));
+    dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,notification ,feeder));
 
 
     ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     ts_kLeftBumper.onTrue(new RunIntake(intake,intakeUltrasonic));
-    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic,false));
+    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic));
     ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder,feederUltrasonic));
     ts_buttonB.onTrue(new StopAll(feeder,intake,shooter));
-
-
-
-   // dr_runTheShooter.onTrue(new Shoot(shooter, feeder, feederUltrasonic, m_notification)); 
   }
 
   /**
@@ -132,12 +146,46 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = new Move(m_driveTrain, 0, 0, 0);
-    return command;
+    //Command command = new Move(m_driveTrain, 0, 0, 0);
+   // return command;
+
+    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
+      DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
+      DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
+              .setKinematics(DriveConstants.kDriveKinematics);
+
+    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                new Pose2d(0, 0, new Rotation2d(0)),
+                List.of(
+                        new Translation2d(1, 0),
+                        new Translation2d(1, -1)),
+                new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+                trajectoryConfig);
+
+    PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
+        PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
+        ProfiledPIDController thetaController = new ProfiledPIDController(
+                DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
+        thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+                trajectory,
+                driveTrain::getPose,
+                DriveConstants.kDriveKinematics,
+                xController,
+                yController,
+                thetaController,
+                driveTrain::setModuleStates,
+                driveTrain);
+
+    return new SequentialCommandGroup(
+                new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
+                swerveControllerCommand,
+                new InstantCommand(() -> driveTrain.stopModules()));
   }
 
   public XboxController getDriverController() {
-    return m_driverController;
+    return driverController;
   }
 
   public static RobotContainer getInstance() {
@@ -147,5 +195,10 @@ public class RobotContainer {
 
     return instance;
   }
+
+  public double getTargetShootVelocity(){
+    return Constants.kmaxShooterRPM;
+  }
+
 }
 

@@ -8,19 +8,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Notification;
 
 public class ChangeLED extends Command {
-  private final Notification m_notification;
-  private final int m_hue;
+  private final Notification notification;
+  private boolean noteState;
 
-  public ChangeLED(Notification notification, int hue) {
-    m_notification = notification;
-    m_hue = hue;
+  public ChangeLED(Notification notification, boolean noteState) {
+    this.notification = notification;
     addRequirements(notification);
+    this.noteState = noteState;
 
   }
 
   @Override
   public void initialize() {
-    m_notification.setColor(m_hue);
+    notification.updateState(noteState);
   }
 
   @Override

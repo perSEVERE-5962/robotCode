@@ -21,10 +21,6 @@ import frc.robot.subsystems.DetectAprilTags;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
- 
-
-  private TagInfo speakerTag1Info;
-  private TagInfo speakerTag2Info;
 
   @Override
   public void driverStationConnected() {
@@ -62,10 +58,10 @@ public class Robot extends TimedRobot {
     int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
     int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
 
-    speakerTag1Info = new TagInfo(speakerTag1Id);
-    speakerTag2Info = new TagInfo(speakerTag2Id);
-    speakerTag1Info.updateShuffleboard();
-    speakerTag2Info.updateShuffleboard();
+    SpeakerTagInfo.tag1Info = new TagInfo(speakerTag1Id);
+    SpeakerTagInfo.tag2Info = new TagInfo(speakerTag2Id);
+    SpeakerTagInfo.tag1Info.updateShuffleboard();
+    SpeakerTagInfo.tag2Info.updateShuffleboard();
   }
   
 
@@ -85,9 +81,9 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    if (speakerTag1Info != null && speakerTag2Info != null) {
-      speakerTag1Info.update();
-      speakerTag2Info.update();
+    if (SpeakerTagInfo.tag1Info != null && SpeakerTagInfo.tag2Info != null) {
+      SpeakerTagInfo.tag1Info.update();
+      SpeakerTagInfo.tag2Info.update();
     }
   }
 

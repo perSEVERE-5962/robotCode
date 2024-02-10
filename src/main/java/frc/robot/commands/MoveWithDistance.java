@@ -9,14 +9,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class MoveWithDistance extends Command {
   private double distanceWanted;
-  private SwerveSubsystem m_driveTrain;
+  private SwerveSubsystem driveTrain;
   private double speed;
 
   // private DoubleSupplier m_translationYSupplier;
@@ -25,7 +24,7 @@ public class MoveWithDistance extends Command {
   public MoveWithDistance(
       SwerveSubsystem driveTrain, double speed, double distanceWanted) {
     this.speed = speed;
-    this.m_driveTrain = driveTrain;
+    this.driveTrain = driveTrain;
     this.distanceWanted = distanceWanted;
 
     addRequirements(driveTrain);
@@ -35,13 +34,13 @@ public class MoveWithDistance extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_driveTrain.resetDrivePosition();
+    driveTrain.resetDrivePosition();
   }
 
 
   @Override
   public void execute() {
-    double distance = m_driveTrain.getAverageDistanceInches();
+    double distance = driveTrain.getAverageDistanceInches();
     double currentSpeed = speed;
     if (distance >= 0.5 * distanceWanted && distance <= 0.25 * distanceWanted ){
       currentSpeed = 0.20 * speed;
@@ -58,17 +57,17 @@ public class MoveWithDistance extends Command {
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     // Output each module states to wheels
-    m_driveTrain.setModuleStates(moduleStates);
+    driveTrain.setModuleStates(moduleStates);
   }
 
   @Override
   public void end(boolean interrupted) {
-    m_driveTrain.stopModules();
+    driveTrain.stopModules();
   }
 
   @Override
   public boolean isFinished() {
-    if (m_driveTrain.getAverageDistanceInches() >= distanceWanted) {
+    if (driveTrain.getAverageDistanceInches() >= distanceWanted) {
       return true;
     }
     return false;

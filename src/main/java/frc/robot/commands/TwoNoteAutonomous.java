@@ -16,7 +16,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TwoNoteAutonomous extends SequentialCommandGroup {
   /** Creates a new PositionThreeTurnMoveBack. */
-  public TwoNoteAutonomous(Shooter shooter, Intake feeder, UltrasonicAnalog feederSensor, Notification changeLight, SwerveSubsystem driveTrain, double rotationSpeed, double degreesWanted, double translationXSupplier, double distanceWanted) {
+  public TwoNoteAutonomous(Shooter shooter, Intake feeder, UltrasonicAnalog feederSensor, Notification changeLight, SwerveSubsystem driveTrain, double rotationSpeed, double degreesWanted, double translationXSupplier, double distanceWanted, boolean checkForNote) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
