@@ -22,7 +22,7 @@ public class SpinUpShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 0);
+    shooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 100);
     shooterSpeed = (shooterSpeed/100)*Constants.kmaxShooterRPM;
   }
 

@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
@@ -44,12 +45,12 @@ public class RunIntake extends Command {
   @Override
   public boolean isFinished() {
     double range_of_intake = intakeUltrasonic.getRange();
-    System.out.println("range =" + range_of_intake);
+    SmartDashboard.putNumber("Range" , range_of_intake);
     if (range_of_intake <= 2.3) {
       return true;
     } else {
 
-      return false;
+     return false;
     }
   }
 }

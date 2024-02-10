@@ -33,7 +33,7 @@ import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
-
+import frc.robot.subsystems.Feeder;
 
 
 /**
@@ -54,21 +54,13 @@ public class RobotContainer {
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID);
+  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID);
 
   // Intake sensors
-  private Solenoid intakeSolenoid = new Solenoid(
-      Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.REVPH,
-      Constants.UltrasonicConstants.kIntake_PCM_Channel);
   private final UltrasonicAnalog intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
       UltrasonicConstants.kIntake_PCM_Channel);
 
   // feeder sensors
-  private Solenoid feederSolenoid = new Solenoid(
-      Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.REVPH,
-      Constants.UltrasonicConstants.kFeeder_PCM_Channel);
   private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
 
@@ -113,10 +105,8 @@ public class RobotContainer {
      */
 
     configureButtonBindings();
-    intakeSolenoid.set(true);
-    feederSolenoid.set(true);
-
   }
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
