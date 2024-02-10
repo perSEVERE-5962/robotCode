@@ -14,8 +14,8 @@ public class RunIntakeFeeder extends Command {
   
   /** Creates a new Feeder. */
   public RunIntakeFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
-    this.feederUltrasonic=feederUltrasonic;
-    this.intakefeeder=feeder;
+    this.feederUltrasonic = feederUltrasonic;
+    this.intakefeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
