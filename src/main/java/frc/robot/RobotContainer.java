@@ -129,42 +129,10 @@ private static boolean checkNote =false ;
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //Command command = new Move(m_driveTrain, 0, 0, 0);
-   // return command;
+    Command command = new Move(m_driveTrain, 0, 0, 0);
+    return command;
 
-    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-      DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-      DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
-              .setKinematics(DriveConstants.kDriveKinematics);
-
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-                new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(
-                        new Translation2d(1, 0),
-                        new Translation2d(1, -1)),
-                new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
-                trajectoryConfig);
-
-    PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
-        PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
-        ProfiledPIDController thetaController = new ProfiledPIDController(
-                DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
-        thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-                trajectory,
-                m_driveTrain::getPose,
-                DriveConstants.kDriveKinematics,
-                xController,
-                yController,
-                thetaController,
-                m_driveTrain::setModuleStates,
-                m_driveTrain);
-
-    return new SequentialCommandGroup(
-                new InstantCommand(() -> m_driveTrain.resetOdometry(trajectory.getInitialPose())),
-                swerveControllerCommand,
-                new InstantCommand(() -> m_driveTrain.stopModules()));
+    
   }
 
   public XboxController getDriverController() {
