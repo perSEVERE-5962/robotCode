@@ -14,8 +14,8 @@ public class RunIntake extends Command {
   private Intake intake;
 
   /** Creates a new RunIntake. */
-  public RunIntake(Intake intake, UltrasonicAnalog intakeUltrasonic) {
-    this.intakeUltrasonic = intakeUltrasonic;
+  public RunIntake(Intake intake) {
+    this.intakeUltrasonic = intake.geUltrasonicAnalog();
     this.intake = intake;
     
     // Use addRequirements() here to declare subsystem dependencies.

@@ -13,8 +13,8 @@ public class RunShooterFeeder extends Command {
   private UltrasonicAnalog feederUltrasonic;
   
   /** Creates a new Feeder. */
-  public RunShooterFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
-    this.feederUltrasonic = feederUltrasonic;
+  public RunShooterFeeder(Intake feeder) {
+    this.feederUltrasonic = feeder.geUltrasonicAnalog();
     this.shooterfeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);

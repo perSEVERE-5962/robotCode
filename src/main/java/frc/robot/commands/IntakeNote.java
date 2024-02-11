@@ -16,7 +16,7 @@ public class IntakeNote extends SequentialCommandGroup {
   private final boolean noteRequired=false ;
   /** Creates a new IntakeNote. */
 
-  public IntakeNote(Intake intake, UltrasonicAnalog intakeUltrasonic, UltrasonicAnalog feederUltrasonic, Notification changeLight, Intake feeder ) {
+  public IntakeNote(Intake intake, Notification changeLight, Intake feeder ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
    boolean checkForNote=changeLight.getNoteState() ;
@@ -24,10 +24,10 @@ public class IntakeNote extends SequentialCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         new SequentialCommandGroup(
-          new RunIntake(intake, intakeUltrasonic),
+          new RunIntake(intake),
           new ChangeLED(changeLight, true)
         ),
-        new RunIntakeFeeder(feeder, feederUltrasonic)
+        new RunIntakeFeeder(feeder)
       ),
       new StopIntake(intake)
     );

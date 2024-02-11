@@ -14,11 +14,11 @@ import frc.robot.sensors.UltrasonicAnalog;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeSequentialGroup extends SequentialCommandGroup {
   /** Creates a new IntakeSequentialGroup. */
-  public IntakeSequentialGroup(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification changeLight ) {
+  public IntakeSequentialGroup(Intake intake, Notification changeLight ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand())
     addCommands(
-      new RunIntake(intake, intakeUltrasonic),
+      new RunIntake(intake),
       new ChangeLED(changeLight, true)
     );
   }

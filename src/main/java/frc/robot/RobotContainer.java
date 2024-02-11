@@ -53,8 +53,6 @@ public class RobotContainer {
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
-  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID);
 
   // Intake sensors
   private Solenoid intakeSolenoid = new Solenoid(
@@ -73,7 +71,9 @@ public class RobotContainer {
       UltrasonicConstants.kFeeder_PCM_Channel);
 
 
-
+//Intake and feeder
+  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID, intakeUltrasonic);
+  private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
@@ -129,14 +129,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     
-    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic,notification ));
-    dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,notification ,feeder));
+    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification ));
+    dr_kLeftBumper.onTrue(new IntakeNote(intake, notification ,feeder));
 
 
     ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
-    ts_kLeftBumper.onTrue(new RunIntake(intake,intakeUltrasonic));
-    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic));
-    ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder,feederUltrasonic));
+    ts_kLeftBumper.onTrue(new RunIntake(intake));
+    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
+    ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
     ts_buttonB.onTrue(new StopAll(feeder,intake,shooter));
   }
 
