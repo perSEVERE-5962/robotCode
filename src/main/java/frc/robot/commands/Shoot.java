@@ -6,7 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.sensors.UltrasonicAnalog;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.Shooter;
 
@@ -17,13 +17,13 @@ public class Shoot extends SequentialCommandGroup {
   private final boolean noteRequired=true ;
   
   /** Creates a new Shoot. */
-  public Shoot(Shooter shooter, Intake feeder, UltrasonicAnalog feederSensor, Notification changeLight) {
+  public Shoot(Shooter shooter, Intake feeder, Notification changeLight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    boolean checkForNote=changeLight.getNoteState() ;
+   boolean checkForNote = changeLight.getNoteState() ;
     if (checkForNote == noteRequired) {
       addCommands(new SpinUpShooter(shooter),
-          new RunShooterFeeder(feeder, feederSensor),
+          new RunShooterFeeder(feeder),
           new ChangeLED(changeLight, false),
           new StopShooter(shooter));
     }

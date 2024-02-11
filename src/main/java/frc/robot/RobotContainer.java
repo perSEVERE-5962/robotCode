@@ -29,7 +29,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Notification;
+import frc.robot.sensors.Camera;
 import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
@@ -54,12 +56,12 @@ public class RobotContainer {
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID);
+  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID);
 
   // Intake sensors
   private Solenoid intakeSolenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.REVPH,
+      PneumaticsModuleType.CTREPCM,
       Constants.UltrasonicConstants.kIntake_PCM_Channel);
   private final UltrasonicAnalog intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
       UltrasonicConstants.kIntake_PCM_Channel);
@@ -67,13 +69,19 @@ public class RobotContainer {
   // feeder sensors
   private Solenoid feederSolenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.REVPH,
+      PneumaticsModuleType.CTREPCM,
       Constants.UltrasonicConstants.kFeeder_PCM_Channel);
   private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
+//cameras
+  private final Camera frontCamera;
+  private final Camera backCamera;
 
 
 
+//Intake and feeder
+  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID, intakeUltrasonic);
+  private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
@@ -115,7 +123,8 @@ public class RobotContainer {
     configureButtonBindings();
     intakeSolenoid.set(true);
     feederSolenoid.set(true);
-
+    frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
+    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
   }
 
   /**
@@ -129,14 +138,14 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     
-    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic,notification ));
-    dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,notification ,feeder));
+    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification ));
+    dr_kLeftBumper.onTrue(new IntakeNote(intake, notification ,feeder));
 
 
     ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
-    ts_kLeftBumper.onTrue(new RunIntake(intake,intakeUltrasonic));
-    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder,feederUltrasonic));
-    ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder,feederUltrasonic));
+    ts_kLeftBumper.onTrue(new RunIntake(intake));
+    ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
+    ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
     ts_buttonB.onTrue(new StopAll(feeder,intake,shooter));
   }
 

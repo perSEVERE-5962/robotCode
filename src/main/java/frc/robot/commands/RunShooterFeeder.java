@@ -6,15 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.sensors.UltrasonicAnalog;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Feeder;
 
 public class RunShooterFeeder extends Command {
-  private Intake shooterfeeder;
+  private Feeder shooterfeeder;
   private UltrasonicAnalog feederUltrasonic;
   
   /** Creates a new Feeder. */
-  public RunShooterFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
-    this.feederUltrasonic = feederUltrasonic;
+  public RunShooterFeeder(Intake feeder) {
+    this.feederUltrasonic = feeder.geUltrasonicAnalog();
     this.shooterfeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);

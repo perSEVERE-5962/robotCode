@@ -16,10 +16,10 @@ import frc.robot.subsystems.Notification;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeParallelGroup extends ParallelRaceGroup {
   /** Creates a new IntakeParallelGroup. */
-  public IntakeParallelGroup(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification changeLight, Intake feeder) {
+  public IntakeParallelGroup(Intake intake, Notification changeLight, Intake feeder) {
     addCommands(
-      new IntakeSequentialGroup( intake,  intakeUltrasonic,  changeLight),
-      new RunIntakeFeeder(feeder, intakeUltrasonic)
+      new IntakeSequentialGroup( intake, changeLight),
+      new RunIntakeFeeder(feeder)
       );
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
