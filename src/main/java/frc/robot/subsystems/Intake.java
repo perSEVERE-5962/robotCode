@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   public Intake(boolean isinverted,int motorId, UltrasonicAnalog intakeUltrasonic) {
     this.intakeUltrasonic = intakeUltrasonic;
-    intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
+    intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
     intakeMotor.setInverted(isinverted);
 
   }
