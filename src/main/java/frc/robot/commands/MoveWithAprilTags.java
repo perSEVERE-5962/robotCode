@@ -13,11 +13,11 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class MoveWithAprilTags extends Command {
   private SwerveSubsystem driveTrain;
-  private double speedX = 0;
+  private double speedX = 0.0;
   private boolean validX = false;
-  private double speedZ = 0;
+  private double speedZ = 0.0;
   private boolean validZ = false;
-  private double speedRot = 0;
+  private double speedRot = 0.0;
   private boolean validRot = false;
 
   /** Creates a new Forward. */

@@ -23,7 +23,7 @@ public final class Constants {
   private static final double BACK_LEFT_OFFSET = 0.051025;
   private static final double FRONT_RIGHT_OFFSET = 0.034180;
   private static final double FRONT_LEFT_OFFSET = 0.278320;
-  public static final double kmaxShooterRPM = 5676;
+  public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
@@ -36,28 +36,28 @@ public final class Constants {
 
     // L1 swerve
     public static final class L1 {
-      public static final double kDriveMotorGearRatio = 1 / 8.14; // 8.14:1
-      public static final double kTurningMotorGearRatio = 1 / (150 / 7); // 150/7:1
+      public static final double kDriveMotorGearRatio = 1.0 / 8.14; // 8.14:1
+      public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0); // 150/7:1
       public static final double kDriveEncoderRot2Meter =
           kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
       public static final double kDriveEncoderRot2Inch =
           kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
-      public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
-      public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-      public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
+      public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2.0 * Math.PI;
+      public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
+      public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
     }
 
     // L3 swerve
     public static final class L3 {
-      public static final double kDriveMotorGearRatio = 1 / 6.12; // 6.12:1
-      public static final double kTurningMotorGearRatio = 1 / (150 / 7); // 150/7:1
+      public static final double kDriveMotorGearRatio = 1.0 / 6.12; // 6.12:1
+      public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0); // 150/7:1
       public static final double kDriveEncoderRot2Meter =
           kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
       public static final double kDriveEncoderRot2Inch =
           kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
-      public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
-      public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60;
-      public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60;
+      public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2.0 * Math.PI;
+      public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
+      public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
     }
   }
 
@@ -90,13 +90,13 @@ public final class Constants {
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
     // Back Right
-    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees() + 180;
+    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees() + 180.0;
     // Back Left
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees() + 180;
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees() + 180.0;
     // Front Right
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180;
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180.0;
     // Front Left
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180;
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180.0;
                                                               
     // Back Right
     public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
@@ -112,18 +112,18 @@ public final class Constants {
         Math.toRadians(kFrontLeftDriveAbsoluteEncoderOffsetDeg);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.0 * 2.0 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond =
-        kPhysicalMaxSpeedMetersPerSecond / 4;
+        kPhysicalMaxSpeedMetersPerSecond / 4.0;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
-        kPhysicalMaxAngularSpeedRadiansPerSecond / 4;
-    public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3;
-    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI /4;
+        kPhysicalMaxAngularSpeedRadiansPerSecond / 4.0;
+    public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
+    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI /4.0;
 
     public static final double kPXController = 1.5;
     public static final double kPYController = 1.5;
-    public static final double kPThetaController = 3;
+    public static final double kPThetaController = 3.0;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(
@@ -182,8 +182,8 @@ public final class Constants {
     public static final int kIntake_PCM_Channel = 0;
     public static final int kFeeder_Analog_Channel = 1;
     public static final int kFeeder_PCM_Channel = 1;
-    public static final double kMinRange = 6;
-    public static final double kMaxRange = 7;
+    public static final double kMinRange = 6.0;
+    public static final double kMaxRange = 7.0;
   }
 
   public static final class SpeakerConstants {
