@@ -5,32 +5,38 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Intake;
 
-public class NoteCheck extends Command { 
-  private boolean checkForNote ;
-  private boolean noteRequired ;  
-  /** Creates a new NoteCheck. */
-  public NoteCheck (boolean checkForNote, boolean noteRequired ) {
+public class StopFeeder extends Command {
+  /** Creates a new StopFeeder. */
+  private Intake feeder;
+
+  public StopFeeder(Intake feeder) {
+    this.feeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.checkForNote = checkForNote ;
-    this.noteRequired = noteRequired ; 
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    feeder.run(0);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    feeder.run(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return noteRequired == checkForNote ;
+    return true;
   }
 }

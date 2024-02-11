@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
-import frc.robot.Constants.ColorConstants;
 import frc.robot.sensors.UltrasonicAnalog;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -20,7 +19,7 @@ public class IntakeSequentialGroup extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand())
     addCommands(
       new RunIntake(intake, intakeUltrasonic),
-      new ChangeLED(changeLight, ColorConstants.BlueHue, true)
+      new ChangeLED(changeLight, true)
     );
   }
 }

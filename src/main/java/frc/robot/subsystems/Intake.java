@@ -14,7 +14,7 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake(boolean isinverted,int motorId) {
-    intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
+    intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
     intakeMotor.setInverted(isinverted);
 
   }

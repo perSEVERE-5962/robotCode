@@ -11,6 +11,7 @@ import frc.robot.sensors.UltrasonicAnalog;
 public class RunIntakeFeeder extends Command {
   private Intake intakefeeder ;
   private UltrasonicAnalog feederUltrasonic;
+  
   /** Creates a new Feeder. */
   public RunIntakeFeeder(Intake feeder, UltrasonicAnalog feederUltrasonic) {
     this.feederUltrasonic=feederUltrasonic;
