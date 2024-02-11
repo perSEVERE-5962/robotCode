@@ -80,7 +80,7 @@ public class RobotContainer {
 
 //Intake and feeder
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID, intakeUltrasonic);
-  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
+  private final Feeder feeder = new Feeder(true, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
