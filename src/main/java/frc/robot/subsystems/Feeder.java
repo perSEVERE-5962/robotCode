@@ -9,19 +9,19 @@ import com.revrobotics.CANSparkLowLevel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Intake extends SubsystemBase {
-  private CANSparkMax intakeMotor;
+public class Feeder extends SubsystemBase {
+  private CANSparkMax feederMotor;
 
   /** Creates a new Intake. */
-  public Intake(boolean isinverted,int motorId) {
-    intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
-    intakeMotor.setInverted(isinverted);
+  public Feeder(boolean isinverted,int motorId) {
+    feederMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
+    feederMotor.setInverted(isinverted);
 
   }
 
 
   public void run(double speed) {
-    intakeMotor.set(speed);
+    feederMotor.set(speed);
 
   }
 
