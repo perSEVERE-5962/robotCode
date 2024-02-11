@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.Notification;
+import frc.robot.sensors.Camera;
 import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -69,6 +70,10 @@ public class RobotContainer {
       Constants.UltrasonicConstants.kFeeder_PCM_Channel);
   private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
+//cameras
+  private final Camera frontCamera;
+  private final Camera backCamera;
+
 
 
 //Intake and feeder
@@ -115,7 +120,8 @@ public class RobotContainer {
     configureButtonBindings();
     intakeSolenoid.set(true);
     feederSolenoid.set(true);
-
+    frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
+    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
   }
 
   /**

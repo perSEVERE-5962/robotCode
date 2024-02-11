@@ -195,4 +195,9 @@ public final class Constants {
       // Blue: 7 center, 8 side
       // Red: 4 center, 3 side
   }
+  public static final class CameraConstants{
+    public static final int kAprilTagCamera = 0;
+    public static final int kFrontCamera = 1;
+    public static final int kBackCamera = 2;
+  }
 }
