@@ -55,8 +55,6 @@ public class RobotContainer {
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
-  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID);
 
   // Intake sensors
   private Solenoid intakeSolenoid = new Solenoid(
@@ -81,7 +79,7 @@ public class RobotContainer {
 
 //Intake and feeder
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID, intakeUltrasonic);
-  private final Intake feeder = new Intake(false, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
+  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
@@ -155,9 +153,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = new Move(m_driveTrain, 0, 0, 0);
-    return command;
-
+    //Command command = new Move(driveTrain, 0, 0, 0);
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
       DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
       DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
@@ -191,6 +187,7 @@ public class RobotContainer {
                 new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
                 swerveControllerCommand,
                 new InstantCommand(() -> driveTrain.stopModules()));
+
   }
 
   public XboxController getDriverController() {

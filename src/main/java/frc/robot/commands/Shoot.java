@@ -17,7 +17,7 @@ public class Shoot extends SequentialCommandGroup {
   private final boolean noteRequired=true ;
   
   /** Creates a new Shoot. */
-  public Shoot(Shooter shooter, Intake feeder, Notification changeLight) {
+  public Shoot(Shooter shooter, Feeder feeder, Notification changeLight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
    boolean checkForNote = changeLight.getNoteState() ;

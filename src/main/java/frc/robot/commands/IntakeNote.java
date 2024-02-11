@@ -18,7 +18,7 @@ public class IntakeNote extends SequentialCommandGroup {
   private final boolean noteRequired=false ;
   /** Creates a new IntakeNote. */
 
-  public IntakeNote(Intake intake, Notification changeLight, Intake feeder ) {
+  public IntakeNote(Intake intake, Notification changeLight, Feeder feeder ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
    boolean checkForNote=changeLight.getNoteState() ;
