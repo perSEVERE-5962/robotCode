@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.Shooter;
@@ -24,8 +25,8 @@ public class TwoNoteAutonomous extends SequentialCommandGroup {
       new Shoot(shooter, feeder, changeLight),
       new TurnToZero(driveTrain, 1),
       new MoveWithDistance(driveTrain, translationXSupplier, 33), // distance from starting point to the outer edge of the note
-      new IntakeNote(intake, changeLight, feeder),
-      new Shoot(shooter, feeder, changeLight)    
+      new IntakeNote(feeder, feederSensor, feederSensor, changeLight, feeder),
+      new Shoot(shooter, feeder, feederSensor, changeLight)    
     );
   }
 }

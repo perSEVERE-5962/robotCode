@@ -31,6 +31,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.Notification;
 import frc.robot.sensors.Camera;
 import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
@@ -54,11 +55,13 @@ public class RobotContainer {
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
+  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
+  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID);
 
   // Intake sensors
   private Solenoid intakeSolenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.REVPH,
+      PneumaticsModuleType.CTREPCM,
       Constants.UltrasonicConstants.kIntake_PCM_Channel);
   private final UltrasonicAnalog intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
       UltrasonicConstants.kIntake_PCM_Channel);
@@ -66,7 +69,7 @@ public class RobotContainer {
   // feeder sensors
   private Solenoid feederSolenoid = new Solenoid(
       Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.REVPH,
+      PneumaticsModuleType.CTREPCM,
       Constants.UltrasonicConstants.kFeeder_PCM_Channel);
   private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
