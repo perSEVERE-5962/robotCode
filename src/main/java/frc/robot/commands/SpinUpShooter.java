@@ -23,7 +23,7 @@ public class SpinUpShooter extends Command {
   @Override
   public void initialize() {
     double rawShooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 100);
-    shooterSpeed = (rawShooterSpeed/100)*Constants.kmaxShooterRPM;
+    shooterSpeed = (rawShooterSpeed/100);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,9 +42,10 @@ public class SpinUpShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (motors.getVelocity() >= shooterSpeed) {
-      return true;
-    }
-    return false;
+    return true;
+    // if (motors.getVelocity() >= shooterSpeed) {
+    //   return true;
+    // }
+    // return false;
   }
 }

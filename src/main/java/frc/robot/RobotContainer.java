@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -123,7 +124,10 @@ public class RobotContainer {
     feederSolenoid.set(true);
     frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+    SmartDashboard.putNumber("ShooterSpeed", 85);
   }
+
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
