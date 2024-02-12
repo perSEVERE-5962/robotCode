@@ -4,13 +4,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
 public class StopShooter extends Command {
   private Shooter motors;
-  private long start;
+  // private long start;
+  
   /** Creates a new StopShooter. */
   public StopShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -21,7 +21,7 @@ public class StopShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    start = System.currentTimeMillis();
+    //start = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
