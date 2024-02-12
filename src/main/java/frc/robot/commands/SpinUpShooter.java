@@ -46,9 +46,10 @@ public class SpinUpShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (motors.getVelocity() >= (Constants.kmaxShooterRPM*speedPercent)) {
-       return true;
+    return true;
+    // if (motors.getVelocity() >= shooterSpeed) {
+    //   return true;
     // }
-    //return false;
+    // return false;
   }
 }
