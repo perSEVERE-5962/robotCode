@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class SpinUpShooter extends Command {
   private Shooter motors;
   private double shooterSpeed;
+  private double speedPercent= 0;
   
   public SpinUpShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -22,8 +23,10 @@ public class SpinUpShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    double rawShooterSpeed = SmartDashboard.getNumber("ShooterSpeed", 100);
-    shooterSpeed = (rawShooterSpeed/100)*Constants.kmaxShooterRPM;
+    speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
+    shooterSpeed = (speedPercent/100);
+
+    SmartDashboard.putBoolean("Shooter at max speed", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,14 +40,15 @@ public class SpinUpShooter extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    SmartDashboard.putBoolean("Shooter at max speed", true);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (motors.getVelocity() >= shooterSpeed) {
-      return true;
-    }
-    return false;
+    // if (motors.getVelocity() >= (Constants.kmaxShooterRPM*speedPercent)) {
+       return true;
+    // }
+    //return false;
   }
 }

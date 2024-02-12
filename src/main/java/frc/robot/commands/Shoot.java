@@ -21,11 +21,13 @@ public class Shoot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     boolean checkForNote=changeLight.getNoteState() ;
+    checkForNote = true; // TODO: this is a temporary fix that needs to be reverted
     if (checkForNote == noteRequired) {
       addCommands(new SpinUpShooter(shooter),
           new RunShooterFeeder(feeder, feederSensor),
           new ChangeLED(changeLight, false),
-          new StopShooter(shooter));
+          new StopShooter(shooter)
+          );
     }
   }
 }

@@ -17,6 +17,7 @@ public class Shooter extends SubsystemBase {
   private CANSparkMax bottomMotor;
   private RelativeEncoder topShooterEncoder;
   private RelativeEncoder bottomShooterEncoder;
+
   /** Creates a new Intake. */
   public Shooter(int kShooter1MotorID, int kShooter2MotorID) {
     topMotor = new CANSparkMax(kShooter1MotorID, MotorType.kBrushless);
@@ -30,10 +31,9 @@ public class Shooter extends SubsystemBase {
 public void runShooter(double speed) {
     topMotor.set(-1*speed);
     bottomMotor.set(speed);
-    
 }
 public double getVelocity(){
-  double velocity = (topShooterEncoder.getVelocity() + bottomShooterEncoder.getVelocity())/2;
+  double velocity = topShooterEncoder.getVelocity();
   SmartDashboard.putNumber("Shooter average velocity: ", getVelocity());
   return velocity;
 }
@@ -42,6 +42,7 @@ public double getVelocity(){
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
   }
 }
 

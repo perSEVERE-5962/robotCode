@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
@@ -37,11 +38,11 @@ public class StopShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    long finish = System.currentTimeMillis();
-    long timeElapsed = finish - start;
-    if (timeElapsed / 1000 >= 2) {
-      return true;
-    }
-    return false;
+    // long finish = System.currentTimeMillis();
+    // long timeElapsed = finish - start;
+    // if (timeElapsed / 1000 >= 2) {
+       return true;
+    // }
+    // return false;
   }
 }

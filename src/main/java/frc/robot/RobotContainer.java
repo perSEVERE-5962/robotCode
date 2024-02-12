@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -55,7 +56,7 @@ public class RobotContainer {
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID);
+  private final Feeder feeder = new Feeder(true, CANDeviceIDs.kFeederMotorID);
 
   // Intake sensors
   private Solenoid intakeSolenoid = new Solenoid(
@@ -100,8 +101,7 @@ public class RobotContainer {
             () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
-
-    /*
+   /*
      * m_driveTrain.setDefaultCommand(
      * new DriveCommandWithThrottle(
      * m_driveTrain,
@@ -113,6 +113,9 @@ public class RobotContainer {
      * () -> m_driverController.getRawAxis(3)));
      */
 
+    SmartDashboard.putNumber("ShooterSpeed", 85);
+    SmartDashboard.getNumber("ShooterSpeed", 0);
+ 
     configureButtonBindings();
     intakeSolenoid.set(true);
     feederSolenoid.set(true);
