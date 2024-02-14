@@ -9,7 +9,8 @@ import frc.robot.subsystems.Shooter;
 
 public class StopShooter extends Command {
   private Shooter motors;
-  private long start;
+  // private long start;
+  
   /** Creates a new StopShooter. */
   public StopShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -20,7 +21,7 @@ public class StopShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    start = System.currentTimeMillis();
+    //start = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -37,11 +38,11 @@ public class StopShooter extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    long finish = System.currentTimeMillis();
-    long timeElapsed = finish - start;
-    if (timeElapsed / 1000 >= 2) {
-      return true;
-    }
-    return false;
+    // long finish = System.currentTimeMillis();
+    // long timeElapsed = finish - start;
+    // if (timeElapsed / 1000 >= 2) {
+       return true;
+    // }
+    // return false;
   }
 }

@@ -4,6 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
@@ -56,6 +57,10 @@ public class DriveCommand extends Command {
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.15);
     turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.4); // 0.15 for xbox
 
+    ySpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+    xSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+    turningSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+
     // 3. Make the driving smoother
     // xSpeed = xLimiter.calculate(xSpeed) *
     // DriveConstants.kTeleDriveMaxSpeedMetersPerSecond;
@@ -71,10 +76,10 @@ public class DriveCommand extends Command {
       // Relative to field
       chassisSpeeds =
           ChassisSpeeds.fromFieldRelativeSpeeds(
-              xSpeed, ySpeed * -1, turningSpeed * -1, swerveSubsystem.getRotation2d());
+              xSpeed, ySpeed * -1, turningSpeed, swerveSubsystem.getRotation2d());
     } else {
       // Relative to robot
-      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed * -1);
+      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed);
     }
 
     // 5. Convert chassis speeds to individual module states

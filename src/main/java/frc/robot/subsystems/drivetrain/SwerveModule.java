@@ -67,10 +67,10 @@ public class SwerveModule {
     driveEncoder = driveMotor.getEncoder();
     turningEncoder = turningMotor.getEncoder();
 
-    driveEncoder.setPositionConversionFactor(ModuleConstants.L1.kDriveEncoderRot2Meter);
-    driveEncoder.setVelocityConversionFactor(ModuleConstants.L1.kDriveEncoderRPM2MeterPerSec);
-    turningEncoder.setPositionConversionFactor(ModuleConstants.L1.kTurningEncoderRot2Rad);
-    turningEncoder.setVelocityConversionFactor(ModuleConstants.L1.kTurningEncoderRPM2RadPerSec);
+    driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
+    driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
+    turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
+    turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
 
     driveMotor.getPIDController().setP(0.1);
     driveMotor.getPIDController().setI(0);
@@ -81,7 +81,7 @@ public class SwerveModule {
 
     driveMotor.getPIDController().setOutputRange(-0.5, 0.5);
 
-    turningPidController = new PIDController(ModuleConstants.kPTurning, 0, 0);
+    turningPidController = new PIDController(ModuleConstants.kPTurning, ModuleConstants.kITuning, ModuleConstants.kDTuning);
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
 
     resetController = new PIDController(0.01, 0, 0);

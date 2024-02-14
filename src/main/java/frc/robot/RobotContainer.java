@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
+
 import java.util.List;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -35,8 +37,6 @@ import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.*;
-
-
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -71,28 +71,29 @@ public class RobotContainer {
       Constants.UltrasonicConstants.kFeeder_PCM_Channel);
   private final UltrasonicAnalog feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
-//cameras
+      
+  // cameras
   private final Camera frontCamera;
   private final Camera backCamera;
 
-
-
-//Intake and feeder
+  // Intake and feeder
   private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID, intakeUltrasonic);
-  private final Feeder feeder = new Feeder(false, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
+  private final Feeder feeder = new Feeder(true, CANDeviceIDs.kFeederMotorID, feederUltrasonic);
+
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
-  private final Trigger dr_kLeftBumper= new JoystickButton( driverController, XboxController.Button.kLeftBumper.value);
-  private final Trigger dr_kRightBumper= new JoystickButton( driverController, XboxController.Button.kRightBumper.value);
+  private final Trigger dr_kLeftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
+  private final Trigger dr_kRightBumper = new JoystickButton(driverController,
+      XboxController.Button.kRightBumper.value);
 
   // Test Controller
   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
-  private final Trigger ts_kLeftBumper= new JoystickButton( testController, XboxController.Button.kLeftBumper.value);
-  private final Trigger ts_lefttTrigger =new JoystickButton(testController,XboxController.Axis.kLeftTrigger.value);
-  private final Trigger ts_kRightBumper= new JoystickButton( testController, XboxController.Button.kRightBumper.value);
-  private final Trigger ts_rightTrigger =new JoystickButton(testController,XboxController.Axis.kRightTrigger.value);
-  private final Trigger ts_buttonB =new JoystickButton(testController,XboxController.Button.kB.value);
+  private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
+  private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
+  private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
+  private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
+  private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -105,7 +106,6 @@ public class RobotContainer {
             () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
-
     /*
      * m_driveTrain.setDefaultCommand(
      * new DriveCommandWithThrottle(
@@ -118,11 +118,15 @@ public class RobotContainer {
      * () -> m_driverController.getRawAxis(3)));
      */
 
+    SmartDashboard.putNumber("ShooterSpeed", 85);
+    SmartDashboard.getNumber("ShooterSpeed", 0);
+
     configureButtonBindings();
     intakeSolenoid.set(true);
     feederSolenoid.set(true);
     frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+    SmartDashboard.putNumber("ShooterSpeed", 85);
   }
 
   /**
@@ -135,16 +139,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    
-    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification ));
-    dr_kLeftBumper.onTrue(new IntakeNote(intake, notification ,feeder));
 
+    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification));
+    dr_kLeftBumper.onTrue(new IntakeNote(intake, notification, feeder));
 
     ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     ts_kLeftBumper.onTrue(new RunIntake(intake));
     ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
     ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
-    ts_buttonB.onTrue(new StopAll(feeder,intake,shooter));
+    ts_buttonB.onTrue(new StopAll(feeder, intake, shooter));
   }
 
   /**
@@ -153,40 +156,40 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //Command command = new Move(driveTrain, 0, 0, 0);
+    // Command command = new Move(driveTrain, 0, 0, 0);
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-      DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-      DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
-              .setKinematics(DriveConstants.kDriveKinematics);
+        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
+        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
+        .setKinematics(DriveConstants.kDriveKinematics);
 
     Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-                new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(
-                        new Translation2d(1, 0),
-                        new Translation2d(1, -1)),
-                new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
-                trajectoryConfig);
+        new Pose2d(0, 0, new Rotation2d(0)),
+        List.of(
+            new Translation2d(1, 0),
+            new Translation2d(1, -1)),
+        new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+        trajectoryConfig);
 
     PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
-        PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
-        ProfiledPIDController thetaController = new ProfiledPIDController(
-                DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
-        thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
+    ProfiledPIDController thetaController = new ProfiledPIDController(
+        DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-                trajectory,
-                driveTrain::getPose,
-                DriveConstants.kDriveKinematics,
-                xController,
-                yController,
-                thetaController,
-                driveTrain::setModuleStates,
-                driveTrain);
+    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+        trajectory,
+        driveTrain::getPose,
+        DriveConstants.kDriveKinematics,
+        xController,
+        yController,
+        thetaController,
+        driveTrain::setModuleStates,
+        driveTrain);
 
     return new SequentialCommandGroup(
-                new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
-                swerveControllerCommand,
-                new InstantCommand(() -> driveTrain.stopModules()));
+        new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
+        swerveControllerCommand,
+        new InstantCommand(() -> driveTrain.stopModules()));
 
   }
 
@@ -202,9 +205,8 @@ public class RobotContainer {
     return instance;
   }
 
-  public double getTargetShootVelocity(){
+  public double getTargetShootVelocity() {
     return Constants.kmaxShooterRPM;
   }
 
 }
-
