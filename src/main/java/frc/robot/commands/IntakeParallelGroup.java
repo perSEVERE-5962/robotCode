@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
-import frc.robot.sensors.UltrasonicAnalog;
+import frc.robot.subsystems.Feeder;
 //import frc.robot.sensors.UltrasonicAnalog;
 //import frc.robot.commands.RunIntakeFeeder;
 import frc.robot.subsystems.Intake;
@@ -16,10 +16,10 @@ import frc.robot.subsystems.Feeder;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeParallelGroup extends ParallelRaceGroup {
   /** Creates a new IntakeParallelGroup. */
-  public IntakeParallelGroup(Intake intake, UltrasonicAnalog intakeUltrasonic, Notification changeLight, Feeder feeder) {
+  public IntakeParallelGroup(Intake intake, Notification changeLight, Feeder feeder) {
     addCommands(
-      new IntakeSequentialGroup( intake,  intakeUltrasonic,  changeLight),
-      new RunIntakeFeeder(feeder, intakeUltrasonic)
+      new IntakeSequentialGroup( intake, changeLight),
+      new RunIntakeFeeder(feeder)
       );
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());

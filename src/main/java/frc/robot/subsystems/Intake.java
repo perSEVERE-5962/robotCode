@@ -8,12 +8,14 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.sensors.UltrasonicAnalog;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeMotor;
-
+  private UltrasonicAnalog intakeUltrasonic;
   /** Creates a new Intake. */
-  public Intake(boolean isinverted,int motorId) {
+  public Intake(boolean isinverted,int motorId, UltrasonicAnalog intakeUltrasonic) {
+    this.intakeUltrasonic = intakeUltrasonic;
     intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
     intakeMotor.setInverted(isinverted);
 
@@ -29,5 +31,8 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+  public UltrasonicAnalog geUltrasonicAnalog(){
+    return intakeUltrasonic;
   }
 }

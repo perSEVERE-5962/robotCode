@@ -6,9 +6,9 @@ package frc.robot;
 
 /** Shorter way to express X/Y/Z values */
 public class Vec3 {
-    private double x = 0;
-    private double y = 0;
-    private double z = 0;
+    private double x = 0.0;
+    private double y = 0.0;
+    private double z = 0.0;
 
     public Vec3(double x, double y, double z) {
         this.x = x;
@@ -68,7 +68,7 @@ public class Vec3 {
 
     public void normalize() {
         double length = Math.sqrt(x*x + y*y + z*z);
-        if (length == 0) { return; }
+        if (length == 0.0) { return; }
         this.x = x/length;
         this.y = y/length;
         this.z = z/length;

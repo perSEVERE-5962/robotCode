@@ -13,8 +13,8 @@ public class RunShooterFeeder extends Command {
   private UltrasonicAnalog feederUltrasonic;
   
   /** Creates a new Feeder. */
-  public RunShooterFeeder(Feeder feeder, UltrasonicAnalog feederUltrasonic) {
-    this.feederUltrasonic = feederUltrasonic;
+  public RunShooterFeeder(Feeder feeder) {
+    this.feederUltrasonic = feeder.geUltrasonicAnalog();
     this.shooterfeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
@@ -28,7 +28,7 @@ public class RunShooterFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterfeeder.run(-1);
+    shooterfeeder.run(1);
   }
 
   // Called once the command ends or is interrupted.
