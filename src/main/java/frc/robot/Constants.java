@@ -28,6 +28,7 @@ public final class Constants {
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
   public static final boolean kUseL1Ratio = false;
+  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
