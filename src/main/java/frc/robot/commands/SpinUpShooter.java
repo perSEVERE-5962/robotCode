@@ -10,8 +10,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class SpinUpShooter extends Command {
   private Shooter motors;
-  private double shooterSpeed;
-  private double speedPercent= 0;
+  //private double shooterSpeed;
+  //private double speedPercent= 0;
+  private long start;
   
   public SpinUpShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -22,33 +23,38 @@ public class SpinUpShooter extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
-    shooterSpeed = (speedPercent/100);
-
-    SmartDashboard.putBoolean("Shooter at max speed", false);
+    start = System.currentTimeMillis();
+    //speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
+    //shooterSpeed = (speedPercent/100);
+    motors.runShooter(1);
+    //SmartDashboard.putBoolean("Shooter at max speed", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     
-    SmartDashboard.putNumber("current shooter speed",shooterSpeed);
-    motors.runShooter(shooterSpeed);
+    //SmartDashboard.putNumber("current shooter speed",shooterSpeed);
+    //motors.runShooter(shooterSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("Shooter at max speed", true);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
     // if (motors.getVelocity() >= shooterSpeed) {
     //   return true;
     // }
     // return false;
+    long finish = System.currentTimeMillis();
+    long timeElapsed = finish - start;
+    if (timeElapsed / 1000 >= 2) {
+      return true;
+    }
+    return false;
   }
 }
