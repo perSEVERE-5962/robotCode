@@ -17,7 +17,6 @@ public class Feeder extends SubsystemBase {
     this.feederUltrasonic = feederUltrasonic;
     feederMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
     feederMotor.setInverted(isinverted);
-
   }
 
 
