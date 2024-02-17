@@ -6,15 +6,21 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
+
+import frc.robot.Constants;
+import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.sensors.UltrasonicAnalog;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Feeder extends SubsystemBase {
   private CANSparkMax feederMotor;
   private UltrasonicAnalog feederUltrasonic;
+  private Solenoid feederSolenoid;
   /** Creates a new Intake. */
-  public Feeder(boolean isinverted,int motorId, UltrasonicAnalog feederUltrasonic) {
-    this.feederUltrasonic = feederUltrasonic;
+  public Feeder(boolean isinverted,int motorId) {
     feederMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
     feederMotor.setInverted(isinverted);
   }
@@ -31,6 +37,17 @@ public class Feeder extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public UltrasonicAnalog geUltrasonicAnalog(){
+    if(feederUltrasonic==null){
+      feederSolenoid = new Solenoid(
+      Constants.CANDeviceIDs.kPCMID24V,
+      PneumaticsModuleType.CTREPCM,
+      Constants.UltrasonicConstants.kFeeder_PCM_Channel);
+      feederSolenoid.set(true);
+      feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
+      UltrasonicConstants.kFeeder_PCM_Channel);
+      SmartDashboard.putString("Feeder Ultrasonic","New");
+    }
     return feederUltrasonic;
+    
   }
 }
