@@ -19,15 +19,27 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  private static final double BACK_RIGHT_OFFSET = 0.240479;
-  private static final double BACK_LEFT_OFFSET = 0.165283;
-  private static final double FRONT_RIGHT_OFFSET = 0.335449;
-  private static final double FRONT_LEFT_OFFSET = 0.384766;
+  /*
+   * L1 values:
+   * 0.472168
+   * 0.051758
+   * 0.028809
+   * 0.277588
+   * L3 values:
+   * 0.240479
+   * 0.165283
+   * 0.335449
+   * 0.384766
+   */
+  private static final double BACK_RIGHT_OFFSET =  0.472168;
+  private static final double BACK_LEFT_OFFSET =   0.051758;
+  private static final double FRONT_RIGHT_OFFSET = 0.028809;
+  private static final double FRONT_LEFT_OFFSET =  0.277588;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
-  public static final boolean kUseL1Ratio = false;
+  public static final boolean kUseL1Ratio = true;
   public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
   public static final class ModuleConstants {
@@ -178,11 +190,11 @@ public final class Constants {
 
   public static final class SpeakerConstants {
       // The speaker has 2 april tags from it
-      public static final int kBlueSpeakerAprilTag1Id = 0;
+      public static final int kBlueSpeakerAprilTag1Id = 7;
       public static final int kBlueSpeakerAprilTag2Id = 8;
       public static final int kRedSpeakerAprilTag1Id = 4;
       public static final int kRedSpeakerAprilTag2Id = 3;
-      // Blue: 7 center, 8 side
-      // Red: 4 center, 3 side
+      // Blue: 7 center (id 1), 8 side (id 2)
+      // Red: 4 center (id 1), 3 side (id 2)
   }
 }
