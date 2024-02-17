@@ -11,10 +11,10 @@ import frc.robot.subsystems.Feeder;
 public class RunShooterFeeder extends Command {
   private Feeder shooterfeeder;
   private UltrasonicAnalog feederUltrasonic;
+  private long start;
   
   /** Creates a new Feeder. */
   public RunShooterFeeder(Feeder feeder) {
-    this.feederUltrasonic = feeder.geUltrasonicAnalog();
     this.shooterfeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
@@ -23,6 +23,8 @@ public class RunShooterFeeder extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    this.feederUltrasonic = shooterfeeder.getUltrasonicAnalog();
+    start = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,12 +43,12 @@ public class RunShooterFeeder extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double range_of_feeder = feederUltrasonic.getRange();
-    System.out.println("Range=" + range_of_feeder);
-    if (range_of_feeder <= 2.3) {
-      return false;
-    } else {
+    long finish = System.currentTimeMillis();
+    long timeElapsed = finish - start;
+    if (timeElapsed / 1000 >= 2) {
       return true;
+    } else {
+      return false;
     }
   }
 }

@@ -14,14 +14,15 @@ public class RunIntakeFeeder extends Command {
   
   /** Creates a new Feeder. */
   public RunIntakeFeeder(Feeder feeder){
-    this.feederUltrasonic = feeder.geUltrasonicAnalog();
+    this.intakefeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() { }
+  public void initialize() {   
+    this.feederUltrasonic = intakefeeder.getUltrasonicAnalog(); }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -41,7 +42,7 @@ public class RunIntakeFeeder extends Command {
   public boolean isFinished() {
     double range_of_feeder=feederUltrasonic.getRange();
     System.out.println("Range="+ range_of_feeder);
-    if(range_of_feeder<=2.3){
+    if(range_of_feeder<=9){
      
       return true;
     }else{
