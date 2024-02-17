@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 // import edu.wpi.first.wpilibj.PneumaticsModuleType;
 // import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,7 +23,8 @@ import frc.robot.subsystems.DetectAprilTags;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-
+  private Solenoid intakeSolenoid;
+  private Solenoid feederSolenoid;
   @Override
   public void driverStationConnected() {
     if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
@@ -52,7 +55,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
-    DetectAprilTags.activate();
+    //DetectAprilTags.activate();
 
     // Manual override
     int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;

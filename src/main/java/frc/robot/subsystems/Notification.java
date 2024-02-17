@@ -13,7 +13,7 @@ import frc.robot.Constants.ColorConstants;
 public class Notification extends SubsystemBase {
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
-  private boolean noteState;
+  private boolean noteState=false;
 
 
   /** Creates a new Intake. */

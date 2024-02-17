@@ -19,46 +19,35 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  private static final double BACK_RIGHT_OFFSET = 0.478760;
-  private static final double BACK_LEFT_OFFSET = 0.051025;
-  private static final double FRONT_RIGHT_OFFSET = 0.034180;
-  private static final double FRONT_LEFT_OFFSET = 0.278320;
+  private static final double BACK_RIGHT_OFFSET = 0.240479;
+  private static final double BACK_LEFT_OFFSET = 0.165283;
+  private static final double FRONT_RIGHT_OFFSET = 0.335449;
+  private static final double FRONT_LEFT_OFFSET = 0.384766;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
+  public static final boolean kUseL1Ratio = false;
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
-    public static final double kPTurning = 0.5;
+    public static final double kPTurning = kUseL1Ratio ? 0.5 : 0.34;
+    public static final double kITuning = kUseL1Ratio ? 0.0 : 0.0;
+    public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0;
+
+    public static final double kL1Ratio = 1 / 8.14;
+    public static final double kL3Ratio = 1 / 6.12;
     
-
-    // L1 swerve
-    public static final class L1 {
-      public static final double kDriveMotorGearRatio = 1.0 / 8.14; // 8.14:1
-      public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0); // 150/7:1
-      public static final double kDriveEncoderRot2Meter =
-          kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
-      public static final double kDriveEncoderRot2Inch =
-          kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
-      public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2.0 * Math.PI;
-      public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
-      public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
-    }
-
-    // L3 swerve
-    public static final class L3 {
-      public static final double kDriveMotorGearRatio = 1.0 / 6.12; // 6.12:1
-      public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0); // 150/7:1
-      public static final double kDriveEncoderRot2Meter =
-          kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
-      public static final double kDriveEncoderRot2Inch =
-          kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
-      public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2.0 * Math.PI;
-      public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
-      public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
-    }
+    public static final double kDriveMotorGearRatio = kUseL1Ratio ? kL1Ratio : kL3Ratio;
+    public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0);
+    public static final double kDriveEncoderRot2Meter =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
+    public static final double kDriveEncoderRot2Inch =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
+    public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
+    public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
+    public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
   }
 
   public static final class DriveConstants {
@@ -69,10 +58,10 @@ public final class Constants {
     // Distance between front and back wheels
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
-            new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-            new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-            new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
-            new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
+            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0),
+            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0),
+            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0),
+            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0));
 
     public static final boolean kFrontLeftTurningEncoderReversed = false;
     public static final boolean kBackLeftTurningEncoderReversed = false;
@@ -111,7 +100,7 @@ public final class Constants {
     public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
         Math.toRadians(kFrontLeftDriveAbsoluteEncoderOffsetDeg);
 
-    public static final double kPhysicalMaxSpeedMetersPerSecond = 1.5; // 3.6576; // 12.0 ft/sec
+    public static final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters((kUseL1Ratio ? 12.5 : 16.6));
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.0 * 2.0 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond =
@@ -119,7 +108,7 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4.0;
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
-    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI /4.0;
+    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     public static final double kPXController = 1.5;
     public static final double kPYController = 1.5;

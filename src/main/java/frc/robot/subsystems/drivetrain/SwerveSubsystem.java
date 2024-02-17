@@ -180,11 +180,11 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public double convertPositionToDistance(double position) {
-    return Units.metersToInches(position) / (Constants.ModuleConstants.L1.kDriveEncoderRot2Inch);
+    return Units.metersToInches(position) / (Constants.ModuleConstants.kDriveEncoderRot2Inch);
   }
 
   public double convertDistanceToPosition(double distance) {
-    return (distance * Constants.ModuleConstants.L1.kDriveMotorGearRatio)
+    return (distance * Constants.ModuleConstants.kDriveMotorGearRatio)
         / (Math.PI * Constants.ModuleConstants.kWheelDiameterInches);
   }
 

@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Intake;
 
 public class RunShooterFeeder extends Command {
   private Feeder shooterfeeder;
@@ -29,7 +28,7 @@ public class RunShooterFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterfeeder.run(-1);
+    shooterfeeder.run(1);
   }
 
   // Called once the command ends or is interrupted.
