@@ -34,6 +34,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeNote;
+import frc.robot.commands.MoveWithTrajectory;
 import frc.robot.commands.ResetWheels;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunIntakeFeeder;
@@ -83,8 +84,8 @@ public class RobotContainer {
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
   private final Trigger dr_kLeftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
-  private final Trigger dr_kRightBumper = new JoystickButton(driverController,
-      XboxController.Button.kRightBumper.value);
+  private final Trigger dr_kRightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
+  private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -140,6 +141,7 @@ public class RobotContainer {
 
     dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_kLeftBumper.onTrue(new IntakeNote(intake, notification, feeder));
+    dr_buttonB.onTrue(new MoveWithTrajectory(driveTrain));
 
     // ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     // ts_kLeftBumper.onTrue(new RunIntake(intake));

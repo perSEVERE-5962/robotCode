@@ -26,7 +26,6 @@ public class MoveWithTrajectory extends Command {
   private final PIDController xController;
   private final PIDController yController;
   private final ProfiledPIDController thetaController;
-  protected SwerveSubsystem m_driveTrain;
   private SwerveControllerCommand swerveControllerCommand;
 
   public MoveWithTrajectory(SwerveSubsystem swerveSubsystem) {
@@ -40,9 +39,9 @@ public class MoveWithTrajectory extends Command {
     trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
         List.of(
-            new Translation2d(1, 0),
-            new Translation2d(1, -1)),
-        new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+            new Translation2d(-2, 0),
+            new Translation2d(2, 2)),
+        new Pose2d(0, 4, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
     xController = new PIDController(DriveConstants.kPXController, 0, 0);
@@ -50,6 +49,17 @@ public class MoveWithTrajectory extends Command {
     thetaController = new ProfiledPIDController(
         DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+    swerveControllerCommand = new SwerveControllerCommand(
+        trajectory, // Pathing
+        () -> swerveSubsystem.getPose(), // Position
+        DriveConstants.kDriveKinematics, // Center
+        xController, yController, thetaController, // Speed
+        outputStates -> {
+            swerveSubsystem.setModuleStates(outputStates);
+          }, // Output states
+        swerveSubsystem);
+
     addRequirements(swerveSubsystem);
   }
 
@@ -65,18 +75,7 @@ public class MoveWithTrajectory extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        trajectory,
-        m_driveTrain::getPose,
-        DriveConstants.kDriveKinematics,
-        xController,
-        yController,
-        thetaController,
-        m_driveTrain::setModuleStates,
-        m_driveTrain);
-
     swerveControllerCommand.execute();
-
   }
 
   // Called once the command ends or is interrupted.
