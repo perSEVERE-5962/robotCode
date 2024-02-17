@@ -22,7 +22,7 @@ public class RunIntakeFeeder extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {   
-    this.feederUltrasonic = intakefeeder.geUltrasonicAnalog(); }
+    this.feederUltrasonic = intakefeeder.getUltrasonicAnalog(); }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -42,7 +42,7 @@ public class RunIntakeFeeder extends Command {
   public boolean isFinished() {
     double range_of_feeder=feederUltrasonic.getRange();
     System.out.println("Range="+ range_of_feeder);
-    if(range_of_feeder<=2.3){
+    if(range_of_feeder<=9){
      
       return true;
     }else{

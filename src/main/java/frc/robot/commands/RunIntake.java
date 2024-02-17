@@ -25,7 +25,7 @@ public class RunIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-   this.intakeUltrasonic = intake.geUltrasonicAnalog();
+   this.intakeUltrasonic = intake.getUltrasonicAnalog();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -45,7 +45,7 @@ public class RunIntake extends Command {
   public boolean isFinished() {
     double range_of_intake = intakeUltrasonic.getRange();
     SmartDashboard.putNumber("Range" , range_of_intake);
-    if (range_of_intake <= 2.3) {
+    if (range_of_intake <= 9) {
       return true;
     } else {
 
