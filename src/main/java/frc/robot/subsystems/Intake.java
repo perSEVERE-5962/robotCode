@@ -43,7 +43,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Intake Ultrasonic", getUltrasonicAnalog().getRange());
+    SmartDashboard.putNumber("Intake Ultrasonic", geUltrasonicAnalog().getRange());
   }
   public UltrasonicAnalog getUltrasonicAnalog(){
     if(intakeUltrasonic == null){
