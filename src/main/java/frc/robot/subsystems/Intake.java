@@ -7,15 +7,19 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.sensors.UltrasonicAnalog;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private UltrasonicAnalog intakeUltrasonic;
+   private Solenoid intakeSolenoid;
   /** Creates a new Intake. */
-  public Intake(boolean isinverted,int motorId, UltrasonicAnalog intakeUltrasonic) {
-    this.intakeUltrasonic = intakeUltrasonic;
+  public Intake(boolean isinverted,int motorId) {
     intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
     intakeMotor.setInverted(isinverted);
 
@@ -33,6 +37,16 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
   public UltrasonicAnalog geUltrasonicAnalog(){
+    if(intakeUltrasonic == null){
+      intakeSolenoid = new Solenoid(
+      Constants.CANDeviceIDs.kPCMID24V,
+      PneumaticsModuleType.CTREPCM,
+      Constants.UltrasonicConstants.kIntake_PCM_Channel);
+      intakeSolenoid.set(true);
+      intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
+      UltrasonicConstants.kIntake_PCM_Channel);
+    }
     return intakeUltrasonic;
-  }
+  
+ }
 }

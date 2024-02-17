@@ -55,18 +55,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
-    intakeSolenoid = new Solenoid(
-      Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.CTREPCM,
-      0);
-    intakeSolenoid.set(true);
-    
-    feederSolenoid = new Solenoid(
-      Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.CTREPCM,
-      1);
-    feederSolenoid.set(true);
-
     //DetectAprilTags.activate();
 
     // Manual override

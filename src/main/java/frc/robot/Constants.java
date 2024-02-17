@@ -168,7 +168,7 @@ public final class Constants {
 
   public static final class UltrasonicConstants {
     public static final int kIntake_Analog_Channel = 0;
-    public static final int kIntake_PCM_Channel = 1;
+    public static final int kIntake_PCM_Channel = 0;
     public static final int kFeeder_Analog_Channel = 1;
     public static final int kFeeder_PCM_Channel = 1;
     public static final double kMinRange = 6.0;
