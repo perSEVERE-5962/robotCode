@@ -16,7 +16,6 @@ public class RunIntake extends Command {
 
   /** Creates a new RunIntake. */
   public RunIntake(Intake intake) {
-    this.intakeUltrasonic = intake.geUltrasonicAnalog();
     this.intake = intake;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -26,7 +25,7 @@ public class RunIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  
+   this.intakeUltrasonic = intake.geUltrasonicAnalog();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

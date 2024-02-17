@@ -22,7 +22,11 @@ public class Intake extends SubsystemBase {
   public Intake(boolean isinverted,int motorId) {
     intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
     intakeMotor.setInverted(isinverted);
-
+    intakeSolenoid = new Solenoid(
+    Constants.CANDeviceIDs.kPCMID24V,
+    PneumaticsModuleType.CTREPCM,
+    Constants.UltrasonicConstants.kIntake_PCM_Channel);
+    intakeSolenoid.set(true);
   }
 
 
@@ -38,11 +42,6 @@ public class Intake extends SubsystemBase {
   }
   public UltrasonicAnalog geUltrasonicAnalog(){
     if(intakeUltrasonic == null){
-      intakeSolenoid = new Solenoid(
-      Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.CTREPCM,
-      Constants.UltrasonicConstants.kIntake_PCM_Channel);
-      intakeSolenoid.set(true);
       intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
       UltrasonicConstants.kIntake_PCM_Channel);
     }

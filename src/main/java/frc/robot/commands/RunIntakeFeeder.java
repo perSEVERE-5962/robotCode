@@ -14,14 +14,15 @@ public class RunIntakeFeeder extends Command {
   
   /** Creates a new Feeder. */
   public RunIntakeFeeder(Feeder feeder){
-    this.feederUltrasonic = feeder.geUltrasonicAnalog();
+    this.intakefeeder = feeder;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() { }
+  public void initialize() {   
+    this.feederUltrasonic = intakefeeder.geUltrasonicAnalog(); }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
