@@ -23,7 +23,11 @@ public class Feeder extends SubsystemBase {
   public Feeder(boolean isinverted,int motorId) {
     feederMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
     feederMotor.setInverted(isinverted);
-
+    feederSolenoid = new Solenoid(
+    Constants.CANDeviceIDs.kPCMID24V,
+    PneumaticsModuleType.CTREPCM,
+    Constants.UltrasonicConstants.kFeeder_PCM_Channel);
+    feederSolenoid.set(true);
   }
 
 
@@ -36,17 +40,12 @@ public class Feeder extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Feeder Ultrasonic", getUltrasonicAnalog().getRange());
   }
-  public UltrasonicAnalog geUltrasonicAnalog(){
+  public UltrasonicAnalog getUltrasonicAnalog(){
     if(feederUltrasonic==null){
-      feederSolenoid = new Solenoid(
-      Constants.CANDeviceIDs.kPCMID24V,
-      PneumaticsModuleType.CTREPCM,
-      Constants.UltrasonicConstants.kFeeder_PCM_Channel);
-      feederSolenoid.set(true);
       feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
       UltrasonicConstants.kFeeder_PCM_Channel);
-      SmartDashboard.putString("Feeder Ultrasonic","New");
     }
     return feederUltrasonic;
     
