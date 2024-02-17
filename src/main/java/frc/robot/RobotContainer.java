@@ -79,6 +79,7 @@ public class RobotContainer {
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
   private final Trigger dr_kLeftBumper= new JoystickButton( driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_kRightBumper= new JoystickButton( driverController, XboxController.Button.kRightBumper.value);
+  private final Trigger dr_kButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
   // Test Controller
   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -130,7 +131,7 @@ public class RobotContainer {
     
     dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic,notification ));
     dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,notification ,feeder));
-
+    dr_kButtonA.onTrue(new TurnToAprilTag(1, 1));
 
     ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     ts_kLeftBumper.onTrue(new RunIntake(intake,intakeUltrasonic));
