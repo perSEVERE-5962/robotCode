@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.List;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -40,9 +41,9 @@ public class MoveWithTrajectory extends Command {
     trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
         List.of(
-            new Translation2d(1, 0),
-            new Translation2d(1, -1)),
-        new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+            new Translation2d(-0.47,  0),
+            new Translation2d(-0.94, 0)),
+        new Pose2d(2, -1, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
     xController = new PIDController(DriveConstants.kPXController, 0, 0);

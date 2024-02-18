@@ -140,6 +140,7 @@ public class RobotContainer {
 
     dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_kLeftBumper.onTrue(new IntakeNote(intake, notification, feeder));
+    
 
     // ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     // ts_kLeftBumper.onTrue(new RunIntake(intake));
