@@ -33,6 +33,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveCommandWithThrottle;
 import frc.robot.commands.IntakeNote;
 import frc.robot.commands.ResetWheels;
 import frc.robot.commands.RunIntake;
@@ -41,6 +42,7 @@ import frc.robot.commands.RunShooterFeeder;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SpinUpShooter;
 import frc.robot.commands.StopAll;
+import frc.robot.commands.TurnToAprilTag;
 import frc.robot.sensors.Camera;
 import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Feeder;
@@ -87,12 +89,12 @@ public class RobotContainer {
   private final Trigger dr_kButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
   // Test Controller
-  private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
-  private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
-  private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
-  private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
-  private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
-  private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
+  // private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
+  // private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
+  // private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
+  // private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
+  // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
+  // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
