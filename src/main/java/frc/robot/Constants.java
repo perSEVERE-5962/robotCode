@@ -19,10 +19,10 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  private static final double BACK_RIGHT_OFFSET = 0.240479;
-  private static final double BACK_LEFT_OFFSET = 0.165283;
-  private static final double FRONT_RIGHT_OFFSET = 0.335449;
-  private static final double FRONT_LEFT_OFFSET = 0.384766;
+  private static final double BACK_RIGHT_OFFSET = 0.25;
+  private static final double BACK_LEFT_OFFSET = 0.168701;
+  private static final double FRONT_RIGHT_OFFSET = 0.3396;
+  private static final double FRONT_LEFT_OFFSET = 0.376465;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
