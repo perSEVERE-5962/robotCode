@@ -82,9 +82,9 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
-  private final Trigger dr_kLeftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
-  private final Trigger dr_kRightBumper = new JoystickButton(driverController,
-      XboxController.Button.kRightBumper.value);
+  private final Trigger dr_kLeftBumper= new JoystickButton( driverController, XboxController.Button.kLeftBumper.value);
+  private final Trigger dr_kRightBumper= new JoystickButton( driverController, XboxController.Button.kRightBumper.value);
+  private final Trigger dr_kButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
   // Test Controller
   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -98,27 +98,24 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   private RobotContainer() {
-    driveTrain.setDefaultCommand(
+    if (Constants.kUseJoystick) {
+      driveTrain.setDefaultCommand(
+        new DriveCommandWithThrottle(
+            driveTrain,
+            () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
+            () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech),
+            () -> driverController.getRawAxis(3)));
+    } else {
+      driveTrain.setDefaultCommand(
         new DriveCommand(
             driveTrain,
             () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
             () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
-    /*
-     * m_driveTrain.setDefaultCommand(
-     * new DriveCommandWithThrottle(
-     * m_driveTrain,
-     * () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
-     * () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-     * () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
-     * () -> m_driverController.getRawButton(OIConstants.
-     * kDriverFieldOrientedButtonIdx_Logitech),
-     * () -> m_driverController.getRawAxis(3)));
-     */
-
-    SmartDashboard.putNumber("ShooterSpeed", 85);
-    SmartDashboard.getNumber("ShooterSpeed", 0);
+    }
 
     configureButtonBindings();
     frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
@@ -137,6 +134,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
+    dr_kButtonA.onTrue(new TurnToAprilTag(1, 1));
 
     dr_kRightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_kLeftBumper.onTrue(new IntakeNote(intake, notification, feeder));

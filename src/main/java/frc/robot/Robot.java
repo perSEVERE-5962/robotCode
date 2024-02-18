@@ -65,6 +65,13 @@ public class Robot extends TimedRobot {
     SpeakerTagInfo.tag2Info = new TagInfo(speakerTag2Id);
     SpeakerTagInfo.tag1Info.updateShuffleboard();
     SpeakerTagInfo.tag2Info.updateShuffleboard();
+    SpeakerTagInfo.tag1Info.update();
+    SpeakerTagInfo.tag2Info.update();
+  
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    m_robotContainer = RobotContainer.getInstance();
+    DetectAprilTags.activate();
   }
   
 

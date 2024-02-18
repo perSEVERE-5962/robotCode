@@ -55,7 +55,7 @@ public class DriveCommand extends Command {
     // : 0.0;
     ySpeed = MathUtil.applyDeadband(ySpeed, 0.15);
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.15);
-    turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.4); // 0.15 for xbox
+    turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.15); // 0.15 for xbox
 
     ySpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
     xSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
