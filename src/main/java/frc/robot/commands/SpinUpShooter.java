@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 public class SpinUpShooter extends Command {
   private Shooter motors;
-  //private double shooterSpeed;
-  //private double speedPercent= 0;
+ // private double shooterSpeed;
+  //private double speedPercent= 85;
   private long start;
   
   public SpinUpShooter(Shooter motors) {
@@ -24,16 +24,15 @@ public class SpinUpShooter extends Command {
   @Override
   public void initialize() {
     start = System.currentTimeMillis();
-    //speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
-    //shooterSpeed = (speedPercent/100);
-    motors.runShooter(1);
     //SmartDashboard.putBoolean("Shooter at max speed", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    //speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
+    //shooterSpeed = (speedPercent/100);
+    motors.runShooter(0.7);
     //SmartDashboard.putNumber("current shooter speed",shooterSpeed);
     //motors.runShooter(shooterSpeed);
   }

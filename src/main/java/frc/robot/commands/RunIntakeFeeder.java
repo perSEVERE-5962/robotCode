@@ -7,7 +7,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
 import frc.robot.sensors.UltrasonicAnalog;
-import frc.robot.subsystems.Feeder;
 public class RunIntakeFeeder extends Command {
   private Feeder intakefeeder ;
   private UltrasonicAnalog feederUltrasonic;
@@ -27,7 +26,7 @@ public class RunIntakeFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakefeeder.run(1);
+    intakefeeder.run(0.7);
   }
 
   // Called once the command ends or is interrupted.
@@ -42,7 +41,7 @@ public class RunIntakeFeeder extends Command {
   public boolean isFinished() {
     double range_of_feeder=feederUltrasonic.getRange();
     System.out.println("Range="+ range_of_feeder);
-    if(range_of_feeder<=9){
+    if(range_of_feeder<=11){
      
       return true;
     }else{

@@ -27,7 +27,6 @@ public class MoveWithTrajectory extends Command {
   private final PIDController xController;
   private final PIDController yController;
   private final ProfiledPIDController thetaController;
-  protected SwerveSubsystem m_driveTrain;
   private SwerveControllerCommand swerveControllerCommand;
 
   public MoveWithTrajectory(SwerveSubsystem swerveSubsystem) {
@@ -51,6 +50,17 @@ public class MoveWithTrajectory extends Command {
     thetaController = new ProfiledPIDController(
         DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
     thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+    swerveControllerCommand = new SwerveControllerCommand(
+        trajectory, // Pathing
+        () -> swerveSubsystem.getPose(), // Position
+        DriveConstants.kDriveKinematics, // Center
+        xController, yController, thetaController, // Speed
+        outputStates -> {
+            swerveSubsystem.setModuleStates(outputStates);
+          }, // Output states
+        swerveSubsystem);
+
     addRequirements(swerveSubsystem);
   }
 
@@ -66,18 +76,7 @@ public class MoveWithTrajectory extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        trajectory,
-        m_driveTrain::getPose,
-        DriveConstants.kDriveKinematics,
-        xController,
-        yController,
-        thetaController,
-        m_driveTrain::setModuleStates,
-        m_driveTrain);
-
     swerveControllerCommand.execute();
-
   }
 
   // Called once the command ends or is interrupted.
