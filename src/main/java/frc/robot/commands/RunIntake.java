@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
@@ -14,8 +15,7 @@ public class RunIntake extends Command {
   private Intake intake;
 
   /** Creates a new RunIntake. */
-  public RunIntake(Intake intake, UltrasonicAnalog intakeUltrasonic) {
-    this.intakeUltrasonic = intakeUltrasonic;
+  public RunIntake(Intake intake) {
     this.intake = intake;
     
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,13 +25,13 @@ public class RunIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  
+   this.intakeUltrasonic = intake.getUltrasonicAnalog();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.run(1);
+    intake.run(0.7);
   }
 
   // Called once the command ends or is interrupted.
@@ -44,12 +44,12 @@ public class RunIntake extends Command {
   @Override
   public boolean isFinished() {
     double range_of_intake = intakeUltrasonic.getRange();
-    System.out.println("range =" + range_of_intake);
-    if (range_of_intake <= 2.3) {
+    SmartDashboard.putNumber("Range" , range_of_intake);
+    if (range_of_intake <= 11) {
       return true;
     } else {
 
-      return false;
+     return false;
     }
   }
 }

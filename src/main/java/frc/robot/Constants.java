@@ -65,9 +65,9 @@ public final class Constants {
 
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
-    public static final double kTrackWidth = Units.inchesToMeters(24.857);
+    public static final double kTrackWidth = Units.inchesToMeters(20.5);
     // Distance between right and left wheels
-    public static final double kWheelBase = Units.inchesToMeters(24.857);
+    public static final double kWheelBase = Units.inchesToMeters(20.5);
     // Distance between front and back wheels
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
@@ -114,7 +114,7 @@ public final class Constants {
         Math.toRadians(kFrontLeftDriveAbsoluteEncoderOffsetDeg);
 
     public static final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters((kUseL1Ratio ? 12.5 : 16.6));
-    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2 * 2 * Math.PI;
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.0 * 2.0 * Math.PI;
 
     public static final double kTeleDriveMaxSpeedMetersPerSecond =
         kPhysicalMaxSpeedMetersPerSecond / 4.0;
@@ -184,8 +184,8 @@ public final class Constants {
     public static final int kIntake_PCM_Channel = 0;
     public static final int kFeeder_Analog_Channel = 1;
     public static final int kFeeder_PCM_Channel = 1;
-    public static final double kMinRange = 6;
-    public static final double kMaxRange = 7;
+    public static final double kMinRange = 6.0;
+    public static final double kMaxRange = 7.0;
   }
 
   public static final class SpeakerConstants {
@@ -196,5 +196,10 @@ public final class Constants {
       public static final int kRedSpeakerAprilTag2Id = 3;
       // Blue: 7 center (id 1), 8 side (id 2)
       // Red: 4 center (id 1), 3 side (id 2)
+  }
+  public static final class CameraConstants{
+    public static final int kAprilTagCamera = 0;
+    public static final int kFrontCamera = 1;
+    public static final int kBackCamera = 2;
   }
 }

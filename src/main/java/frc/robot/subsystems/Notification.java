@@ -13,7 +13,7 @@ import frc.robot.Constants.ColorConstants;
 public class Notification extends SubsystemBase {
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
-  private boolean noteState;
+  private boolean noteState=false;
 
 
   /** Creates a new Intake. */
@@ -36,7 +36,7 @@ public class Notification extends SubsystemBase {
   public void updateState(boolean noteState) {
     this.noteState = noteState;
     int hue = ColorConstants.RedHue;
-    if(noteState = true){
+    if(noteState == true){
       hue = ColorConstants.BlueHue;
     }
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
