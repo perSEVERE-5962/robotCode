@@ -27,6 +27,7 @@ public class MoveWithTrajectory extends Command {
   private final PIDController xController;
   private final PIDController yController;
   private final ProfiledPIDController thetaController;
+  //protected SwerveSubsystem m_driveTrain;
   private SwerveControllerCommand swerveControllerCommand;
 
   public MoveWithTrajectory(SwerveSubsystem swerveSubsystem) {
@@ -40,9 +41,8 @@ public class MoveWithTrajectory extends Command {
     trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
         List.of(
-            new Translation2d(-0.47,  0),
-            new Translation2d(-0.94, 0)),
-        new Pose2d(2, -1, Rotation2d.fromDegrees(0)),
+            new Translation2d(0.47,  0)),
+        new Pose2d(0.94, 0, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
     xController = new PIDController(DriveConstants.kPXController, 0, 0);
@@ -76,6 +76,16 @@ public class MoveWithTrajectory extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
+        trajectory,
+        swerveSubsystem::getPose,
+        DriveConstants.kDriveKinematics,
+        xController,
+        yController,
+        thetaController,
+        swerveSubsystem::setModuleStates,
+        swerveSubsystem);
+
     swerveControllerCommand.execute();
   }
 
@@ -91,3 +101,4 @@ public class MoveWithTrajectory extends Command {
     return swerveControllerCommand != null && swerveControllerCommand.isFinished();
   }
 }
+
