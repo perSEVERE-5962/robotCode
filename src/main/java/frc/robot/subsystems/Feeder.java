@@ -40,7 +40,7 @@ public class Feeder extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Feeder Ultrasonic", getUltrasonicAnalog().getRange());
+    
   }
   public UltrasonicAnalog getUltrasonicAnalog(){
     if(feederUltrasonic==null){

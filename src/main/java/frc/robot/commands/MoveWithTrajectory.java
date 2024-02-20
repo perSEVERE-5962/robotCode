@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.List;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -26,7 +27,7 @@ public class MoveWithTrajectory extends Command {
   private final PIDController xController;
   private final PIDController yController;
   private final ProfiledPIDController thetaController;
-  protected SwerveSubsystem m_driveTrain;
+  //protected SwerveSubsystem m_driveTrain;
   private SwerveControllerCommand swerveControllerCommand;
 
   public MoveWithTrajectory(SwerveSubsystem swerveSubsystem) {
@@ -40,9 +41,8 @@ public class MoveWithTrajectory extends Command {
     trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0, 0, new Rotation2d(0)),
         List.of(
-            new Translation2d(1, 0),
-            new Translation2d(1, -1)),
-        new Pose2d(2, -1, Rotation2d.fromDegrees(180)),
+            new Translation2d(0.47,  0)),
+        new Pose2d(0.94, 0, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
     xController = new PIDController(DriveConstants.kPXController, 0, 0);
@@ -67,13 +67,13 @@ public class MoveWithTrajectory extends Command {
   public void execute() {
     SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
         trajectory,
-        m_driveTrain::getPose,
+        swerveSubsystem::getPose,
         DriveConstants.kDriveKinematics,
         xController,
         yController,
         thetaController,
-        m_driveTrain::setModuleStates,
-        m_driveTrain);
+        swerveSubsystem::setModuleStates,
+        swerveSubsystem);
 
     swerveControllerCommand.execute();
 
@@ -91,3 +91,4 @@ public class MoveWithTrajectory extends Command {
     return swerveControllerCommand != null && swerveControllerCommand.isFinished();
   }
 }
+

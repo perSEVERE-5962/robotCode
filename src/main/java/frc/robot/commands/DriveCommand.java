@@ -79,7 +79,7 @@ public class DriveCommand extends Command {
               xSpeed, ySpeed * -1, turningSpeed, swerveSubsystem.getRotation2d());
     } else {
       // Relative to robot
-      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed);
+      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, -turningSpeed);
     }
 
     // 5. Convert chassis speeds to individual module states
