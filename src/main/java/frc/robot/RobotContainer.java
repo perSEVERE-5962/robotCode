@@ -32,6 +32,9 @@ import frc.robot.Constants.CANDeviceIDs;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.UltrasonicConstants;
+import frc.robot.commands.AutoPosition1;
+import frc.robot.commands.AutoPosition2;
+import frc.robot.commands.AutoPosition3;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeNote;
 import frc.robot.commands.MoveWithTrajectory;
@@ -157,39 +160,17 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
-    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
-        .setKinematics(DriveConstants.kDriveKinematics);
-
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(
-            new Translation2d(0.47, 0)),
-        new Pose2d(0.94, 0, Rotation2d.fromDegrees(0)),
-        trajectoryConfig);
-
-    PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
-    PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
-    ProfiledPIDController thetaController = new ProfiledPIDController(
-        DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        trajectory,
-        driveTrain::getPose,
-        DriveConstants.kDriveKinematics,
-        xController,
-        yController,
-        thetaController,
-        driveTrain::setModuleStates,
-        driveTrain);
-
-    return new SequentialCommandGroup(
-        new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
-        swerveControllerCommand,
-        new InstantCommand(() -> driveTrain.stopModules()));
-
+    Command command;
+    if(SmartDashboard.getBoolean("redAutoPos1", false)&&SmartDashboard.getBoolean("blueAutoPos1", false)){
+        command = new AutoPosition1();
+    }
+    else if(SmartDashboard.getBoolean("redAutoPos3", false)&&SmartDashboard.getBoolean("blueAutoPos3", false)){
+      command = new AutoPosition3();
+    }
+    else{
+      command = new AutoPosition2();
+    }
+    return command;
   }
 
   public XboxController getDriverController() {
