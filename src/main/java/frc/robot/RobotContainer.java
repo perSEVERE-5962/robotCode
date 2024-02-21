@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -49,16 +50,16 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private final Notification notification = new Notification();
-  private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
+  private final Notification notification = Notification.getInstance();
+  private final Shooter shooter = Shooter.getInstance();
       
   // Cameras
   private final Camera frontCamera;
   private final Camera backCamera;
 
   // Intake and feeder
-  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Feeder feeder = new Feeder(true, CANDeviceIDs.kFeederMotorID);
+  private final Intake intake = Intake.getInstance();
+  private final Feeder feeder = Feeder.getInstance();
 
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -76,6 +77,9 @@ public class RobotContainer {
   // private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
   // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
   // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
+
+  // Autonomous
+  private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -104,6 +108,8 @@ public class RobotContainer {
 
     frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+
+    m_autonomousChooser.setDefaultOption("Default", new Move(driveTrain, 0, 0, 0));
   }
 
   /**
@@ -137,7 +143,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
-    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
+    /*TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
         DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
         DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
         .setKinematics(DriveConstants.kDriveKinematics);
@@ -168,7 +174,9 @@ public class RobotContainer {
     return new SequentialCommandGroup(
         new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
         swerveControllerCommand,
-        new InstantCommand(() -> driveTrain.stopModules()));
+        new InstantCommand(() -> driveTrain.stopModules()));*/
+
+    return m_autonomousChooser.getSelected();
   }
 
   public XboxController getDriverController() {

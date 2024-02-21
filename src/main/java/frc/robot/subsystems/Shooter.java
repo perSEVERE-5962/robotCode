@@ -9,22 +9,25 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
+  private static Shooter instance;
+
   private CANSparkMax topMotor;
   private CANSparkMax bottomMotor;
   private RelativeEncoder topShooterEncoder;
   private RelativeEncoder bottomShooterEncoder;
 
   /** Creates a new Intake. */
-  public Shooter(int kShooter1MotorID, int kShooter2MotorID) {
+  private Shooter() {
     // Top shooter
-    topMotor = new CANSparkMax(kShooter1MotorID, MotorType.kBrushless);
+    topMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter1MotorID, MotorType.kBrushless);
     topShooterEncoder = topMotor.getEncoder();
     topMotor.setIdleMode(IdleMode.kCoast);
 
     // Bottom shooter
-    bottomMotor = new CANSparkMax(kShooter2MotorID, MotorType.kBrushless);
+    bottomMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter2MotorID, MotorType.kBrushless);
     bottomShooterEncoder = bottomMotor.getEncoder();
     bottomMotor.setIdleMode(IdleMode.kCoast);
   }
@@ -54,6 +57,13 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  public static Shooter getInstance() {
+    if (instance == null) {
+      instance = new Shooter();
+    }
+    return instance;
   }
 }
 

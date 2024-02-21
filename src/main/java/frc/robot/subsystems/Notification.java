@@ -16,12 +16,14 @@ public class Notification extends SubsystemBase {
     NOTE_NOT_IN_POSSESSION
   }
 
+  private static Notification instance;
+
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
   private NoteState noteState = NoteState.NOTE_NOT_IN_POSSESSION;
 
   /** Creates a new Intake. */
-  public Notification() {
+  private Notification() {
     m_led = new AddressableLED(0);                // 0 = number of port on three letter thing i forgot what it called
     m_ledBuffer = new AddressableLEDBuffer(10); // 1 = number of leds in length of it
     m_led.setLength(m_ledBuffer.getLength());
@@ -53,5 +55,12 @@ public class Notification extends SubsystemBase {
 
   public NoteState getNoteState() {
     return noteState;
+  }
+
+  public static Notification getInstance() {
+    if (instance == null) {
+      instance = new Notification();
+    }
+    return instance;
   }
 }

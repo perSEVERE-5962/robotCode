@@ -17,14 +17,16 @@ import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.sensors.UltrasonicAnalog;
 
 public class Intake extends SubsystemBase {
+  private static Intake instance;
+
   private CANSparkMax intakeMotor;
   private UltrasonicAnalog intakeUltrasonic;
    private Solenoid intakeSolenoid;
 
   /** Creates a new Intake. */
-  public Intake(boolean isinverted,int motorId) {
-    intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
-    intakeMotor.setInverted(isinverted);
+  private Intake() {
+    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeMotorID, CANSparkLowLevel.MotorType.kBrushed);
+    intakeMotor.setInverted(Constants.MiscSubsystemConstants.kIntakeInverted);
     intakeSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
                                   PneumaticsModuleType.CTREPCM,
                                   Constants.UltrasonicConstants.kIntake_PCM_Channel);
@@ -47,5 +49,12 @@ public class Intake extends SubsystemBase {
                                               UltrasonicConstants.kIntake_PCM_Channel);
     }
     return intakeUltrasonic;
- }
+  }
+
+  public static Intake getInstance() {
+    if (instance == null) {
+      instance = new Intake();
+    }
+    return instance;
+  }
 }

@@ -15,14 +15,16 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Feeder extends SubsystemBase {
+  private static Feeder instance;
+
   private CANSparkMax feederMotor;
   private UltrasonicAnalog feederUltrasonic;
   private Solenoid feederSolenoid;
 
   /** Creates a new Intake. */
-  public Feeder(boolean isinverted,int motorId) {
-    feederMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
-    feederMotor.setInverted(isinverted);
+  private Feeder() {
+    feederMotor = new CANSparkMax(Constants.CANDeviceIDs.kFeederMotorID, CANSparkLowLevel.MotorType.kBrushless);
+    feederMotor.setInverted(Constants.MiscSubsystemConstants.kFeederInverted);
     feederSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
                                   PneumaticsModuleType.CTREPCM,
                                   Constants.UltrasonicConstants.kFeeder_PCM_Channel);
@@ -44,5 +46,12 @@ public class Feeder extends SubsystemBase {
                                               UltrasonicConstants.kFeeder_PCM_Channel);
     }
     return feederUltrasonic;
+  }
+
+  public static Feeder getInstance() {
+    if (instance == null) {
+      instance = new Feeder();
+    }
+    return instance;
   }
 }
