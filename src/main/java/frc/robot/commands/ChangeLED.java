@@ -9,13 +9,13 @@ import frc.robot.subsystems.Notification;
 
 public class ChangeLED extends Command {
   private final Notification notification;
-  private boolean noteState;
+  private Notification.NoteState noteState;
 
-  public ChangeLED(Notification notification, boolean noteState) {
+  public ChangeLED(Notification notification, Notification.NoteState noteState) {
     this.notification = notification;
-    addRequirements(notification);
     this.noteState = noteState;
 
+    addRequirements(notification);
   }
 
   @Override
@@ -30,7 +30,5 @@ public class ChangeLED extends Command {
   @Override
   public boolean isFinished() {
     return true;
-
   }
-
 }

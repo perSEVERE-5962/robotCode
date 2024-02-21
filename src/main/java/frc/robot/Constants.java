@@ -173,6 +173,11 @@ public final class Constants {
     public static final int kShooter2MotorID = 53;
   }
 
+  public static final class MiscSubsystemConstants {
+    public static final boolean kFeederInverted = true;
+    public static final boolean kIntakeInverted = true;
+  }
+
   public static final class ColorConstants {
     public static final int BlueHue = 103;
     public static final int YellowHue = 20;
@@ -197,6 +202,7 @@ public final class Constants {
       // Blue: 7 center (id 1), 8 side (id 2)
       // Red: 4 center (id 1), 3 side (id 2)
   }
+
   public static final class CameraConstants{
     public static final int kAprilTagCamera = 0;
     public static final int kFrontCamera = 1;

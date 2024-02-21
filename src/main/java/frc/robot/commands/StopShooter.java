@@ -32,17 +32,12 @@ public class StopShooter extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-     motors.runShooter(0);
+    motors.runShooter(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // long finish = System.currentTimeMillis();
-    // long timeElapsed = finish - start;
-    // if (timeElapsed / 1000 >= 2) {
-       return true;
-    // }
-    // return false;
+    return true;
   }
 }

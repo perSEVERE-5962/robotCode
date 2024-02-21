@@ -54,7 +54,6 @@ public class Robot extends TimedRobot {
 
     DetectAprilTags.activate();
   }
-  
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -65,8 +64,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
-
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

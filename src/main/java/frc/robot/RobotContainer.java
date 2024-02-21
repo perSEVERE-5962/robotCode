@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -28,34 +29,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.CANDeviceIDs;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.UltrasonicConstants;
-import frc.robot.commands.AutoPosition1;
-import frc.robot.commands.AutoPosition2;
-import frc.robot.commands.AutoPosition3;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveCommandWithThrottle;
-import frc.robot.commands.IntakeNote;
-import frc.robot.commands.MoveWithTrajectory;
-import frc.robot.commands.ResetWheels;
-import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunIntakeFeeder;
-import frc.robot.commands.RunShooterFeeder;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.SpinUpShooter;
-import frc.robot.commands.StopAll;
-import frc.robot.commands.TurnToAprilTag;
+import frc.robot.Constants.*;
+import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
 import frc.robot.sensors.UltrasonicAnalog;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Notification;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
-import frc.robot.subsystems.Feeder.*;
-import frc.robot.subsystems.Intake.*;
+import frc.robot.subsystems.*;
+import frc.robot.subsystems.drivetrain.*;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -71,19 +50,16 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private final Notification notification = new Notification();
-  private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
-
-
-
+  private final Notification notification = Notification.getInstance();
+  private final Shooter shooter = Shooter.getInstance();
       
-  // cameras
+  // Cameras
   private final Camera frontCamera;
   private final Camera backCamera;
 
   // Intake and feeder
-  private final Intake intake = new Intake(true, CANDeviceIDs.kIntakeMotorID);
-  private final Feeder feeder = new Feeder(true, CANDeviceIDs.kFeederMotorID);
+  private final Intake intake = Intake.getInstance();
+  private final Feeder feeder = Feeder.getInstance();
 
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
@@ -99,6 +75,9 @@ public class RobotContainer {
   // private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
   // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
   // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
+
+  // Autonomous
+  private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -124,11 +103,12 @@ public class RobotContainer {
     }
 
     configureButtonBindings();
+
     frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     backCamera = new Camera(Constants.CameraConstants.kBackCamera);
-    SmartDashboard.putNumber("ShooterSpeed", 85);
-  }
 
+    m_autonomousChooser.setDefaultOption("Default", new Move(driveTrain, 0, 0, 0));
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -188,5 +168,4 @@ public class RobotContainer {
   public double getTargetShootVelocity() {
     return Constants.kmaxShooterRPM;
   }
-
 }

@@ -9,38 +9,61 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
+  private static Shooter instance;
+
   private CANSparkMax topMotor;
   private CANSparkMax bottomMotor;
   private RelativeEncoder topShooterEncoder;
   private RelativeEncoder bottomShooterEncoder;
 
   /** Creates a new Intake. */
-  public Shooter(int kShooter1MotorID, int kShooter2MotorID) {
-    topMotor = new CANSparkMax(kShooter1MotorID, MotorType.kBrushless);
-    bottomMotor = new CANSparkMax(kShooter2MotorID, MotorType.kBrushless);
+  private Shooter() {
+    // Top shooter
+    topMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter1MotorID, MotorType.kBrushless);
     topShooterEncoder = topMotor.getEncoder();
-    bottomShooterEncoder = bottomMotor.getEncoder();
     topMotor.setIdleMode(IdleMode.kCoast);
+
+    // Bottom shooter
+    bottomMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter2MotorID, MotorType.kBrushless);
+    bottomShooterEncoder = bottomMotor.getEncoder();
     bottomMotor.setIdleMode(IdleMode.kCoast);
   }
 
-public void runShooter(double speed) {
-    topMotor.set(-1*speed);
-    bottomMotor.set(speed);
-}
-// public double getVelocity(){
-//   double velocity = topShooterEncoder.getVelocity();
-//   SmartDashboard.putNumber("Shooter average velocity: ", getVelocity());
-//   return velocity;
-// }
+  public void runShooter(double speed) {
+      topMotor.set(-speed);
+      bottomMotor.set(speed);
+  }
 
+  public double getTopVelocity(){
+    double velocity = topShooterEncoder.getVelocity();
+    return velocity;
+  }
+
+  public double getBottomVelocity() {
+    double velocity = bottomShooterEncoder.getVelocity();
+    return velocity;
+  }
+
+  public double getAverageVelocity() {
+    double topVelocity = getTopVelocity();
+    double bottomVelocity = getBottomVelocity();
+    double averageVelocity = (topVelocity + bottomVelocity) / 2.0;
+    return averageVelocity;
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
 
+  public static Shooter getInstance() {
+    if (instance == null) {
+      instance = new Shooter();
+    }
+    return instance;
   }
 }
 
