@@ -31,7 +31,7 @@ public class RunIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.run(1);
+    intake.run(0.7);
   }
 
   // Called once the command ends or is interrupted.
@@ -45,7 +45,7 @@ public class RunIntake extends Command {
   public boolean isFinished() {
     double range_of_intake = intakeUltrasonic.getRange();
     SmartDashboard.putNumber("Range" , range_of_intake);
-    if (range_of_intake <= 9) {
+    if (range_of_intake <= 11) {
       return true;
     } else {
 

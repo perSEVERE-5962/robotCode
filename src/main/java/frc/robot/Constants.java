@@ -31,10 +31,10 @@ public final class Constants {
    * 0.335449
    * 0.384766
    */
-  private static final double BACK_RIGHT_OFFSET =  0.472168;
-  private static final double BACK_LEFT_OFFSET =   0.051758;
-  private static final double FRONT_RIGHT_OFFSET = 0.028809;
-  private static final double FRONT_LEFT_OFFSET =  0.277588;
+  private static final double BACK_RIGHT_OFFSET = 0.25;
+  private static final double BACK_LEFT_OFFSET = 0.168701;
+  private static final double FRONT_RIGHT_OFFSET = 0.3396;
+  private static final double FRONT_LEFT_OFFSET = 0.376465;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
@@ -65,9 +65,9 @@ public final class Constants {
 
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
-    public static final double kTrackWidth = Units.inchesToMeters(24.857);
+    public static final double kTrackWidth = Units.inchesToMeters(20.5);
     // Distance between right and left wheels
-    public static final double kWheelBase = Units.inchesToMeters(24.857);
+    public static final double kWheelBase = Units.inchesToMeters(20.5);
     // Distance between front and back wheels
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
