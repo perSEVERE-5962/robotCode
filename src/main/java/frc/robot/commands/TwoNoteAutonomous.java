@@ -10,7 +10,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
-import frc.robot.subsystems.Feeder;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -20,12 +20,15 @@ public class TwoNoteAutonomous extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // command to use april tags to align
-      new Shoot(shooter, feeder, changeLight),
-      new TurnToZero(driveTrain, 1),
-      new MoveWithDistance(driveTrain, translationXSupplier, 33), // distance from starting point to the outer edge of the note
-      new IntakeNote(intake, changeLight, feeder),
-      new Shoot(shooter, feeder, changeLight)    
+        // command to use april tags to align
+        new Shoot(shooter, feeder, changeLight)
+          .onlyIf(() -> changeLight.getNoteState() == Notification.NoteState.NOTE_IN_POSSESSION),
+        new TurnToZero(driveTrain, 1),
+        new MoveWithDistance(driveTrain, translationXSupplier, 33), // distance from starting point to the outer edge of the note
+        new IntakeNote(intake, changeLight, feeder)
+          .onlyIf(() -> changeLight.getNoteState() == Notification.NoteState.NOTE_NOT_IN_POSSESSION),
+        new Shoot(shooter, feeder, changeLight)
+          .onlyIf(() -> changeLight.getNoteState() == Notification.NoteState.NOTE_IN_POSSESSION)
     );
   }
 }

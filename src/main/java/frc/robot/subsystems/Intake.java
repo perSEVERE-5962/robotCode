@@ -6,8 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
 import com.revrobotics.CANSparkLowLevel;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -22,35 +20,32 @@ public class Intake extends SubsystemBase {
   private CANSparkMax intakeMotor;
   private UltrasonicAnalog intakeUltrasonic;
    private Solenoid intakeSolenoid;
+
   /** Creates a new Intake. */
   public Intake(boolean isinverted,int motorId) {
     intakeMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushed);
     intakeMotor.setInverted(isinverted);
-    intakeSolenoid = new Solenoid(
-    Constants.CANDeviceIDs.kPCMID24V,
-    PneumaticsModuleType.CTREPCM,
-    Constants.UltrasonicConstants.kIntake_PCM_Channel);
+    intakeSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
+                                  PneumaticsModuleType.CTREPCM,
+                                  Constants.UltrasonicConstants.kIntake_PCM_Channel);
     intakeSolenoid.set(true);
   }
 
-
   public void run(double speed) {
     intakeMotor.set(speed);
-
   }
-
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Intake Ultrasonic", getUltrasonicAnalog().getRange());
   }
-  public UltrasonicAnalog getUltrasonicAnalog(){
-    if(intakeUltrasonic == null){
+
+  public UltrasonicAnalog getUltrasonicAnalog() {
+    if (intakeUltrasonic == null) {
       intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
-      UltrasonicConstants.kIntake_PCM_Channel);
+                                              UltrasonicConstants.kIntake_PCM_Channel);
     }
     return intakeUltrasonic;
-  
  }
 }

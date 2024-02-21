@@ -28,29 +28,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.CANDeviceIDs;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.OIConstants;
-import frc.robot.Constants.UltrasonicConstants;
-import frc.robot.commands.DriveCommand;
-import frc.robot.commands.IntakeNote;
-import frc.robot.commands.MoveWithTrajectory;
-import frc.robot.commands.ResetWheels;
-import frc.robot.commands.RunIntake;
-import frc.robot.commands.RunIntakeFeeder;
-import frc.robot.commands.RunShooterFeeder;
-import frc.robot.commands.Shoot;
-import frc.robot.commands.SpinUpShooter;
-import frc.robot.commands.StopAll;
+import frc.robot.Constants.*;
+import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
 import frc.robot.sensors.UltrasonicAnalog;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Notification;
-import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
-import frc.robot.subsystems.Feeder.*;
-import frc.robot.subsystems.Intake.*;
+import frc.robot.subsystems.*;
+import frc.robot.subsystems.drivetrain.*;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -68,11 +51,8 @@ public class RobotContainer {
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
   private final Notification notification = new Notification();
   private final Shooter shooter = new Shooter(CANDeviceIDs.kShooter1MotorID, CANDeviceIDs.kShooter2MotorID);
-
-
-
       
-  // cameras
+  // Cameras
   private final Camera frontCamera;
   private final Camera backCamera;
 
@@ -83,18 +63,19 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
-  private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
+  private final Trigger dr_kButtonB = new JoystickButton(driverController, XboxController.Button.kB.value);
   private final Trigger dr_kRightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
   private final Trigger dr_kLeftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_kButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
   // Test Controller
-  private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
-  private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
-  private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
-  private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
-  private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
-  private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
+  // UNUSED
+  // private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
+  // private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
+  // private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
+  // private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
+  // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
+  // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -117,14 +98,13 @@ public class RobotContainer {
             () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
             () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
             () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
-    SmartDashboard.putNumber("ShooterSpeed", 85);
-    SmartDashboard.getNumber("ShooterSpeed", 0);
+    }
+
     configureButtonBindings();
+
     frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     backCamera = new Camera(Constants.CameraConstants.kBackCamera);
-    SmartDashboard.putNumber("ShooterSpeed", 85);
   }
-
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -137,11 +117,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     
-    dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic,notification ));
-    dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic,notification ,feeder));
+    // dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic, notification));
+    // dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic, notification, feeder));
+    dr_kButtonB.onTrue(getAutonomousCommand());
     dr_kButtonA.onTrue(new TurnToAprilTag(1, 1));
 
-    dr_buttonB.onTrue(getAutonomousCommand());
+    // UNUSED
     // ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     // ts_kLeftBumper.onTrue(new RunIntake(intake));
     // ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
@@ -188,7 +169,6 @@ public class RobotContainer {
         new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
         swerveControllerCommand,
         new InstantCommand(() -> driveTrain.stopModules()));
-
   }
 
   public XboxController getDriverController() {
@@ -206,5 +186,4 @@ public class RobotContainer {
   public double getTargetShootVelocity() {
     return Constants.kmaxShooterRPM;
   }
-
 }

@@ -21,8 +21,7 @@ public class MoveWithDistance extends Command {
   // private DoubleSupplier m_translationYSupplier;
   // private DoubleSupplier m_rotationSupplier;
   /** Creates a new Forward. */
-  public MoveWithDistance(
-      SwerveSubsystem driveTrain, double speed, double distanceWanted) {
+  public MoveWithDistance(SwerveSubsystem driveTrain, double speed, double distanceWanted) {
     this.speed = speed;
     this.driveTrain = driveTrain;
     this.distanceWanted = distanceWanted;
@@ -37,19 +36,15 @@ public class MoveWithDistance extends Command {
     driveTrain.resetDrivePosition();
   }
 
-
   @Override
   public void execute() {
     double distance = driveTrain.getAverageDistanceInches();
     double currentSpeed = speed;
-    if (distance >= 0.5 * distanceWanted && distance <= 0.25 * distanceWanted ){
+    if (distance >= 0.5 * distanceWanted && distance <= 0.25 * distanceWanted) {
       currentSpeed = 0.20 * speed;
-
-    }
-    else if (distance >= 0.25 * distanceWanted){
+    } else if (distance >= 0.25 * distanceWanted) {
       currentSpeed = 0.10 * speed;
     }
-
 
     ChassisSpeeds chassisSpeeds;
     chassisSpeeds = new ChassisSpeeds(currentSpeed, 0, 0);
@@ -67,9 +62,6 @@ public class MoveWithDistance extends Command {
 
   @Override
   public boolean isFinished() {
-    if (driveTrain.getAverageDistanceInches() >= distanceWanted) {
-      return true;
-    }
-    return false;
+    return driveTrain.getAverageDistanceInches() >= distanceWanted;
   }
 }

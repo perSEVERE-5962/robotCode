@@ -14,24 +14,18 @@ import frc.robot.subsystems.Notification;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeNote extends SequentialCommandGroup {
-  private final boolean noteRequired=false ;
   /** Creates a new IntakeNote. */
 
-  public IntakeNote(Intake intake, Notification changeLight, Feeder feeder ) {
+  public IntakeNote(Intake intake, Notification changeLight, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-   boolean checkForNote=changeLight.getNoteState() ;
-    if (checkForNote == noteRequired) {
     addCommands(
-      new ParallelCommandGroup(
-        new SequentialCommandGroup(
-          new RunIntake(intake),
-          new ChangeLED(changeLight, true)
+        new ParallelCommandGroup(
+            new RunIntake(intake)
+              .andThen(new ChangeLED(changeLight, Notification.NoteState.NOTE_IN_POSSESSION)),
+            new RunIntakeFeeder(feeder)
         ),
-        new RunIntakeFeeder(feeder)
-      ),
-      new StopIntake(intake)
+        new StopIntake(intake)
     );
-    }
   }
 }

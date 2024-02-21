@@ -11,40 +11,47 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ColorConstants;
 
 public class Notification extends SubsystemBase {
+  public enum NoteState {
+    NOTE_IN_POSSESSION,
+    NOTE_NOT_IN_POSSESSION
+  }
+
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
-  private boolean noteState=false;
-
+  private NoteState noteState = NoteState.NOTE_NOT_IN_POSSESSION;
 
   /** Creates a new Intake. */
   public Notification() {
-    m_led = new AddressableLED(0);            //0 = number of port on three letter thing i forgot what it called
+    m_led = new AddressableLED(0);                // 0 = number of port on three letter thing i forgot what it called
     m_ledBuffer = new AddressableLEDBuffer(10); // 1 = number of leds in length of it
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
-    updateState(false);
+    updateState(NoteState.NOTE_NOT_IN_POSSESSION);
   }
-
-
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 
-  public void updateState(boolean noteState) {
-    this.noteState = noteState;
-    int hue = ColorConstants.RedHue;
-    if(noteState == true){
+  public void updateState(NoteState noteState) {
+    int hue = 0;
+    if (noteState == NoteState.NOTE_IN_POSSESSION) {
       hue = ColorConstants.BlueHue;
+    } else if (noteState == NoteState.NOTE_NOT_IN_POSSESSION) {
+      hue = ColorConstants.RedHue;
     }
-    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+  
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
         m_ledBuffer.setHSV(i, hue, 255, 255);   // could also do .setRGB if we want that color system
     }
+  
     m_led.setData(m_ledBuffer);
-}
-public boolean getNoteState(){
+    this.noteState = noteState;
+  }
+
+  public NoteState getNoteState() {
     return noteState;
   }
 }

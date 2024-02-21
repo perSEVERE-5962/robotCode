@@ -18,29 +18,42 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Shooter(int kShooter1MotorID, int kShooter2MotorID) {
+    // Top shooter
     topMotor = new CANSparkMax(kShooter1MotorID, MotorType.kBrushless);
-    bottomMotor = new CANSparkMax(kShooter2MotorID, MotorType.kBrushless);
     topShooterEncoder = topMotor.getEncoder();
-    bottomShooterEncoder = bottomMotor.getEncoder();
     topMotor.setIdleMode(IdleMode.kCoast);
+
+    // Bottom shooter
+    bottomMotor = new CANSparkMax(kShooter2MotorID, MotorType.kBrushless);
+    bottomShooterEncoder = bottomMotor.getEncoder();
     bottomMotor.setIdleMode(IdleMode.kCoast);
   }
 
-public void runShooter(double speed) {
-    topMotor.set(-1*speed);
-    bottomMotor.set(speed);
-}
-// public double getVelocity(){
-//   double velocity = topShooterEncoder.getVelocity();
-//   SmartDashboard.putNumber("Shooter average velocity: ", getVelocity());
-//   return velocity;
-// }
+  public void runShooter(double speed) {
+      topMotor.set(-speed);
+      bottomMotor.set(speed);
+  }
 
+  public double getTopVelocity(){
+    double velocity = topShooterEncoder.getVelocity();
+    return velocity;
+  }
+
+  public double getBottomVelocity() {
+    double velocity = bottomShooterEncoder.getVelocity();
+    return velocity;
+  }
+
+  public double getAverageVelocity() {
+    double topVelocity = getTopVelocity();
+    double bottomVelocity = getBottomVelocity();
+    double averageVelocity = (topVelocity + bottomVelocity) / 2.0;
+    return averageVelocity;
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
   }
 }
 

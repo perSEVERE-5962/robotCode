@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import java.util.List;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -76,7 +75,6 @@ public class MoveWithTrajectory extends Command {
         swerveSubsystem);
 
     swerveControllerCommand.execute();
-
   }
 
   // Called once the command ends or is interrupted.
