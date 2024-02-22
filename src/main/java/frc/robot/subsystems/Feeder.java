@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Feeder extends SubsystemBase {
   private CANSparkMax feederMotor;
   private UltrasonicAnalog feederUltrasonic;
+  private UltrasonicAnalog feederUltrasonic2;
   private Solenoid feederSolenoid;
+  private Solenoid feeder2Solenoid;
   /** Creates a new Intake. */
   public Feeder(boolean isinverted,int motorId) {
     feederMotor = new CANSparkMax(motorId, CANSparkLowLevel.MotorType.kBrushless);
@@ -27,6 +29,10 @@ public class Feeder extends SubsystemBase {
     Constants.CANDeviceIDs.kPCMID24V,
     PneumaticsModuleType.CTREPCM,
     Constants.UltrasonicConstants.kFeeder_PCM_Channel);
+    feeder2Solenoid = new Solenoid(
+    Constants.CANDeviceIDs.kPCMID24V,
+    PneumaticsModuleType.CTREPCM,
+    Constants.UltrasonicConstants.kFeeder2_PCM_Channel);
     feederSolenoid.set(true);
   }
 
@@ -42,12 +48,24 @@ public class Feeder extends SubsystemBase {
     // This method will be called once per scheduler run
     
   }
-  public UltrasonicAnalog getUltrasonicAnalog(){
-    if(feederUltrasonic==null){
-      feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
-      UltrasonicConstants.kFeeder_PCM_Channel);
-    }
-    return feederUltrasonic;
+  // public UltrasonicAnalog getUltrasonicAnalog(){
+  //   if(feederUltrasonic==null || feeder2Solenoid==null){
+  //     feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel,
+  //     UltrasonicConstants.kFeeder_PCM_Channel);
+  //   }
+  //   return feederUltrasonic;
     
+  // }
+  public boolean isInRange(){
+    double range_of_feeder=feederUltrasonic.getRange();
+    double range_of_2feeder=feederUltrasonic2.getRange();
+    System.out.println("Range="+ range_of_feeder);
+    if(range_of_feeder<=11 || range_of_2feeder<=11){
+     
+      return true;
+    }else{
+      return false;
+      
+    }
   }
 }
