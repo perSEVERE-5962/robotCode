@@ -70,10 +70,10 @@ public class RobotContainer {
   private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
-  // private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
-  // private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
+   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
+   private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
   // private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
-  // private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
+   private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
   // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
   // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
 
