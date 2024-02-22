@@ -35,6 +35,11 @@ import org.opencv.imgproc.Imgproc;
  */
 public class DetectAprilTags extends SubsystemBase {
   private static DetectAprilTags instance;
+  
+  // In order to increase the fps, the resolution needs to be smaller
+  // This, however, reduces the accuracy of the detection information
+  // Recommended is 4 (Any further will provide no additional fps gains)
+  private final double accuracyTrade = 4.0;
 
   private static Vec3 posSingle = new Vec3(0, 0, 0);
   private static ArrayList<Vec3> posArray = new ArrayList<>();
@@ -44,18 +49,18 @@ public class DetectAprilTags extends SubsystemBase {
   private static ArrayList<Integer> tagId = new ArrayList<>();
 
   private final String family = "tag36h11"; // Usual tag family that FRC uses
-  private final double tagSize = Units.inchesToMeters(6.75); // Units are in meters
+  private final double tagSize = Units.inchesToMeters(6.5); // Units are in meters
   private final double[] focalData = {
-    1011.3749416937393,
-    1008.5391755084075,
-    645.4955139388737,
-    508.32877656020196
+    1011.3749416937393 / (accuracyTrade * 0.5),
+    1008.5391755084075 / (accuracyTrade * 0.5),
+    645.4955139388737  / (accuracyTrade * 0.5),
+    508.32877656020196 / (accuracyTrade * 0.5)
   }; // 1280 x 720 camera
 
   private final int brightness = 50;
-  private final int resWidth = 1280;
-  private final int resHeight = 720;
-  private final int fps = 30;
+  private final double resWidth = 1280.0 / accuracyTrade;
+  private final double resHeight = 720.0 / accuracyTrade;
+  private final int fps = -1;
 
   // Dividing some values by some amount makes the resolution worse but makes the fps better
 
@@ -90,7 +95,7 @@ public class DetectAprilTags extends SubsystemBase {
 
     // Set camera settings
     camera.setBrightness(brightness);
-    camera.setResolution(resWidth, resHeight);
+    camera.setResolution((int)resWidth, (int)resHeight);
     camera.setFPS(fps);
 
     // Get a CvSink. This will capture Mats from the camera
@@ -231,6 +236,7 @@ public class DetectAprilTags extends SubsystemBase {
   }
 
   public static Integer getAprilTagIndexFromId(int id) {
+    if (id == -1) { return -1; }
     tagId.trimToSize();
     return tagId.indexOf(id);
   }

@@ -133,19 +133,22 @@ public class TagInfo {
     }
 
     public void update() {
-        int index = this.tagId;
-        if (index != -1) {
-            Vec3 tagPos = DetectAprilTags.getAprilTagPos(index);
-            Vec3 tagRot = DetectAprilTags.getAprilTagRot(index);
-            if (tagPos != null && tagRot != null) {
-                double angleToTag = Math.toDegrees(Math.atan2(tagPos.getX(), tagPos.getZ()));
-                tagPosEntries.entryX.setDouble(tagPos.getX());
-                tagPosEntries.entryY.setDouble(tagPos.getY());
-                tagPosEntries.entryZ.setDouble(tagPos.getZ());
-                tagRotEntries.entryX.setDouble(tagRot.getX());
-                tagRotEntries.entryY.setDouble(tagRot.getY());
-                tagRotEntries.entryZ.setDouble(tagRot.getZ());
-                tagRotEntries.dyaw.setDouble(angleToTag);
+        int id = this.tagId;
+        if (id != -1) {
+            int index = DetectAprilTags.getAprilTagIndexFromId(id);
+            if (index != -1) {
+                Vec3 tagPos = DetectAprilTags.getAprilTagPos(index);
+                Vec3 tagRot = DetectAprilTags.getAprilTagRot(index);
+                if (tagPos != null && tagRot != null) {
+                    double angleToTag = Math.toDegrees(Math.atan2(tagPos.getX(), tagPos.getZ()));
+                    tagPosEntries.entryX.setDouble(tagPos.getX());
+                    tagPosEntries.entryY.setDouble(tagPos.getY());
+                    tagPosEntries.entryZ.setDouble(tagPos.getZ());
+                    tagRotEntries.entryX.setDouble(tagRot.getX());
+                    tagRotEntries.entryY.setDouble(tagRot.getY());
+                    tagRotEntries.entryZ.setDouble(tagRot.getZ());
+                    tagRotEntries.dyaw.setDouble(angleToTag);
+                }
             }
         }
     }
