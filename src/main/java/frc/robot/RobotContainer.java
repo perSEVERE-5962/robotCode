@@ -38,6 +38,8 @@ import frc.robot.commands.AutoPosition3;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeNote;
 import frc.robot.commands.MoveWithTrajectory;
+import frc.robot.commands.OutIntake;
+import frc.robot.commands.OutShooterFeeder;
 import frc.robot.commands.ResetWheels;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunIntakeFeeder;
@@ -146,8 +148,9 @@ public class RobotContainer {
     dr_kLeftBumper.onTrue(new IntakeNote(intake, notification, feeder));
     dr_buttonB.onTrue(getAutonomousCommand());
 
-    // ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
-    // ts_kLeftBumper.onTrue(new RunIntake(intake));
+    ts_kLeftBumper.toggleOnTrue(new OutIntake(intake));
+    ts_kRightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
+   
     // ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
     // ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
     // ts_buttonB.onTrue(new StopAll(feeder, intake, shooter));
