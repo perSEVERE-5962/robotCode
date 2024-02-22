@@ -37,19 +37,14 @@ public class RunIntake extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  //  intake.run(0);
+    // intake.run(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double range_of_intake = intakeUltrasonic.getRange();
-    SmartDashboard.putNumber("Range" , range_of_intake);
-    if (range_of_intake <= 11) {
-      return true;
-    } else {
-
-     return false;
-    }
+    double intakeRange = intakeUltrasonic.getRange();
+    SmartDashboard.putNumber("Intake range" , intakeRange);
+    return intakeRange <= 11;
   }
 }

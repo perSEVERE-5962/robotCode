@@ -19,6 +19,7 @@ public class AutoPosition2 extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      // TODO: Add command(s) to turn to the speaker april tag
       new Shoot(shooter, feeder, changeLight),
       new TurnToZero(swerveSubsystem, 1),
       new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
