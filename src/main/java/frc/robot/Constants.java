@@ -26,20 +26,21 @@ public final class Constants {
    * 0.028809
    * 0.277588
    * L3 values:
-   * 0.240479
-   * 0.165283
-   * 0.335449
-   * 0.384766
+   * 0.25
+   * 0.168701
+   * 0.3396
+   * 0.376465
    */
-  private static final double BACK_RIGHT_OFFSET =  0.472168;
-  private static final double BACK_LEFT_OFFSET =   0.051758;
-  private static final double FRONT_RIGHT_OFFSET = 0.028809;
-  private static final double FRONT_LEFT_OFFSET =  0.277588;
+  public static final boolean kUseL1Ratio = false;
+  private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.25;
+  private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.168701;
+  private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.3396;
+  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376465;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
-  public static final boolean kUseL1Ratio = true;
+
   public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
   public static final class ModuleConstants {

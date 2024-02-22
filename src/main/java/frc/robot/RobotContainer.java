@@ -54,8 +54,8 @@ public class RobotContainer {
   private final Shooter shooter = Shooter.getInstance();
       
   // Cameras
-  private final Camera frontCamera;
-  private final Camera backCamera;
+  //private final Camera frontCamera; // shooter/april tag
+  //private final Camera backCamera; // Intake/Note Detection
 
   // Intake and feeder
   private final Intake intake = Intake.getInstance();
@@ -64,13 +64,12 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
-  private final Trigger dr_kButtonB = new JoystickButton(driverController, XboxController.Button.kB.value);
-  private final Trigger dr_kRightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
-  private final Trigger dr_kLeftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
-  private final Trigger dr_kButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
+  private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
+  private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
+  //private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
+  private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
-  // UNUSED
   // private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
   // private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
   // private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
@@ -106,8 +105,8 @@ public class RobotContainer {
 
     configureButtonBindings();
 
-    frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
-    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+    //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
+    //backCamera = new Camera(Constants.CameraConstants.kBackCamera);
 
     m_autonomousChooser.setDefaultOption("Default", new Move(driveTrain, 0, 0, 0));
   }
@@ -122,13 +121,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    
-    // dr_kRightBumper.onTrue(new Shoot(shooter, feeder, feederUltrasonic, notification));
-    // dr_kLeftBumper.onTrue(new IntakeNote(intake, intakeUltrasonic, feederUltrasonic, notification, feeder));
-    dr_kButtonB.onTrue(getAutonomousCommand());
-    dr_kButtonA.onTrue(new TurnToAprilTag(1, 1));
+    //dr_buttonA.onTrue(new TurnToAprilTag(1, 1));
 
-    // UNUSED
+    dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
+    dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
+    dr_buttonB.onTrue(getAutonomousCommand());
+
     // ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
     // ts_kLeftBumper.onTrue(new RunIntake(intake));
     // ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
@@ -143,40 +141,17 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
-    /*TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
-        .setKinematics(DriveConstants.kDriveKinematics);
-
-    Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(
-            new Translation2d(0.47, 0)),
-        new Pose2d(0.94, 0, Rotation2d.fromDegrees(0)),
-        trajectoryConfig);
-
-    PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
-    PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
-    ProfiledPIDController thetaController = new ProfiledPIDController(
-        DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-        trajectory,
-        driveTrain::getPose,
-        DriveConstants.kDriveKinematics,
-        xController,
-        yController,
-        thetaController,
-        driveTrain::setModuleStates,
-        driveTrain);
-
-    return new SequentialCommandGroup(
-        new InstantCommand(() -> driveTrain.resetOdometry(trajectory.getInitialPose())),
-        swerveControllerCommand,
-        new InstantCommand(() -> driveTrain.stopModules()));*/
-
-    return m_autonomousChooser.getSelected();
+    Command command;
+    if(SmartDashboard.getBoolean("redAutoPos1", false) && SmartDashboard.getBoolean("blueAutoPos1", false)){
+        command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
+    }
+    else if(SmartDashboard.getBoolean("redAutoPos3", false) && SmartDashboard.getBoolean("blueAutoPos3", false)){
+      command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
+    }
+    else{
+      command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);
+    }
+    return command;
   }
 
   public XboxController getDriverController() {
