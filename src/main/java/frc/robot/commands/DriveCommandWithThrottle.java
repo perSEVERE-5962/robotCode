@@ -4,6 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
@@ -56,7 +57,11 @@ public class DriveCommandWithThrottle extends Command {
     // : 0.0;
     ySpeed = MathUtil.applyDeadband(ySpeed, 0.15);
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.15);
-    turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.15); // 0.15 for xbox
+    turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.4); // 0.15 for xbox
+
+    ySpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+    xSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+    turningSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
 
     // 3. Make the driving smoother
     // xSpeed = xLimiter.calculate(xSpeed) *
@@ -76,10 +81,8 @@ public class DriveCommandWithThrottle extends Command {
               xSpeed, ySpeed * -1, turningSpeed * -1, swerveSubsystem.getRotation2d());
     } else {
       // Relative to robot
-      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed * -1);
+      chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed * -1, turningSpeed);
     }
-
-    
 
     // 5. Convert chassis speeds to individual module states
     SwerveModuleState[] moduleStates =

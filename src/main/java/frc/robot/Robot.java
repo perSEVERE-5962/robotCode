@@ -5,10 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
-// import edu.wpi.first.wpilibj.PneumaticsModuleType;
-// import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -22,9 +18,7 @@ import frc.robot.subsystems.DetectAprilTags;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private Solenoid intakeSolenoid;
-  private Solenoid feederSolenoid;
-  
+
   @Override
   public void driverStationConnected() {
     if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
@@ -32,17 +26,6 @@ public class Robot extends TimedRobot {
     } else {
       Constants.kTeamColor = Constants.TEAM_COLOR_RED;
     }
-
-    // Speaker IDs
-    // int speakerTag1Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id : Constants.SpeakerConstants.kRedSpeakerAprilTag1Id;
-    // int speakerTag2Id = Constants.kTeamColor == Constants.TEAM_COLOR_BLUE ? Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id : Constants.SpeakerConstants.kRedSpeakerAprilTag2Id;
-
-    // Manual override
-    // int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
-    // int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
-
-    // speakerTag1Info = new TagInfo(speakerTag1Id);
-    // speakerTag2Info = new TagInfo(speakerTag2Id);
   }
 
   /**
@@ -55,7 +38,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
-    //DetectAprilTags.activate();
+  
 
     // Manual override
     int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
@@ -65,8 +48,11 @@ public class Robot extends TimedRobot {
     SpeakerTagInfo.tag2Info = new TagInfo(speakerTag2Id);
     SpeakerTagInfo.tag1Info.updateShuffleboard();
     SpeakerTagInfo.tag2Info.updateShuffleboard();
+    SpeakerTagInfo.tag1Info.update();
+    SpeakerTagInfo.tag2Info.update();
+
+    DetectAprilTags.activate();
   }
-  
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -77,8 +63,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-
-
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

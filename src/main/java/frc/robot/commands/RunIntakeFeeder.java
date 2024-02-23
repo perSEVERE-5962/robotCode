@@ -6,11 +6,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Feeder;
-import frc.robot.sensors.UltrasonicAnalog;
+
 public class RunIntakeFeeder extends Command {
   private Feeder intakefeeder ;
-  private UltrasonicAnalog feederUltrasonic;
-  private UltrasonicAnalog feederUltrasonic2;
+
   
   /** Creates a new Feeder. */
   public RunIntakeFeeder(Feeder feeder){
@@ -36,7 +35,6 @@ public class RunIntakeFeeder extends Command {
   @Override
   public void end(boolean interrupted) {
     intakefeeder.run(0);
-    
   }
 
   // Returns true when the command should end.

@@ -19,15 +19,29 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  private static final double BACK_RIGHT_OFFSET = 0.25;
-  private static final double BACK_LEFT_OFFSET = 0.168701;
-  private static final double FRONT_RIGHT_OFFSET = 0.3396;
-  private static final double FRONT_LEFT_OFFSET = 0.376465;
+  /*
+   * L1 values:
+   * 0.472168
+   * 0.051758
+   * 0.028809
+   * 0.277588
+   * L3 values:
+   * 0.25
+   * 0.168701
+   * 0.3396
+   * 0.376465
+   */
+  public static final boolean kUseL1Ratio = false;
+  private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.25;
+  private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.168701;
+  private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.3396;
+  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376465;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
-  public static final boolean kUseL1Ratio = false;
+
+  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -160,6 +174,11 @@ public final class Constants {
     public static final int kShooter2MotorID = 53;
   }
 
+  public static final class MiscSubsystemConstants {
+    public static final boolean kFeederInverted = true;
+    public static final boolean kIntakeInverted = true;
+  }
+
   public static final class ColorConstants {
     public static final int BlueHue = 103;
     public static final int YellowHue = 20;
@@ -179,13 +198,14 @@ public final class Constants {
 
   public static final class SpeakerConstants {
       // The speaker has 2 april tags from it
-      public static final int kBlueSpeakerAprilTag1Id = 0;
+      public static final int kBlueSpeakerAprilTag1Id = 7;
       public static final int kBlueSpeakerAprilTag2Id = 8;
       public static final int kRedSpeakerAprilTag1Id = 4;
       public static final int kRedSpeakerAprilTag2Id = 3;
-      // Blue: 7 center, 8 side
-      // Red: 4 center, 3 side
+      // Blue: 7 center (id 1), 8 side (id 2)
+      // Red: 4 center (id 1), 3 side (id 2)
   }
+
   public static final class CameraConstants{
     public static final int kAprilTagCamera = 0;
     public static final int kFrontCamera = 1;
