@@ -71,13 +71,10 @@ public class RobotContainer {
   //private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
-  // Test Controller
-  // private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
-  // private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
-  // private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
-  // private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
-  // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
-  // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
+  // Co-pilot Controller
+  private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+  private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -129,12 +126,8 @@ public class RobotContainer {
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
     dr_buttonB.onTrue(getAutonomousCommand());
 
-    ts_kLeftBumper.toggleOnTrue(new OutIntake(intake));
-    ts_kRightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
-   
-    // ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
-    // ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
-    // ts_buttonB.onTrue(new StopAll(feeder, intake, shooter));
+    cp_leftBumper.toggleOnTrue(new OutIntake(intake));
+    cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
   }
 
   /**
