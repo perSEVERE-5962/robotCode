@@ -41,7 +41,7 @@ public final class Constants {
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
 
-  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
+  public static final boolean kUseJoystick = true; // true for joystick, false for xbox
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -143,9 +143,15 @@ public final class Constants {
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 4;
     public static final int kDriverRotAxis_Logitech = 2;
-    public static final int kDriverFieldOrientedButtonIdx = 6;
-    public static final int kDriverFieldOrientedButtonIdx_Logitech = 1;
-    public static final int kZeroHeadingButtonIdx = 2;
+    public static final int kDriverFieldOrientedButtonIdx = 6; // xbox
+    public static final int kDriverFieldOrientedButtonIdx_Logitech = 2; // logitech
+    //public static final int kZeroHeadingButtonIdx = 2;
+
+    // xbox shoot = driver btn 6
+    // xbox intake = driver btn 5
+
+    // logitech shoot = driver btn 1
+    // logitech intake = driver btn 3
 
     public static final double kDeadband = 0.15; // 0.05;
   }

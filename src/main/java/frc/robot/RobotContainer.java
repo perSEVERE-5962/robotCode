@@ -105,7 +105,7 @@ public class RobotContainer {
 
     dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
-    dr_buttonB.onTrue(getAutonomousCommand());
+    //dr_buttonB.onTrue(getAutonomousCommand());
 
     cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
