@@ -129,8 +129,9 @@ public class RobotContainer {
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
     dr_buttonB.onTrue(getAutonomousCommand());
 
-    // ts_kRightBumper.onTrue(new SpinUpShooter(shooter));
-    // ts_kLeftBumper.onTrue(new RunIntake(intake));
+    ts_kLeftBumper.toggleOnTrue(new OutIntake(intake));
+    ts_kRightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
+   
     // ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
     // ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
     // ts_buttonB.onTrue(new StopAll(feeder, intake, shooter));
