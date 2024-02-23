@@ -143,10 +143,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
-    if(SmartDashboard.getBoolean("redAutoPos1", false) && SmartDashboard.getBoolean("blueAutoPos1", false)){
+    if(SmartDashboard.getBoolean("redAutoPos1", true) || SmartDashboard.getBoolean("blueAutoPos1", true)){
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
     }
-    else if(SmartDashboard.getBoolean("redAutoPos3", false) && SmartDashboard.getBoolean("blueAutoPos3", false)){
+    else if(SmartDashboard.getBoolean("redAutoPos3", true) || SmartDashboard.getBoolean("blueAutoPos3", true)){
       command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
     }
     else{
