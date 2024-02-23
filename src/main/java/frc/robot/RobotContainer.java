@@ -7,32 +7,15 @@
 
 package frc.robot;
 
-import java.util.List;
-
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
-import frc.robot.sensors.Camera;
-import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.drivetrain.*;
 /**
@@ -70,12 +53,9 @@ public class RobotContainer {
   private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
-   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
-   private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
-  // private final Trigger ts_lefttTrigger = new JoystickButton(testController, XboxController.Axis.kLeftTrigger.value);
-   private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
-  // private final Trigger ts_rightTrigger = new JoystickButton(testController, XboxController.Axis.kRightTrigger.value);
-  // private final Trigger ts_buttonB = new JoystickButton(testController, XboxController.Button.kB.value);
+   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+   private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+   private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -127,12 +107,8 @@ public class RobotContainer {
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
     dr_buttonB.onTrue(getAutonomousCommand());
 
-    ts_kLeftBumper.toggleOnTrue(new OutIntake(intake));
-    ts_kRightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
-   
-    // ts_rightTrigger.onTrue(new RunShooterFeeder(feeder));
-    // ts_lefttTrigger.onTrue(new RunIntakeFeeder(feeder));
-    // ts_buttonB.onTrue(new StopAll(feeder, intake, shooter));
+    cp_leftBumper.toggleOnTrue(new OutIntake(intake));
+    cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
   }
 
   /**
