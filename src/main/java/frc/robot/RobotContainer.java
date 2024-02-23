@@ -52,10 +52,10 @@ public class RobotContainer {
   //private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
-  // Co-pilot Controller
-  private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
-  private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
-  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+  // Test Controller
+   private final XboxController testController = new XboxController(OIConstants.kCoPilotControllerPort);
+   private final Trigger ts_kLeftBumper = new JoystickButton(testController, XboxController.Button.kLeftBumper.value);
+   private final Trigger ts_kRightBumper = new JoystickButton(testController, XboxController.Button.kRightBumper.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -119,10 +119,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
-    if(SmartDashboard.getBoolean("redAutoPos1", false) && SmartDashboard.getBoolean("blueAutoPos1", false)){
+    if(SmartDashboard.getBoolean("redAutoPos1", true) || SmartDashboard.getBoolean("blueAutoPos1", true)){
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
     }
-    else if(SmartDashboard.getBoolean("redAutoPos3", false) && SmartDashboard.getBoolean("blueAutoPos3", false)){
+    else if(SmartDashboard.getBoolean("redAutoPos3", true) || SmartDashboard.getBoolean("blueAutoPos3", true)){
       command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
     }
     else{
