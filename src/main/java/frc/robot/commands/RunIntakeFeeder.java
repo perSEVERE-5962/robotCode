@@ -11,6 +11,7 @@ import frc.robot.sensors.UltrasonicAnalog;
 public class RunIntakeFeeder extends Command {
   private Feeder intakefeeder ;
   private UltrasonicAnalog feederUltrasonic;
+  private UltrasonicAnalog feederUltrasonic2;
   
   /** Creates a new Feeder. */
   public RunIntakeFeeder(Feeder feeder){
@@ -22,7 +23,9 @@ public class RunIntakeFeeder extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {   
-    this.feederUltrasonic = intakefeeder.getUltrasonicAnalog(); }
+   // this.feederUltrasonic = intakefeeder.getUltrasonicAnalog(); 
+   // this.feederUltrasonic2 = intakefeeder.getUltrasonicAnalog();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -39,8 +42,7 @@ public class RunIntakeFeeder extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    double feederRange = feederUltrasonic.getRange();
-    SmartDashboard.putNumber("Feeder range", feederRange);
-    return feederRange <= 11;
+   return intakefeeder.isInRange();
+     
   }
 }
