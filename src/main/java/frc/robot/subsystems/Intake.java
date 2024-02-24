@@ -25,7 +25,7 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   private Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeMotorID, CANSparkLowLevel.MotorType.kBrushed);
+    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeMotorID, CANSparkLowLevel.MotorType.kBrushless);
     intakeMotor.setInverted(Constants.MiscSubsystemConstants.kIntakeInverted);
     intakeSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
                                   PneumaticsModuleType.CTREPCM,

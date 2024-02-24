@@ -181,8 +181,8 @@ public final class Constants {
   }
 
   public static final class MiscSubsystemConstants {
-    public static final boolean kFeederInverted = true;
-    public static final boolean kIntakeInverted = true;
+    public static final boolean kFeederInverted = false;
+    public static final boolean kIntakeInverted = false;
   }
 
   public static final class ColorConstants {
