@@ -25,12 +25,13 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   private Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeMotorID, CANSparkLowLevel.MotorType.kBrushed);
+    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeMotorID, CANSparkLowLevel.MotorType.kBrushless);
     intakeMotor.setInverted(Constants.MiscSubsystemConstants.kIntakeInverted);
     intakeSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
                                   PneumaticsModuleType.CTREPCM,
                                   Constants.UltrasonicConstants.kIntake_PCM_Channel);
     intakeSolenoid.set(true);
+    intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel);
   }
 
   public void run(double speed) {
@@ -40,15 +41,24 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Intake Ultrasonic", getUltrasonicAnalog().getRange());
+    //SmartDashboard.putNumber("Intake Ultrasonic", getUltrasonicAnalog().getRange());
   }
 
-  public UltrasonicAnalog getUltrasonicAnalog() {
-    if (intakeUltrasonic == null) {
-      intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel,
-                                              UltrasonicConstants.kIntake_PCM_Channel);
+  // public UltrasonicAnalog getUltrasonicAnalog() {
+  //   if (intakeUltrasonic == null) {
+  //     intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel);
+  //   }
+  //   return intakeUltrasonic;
+  // }
+
+  public boolean isInRange() {
+    double range = intakeUltrasonic.getRange();
+    SmartDashboard.putNumber("InTake Ultrasonic", range);
+    if (range <= 11) {
+      return true;
+    } else {
+      return false;
     }
-    return intakeUltrasonic;
   }
 
   public static Intake getInstance() {

@@ -10,7 +10,7 @@ public class UltrasonicAnalog {
   private AnalogInput ultrasonic;
   private final double valueToInches = 2.3;
 
-  public UltrasonicAnalog(int kintakeAnalogChannel, int kIntake_PCM_Channel) {
+  public UltrasonicAnalog(int kintakeAnalogChannel) {
     ultrasonic = new AnalogInput(kintakeAnalogChannel);
   }
 
