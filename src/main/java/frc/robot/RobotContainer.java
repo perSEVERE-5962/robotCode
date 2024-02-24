@@ -58,6 +58,7 @@ public class RobotContainer {
    private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
+   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -115,6 +116,7 @@ public class RobotContainer {
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
+    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**

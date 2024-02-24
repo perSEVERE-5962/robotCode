@@ -16,9 +16,10 @@ public class SpinUpShooter extends Command {
   private long startTime;
   private double distanceFromTag;
   private double speed=1;
-  public SpinUpShooter(Shooter motors) {
+  public SpinUpShooter(Shooter motors, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
+    this.speed = speed;
     addRequirements(motors);
   }
 
