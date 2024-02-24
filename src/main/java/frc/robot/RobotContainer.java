@@ -50,7 +50,7 @@ public class RobotContainer {
   private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
   //private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
-  private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
+  //private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -104,10 +104,12 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     //dr_buttonA.onTrue(new TurnToAprilTag(1, 1));
-    
+    //dr_buttonB.onTrue(getAutonomousCommand());  
+
     dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
-    //dr_buttonB.onTrue(getAutonomousCommand());
+    
+
 
     cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
@@ -123,10 +125,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
-    if(SmartDashboard.getBoolean("redAutoPos1", true) || SmartDashboard.getBoolean("blueAutoPos1", true)){
+    if(SmartDashboard.getBoolean("redAutoPos1", false) || SmartDashboard.getBoolean("blueAutoPos1", false)){
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
     }
-    else if(SmartDashboard.getBoolean("redAutoPos3", true) || SmartDashboard.getBoolean("blueAutoPos3", true)){
+    else if(SmartDashboard.getBoolean("redAutoPos3", false) || SmartDashboard.getBoolean("blueAutoPos3", false)){
       command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
     }
     else{
