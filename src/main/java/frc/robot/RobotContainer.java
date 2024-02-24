@@ -56,6 +56,8 @@ public class RobotContainer {
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
    private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
    private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+   private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
+   private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -102,13 +104,15 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     //dr_buttonA.onTrue(new TurnToAprilTag(1, 1));
-
+    
     dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
     //dr_buttonB.onTrue(getAutonomousCommand());
 
     cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
+    cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
+    cp_buttonA.onTrue(new ResetNoteStatus(notification));
   }
 
   /**
