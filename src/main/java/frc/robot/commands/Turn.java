@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class Turn extends Move {
@@ -24,11 +25,14 @@ public class Turn extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    driveTrain.zeroHeading();
     initialYaw = driveTrain.getYaw();
+    SmartDashboard.putNumber("Initial YaW", initialYaw);
   }
 
   @Override
   public boolean isFinished() {
+    SmartDashboard.putNumber("Current Yaw", driveTrain.getYaw());
     if (driveTrain.getYaw() >= Math.abs(initialYaw - degreesWanted)) {
       return true;
     }
