@@ -41,7 +41,7 @@ public final class Constants {
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
 
-  public static final boolean kUseJoystick = true; // true for joystick, false for xbox
+  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -66,7 +66,7 @@ public final class Constants {
 
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
-    public static final double kTrackWidth = Units.inchesToMeters(20.5);
+    public static final double kTrackWidth = Units.inchesToMeters(20.5); 
     // Distance between right and left wheels
     public static final double kWheelBase = Units.inchesToMeters(20.5);
     // Distance between front and back wheels
