@@ -21,17 +21,17 @@ public class Intake extends SubsystemBase {
 
   private CANSparkMax intakeMotor;
   private UltrasonicAnalog intakeUltrasonic;
-   private Solenoid intakeSolenoid;
+   //private Solenoid intakeSolenoid;
 
   /** Creates a new Intake. */
   private Intake() {
     intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeMotorID, CANSparkLowLevel.MotorType.kBrushless);
     intakeMotor.setInverted(Constants.MiscSubsystemConstants.kIntakeInverted);
-    intakeSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
-                                  PneumaticsModuleType.CTREPCM,
-                                  Constants.UltrasonicConstants.kIntake_PCM_Channel);
-    intakeSolenoid.set(true);
-    intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel);
+    // intakeSolenoid = new Solenoid(Constants.CANDeviceIDs.kPCMID24V,
+    //                               PneumaticsModuleType.CTREPCM,
+    //                               Constants.UltrasonicConstants.kIntake_PCM_Channel);
+    // intakeSolenoid.set(true);
+    // intakeUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kIntake_Analog_Channel);
   }
 
   public void run(double speed) {
@@ -51,15 +51,15 @@ public class Intake extends SubsystemBase {
   //   return intakeUltrasonic;
   // }
 
-  public boolean isInRange() {
-    double range = intakeUltrasonic.getRange();
-    SmartDashboard.putNumber("InTake Ultrasonic", range);
-    if (range <= 11) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // public boolean isInRange() {
+  //   double range = intakeUltrasonic.getRange();
+  //   SmartDashboard.putNumber("InTake Ultrasonic", range);
+  //   if (range <= 11) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   public static Intake getInstance() {
     if (instance == null) {

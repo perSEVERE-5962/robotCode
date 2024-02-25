@@ -32,10 +32,10 @@ public final class Constants {
    * 0.376465
    */
   public static final boolean kUseL1Ratio = false;
-  private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.25;
-  private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.168701;
-  private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.3396;
-  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376465;
+  private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.246582;
+  private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
+  private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
+  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376221;
   public static final double kmaxShooterRPM = 5676.0;
   public static final int TEAM_COLOR_BLUE = 0;
   public static final int TEAM_COLOR_RED = 1;
@@ -124,9 +124,9 @@ public final class Constants {
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
-    public static final double kPXController = 1.5;
-    public static final double kPYController = 1.5;
-    public static final double kPThetaController = 3.0;
+    public static final double kPXController = 1.0;
+    public static final double kPYController = 1.0;
+    public static final double kPThetaController = 0.5;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(

@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.Notification.NoteState;
 import frc.robot.subsystems.drivetrain.*;
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -59,6 +60,7 @@ public class RobotContainer {
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
    private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -117,6 +119,7 @@ public class RobotContainer {
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
     cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+    cp_buttonY.onTrue(new AutoPosition3(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**
@@ -153,5 +156,9 @@ public class RobotContainer {
 
   public double getTargetShootVelocity() {
     return Constants.kmaxShooterRPM;
+  }
+
+  public void resetNoteState() {
+    notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
   }
 }
