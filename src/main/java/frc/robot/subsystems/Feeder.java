@@ -39,6 +39,9 @@ public class Feeder extends SubsystemBase {
         UltrasonicConstants.kFeeder2_PCM_Channel);
     feederSolenoid.set(true);
     feeder2Solenoid.set(true);
+
+    feederUltrasonic = new UltrasonicAnalog(UltrasonicConstants.kFeeder_Analog_Channel); 
+    feederUltrasonic2 = new UltrasonicAnalog(UltrasonicConstants.kFeeder2_Analog_Channel); 
   }
 
   public void run(double speed) {
@@ -49,6 +52,7 @@ public class Feeder extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
   // public UltrasonicAnalog getUltrasonicAnalog(){
   // if(feederUltrasonic==null || feeder2Solenoid==null){
   // feederUltrasonic = new
@@ -56,19 +60,17 @@ public class Feeder extends SubsystemBase {
   // UltrasonicConstants.kFeeder_PCM_Channel);
   // }
   // return feederUltrasonic;
-
   // }
+  
   public boolean isInRange() {
     double range_of_feeder = feederUltrasonic.getRange();
     double range_of_2feeder = feederUltrasonic2.getRange();
-    SmartDashboard.putNumber("Feeder 1 Range", range_of_feeder);
-    SmartDashboard.putNumber("Feeder 2 Range", range_of_2feeder);
+    SmartDashboard.putNumber("Feeder Ultrasonic 1", range_of_feeder);
+    SmartDashboard.putNumber("Feeder Ultrasonic 2", range_of_2feeder);
     if (range_of_feeder <= 11 || range_of_2feeder <= 11) {
-
       return true;
     } else {
       return false;
-
     }
   }
 

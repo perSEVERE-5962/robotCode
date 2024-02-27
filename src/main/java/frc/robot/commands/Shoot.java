@@ -18,7 +18,7 @@ public class Shoot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new SpinUpShooter(shooter),
+        new SpinUpShooter(shooter,1),
         new RunShooterFeeder(feeder),
         new ChangeLED(changeLight, Notification.NoteState.NOTE_NOT_IN_POSSESSION),
         new StopShooter(shooter)

@@ -4,8 +4,9 @@
 
 package frc.robot.commands;
 
+import frc.robot.SpeakerTagInfo;
 import frc.robot.subsystems.Shooter;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class SpinUpShooter extends Command {
@@ -13,10 +14,12 @@ public class SpinUpShooter extends Command {
  // private double shooterSpeed;
   //private double speedPercent= 85;
   private long startTime;
-  
-  public SpinUpShooter(Shooter motors) {
+  private double distanceFromTag;
+  private double speed=1;
+  public SpinUpShooter(Shooter motors, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
+    this.speed = speed;
     addRequirements(motors);
   }
 
@@ -24,6 +27,14 @@ public class SpinUpShooter extends Command {
   @Override
   public void initialize() {
     startTime = System.currentTimeMillis();
+    distanceFromTag = SpeakerTagInfo.tag1Info.getPos().getZ();
+     if (distanceFromTag <= Units.inchesToMeters(151) && distanceFromTag > Units.inchesToMeters(132)){
+     speed=0.7;
+
+    }else if(distanceFromTag >= Units.inchesToMeters(112) && distanceFromTag <= Units.inchesToMeters(132)){
+     speed=1;
+    }
+
     //SmartDashboard.putBoolean("Shooter at max speed", false);
   }
 
@@ -32,7 +43,7 @@ public class SpinUpShooter extends Command {
   public void execute() {
     //speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
     //shooterSpeed = (speedPercent/100);
-    motors.runShooter(0.7);
+    motors.runShooter(speed);
     //SmartDashboard.putNumber("current shooter speed",shooterSpeed);
     //motors.runShooter(shooterSpeed);
   }
@@ -52,6 +63,6 @@ public class SpinUpShooter extends Command {
     long finish = System.currentTimeMillis();
     long timeElapsed = finish - startTime;
     double secondsPassed = timeElapsed / 1000.0;
-    return secondsPassed >= 2;
+    return secondsPassed >= 1;
   }
 }

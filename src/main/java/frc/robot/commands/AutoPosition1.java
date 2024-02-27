@@ -2,6 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+
+
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -20,11 +22,11 @@ public class AutoPosition1 extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // TODO: Add command(s) to turn to the speaker april tag
-      new Shoot(shooter, feeder, changeLight),
-      new TurnToZero(swerveSubsystem, 1),
-      new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
-      new IntakeNote(intake, changeLight, feeder),
-      new Shoot(shooter, feeder, changeLight)
+      // new Shoot(shooter, feeder, changeLight),
+      // new TurnToZero(swerveSubsystem, 1),
+      // new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
+      // new IntakeNote(intake, changeLight, feeder),
+      // new Shoot(shooter, feeder, changeLight)
 
     );
   }

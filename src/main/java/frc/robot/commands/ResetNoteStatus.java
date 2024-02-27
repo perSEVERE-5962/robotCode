@@ -5,35 +5,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Notification;
+import frc.robot.subsystems.Notification.NoteState;
 
-public class OutShooterFeeder extends Command {
-  private Feeder shooterfeeder;
-  
-  /** Creates a new Feeder. */
-  public OutShooterFeeder(Feeder feeder) {
-    this.shooterfeeder = feeder;
+public class ResetNoteStatus extends Command {
+  /** Creates a new ResetNoteStatus. */
+  private Notification notification;
+  public ResetNoteStatus(Notification notification) {
+    this.notification = notification;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterfeeder.run(1.0);
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-   shooterfeeder.run(0);
-
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
@@ -41,4 +38,3 @@ public class OutShooterFeeder extends Command {
     return true;
   }
 }
-

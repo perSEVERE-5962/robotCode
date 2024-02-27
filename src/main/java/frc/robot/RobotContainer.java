@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.subsystems.Notification.NoteState;
 import frc.robot.subsystems.drivetrain.*;
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -50,12 +51,16 @@ public class RobotContainer {
   private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
   //private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
-  private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
+  //private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
    private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
    private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+   private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
+   private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
+   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -102,13 +107,19 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     //dr_buttonA.onTrue(new TurnToAprilTag(1, 1));
+    //dr_buttonB.onTrue(getAutonomousCommand());  
 
     dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
-    dr_buttonB.onTrue(getAutonomousCommand());
+    
+
 
     cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
+    cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
+    cp_buttonA.onTrue(new ResetNoteStatus(notification));
+    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+    cp_buttonY.onTrue(new AutoPosition3(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**
@@ -119,10 +130,10 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
-    if(SmartDashboard.getBoolean("redAutoPos1", true) || SmartDashboard.getBoolean("blueAutoPos1", true)){
+    if(SmartDashboard.getBoolean("redAutoPos1", false) || SmartDashboard.getBoolean("blueAutoPos1", false)){
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
     }
-    else if(SmartDashboard.getBoolean("redAutoPos3", true) || SmartDashboard.getBoolean("blueAutoPos3", true)){
+    else if(SmartDashboard.getBoolean("redAutoPos3", false) || SmartDashboard.getBoolean("blueAutoPos3", false)){
       command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
     }
     else{
@@ -145,5 +156,9 @@ public class RobotContainer {
 
   public double getTargetShootVelocity() {
     return Constants.kmaxShooterRPM;
+  }
+
+  public void resetNoteState() {
+    notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
   }
 }

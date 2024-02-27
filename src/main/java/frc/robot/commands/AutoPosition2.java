@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
@@ -13,18 +14,45 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoPosition2 extends ParallelCommandGroup {
+public class AutoPosition2 extends SequentialCommandGroup {
   /** Creates a new AutoPosition1. */
   public AutoPosition2(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification changeLight, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // TODO: Add command(s) to turn to the speaker april tag
+      //
+      new ResetNoteStatus(changeLight),
+      new ParallelCommandGroup(
+        new IntakeNote(intake, changeLight, feeder),
+        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
+      
+      
+      ),
+    
       new Shoot(shooter, feeder, changeLight),
-      new TurnToZero(swerveSubsystem, 1),
+      new ResetWheels(swerveSubsystem),
+      new Turn(swerveSubsystem, 1,125),
+      new ResetWheels(swerveSubsystem),
+      new ParallelCommandGroup(
+          new IntakeNote(intake, changeLight, feeder),
+          new MoveWithTrajectory2(swerveSubsystem).getTrajectoryCommandGroup()
+      ),
+      new ResetWheels(swerveSubsystem),
+      new Turn(swerveSubsystem, 1,125),
+      new ResetWheels(swerveSubsystem),
       new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
-      new IntakeNote(intake, changeLight, feeder),
       new Shoot(shooter, feeder, changeLight)
+      // ),
+      
+
+
+
+
+      // new Turn(swerveSubsystem, 1, 180),
+      // new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
+      // new Shoot(shooter, feeder, changeLight)
+
 
     );
   }
