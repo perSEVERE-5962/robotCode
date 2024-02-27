@@ -124,9 +124,9 @@ public final class Constants {
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
-    public static final double kPXController = 1.0;
-    public static final double kPYController = 1.0;
-    public static final double kPThetaController = 0.5;
+    public static final double kPXController =kUseL1Ratio ? 1.5 : 1.0;
+    public static final double kPYController =kUseL1Ratio ? 1.5:1.0;
+    public static final double kPThetaController = kUseL1Ratio ? 3.0:0.5;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(
