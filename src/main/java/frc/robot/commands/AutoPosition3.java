@@ -20,11 +20,24 @@ public class AutoPosition3 extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       // TODO: Add command(s) to turn to the speaker april tag
-      new Shoot(shooter, feeder, changeLight),
-      new TurnToZero(swerveSubsystem, 1),
-      new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
-      new IntakeNote(intake, changeLight, feeder),
-      new Shoot(shooter, feeder, changeLight)
+        //
+        // new ParallelCommandGroup(
+        //   new IntakeNote(intake, changeLight, feeder),
+        //   new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
+
+        // ),
+        // new ResetWheels(swerveSubsystem),
+        // new Turn(swerveSubsystem, 1,30)
+        // new Shoot(shooter, feeder, changeLight),
+        // new ResetWheels(swerveSubsystem),
+        // new Turn(swerveSubsystem, 1,-30),
+        // new ResetWheels(swerveSubsystem),
+        // new ParallelCommandGroup(
+        //   new IntakeNote(intake, changeLight, feeder),
+        //   new MoveWithTrajectory2(swerveSubsystem).getTrajectoryCommandGroup()
+        // )
+
+
 
     );
   }

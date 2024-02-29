@@ -20,15 +20,16 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class MoveWithTrajectory {
+public class MoveWithTrajectory2 {
   /** Creates a new MoveWithTrajectory. */
   private SwerveSubsystem swerveSubsystem;
   private Trajectory trajectory;
   //protected SwerveSubsystem m_driveTrain;
   private SwerveControllerCommand swerveControllerCommand;
 
-  public MoveWithTrajectory(SwerveSubsystem swerveSubsystem) {
-  this.swerveSubsystem = swerveSubsystem;    
+  public MoveWithTrajectory2(SwerveSubsystem swerveSubsystem) {
+  this.swerveSubsystem = swerveSubsystem;  
+  //this.swerveSubsystem.resetDrivePosition();
     
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
         DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
@@ -36,10 +37,10 @@ public class MoveWithTrajectory {
         .setKinematics(DriveConstants.kDriveKinematics);
 
      trajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(0, 0, new Rotation2d(0)),
+        new Pose2d(0.0, 0.0, new Rotation2d(0)),
         List.of(
-            new Translation2d(0.86, 0)),
-        new Pose2d(2.05, 0, Rotation2d.fromDegrees(0)),
+            new Translation2d(0.85, 0)),
+        new Pose2d(1.77, 0.0, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
     PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
