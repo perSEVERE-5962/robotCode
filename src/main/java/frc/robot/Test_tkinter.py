@@ -1,15 +1,31 @@
 import tkinter as tk
+from networktables import NetworkTables
 
 class userInterface:
    def __init__(self):
+      NetworkTables.initialize(server='10.99.99.2')
+      table = NetworkTables.getTable("AutomonusSelect")
+      self.someNumberEntry = table.getEntry('Close Note')
+      self.someNumberEntry.setDefaultNumber(0)
+      self.middlenotetable=table.getSubTable("Middle note")
+      self.middlenote1 = table.getEntry('Middle Note 1')
+      self.middlenote2 = table.getEntry('Middle Note 2')
+      self.middlenote3 = table.getEntry('Middle Note 3')
+      self.middlenote4 = table.getEntry('Middle Note 4')
+      self.middlenote5 = table.getEntry('Middle Note 5')
+      self.middlenote1.setDefaultBoolean(False)
+      self.middlenote2.setDefaultBoolean(False)
+      self.middlenote3.setDefaultBoolean(False)
+      self.middlenote4.setDefaultBoolean(False)
+      self.middlenote5.setDefaultBoolean(False)
       self.root = tk.Tk()
       self.root.resizable(False, False)
       #self.label = tk.Label(self.root, text="Hello, world!")
       #self.label.pack()
       self.canvas = tk.Canvas(self.root, width = 500, height = 500)
       self.canvas.pack()
-      self.image_1 = tk.PhotoImage(file=r"C:\frc\RedSide.png")
-      self.image_2 = tk.PhotoImage(file=r"C:\frc\BlueSide.png")
+      self.image_1 = tk.PhotoImage(file=r"C:\Users\Team5962\Documents\FRC\git\robotCode\src\images\RedSide.png")
+      self.image_2 = tk.PhotoImage(file=r"C:\Users\Team5962\Documents\FRC\git\robotCode\src\images\BlueSide.png")
       self.image = self.canvas.create_image(0,20, anchor=tk.NW, image=self.image_1)
       self.currentImage = self.image_1
       self.note = tk.IntVar()
@@ -43,18 +59,14 @@ class userInterface:
       self.c5.place(x=400, y=430)
       #self.c2.pack()
    def print_selection(self):
-    if (self.var1.get() == 1):
-        print('One choosen ')
-    if (self.var2.get() == 1):
-        print('2 choosen')
-    if (self.var3.get() == 1):
-        print('One choosen ')
-    if (self.var4.get() == 1):
-        print('2 choosen')
-    if (self.var5.get() == 1):
-        print('One choosen ')
+    self.middlenote1.setBoolean(self.var1.get())
+    self.middlenote2.setBoolean(self.var2.get())
+    self.middlenote3.setBoolean(self.var3.get())
+    self.middlenote4.setBoolean(self.var4.get())
+    self.middlenote5.setBoolean(self.var5.get())
    def noteChoice(self):
       selection = "You selected the option " + str(self.note.get())
+      self.someNumberEntry.setNumber(self.note.get())
       print(selection)
    def switch_image(self):
     if self.currentImage == self.image_1:

@@ -63,6 +63,6 @@ public class SpinUpShooter extends Command {
     long finish = System.currentTimeMillis();
     long timeElapsed = finish - startTime;
     double secondsPassed = timeElapsed / 1000.0;
-    return secondsPassed >= 2;
+    return secondsPassed >= 1;
   }
 }

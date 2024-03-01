@@ -22,6 +22,7 @@ public class AutoPosition2 extends SequentialCommandGroup {
     addCommands(
       // TODO: Add command(s) to turn to the speaker april tag
       //
+      new ResetNoteStatus(changeLight),
       new ParallelCommandGroup(
         new IntakeNote(intake, changeLight, feeder),
         new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()

@@ -43,6 +43,6 @@ public class RunIntake extends Command {
     // double intakeRange = intakeUltrasonic.getRange();
     // SmartDashboard.putNumber("Intake range" , intakeRange);
     // return intakeRange <= 11;
-    return intake.isInRange();
+    return true;
   }
 }
