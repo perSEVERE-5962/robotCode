@@ -118,8 +118,9 @@ public class RobotContainer {
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
-    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+    //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
     cp_buttonY.onTrue(new AutoPosition3(driveTrain, shooter, feeder, notification, intake));
+    cp_buttonX.onTrue(new Turn(driveTrain,180,false));
   }
 
   /**
