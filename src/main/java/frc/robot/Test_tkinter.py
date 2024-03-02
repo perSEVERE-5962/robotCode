@@ -3,7 +3,7 @@ from networktables import NetworkTables
 
 class userInterface:
    def __init__(self):
-      NetworkTables.initialize(server='10.99.99.2')
+      NetworkTables.initialize(server='10.59.62.2')
       table = NetworkTables.getTable("AutomonusSelect")
       self.someNumberEntry = table.getEntry('Close Note')
       self.someNumberEntry.setDefaultNumber(0)
