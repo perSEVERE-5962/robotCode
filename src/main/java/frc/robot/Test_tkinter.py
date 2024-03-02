@@ -3,7 +3,7 @@ from networktables import NetworkTables
 
 class userInterface:
    def __init__(self):
-      NetworkTables.initialize(server='roborio-XXX-frc.local')
+      NetworkTables.initialize(server='10.99.99.2')
       table = NetworkTables.getTable("AutomonusSelect")
       self.someNumberEntry = table.getEntry('Close Note')
       self.someNumberEntry.setDefaultNumber(0)
@@ -24,8 +24,8 @@ class userInterface:
       #self.label.pack()
       self.canvas = tk.Canvas(self.root, width = 500, height = 500)
       self.canvas.pack()
-      self.image_1 = tk.PhotoImage(file=r"C:\frc\RedSide.png")
-      self.image_2 = tk.PhotoImage(file=r"C:\frc\BlueSide.png")
+      self.image_1 = tk.PhotoImage(file=r"C:\Users\Team5962\Documents\FRC\git\robotCode\src\images\RedSide.png")
+      self.image_2 = tk.PhotoImage(file=r"C:\Users\Team5962\Documents\FRC\git\robotCode\src\images\BlueSide.png")
       self.image = self.canvas.create_image(0,20, anchor=tk.NW, image=self.image_1)
       self.currentImage = self.image_1
       self.note = tk.IntVar()
