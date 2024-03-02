@@ -32,14 +32,14 @@ public class AutoPosition2 extends SequentialCommandGroup {
     
       new Shoot(shooter, feeder, changeLight),
       new ResetWheels(swerveSubsystem),
-      new Turn(swerveSubsystem, 180,false),
+      new TurntoAngle(swerveSubsystem, 180,false),
       new ResetWheels(swerveSubsystem),
       new ParallelCommandGroup(
           new IntakeNote(intake, changeLight, feeder),
           new MoveWithTrajectory2(swerveSubsystem).getTrajectoryCommandGroup()
       ),
       new ResetWheels(swerveSubsystem),
-      new Turn(swerveSubsystem, 180,false),
+      new TurntoAngle(swerveSubsystem, 180,false),
       new ResetWheels(swerveSubsystem),
       new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
       new Shoot(shooter, feeder, changeLight)
