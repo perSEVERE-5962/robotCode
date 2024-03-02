@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -120,7 +122,7 @@ public class RobotContainer {
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
     //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
     cp_buttonY.onTrue(new AutoPosition3(driveTrain, shooter, feeder, notification, intake));
-    cp_buttonX.onTrue(new Turn(driveTrain,180,false));
+    cp_buttonX.onTrue(new TurntoAngle(driveTrain,90,true));
   }
 
   /**
@@ -131,14 +133,21 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
-    if(SmartDashboard.getBoolean("redAutoPos1", false) || SmartDashboard.getBoolean("blueAutoPos1", false)){
+    NetworkTableInstance networktable=NetworkTableInstance.getDefault();
+   NetworkTable table = networktable.getTable("AutomonusSelect");
+    double someNumberEntry = table.getEntry("Close Note").getDouble(2);
+    if(someNumberEntry==1){
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
+      SmartDashboard.putString("Selection", "Postion 1");
     }
-    else if(SmartDashboard.getBoolean("redAutoPos3", false) || SmartDashboard.getBoolean("blueAutoPos3", false)){
+    else if(someNumberEntry==3){
       command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
+      SmartDashboard.putString("Selection", "Postion 3");
     }
     else{
       command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);
+      SmartDashboard.putString("Selection", "Postion 2");
+
     }
     return command;
   }

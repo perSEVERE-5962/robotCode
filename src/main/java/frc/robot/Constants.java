@@ -31,7 +31,7 @@ public final class Constants {
    * 0.3396
    * 0.376465
    */
-  public static final boolean kUseL1Ratio = true;
+  public static final boolean kUseL1Ratio = false;
   private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.246582;
   private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
   private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
@@ -46,7 +46,7 @@ public final class Constants {
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
-    public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.34;
+    public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.5;
     public static final double kITuning = kUseL1Ratio ? 0.0 : 0.0;
     public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0;
 
@@ -123,6 +123,7 @@ public final class Constants {
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4.0;
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
+
 
     public static final double kPXController =kUseL1Ratio ? 1.5 : 1.0;
     public static final double kPYController =kUseL1Ratio ? 1.5:1.0;
