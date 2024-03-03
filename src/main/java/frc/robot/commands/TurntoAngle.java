@@ -45,7 +45,7 @@ public class TurntoAngle extends Command {
         this.swerve = swerve;
         this.goal = angle;
         this.isRelative = isRelative;
-        holonomicDriveController.setTolerance(new Pose2d(2, 1, Rotation2d.fromDegrees(0.75)));
+        holonomicDriveController.setTolerance(new Pose2d(2.9, 1.0, Rotation2d.fromDegrees(0.75)));
     }
 
     @Override

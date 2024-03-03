@@ -22,9 +22,9 @@ public class IntakeNote extends SequentialCommandGroup {
     addCommands(
         new ParallelCommandGroup(
             new RunIntake(intake),
-            new RunIntakeFeeder(feeder)              
+            new RunIntakeFeeder(feeder, changeLight, Notification.NoteState.NOTE_IN_POSSESSION)              
         ),
-        new StopIntake(intake).andThen(new ChangeLED(changeLight, Notification.NoteState.NOTE_IN_POSSESSION))
+        new StopIntake(intake)
     );
   }
 }

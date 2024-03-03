@@ -19,7 +19,7 @@ public class IntakeParallelGroup extends ParallelRaceGroup {
   public IntakeParallelGroup(Intake intake, Notification changeLight, Feeder feeder) {
     addCommands(
         new IntakeSequentialGroup(intake, changeLight),
-        new RunIntakeFeeder(feeder)
+        new RunIntakeFeeder(feeder, changeLight, Notification.NoteState.NOTE_IN_POSSESSION)
     );
   }
 }

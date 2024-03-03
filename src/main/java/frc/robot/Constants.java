@@ -139,15 +139,15 @@ public final class Constants {
      *  public static final double MAX_ANGULAR_VELOCITY = 9.0;
      *  public static final double MAX_ANGULAR_ACCELERATION = 9 * 5;
      */
-    public static final double kPID_XKP = 1.0; //2.0
+    public static final double kPID_XKP = 2.0; //1.0
     public static final double kPID_XKI = 0.0; 
     public static final double kPID_XKD = 0.0; 
-    public static final double kPID_YKP = 1.0; //2.0
+    public static final double kPID_YKP = 2.0; //1.0
     public static final double kPID_YKI = 0.0; 
     public static final double kPID_YKD = 0.0; 
-    public static final double KPID_TKP = 8.8; //3.0
-    public static final double KPID_TKI = 0.2; //0.0
-    public static final double KPID_TKD = 0.03; //0.0
+    public static final double KPID_TKP = 3.1; //8.8
+    public static final double KPID_TKI = 0.0; //0.2
+    public static final double KPID_TKD = 0.0; //0.03
 
     public static final double kAutoMaxAngularVelocity = 9;
     public static final double kAutoMaxAngularAcceleration = 9 * 5;
