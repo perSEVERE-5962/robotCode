@@ -4,10 +4,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AutoPosition1;
 import frc.robot.subsystems.DetectAprilTags;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -73,6 +77,11 @@ public class Robot extends TimedRobot {
       SpeakerTagInfo.tag1Info.update();
       SpeakerTagInfo.tag2Info.update();
     }
+
+    NetworkTableInstance networktable=NetworkTableInstance.getDefault();
+    NetworkTable table = networktable.getTable("AutomonusSelect");
+    double autoPosition = table.getEntry("Close Note").getDouble(2);
+    SmartDashboard.putString("Autonomous Selection", "Postion " + (int)autoPosition);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

@@ -27,13 +27,13 @@ public class SpinUpShooter extends Command {
   @Override
   public void initialize() {
     startTime = System.currentTimeMillis();
-    distanceFromTag = SpeakerTagInfo.tag1Info.getPos().getZ();
-     if (distanceFromTag <= Units.inchesToMeters(151) && distanceFromTag > Units.inchesToMeters(132)){
-     speed=0.7;
+    // distanceFromTag = SpeakerTagInfo.tag1Info.getPos().getZ();
+    //  if (distanceFromTag <= Units.inchesToMeters(151) && distanceFromTag > Units.inchesToMeters(132)){
+    //  speed=0.7;
 
-    }else if(distanceFromTag >= Units.inchesToMeters(112) && distanceFromTag <= Units.inchesToMeters(132)){
+    // }else if(distanceFromTag >= Units.inchesToMeters(112) && distanceFromTag <= Units.inchesToMeters(132)){
      speed=1;
-    }
+    //}
 
     //SmartDashboard.putBoolean("Shooter at max speed", false);
   }

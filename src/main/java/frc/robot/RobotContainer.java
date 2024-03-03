@@ -120,9 +120,10 @@ public class RobotContainer {
     cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
-    //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
     cp_buttonY.onTrue(new AutoPosition3(driveTrain, shooter, feeder, notification, intake));
-    cp_buttonX.onTrue(new TurntoAngle(driveTrain,90,true));
+    //cp_buttonX.onTrue(new TurntoAngle(driveTrain,179.9,true));
+    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+
   }
 
   /**
@@ -134,20 +135,17 @@ public class RobotContainer {
     // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
     NetworkTableInstance networktable=NetworkTableInstance.getDefault();
-   NetworkTable table = networktable.getTable("AutomonusSelect");
-    double someNumberEntry = table.getEntry("Close Note").getDouble(2);
-    if(someNumberEntry==1){
+    NetworkTable table = networktable.getTable("AutomonusSelect");
+    double autoPosition = table.getEntry("Close Note").getDouble(2);
+    //SmartDashboard.putString("Autonomous Selection", "Postion " + autoPosition);
+    if(autoPosition==1){
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
-      SmartDashboard.putString("Selection", "Postion 1");
     }
-    else if(someNumberEntry==3){
+    else if(autoPosition==3){
       command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
-      SmartDashboard.putString("Selection", "Postion 3");
     }
     else{
       command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);
-      SmartDashboard.putString("Selection", "Postion 2");
-
     }
     return command;
   }

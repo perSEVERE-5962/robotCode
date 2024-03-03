@@ -46,7 +46,7 @@ public final class Constants {
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
-    public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.5;
+    public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.34;
     public static final double kITuning = kUseL1Ratio ? 0.0 : 0.0;
     public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0;
 
@@ -124,16 +124,38 @@ public final class Constants {
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
+    // Autonomous settings
+    /**
+     *  public static final double PID_XKP = 2;
+     *  public static final double PID_XKI = 0.0;
+     *  public static final double PID_XKD = 0.0;
+     *  public static final double PID_YKP = 2;
+     *  public static final double PID_YKI = 0.0;
+     *  public static final double PID_YKD = 0.0;
+     *  public static final double PID_TKP = 3.0;
+     *  public static final double PID_TKI = 0.0;
+     *  public static final double PID_TKD = 0.0;
+     *  
+     *  public static final double MAX_ANGULAR_VELOCITY = 9.0;
+     *  public static final double MAX_ANGULAR_ACCELERATION = 9 * 5;
+     */
+    public static final double kPID_XKP = 1.0; //2.0
+    public static final double kPID_XKI = 0.0; 
+    public static final double kPID_XKD = 0.0; 
+    public static final double kPID_YKP = 1.0; //2.0
+    public static final double kPID_YKI = 0.0; 
+    public static final double kPID_YKD = 0.0; 
+    public static final double KPID_TKP = 8.8; //3.0
+    public static final double KPID_TKI = 0.2; //0.0
+    public static final double KPID_TKD = 0.03; //0.0
 
-    public static final double kPXController =kUseL1Ratio ? 1.5 : 1.0;
-    public static final double kPYController =kUseL1Ratio ? 1.5:1.0;
-    public static final double kPThetaController = kUseL1Ratio ? 3.0:0.5;
+    public static final double kAutoMaxAngularVelocity = 9;
+    public static final double kAutoMaxAngularAcceleration = 9 * 5;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(
-                        kTeleDriveMaxAngularSpeedRadiansPerSecond,
-                        kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared);
-
+                        kAutoMaxAngularVelocity,
+                        kAutoMaxAngularAcceleration);
   }
 
   public static final class OIConstants {

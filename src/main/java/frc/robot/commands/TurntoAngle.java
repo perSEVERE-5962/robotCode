@@ -11,8 +11,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
@@ -26,9 +26,8 @@ public class TurntoAngle extends Command {
     private double goal;
     private HolonomicDriveController holonomicDriveController =
         new HolonomicDriveController(new PIDController(0, 0, 0), new PIDController(0, 0, 0),
-            new ProfiledPIDController(0.43,
-                0, 0.,
-                Constants.DriveConstants.kThetaControllerConstraints));
+            new ProfiledPIDController(DriveConstants.KPID_TKP,DriveConstants.KPID_TKI, DriveConstants.KPID_TKD,
+                DriveConstants.kThetaControllerConstraints));
     private Pose2d startPos = new Pose2d();
     private Pose2d targetPose2d = new Pose2d();
     private int finishCounter = 0;
@@ -46,8 +45,7 @@ public class TurntoAngle extends Command {
         this.swerve = swerve;
         this.goal = angle;
         this.isRelative = isRelative;
-        holonomicDriveController.setTolerance(new Pose2d(1, 1, Rotation2d.fromDegrees(1)));
-
+        holonomicDriveController.setTolerance(new Pose2d(2, 1, Rotation2d.fromDegrees(0.75)));
     }
 
     @Override
@@ -63,10 +61,13 @@ public class TurntoAngle extends Command {
         //     targetPose2d = new Pose2d(targetPose2d.getTranslation(),
         //         targetPose2d.getRotation().rotateBy(Rotation2d.fromDegrees(180)));
         // }
+        SmartDashboard.putString("Target pos", targetPose2d.toString());
     }
 
     @Override
     public void execute() {
+        SmartDashboard.putString("Turn Status", "In progress");
+        SmartDashboard.putString("Current pos", swerve.getPose().toString());
         Pose2d currPose2d = swerve.getPose();
         ChassisSpeeds chassisSpeeds = this.holonomicDriveController.calculate(currPose2d,
             targetPose2d, 0, targetPose2d.getRotation());
@@ -78,15 +79,18 @@ public class TurntoAngle extends Command {
     @Override
     public void end(boolean interrupt) {
         swerve.stopModules();
+        SmartDashboard.putString("Turn Status", "Done");
     }
 
     @Override
     public boolean isFinished() {
+
         if (holonomicDriveController.atReference()) {
             finishCounter++;
         } else {
             finishCounter = 0;
         }
+        SmartDashboard.putNumber("TurntoAngle finishCounter", finishCounter);
         return finishCounter > 2;
     }
 }

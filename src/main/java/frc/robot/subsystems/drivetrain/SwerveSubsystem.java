@@ -75,6 +75,7 @@ public class SwerveSubsystem extends SubsystemBase {
           });
 
   private SwerveSubsystem() {
+    
     new Thread(
             () -> {
               try {
@@ -91,7 +92,7 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public double getHeading() {
-    return Math.IEEEremainder(gyro.getAngle(), 360);
+    return Math.IEEEremainder(gyro.getAngle(), 360.0) * -1.0;
   }
 
   public Rotation2d getRotation2d() {
@@ -116,7 +117,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("GyroYaw", getYaw());
+    SmartDashboard.putNumber("Gyro Angle", getHeading());
     SmartDashboard.putNumber("Average Distance Inches",getAverageDistanceInches() );
     odometer.update(
         getRotation2d(),
