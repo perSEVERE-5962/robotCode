@@ -25,7 +25,9 @@ public class TurntoAngle extends Command {
     private boolean isRelative;
     private double goal;
     private HolonomicDriveController holonomicDriveController =
-        new HolonomicDriveController(new PIDController(0, 0, 0), new PIDController(0, 0, 0),
+        new HolonomicDriveController(
+            new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+            new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
             new ProfiledPIDController(DriveConstants.KPID_TKP,DriveConstants.KPID_TKI, DriveConstants.KPID_TKD,
                 DriveConstants.kThetaControllerConstraints));
     private Pose2d startPos = new Pose2d();
@@ -45,7 +47,7 @@ public class TurntoAngle extends Command {
         this.swerve = swerve;
         this.goal = angle;
         this.isRelative = isRelative;
-        holonomicDriveController.setTolerance(new Pose2d(2.9, 1.0, Rotation2d.fromDegrees(0.75)));
+        holonomicDriveController.setTolerance(new Pose2d(2, 1.0, Rotation2d.fromDegrees(0.75)));
     }
 
     @Override
@@ -71,7 +73,7 @@ public class TurntoAngle extends Command {
         Pose2d currPose2d = swerve.getPose();
         ChassisSpeeds chassisSpeeds = this.holonomicDriveController.calculate(currPose2d,
             targetPose2d, 0, targetPose2d.getRotation());
-            SwerveModuleState[] moduleStates =
+        SwerveModuleState[] moduleStates = 
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
         swerve.setModuleStates(moduleStates);
     }
@@ -85,7 +87,7 @@ public class TurntoAngle extends Command {
     @Override
     public boolean isFinished() {
 
-        if (holonomicDriveController.atReference()) {
+        if (holonomicDriveController.atReference() || (swerve.isAtAngle(goal))) {
             finishCounter++;
         } else {
             finishCounter = 0;

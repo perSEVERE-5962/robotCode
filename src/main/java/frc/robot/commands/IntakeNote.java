@@ -16,13 +16,13 @@ import frc.robot.subsystems.Notification;
 public class IntakeNote extends SequentialCommandGroup {
   /** Creates a new IntakeNote. */
 
-  public IntakeNote(Intake intake, Notification changeLight, Feeder feeder) {
+  public IntakeNote(Intake intake, Notification notification, Feeder feeder) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
         new ParallelCommandGroup(
             new RunIntake(intake),
-            new RunIntakeFeeder(feeder, changeLight, Notification.NoteState.NOTE_IN_POSSESSION)              
+            new RunIntakeFeeder(feeder, notification)              
         ),
         new StopIntake(intake)
     );

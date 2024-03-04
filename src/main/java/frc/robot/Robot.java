@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.AutoPosition1;
-import frc.robot.subsystems.DetectAprilTags;
+import frc.robot.archive.SpeakerTagInfo;
+import frc.robot.archive.TagInfo;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -45,17 +46,17 @@ public class Robot extends TimedRobot {
   
 
     // Manual override
-    int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
-    int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
+    // int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
+    // int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
 
-    SpeakerTagInfo.tag1Info = new TagInfo(speakerTag1Id);
-    SpeakerTagInfo.tag2Info = new TagInfo(speakerTag2Id);
-    SpeakerTagInfo.tag1Info.updateShuffleboard();
-    SpeakerTagInfo.tag2Info.updateShuffleboard();
-    SpeakerTagInfo.tag1Info.update();
-    SpeakerTagInfo.tag2Info.update();
+    // SpeakerTagInfo.tag1Info = new TagInfo(speakerTag1Id);
+    // SpeakerTagInfo.tag2Info = new TagInfo(speakerTag2Id);
+    // SpeakerTagInfo.tag1Info.updateShuffleboard();
+    // SpeakerTagInfo.tag2Info.updateShuffleboard();
+    // SpeakerTagInfo.tag1Info.update();
+    // SpeakerTagInfo.tag2Info.update();
 
-    DetectAprilTags.activate();
+    // DetectAprilTags.activate();
     m_robotContainer.resetNoteState();
   }
 
@@ -73,10 +74,10 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    if (SpeakerTagInfo.tag1Info != null && SpeakerTagInfo.tag2Info != null) {
-      SpeakerTagInfo.tag1Info.update();
-      SpeakerTagInfo.tag2Info.update();
-    }
+    // if (SpeakerTagInfo.tag1Info != null && SpeakerTagInfo.tag2Info != null) {
+    //   SpeakerTagInfo.tag1Info.update();
+    //   SpeakerTagInfo.tag2Info.update();
+    // }
 
     NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
@@ -116,6 +117,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.resetNoteState();
   }
 
   /** This function is called periodically during operator control. */

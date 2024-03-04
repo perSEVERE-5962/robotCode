@@ -2,26 +2,23 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.archive;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class ResetAuto extends Command {
-  private SwerveSubsystem swerveSubsystem;
-  /** Creates a new ResetAuto. 
-   * @param swerveSubsystem2 */
-  public ResetAuto(SwerveSubsystem swerveSubsystem) {
-    this.swerveSubsystem = swerveSubsystem;
+public class Timer extends Command {
+  /** Creates a new Timer. */
+  long initialTimer = 0;
+  long desiredTime = 0;
+  public Timer(long time) {
+    desiredTime = time;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(swerveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    swerveSubsystem.resetDrivePosition();
-    //swerveSubsystem.zeroHeading();
+    initialTimer = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +32,6 @@ public class ResetAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return System.currentTimeMillis() >= initialTimer + desiredTime;
   }
 }

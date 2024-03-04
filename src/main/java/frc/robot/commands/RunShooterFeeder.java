@@ -7,17 +7,22 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 // import frc.robot.sensors.UltrasonicAnalog;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Notification;
+import frc.robot.subsystems.Notification.NoteState;
 
 public class RunShooterFeeder extends Command {
   private Feeder shooterfeeder;
+  private Notification notification;
   // private UltrasonicAnalog feederUltrasonic;
   private long startTime;
   
-  /** Creates a new Feeder. */
-  public RunShooterFeeder(Feeder feeder) {
+  /** Creates a new Feeder. 
+   * @param noteNotInPossession */
+  public RunShooterFeeder(Feeder feeder, Notification notification) {
     this.shooterfeeder = feeder;
+    this.notification = notification; 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder);
+    addRequirements(feeder, notification);
   }
 
   // Called when the command is initially scheduled.
@@ -36,6 +41,8 @@ public class RunShooterFeeder extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // assume that we have shot the note
+    notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
     shooterfeeder.run(0);
   }
 
@@ -45,7 +52,7 @@ public class RunShooterFeeder extends Command {
     long finish = System.currentTimeMillis();
     long timeElapsed = finish - startTime;
     double secondsPassed = timeElapsed / 1000.0;
-    return secondsPassed >= 2;
+    return secondsPassed >= 1;
   }
 }
 

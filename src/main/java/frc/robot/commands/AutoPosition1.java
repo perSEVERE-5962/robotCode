@@ -17,16 +17,20 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPosition1 extends ParallelCommandGroup {
   /** Creates a new AutoPosition1. */
-  public AutoPosition1(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification changeLight, Intake intake) {
+  public AutoPosition1(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification notification, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // TODO: Add command(s) to turn to the speaker april tag
-      // new Shoot(shooter, feeder, changeLight),
-      // new TurnToZero(swerveSubsystem, 1),
-      // new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
-      // new IntakeNote(intake, changeLight, feeder),
-      // new Shoot(shooter, feeder, changeLight)
+      new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
+      new Shoot(shooter, feeder, notification),
+      new TurntoAngle(swerveSubsystem, -110.0,true),
+      new ParallelCommandGroup(
+          new IntakeNote(intake, notification, feeder),
+          new MoveWithDistance(swerveSubsystem, 1, 0.1) //placeholder, try MoveWithPosition instead --> 
+//          new MoveToPosition(swerveSubsystem, new Pose2d(0.1,0.0,new Rotation2d(0)))
+      ),
+      new TurntoAngle(swerveSubsystem, 0, true),
+      new Shoot(shooter, feeder, notification)
 
     );
   }

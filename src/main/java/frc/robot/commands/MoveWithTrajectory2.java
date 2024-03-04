@@ -41,7 +41,7 @@ public class MoveWithTrajectory2 {
         new Pose2d(0.0, 0.0, new Rotation2d(0)),
         List.of(
             new Translation2d(0.85, 0)),
-        new Pose2d(1.77, 0.0, Rotation2d.fromDegrees(0)),
+        new Pose2d(1.74, 0.0, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
     // PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);

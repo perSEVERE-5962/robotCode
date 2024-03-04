@@ -14,14 +14,14 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class Shoot extends SequentialCommandGroup {
   /** Creates a new Shoot. */
-  public Shoot(Shooter shooter, Feeder feeder, Notification changeLight) {
+  public Shoot(Shooter shooter, Feeder feeder, Notification notification) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new SpinUpShooter(shooter,1),
-        new RunShooterFeeder(feeder),
-        new ChangeLED(changeLight, Notification.NoteState.NOTE_NOT_IN_POSSESSION),
-        new StopShooter(shooter)
+      // TODO: Add command(s) to turn to the speaker april tag
+      new SpinUpShooter(shooter),
+      new RunShooterFeeder(feeder, notification),
+      new StopShooter(shooter)
     );
   }
 }

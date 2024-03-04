@@ -145,7 +145,7 @@ public final class Constants {
     public static final double kPID_YKP = 2.0; //1.0
     public static final double kPID_YKI = 0.0; 
     public static final double kPID_YKD = 0.0; 
-    public static final double KPID_TKP = 3.1; //8.8
+    public static final double KPID_TKP = 3.0; //8.8
     public static final double KPID_TKI = 0.0; //0.2
     public static final double KPID_TKD = 0.0; //0.03
 

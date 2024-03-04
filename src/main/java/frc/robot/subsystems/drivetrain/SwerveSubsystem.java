@@ -286,6 +286,18 @@ public class SwerveSubsystem extends SubsystemBase {
         });
   }
 
+  public boolean isAtAngle(double targetAngle) {
+    boolean status = false;
+    double currentAngle = Math.abs(getHeading());
+    double absTargetAngle = Math.abs(targetAngle);
+
+    if ((currentAngle >= (absTargetAngle + 1.0)) && (currentAngle <= (absTargetAngle - 1.0))) {
+      status = true;
+    }
+
+    return status;
+  }
+
   /**
    * @return the instance
    */

@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.SpeakerTagInfo;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -16,10 +15,9 @@ public class SpinUpShooter extends Command {
   private long startTime;
   private double distanceFromTag;
   private double speed=1;
-  public SpinUpShooter(Shooter motors, double speed) {
+  public SpinUpShooter(Shooter motors) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
-    this.speed = speed;
     addRequirements(motors);
   }
 
@@ -32,10 +30,10 @@ public class SpinUpShooter extends Command {
     //  speed=0.7;
 
     // }else if(distanceFromTag >= Units.inchesToMeters(112) && distanceFromTag <= Units.inchesToMeters(132)){
-     speed=1;
+     speed=0.8;
     //}
 
-    //SmartDashboard.putBoolean("Shooter at max speed", false);
+    //SmartDas1hboard.putBoolean("Shooter at max speed", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

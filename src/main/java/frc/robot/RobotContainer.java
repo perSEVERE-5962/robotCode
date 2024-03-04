@@ -12,7 +12,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -52,13 +51,11 @@ public class RobotContainer {
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
   private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
-  //private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
-  //private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
 
   // Test Controller
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
-   private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
-   private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+  //  private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  //  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
    private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
@@ -108,22 +105,18 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    //dr_buttonA.onTrue(new TurnToAprilTag(1, 1));
-    //dr_buttonB.onTrue(getAutonomousCommand());  
-
     dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
     dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
     
 
-
-    cp_leftBumper.toggleOnTrue(new OutIntake(intake));
-    cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
+    // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
+    // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
-    cp_buttonY.onTrue(new AutoPosition3(driveTrain, shooter, feeder, notification, intake));
-    //cp_buttonX.onTrue(new TurntoAngle(driveTrain,179.9,true));
-    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
 
+    //TODO: the following should be commented out for competition
+    cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
+    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**
@@ -150,9 +143,9 @@ public class RobotContainer {
     return command;
   }
 
-  public XboxController getDriverController() {
-    return driverController;
-  }
+  // public XboxController getDriverController() {
+  //   return driverController;
+  // }
 
   public static RobotContainer getInstance() {
     if (instance == null) {
@@ -162,9 +155,9 @@ public class RobotContainer {
     return instance;
   }
 
-  public double getTargetShootVelocity() {
-    return Constants.kmaxShooterRPM;
-  }
+  // public double getTargetShootVelocity() {
+  //   return Constants.kmaxShooterRPM;
+  // }
 
   public void resetNoteState() {
     notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
