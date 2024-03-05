@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import java.util.List;
 
+import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -42,19 +43,37 @@ public class MoveWithTrajectory {
         new Pose2d(2.05, 0, Rotation2d.fromDegrees(0)),
         trajectoryConfig);
 
-    PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
-    PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
-    ProfiledPIDController thetaController = new ProfiledPIDController(
-        DriveConstants.kPThetaController, 0, 0, DriveConstants.kThetaControllerConstraints);
-    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    // PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
+    // PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
+    // ProfiledPIDController thetaController = new ProfiledPIDController(
+    //     DriveConstants.kPThetaController, DriveConstants.kIThetaController, DriveConstants.kDThetaController, DriveConstants.kThetaControllerConstraints);
+    // thetaController.enableContinuousInput(-Math.PI, Math.PI);
+
+    // swerveControllerCommand = new SwerveControllerCommand(
+    //     trajectory,
+    //     swerveSubsystem::getPose,
+    //     DriveConstants.kDriveKinematics,
+    //     xController,
+    //     yController,
+    //     thetaController,
+    //     swerveSubsystem::setModuleStates,
+    //     swerveSubsystem);
+
+    HolonomicDriveController holonomicDriveController =
+        new HolonomicDriveController(
+          new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+          new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
+          new ProfiledPIDController(
+            DriveConstants.KPID_TKP,
+            DriveConstants.KPID_TKI, 
+            DriveConstants.KPID_TKD,
+            DriveConstants.kThetaControllerConstraints));
 
     swerveControllerCommand = new SwerveControllerCommand(
         trajectory,
         swerveSubsystem::getPose,
         DriveConstants.kDriveKinematics,
-        xController,
-        yController,
-        thetaController,
+        holonomicDriveController,
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
     

@@ -8,8 +8,8 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.SpeakerTagInfo;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.archive.SpeakerTagInfo;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class TurnToAprilTag extends Command {
