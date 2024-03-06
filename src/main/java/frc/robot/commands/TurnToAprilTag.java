@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -18,7 +19,10 @@ public class TurnToAprilTag extends Command {
   private double turnSpeed = 0;
   private NetworkTableEntry turnCommand = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command");
   private boolean isCentered = false;
-  public TurnToAprilTag() {
+  private double backupAngle = 0.0;
+  private double backupAngleTolarance = 10;
+  public TurnToAprilTag(double backupAngle) {
+    this.backupAngle = backupAngle;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -31,14 +35,21 @@ public class TurnToAprilTag extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (turnCommand.getString("") == "Left") {
-      turnSpeed = -0.5;
-    } else if (turnCommand.getString("") == "Right") {
-      turnSpeed = 0.5;
+    String command = turnCommand.getString("Not found");
+    if (command != "Not found") {
+      // Turn towards the apriltag
+      if (command == "Left") {
+        turnSpeed = -0.5;
+      } else if (command == "Right") {
+        turnSpeed = 0.5;
+      } else if (command == "Centered") {
+        isCentered = true;
+      }
     } else {
-      isCentered = true; // This can also trigger if no apriltags are found
-      turnSpeed = 0;
+      // Just turn
+      turnSpeed = 0.5;
     }
+    
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
     SwerveModuleState[] moduleStates =
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
@@ -61,6 +72,6 @@ public class TurnToAprilTag extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isCentered;
+    return isCentered || MathUtil.isNear(backupAngle, driveTrain.getYaw(), backupAngleTolarance);
   }
 }
