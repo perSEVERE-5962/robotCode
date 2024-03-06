@@ -22,7 +22,7 @@ public class RunShooterFeeder extends Command {
     this.shooterfeeder = feeder;
     this.notification = notification; 
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder, notification);
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.

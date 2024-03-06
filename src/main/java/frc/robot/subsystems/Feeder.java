@@ -73,7 +73,7 @@ public class Feeder extends SubsystemBase {
     double range_of_2feeder = feederUltrasonic2.getRange();
     SmartDashboard.putNumber("Feeder Ultrasonic 1", range_of_feeder);
     SmartDashboard.putNumber("Feeder Ultrasonic 2", range_of_2feeder);
-    if ((range_of_feeder >= 5 || range_of_feeder <= 11) && (range_of_2feeder >= 5 && range_of_2feeder <= 11)) {
+    if ((range_of_feeder >= 1 || range_of_feeder <= 11) && (range_of_2feeder >= 1 && range_of_2feeder <= 11)) {
       return true;
     } else {
       return false;
