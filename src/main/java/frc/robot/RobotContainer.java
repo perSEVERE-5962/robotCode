@@ -135,7 +135,7 @@ public class RobotContainer {
         command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
     }
     else if(autoPosition==3){
-      command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
+      command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake, notification);
     }
     else{
       command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);

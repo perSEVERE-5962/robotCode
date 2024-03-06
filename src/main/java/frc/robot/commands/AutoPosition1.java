@@ -6,6 +6,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -21,17 +23,25 @@ public class AutoPosition1 extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
-      new Shoot(shooter, feeder, notification),
+      new ParallelCommandGroup(
+        new SpinUpShooter(shooter, 0),
+        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
+        
+      ),
+      new RunShooterFeeder(feeder, notification),
+      new StopShooter(shooter),
       new TurntoAngle(swerveSubsystem, -110.0,true),
       new ParallelCommandGroup(
           new IntakeNote(intake, notification, feeder),
-          new MoveWithDistance(swerveSubsystem, 1, 0.1) //placeholder, try MoveWithPosition instead --> 
-//          new MoveToPosition(swerveSubsystem, new Pose2d(0.1,0.0,new Rotation2d(0)))
+          //new MoveWithDistance(swerveSubsystem, 1, 0.1) //placeholder, try MoveWithPosition instead --> 
+          new MoveToPosition(swerveSubsystem, new Pose2d(0.1,0.0,new Rotation2d(0)))
       ),
-      new TurntoAngle(swerveSubsystem, 0, true),
-      new Shoot(shooter, feeder, notification)
-
+      new ParallelCommandGroup(
+        new SpinUpShooter(shooter, 0),
+        new TurntoAngle(swerveSubsystem, 0, true)
+      ),
+      new RunShooterFeeder(feeder, notification),
+      new StopShooter(shooter)
     );
   }
 }
