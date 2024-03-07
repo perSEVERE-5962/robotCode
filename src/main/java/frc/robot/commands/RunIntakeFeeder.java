@@ -18,7 +18,7 @@ public class RunIntakeFeeder extends Command {
     this.intakefeeder = feeder;
     this.notification = notification;   
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder, notification);
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.

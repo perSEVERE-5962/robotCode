@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
+import frc.robot.sensors.Camera;
 import frc.robot.subsystems.*;
 import frc.robot.subsystems.Notification.NoteState;
 import frc.robot.subsystems.drivetrain.*;
@@ -40,7 +41,7 @@ public class RobotContainer {
       
   // Cameras
   //private final Camera frontCamera; // shooter/april tag
-  //private final Camera backCamera; // Intake/Note Detection
+  private final Camera backCamera; // Intake/Note Detection
 
   // Intake and feeder
   private final Intake intake = Intake.getInstance();
@@ -90,7 +91,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
-    //backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
 
     m_autonomousChooser.setDefaultOption("Default", new Move(driveTrain, 0, 0, 0));
   }
@@ -115,8 +116,8 @@ public class RobotContainer {
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
 
     //TODO: the following should be commented out for competition
-    cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
-    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+    //cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
+    //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**

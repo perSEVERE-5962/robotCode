@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -15,30 +17,29 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPosition3 extends ParallelCommandGroup {
   /** Creates a new AutoPosition1. */
-  public AutoPosition3(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification changeLight, Intake intake) {
+  public AutoPosition3(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification notification, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      // TODO: Add command(s) to turn to the speaker april tag
-        //
-        // new ParallelCommandGroup(
-        //   new IntakeNote(intake, changeLight, feeder),
-        //   new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
-
-        // ),
-        // new ResetWheels(swerveSubsystem),
-        // new Turn(swerveSubsystem, 1,30)
-        // new Shoot(shooter, feeder, changeLight),
-        // new ResetWheels(swerveSubsystem),
-        // new Turn(swerveSubsystem, 1,-30),
-        // new ResetWheels(swerveSubsystem),
-        // new ParallelCommandGroup(
-        //   new IntakeNote(intake, changeLight, feeder),
-        //   new MoveWithTrajectory2(swerveSubsystem).getTrajectoryCommandGroup()
-        // )
-
-
-
+      new ParallelCommandGroup(
+        new SpinUpShooter(shooter, 0),
+        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
+        
+      ),
+      new RunShooterFeeder(feeder, notification),
+      new StopShooter(shooter),
+      new TurntoAngle(swerveSubsystem, -110.0,true),
+      new ParallelCommandGroup(
+          new IntakeNote(intake, notification, feeder),
+          //new MoveWithDistance(swerveSubsystem, 1, 0.1) //placeholder, try MoveWithPosition instead --> 
+          new MoveToPosition(swerveSubsystem, new Pose2d(0.1,0.0,new Rotation2d(0)))
+      ),
+      new ParallelCommandGroup(
+        new SpinUpShooter(shooter, 0),
+        new TurntoAngle(swerveSubsystem, 0, true)  // change this because this is position
+      ),
+      new RunShooterFeeder(feeder, notification),
+      new StopShooter(shooter)
     );
   }
 }
