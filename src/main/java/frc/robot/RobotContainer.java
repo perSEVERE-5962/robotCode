@@ -115,8 +115,8 @@ public class RobotContainer {
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
 
     //TODO: the following should be commented out for competition
-    cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
-    cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+    //cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
+    //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**
