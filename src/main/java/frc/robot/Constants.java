@@ -236,8 +236,8 @@ public final class Constants {
   }
 
   public static final class CameraConstants{
-    public static final int kAprilTagCamera = 0;
-    public static final int kFrontCamera = 1;
-    public static final int kBackCamera = 2;
+    //public static final int kAprilTagCamera = 0;
+    //public static final int kFrontCamera = 1;
+    public static final int kBackCamera = 0;
   }
 }
