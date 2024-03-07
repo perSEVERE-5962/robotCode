@@ -26,7 +26,7 @@ public class AutoPosition1 extends ParallelCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         new SpinUpShooter(shooter, 0),
-      new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup(),
+        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
       ),
       new RunShooterFeeder(feeder, notification),
       new StopShooter(shooter),
