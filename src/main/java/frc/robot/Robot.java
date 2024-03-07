@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.archive.SpeakerTagInfo;
-import frc.robot.archive.TagInfo;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -43,20 +41,6 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
-  
-
-    // Manual override
-    // int speakerTag1Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag1Id;
-    // int speakerTag2Id = Constants.SpeakerConstants.kBlueSpeakerAprilTag2Id;
-
-    // SpeakerTagInfo.tag1Info = new TagInfo(speakerTag1Id);
-    // SpeakerTagInfo.tag2Info = new TagInfo(speakerTag2Id);
-    // SpeakerTagInfo.tag1Info.updateShuffleboard();
-    // SpeakerTagInfo.tag2Info.updateShuffleboard();
-    // SpeakerTagInfo.tag1Info.update();
-    // SpeakerTagInfo.tag2Info.update();
-
-    // DetectAprilTags.activate();
     m_robotContainer.resetNoteState();
   }
 
@@ -74,10 +58,6 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // if (SpeakerTagInfo.tag1Info != null && SpeakerTagInfo.tag2Info != null) {
-    //   SpeakerTagInfo.tag1Info.update();
-    //   SpeakerTagInfo.tag2Info.update();
-    // }
 
     NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
