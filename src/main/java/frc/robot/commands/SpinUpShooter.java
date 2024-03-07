@@ -14,8 +14,10 @@ public class SpinUpShooter extends Command {
   //private double speedPercent= 85;
   private long startTime;
   private double distanceFromTag;
+  private double waittime;
   private double speed=1;
-  public SpinUpShooter(Shooter motors) {
+  public SpinUpShooter(Shooter motors, double waittime) {
+    this.waittime = waittime;
     // Use addRequirements() here to declare subsystem dependencies.
     this.motors = motors;
     addRequirements(motors);
@@ -61,6 +63,6 @@ public class SpinUpShooter extends Command {
     long finish = System.currentTimeMillis();
     long timeElapsed = finish - startTime;
     double secondsPassed = timeElapsed / 1000.0;
-    return secondsPassed >= 1;
+    return secondsPassed >= waittime;
   }
 }
