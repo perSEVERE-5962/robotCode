@@ -7,62 +7,117 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.OIConstants;
+import frc.robot.Constants.*;
 import frc.robot.commands.*;
+import frc.robot.sensors.Camera;
+import frc.robot.subsystems.*;
+import frc.robot.subsystems.Notification.NoteState;
 import frc.robot.subsystems.drivetrain.*;
-// import frc.robot.subsystems.manipulator.PLGMotor;
-
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
+ * subsystems, commands, and button mappings) should be declared here.import
+ * frc.robot.Constants.CANDeviceIDs;
  */
 public class RobotContainer {
   private static RobotContainer instance;
-  private final XboxController m_driverController =
-      new XboxController(OIConstants.kDriverControllerPort);
+
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem m_driveTrain = SwerveSubsystem.getInstance();
+  private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+  private final Notification notification = Notification.getInstance();
+  private final Shooter shooter = Shooter.getInstance();
+      
+  // Cameras
+  //private final Camera frontCamera; // shooter/april tag
+  private final Camera backCamera; // Intake/Note Detection
 
-  Trigger dr_resetToOffsets =
-      new JoystickButton(m_driverController, XboxController.Button.kStart.value);
+  // Intake and feeder
+  private final Intake intake = Intake.getInstance();
+  private final Feeder feeder = Feeder.getInstance();
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  // Driver Controller
+  private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
+  private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
+  private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
+  private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
+
+  // Test Controller
+   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+  //  private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  //  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+   private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
+   private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
+   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
+
+  // Autonomous
+  private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
+
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   private RobotContainer() {
-    /*m_driveTrain.setDefaultCommand(
-        new DriveCommand(
-            m_driveTrain,
-            () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
-            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech)));*/
-
-    m_driveTrain.setDefaultCommand(
+    if (Constants.kUseJoystick) {
+      driveTrain.setDefaultCommand(
         new DriveCommandWithThrottle(
-            m_driveTrain,
-            () -> m_driverController.getRawAxis(OIConstants.kDriverYAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverXAxis),
-            () -> m_driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
-            () -> m_driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech),
-            () -> m_driverController.getRawAxis(3)));
+            driveTrain,
+            () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
+            () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech),
+            () -> driverController.getRawAxis(3)));
+    } else {
+      driveTrain.setDefaultCommand(
+        new DriveCommand(
+            driveTrain,
+            () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+    }
 
     configureButtonBindings();
+
+    //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
+    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+
+    m_autonomousChooser.setDefaultOption("Default", new Move(driveTrain, 0, 0, 0));
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    dr_resetToOffsets.onTrue(new ResetWheels(m_driveTrain));
+    dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
+    dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
+    dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
+    
+
+    // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
+    // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
+    cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
+    cp_buttonA.onTrue(new ResetNoteStatus(notification));
+
+    //TODO: the following should be commented out for competition
+    //cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
+    //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
   }
 
   /**
@@ -71,13 +126,27 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    Command command = new Move(m_driveTrain, 0, 0, 0);
+    // Command command = new Move(driveTrain, 0, 0, 0);
+    Command command;
+    NetworkTableInstance networktable=NetworkTableInstance.getDefault();
+    NetworkTable table = networktable.getTable("AutomonusSelect");
+    double autoPosition = table.getEntry("Close Note").getDouble(2);
+    //SmartDashboard.putString("Autonomous Selection", "Postion " + autoPosition);
+    if(autoPosition==1){
+        command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
+    }
+    else if(autoPosition==3){
+      command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
+    }
+    else{
+      command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);
+    }
     return command;
   }
 
-  public XboxController getDriverController() {
-    return m_driverController;
-  }
+  // public XboxController getDriverController() {
+  //   return driverController;
+  // }
 
   public static RobotContainer getInstance() {
     if (instance == null) {
@@ -85,5 +154,13 @@ public class RobotContainer {
     }
 
     return instance;
+  }
+
+  // public double getTargetShootVelocity() {
+  //   return Constants.kmaxShooterRPM;
+  // }
+
+  public void resetNoteState() {
+    notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
   }
 }

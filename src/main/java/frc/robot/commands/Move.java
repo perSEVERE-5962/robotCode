@@ -6,12 +6,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class Move extends CommandBase {
-  protected SwerveSubsystem m_driveTrain;
+public class Move extends Command {
+  protected SwerveSubsystem driveTrain;
   private double translationXSupplier;
   private double translationYSupplier;
   private double rotationSupplier;
@@ -24,7 +24,7 @@ public class Move extends CommandBase {
       double translationXSupplier,
       double translationYSupplier,
       double rotationSupplier) {
-    m_driveTrain = driveTrain;
+    this.driveTrain = driveTrain;
     this.translationXSupplier = translationXSupplier;
     this.translationYSupplier = translationYSupplier;
     this.rotationSupplier = rotationSupplier;
@@ -54,13 +54,13 @@ public class Move extends CommandBase {
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
     // Output each module states to wheels
-    m_driveTrain.setModuleStates(moduleStates);
+    driveTrain.setModuleStates(moduleStates);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_driveTrain.stopModules();
+    driveTrain.stopModules();
   }
 
   // Returns true when the command should end.

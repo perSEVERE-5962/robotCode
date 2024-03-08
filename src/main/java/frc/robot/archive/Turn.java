@@ -2,8 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.archive;
 
+import frc.robot.commands.Move;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class Turn extends Move {
@@ -24,12 +25,15 @@ public class Turn extends Move {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    initialYaw = m_driveTrain.getYaw();
+    driveTrain.zeroHeading();
+    initialYaw = driveTrain.getYaw();
+    //SmartDashboard.putNumber("Initial YaW", initialYaw);
   }
 
   @Override
   public boolean isFinished() {
-    if (m_driveTrain.getYaw() >= Math.abs(initialYaw - degreesWanted)) {
+    //SmartDashboard.putNumber("Current Yaw", driveTrain.getYaw());
+    if (driveTrain.getYaw() >= Math.abs(initialYaw - degreesWanted)) {
       return true;
     }
     return false;
