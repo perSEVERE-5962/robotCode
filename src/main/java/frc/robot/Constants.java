@@ -222,7 +222,8 @@ public final class Constants {
     public static final int kFeeder2_Analog_Channel = 2;
     public static final int kFeeder2_PCM_Channel = 2;
     public static final double kMinRange = 6.0;
-    public static final double kMaxRange = 7.0;
+    public static final double kMaxRange = 11.0;
+    public static final double kNotDetectedRange = 12.0;
   }
 
   public static final class SpeakerConstants {

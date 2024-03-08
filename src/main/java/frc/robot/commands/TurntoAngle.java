@@ -11,7 +11,6 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
@@ -63,13 +62,13 @@ public class TurntoAngle extends Command {
         //     targetPose2d = new Pose2d(targetPose2d.getTranslation(),
         //         targetPose2d.getRotation().rotateBy(Rotation2d.fromDegrees(180)));
         // }
-        SmartDashboard.putString("Target pos", targetPose2d.toString());
+        //SmartDashboard.putString("Target pos", targetPose2d.toString());
     }
 
     @Override
     public void execute() {
-        SmartDashboard.putString("Turn Status", "In progress");
-        SmartDashboard.putString("Current pos", swerve.getPose().toString());
+        //SmartDashboard.putString("Turn Status", "In progress");
+        //SmartDashboard.putString("Current pos", swerve.getPose().toString());
         Pose2d currPose2d = swerve.getPose();
         ChassisSpeeds chassisSpeeds = this.holonomicDriveController.calculate(currPose2d,
             targetPose2d, 0, targetPose2d.getRotation());
@@ -81,7 +80,7 @@ public class TurntoAngle extends Command {
     @Override
     public void end(boolean interrupt) {
         swerve.stopModules();
-        SmartDashboard.putString("Turn Status", "Done");
+        //SmartDashboard.putString("Turn Status", "Done");
     }
 
     @Override
@@ -92,7 +91,7 @@ public class TurntoAngle extends Command {
         } else {
             finishCounter = 0;
         }
-        SmartDashboard.putNumber("TurntoAngle finishCounter", finishCounter);
+        //SmartDashboard.putNumber("TurntoAngle finishCounter", finishCounter);
         return finishCounter > 2;
     }
 }
