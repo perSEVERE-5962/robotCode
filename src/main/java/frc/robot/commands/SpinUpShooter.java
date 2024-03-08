@@ -32,7 +32,7 @@ public class SpinUpShooter extends Command {
     //  speed=0.7;
 
     // }else if(distanceFromTag >= Units.inchesToMeters(112) && distanceFromTag <= Units.inchesToMeters(132)){
-     speed=0.8;
+     speed=0.9;
     //}
 
     //SmartDas1hboard.putBoolean("Shooter at max speed", false);

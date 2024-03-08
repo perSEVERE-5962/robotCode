@@ -23,8 +23,8 @@ public class IntakeNote extends SequentialCommandGroup {
         new ParallelCommandGroup(
             new RunIntake(intake),
             new RunIntakeFeeder(feeder, notification)              
-        ),
-        new StopIntake(intake)
+        )
+//        new StopIntake(intake)
     );
   }
 }
