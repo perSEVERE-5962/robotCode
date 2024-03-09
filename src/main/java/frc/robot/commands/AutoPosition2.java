@@ -25,11 +25,8 @@ public class AutoPosition2 extends SequentialCommandGroup {
       new ResetNoteStatus(changeLight),
       new ParallelCommandGroup(
         new IntakeNote(intake, changeLight, feeder),
-        new ParallelCommandGroup(
-          new SpinUpShooter(shooter, 0),
-          new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
-        )
-        
+        new SpinUpShooter(shooter, 0),
+        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
       ),
     
       new Shoot(shooter, feeder, changeLight),
