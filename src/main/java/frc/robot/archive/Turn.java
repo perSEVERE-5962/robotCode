@@ -4,7 +4,6 @@
 
 package frc.robot.archive;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Move;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
@@ -28,12 +27,12 @@ public class Turn extends Move {
   public void initialize() {
     driveTrain.zeroHeading();
     initialYaw = driveTrain.getYaw();
-    SmartDashboard.putNumber("Initial YaW", initialYaw);
+    //SmartDashboard.putNumber("Initial YaW", initialYaw);
   }
 
   @Override
   public boolean isFinished() {
-    SmartDashboard.putNumber("Current Yaw", driveTrain.getYaw());
+    //SmartDashboard.putNumber("Current Yaw", driveTrain.getYaw());
     if (driveTrain.getYaw() >= Math.abs(initialYaw - degreesWanted)) {
       return true;
     }

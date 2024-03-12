@@ -21,7 +21,8 @@ public class Shoot extends SequentialCommandGroup {
       // TODO: Add command(s) to turn to the speaker april tag
       new SpinUpShooter(shooter, 1),
       new RunShooterFeeder(feeder, notification),
-      new StopShooter(shooter)
+      new StopShooter(shooter),
+      new LogApriltag()
     );
   }
 }

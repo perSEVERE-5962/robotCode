@@ -8,20 +8,15 @@ import com.revrobotics.CANSparkMax;
 
 import com.revrobotics.CANSparkLowLevel;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.UltrasonicConstants;
-import frc.robot.sensors.UltrasonicAnalog;
 
 public class Intake extends SubsystemBase {
   private static Intake instance;
 
   private CANSparkMax intakeMotor;
-  private UltrasonicAnalog intakeUltrasonic;
-   //private Solenoid intakeSolenoid;
+  //private UltrasonicAnalog intakeUltrasonic;
+  //private Solenoid intakeSolenoid;
 
   /** Creates a new Intake. */
   private Intake() {
