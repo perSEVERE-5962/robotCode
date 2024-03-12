@@ -16,6 +16,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 public class MoveToShootDistance extends Command {
   /** Creates a new MoveWithinDistance. */
   private double dist = 0.0;
+  private double speed = 0.0;
   private NetworkTableEntry distEntry = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getSubTable("pos").getEntry("z");
   private SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
   public MoveToShootDistance() {
@@ -24,13 +25,15 @@ public class MoveToShootDistance extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    speed = 0.0;
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     dist = distEntry.getDouble(0);
-    double speed = 0;
+    speed = 0;
     if (dist <= Constants.SpeakerConstants.kMinDistance) {
       speed = 0.5; // Move backwards
     } else if (dist >= Constants.SpeakerConstants.kMaxDistance) {
@@ -63,6 +66,6 @@ public class MoveToShootDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return speed == 0;
   }
 }
