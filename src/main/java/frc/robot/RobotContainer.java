@@ -118,6 +118,9 @@ public class RobotContainer {
     //TODO: the following should be commented out for competition
     //cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
     //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
+
+    cp_buttonX.onTrue(new LogApriltag());
+    // cp_buttonY.onTrue(new Move(driveTrain, 0, -0.3, 0));
   }
 
   /**

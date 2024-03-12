@@ -7,11 +7,16 @@ package frc.robot.sensors;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class UltrasonicAnalog {
-  private AnalogInput ultrasonic;
-  private final double valueToInches = 2.3;
+  protected AnalogInput ultrasonic;
+  protected double valueToInches = 2.3; // rockwell default
 
   public UltrasonicAnalog(int kintakeAnalogChannel) {
     ultrasonic = new AnalogInput(kintakeAnalogChannel);
+  }
+
+  public UltrasonicAnalog(int kintakeAnalogChannel, double valueToInches) {
+    ultrasonic = new AnalogInput(kintakeAnalogChannel);
+    this.valueToInches = valueToInches;
   }
 
   public double getRange() {
