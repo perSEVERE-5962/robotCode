@@ -9,6 +9,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -166,7 +167,7 @@ public final class Constants {
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 4;
     public static final int kDriverRotAxis_Logitech = 2;
-    public static final int kDriverFieldOrientedButtonIdx = 6; // xbox
+    public static final int kDriverFieldOrientedButtonIdx = XboxController.Button.kX.value; // xbox
     public static final int kDriverFieldOrientedButtonIdx_Logitech = 2; // logitech
     //public static final int kZeroHeadingButtonIdx = 2;
 
