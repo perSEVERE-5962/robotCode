@@ -235,6 +235,8 @@ public final class Constants {
       public static final int kRedSpeakerAprilTag2Id = 3;
       // Blue: 7 center (id 1), 8 side (id 2)
       // Red: 4 center (id 1), 3 side (id 2)
+      public static final double kMinDistance = 2.7;
+      public static final double kMaxDistance = 3.2;
   }
 
   public static final class CameraConstants{

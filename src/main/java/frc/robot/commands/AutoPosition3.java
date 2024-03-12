@@ -30,7 +30,7 @@ public class AutoPosition3 extends ParallelCommandGroup {
       new StopShooter(shooter),
       new TurntoAngle(swerveSubsystem, -110.0,true),
       new ParallelCommandGroup(
-          new IntakeNote(intake, notification, feeder),
+          new IntakeNote(),
           //new MoveWithDistance(swerveSubsystem, 1, 0.1) //placeholder, try MoveWithPosition instead --> 
           new MoveToPosition(swerveSubsystem, new Pose2d(0.1,0.0,new Rotation2d(0)))
       ),

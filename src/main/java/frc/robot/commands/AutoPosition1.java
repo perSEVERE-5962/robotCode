@@ -32,7 +32,7 @@ public class AutoPosition1 extends ParallelCommandGroup {
       new StopShooter(shooter),
       new TurntoAngle(swerveSubsystem, Constants.kTeamColor == Constants.TEAM_COLOR_RED ? -110:110,true),
       new ParallelCommandGroup(
-          new IntakeNote(intake, notification, feeder),
+          new IntakeNote(),
           //new MoveWithDistance(swerveSubsystem, 1, 0.1) //placeholder, try MoveWithPosition instead --> 
           new MoveToPosition(swerveSubsystem, new Pose2d(0.1,0.0,new Rotation2d(0)))
       ),
