@@ -32,8 +32,8 @@ public class MoveWithTrajectory {
   this.swerveSubsystem = swerveSubsystem;    
     
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
+        DriveConstants.kAutoMaxAngularVelocity,
+        DriveConstants.kAutoMaxAngularAcceleration)
         .setKinematics(DriveConstants.kDriveKinematics);
 
      trajectory = TrajectoryGenerator.generateTrajectory(

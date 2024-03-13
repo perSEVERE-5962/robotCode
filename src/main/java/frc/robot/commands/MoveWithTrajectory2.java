@@ -32,10 +32,10 @@ public class MoveWithTrajectory2 {
   this.swerveSubsystem = swerveSubsystem;  
   //this.swerveSubsystem.resetDrivePosition();
     
-    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
-        .setKinematics(DriveConstants.kDriveKinematics);
+  TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
+    DriveConstants.kAutoMaxAngularVelocity,
+    DriveConstants.kAutoMaxAngularAcceleration)
+    .setKinematics(DriveConstants.kDriveKinematics);
 
      trajectory = TrajectoryGenerator.generateTrajectory(
         new Pose2d(0.0, 0.0, new Rotation2d(0)),
