@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Constants.DriveConstants.TrajectoryConstants;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
@@ -23,8 +24,9 @@ public class AutoPosition3 extends ParallelCommandGroup {
     addCommands(
       new ParallelCommandGroup(
         new SpinUpShooter(shooter, 0),
-        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
-        
+        new MoveWithTrajectory(TrajectoryConstants.kTrajectoryCommonStart,
+                              TrajectoryConstants.kTrajectory1Waypoints,
+                              TrajectoryConstants.kTrajectory1End).getTrajectoryCommandGroup()
       ),
       new RunShooterFeeder(feeder, notification),
       new StopShooter(shooter),

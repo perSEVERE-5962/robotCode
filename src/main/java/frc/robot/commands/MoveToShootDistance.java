@@ -37,7 +37,7 @@ public class MoveToShootDistance extends Command {
     if (dist <= Constants.SpeakerConstants.kMinDistance) {
       speed = 0.5; // Move backwards
     } else if (dist >= Constants.SpeakerConstants.kMaxDistance) {
-      speed = -0.5;
+      speed = -0.5; // Move forwards
     }
 
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, speed, 0);
