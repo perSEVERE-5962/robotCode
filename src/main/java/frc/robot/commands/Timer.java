@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.archive;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -10,6 +10,9 @@ public class Timer extends Command {
   /** Creates a new Timer. */
   long initialTimer = 0;
   long desiredTime = 0;
+  /**
+   * @param time Milliseconds
+   */
   public Timer(long time) {
     desiredTime = time;
     // Use addRequirements() here to declare subsystem dependencies.

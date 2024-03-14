@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants.DriveConstants.TrajectoryConstants;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
@@ -27,25 +28,31 @@ public class AutoPosition2 extends SequentialCommandGroup {
       new Move(swerveSubsystem, 0, -0.5, 0).withTimeout(0.5),
       new TurntoAngle(swerveSubsystem, 90, true),
       new ParallelCommandGroup(
-        new IntakeNote(intake, changeLight, feeder),
+        new IntakeNote(),
         new SpinUpShooter(shooter, 0),
-        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
+        new MoveWithTrajectory(TrajectoryConstants.kTrajectoryCommonStart,
+                              TrajectoryConstants.kTrajectory1Waypoints,
+                              TrajectoryConstants.kTrajectory1End).getTrajectoryCommandGroup()
       ),
     
-      new Shoot(shooter, feeder, changeLight),
+      new Shoot(),
 //      new ResetWheels(swerveSubsystem),
       new TurntoAngle(swerveSubsystem, 179.9,true),
 //      new ResetWheels(swerveSubsystem),
       new ParallelCommandGroup(
-          new IntakeNote(intake, changeLight, feeder),
-          new MoveWithTrajectory2(swerveSubsystem).getTrajectoryCommandGroup()
+          new IntakeNote(),
+          new MoveWithTrajectory(TrajectoryConstants.kTrajectoryCommonStart,
+                              TrajectoryConstants.kTrajectory2Waypoints,
+                              TrajectoryConstants.kTrajectory2End).getTrajectoryCommandGroup()
       ),
 //      new ResetWheels(swerveSubsystem),
       new TurntoAngle(swerveSubsystem, 179.9,true),
 //      new ResetWheels(swerveSubsystem),
       new ParallelCommandGroup(
         new SpinUpShooter(shooter, 0),
-        new MoveWithTrajectory(swerveSubsystem).getTrajectoryCommandGroup()
+        new MoveWithTrajectory(TrajectoryConstants.kTrajectoryCommonStart,
+                              TrajectoryConstants.kTrajectory1Waypoints,
+                              TrajectoryConstants.kTrajectory1End).getTrajectoryCommandGroup()
       ),
       new RunShooterFeeder(feeder, changeLight),
       new StopShooter(shooter),
