@@ -4,30 +4,27 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Notification;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeNote extends SequentialCommandGroup {
-  /** Creates a new IntakeNote. */
-
-  public IntakeNote() {
+public class AutonomousNearSource extends SequentialCommandGroup {
+  /** Creates a new Autonomous. */
+  public AutonomousNearSource() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    Intake intake = Intake.getInstance();
-    Feeder feeder = Feeder.getInstance();
-    Notification notification = Notification.getInstance();
     addCommands(
-        new ParallelCommandGroup(
-            new RunIntake(intake),
-            new RunIntakeFeeder(feeder, notification)              
-        ),
-        new StopIntake(intake)
+      // Start at the opponent's source
+      // Wait some time
+      new Timer(1000), // Wait 6000 for other teams
+      // Move towards the stage
+      new MoveToPosition(SwerveSubsystem.getInstance(), new Pose2d(2.873, 1.793, new Rotation2d(Units.degreesToRadians(135)))),
+      new ShootWithApriltag()
     );
   }
 }

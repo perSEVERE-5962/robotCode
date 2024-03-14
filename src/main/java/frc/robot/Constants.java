@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import java.util.List;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -125,7 +129,7 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    /**
+    /*
      *  public static final double PID_XKP = 2;
      *  public static final double PID_XKI = 0.0;
      *  public static final double PID_XKD = 0.0;
@@ -156,6 +160,17 @@ public final class Constants {
                 new TrapezoidProfile.Constraints(
                         kAutoMaxAngularVelocity,
                         kAutoMaxAngularAcceleration);
+
+    // Temporary until there's enough time and testing for a better solution
+    public static final class TrajectoryConstants {
+      public static final Pose2d kTrajectoryCommonStart = new Pose2d(0, 0, new Rotation2d());
+
+      public static final List<Translation2d> kTrajectory1Waypoints = List.of(new Translation2d(0.86, 0));
+      public static final Pose2d kTrajectory1End = new Pose2d(2.05, 0, Rotation2d.fromDegrees(0));
+
+      public static final List<Translation2d> kTrajectory2Waypoints = List.of(new Translation2d(0.85, 0));
+      public static final Pose2d kTrajectory2End = new Pose2d(1.74, 0, Rotation2d.fromDegrees(0));
+    }
   }
 
   public static final class OIConstants {
@@ -166,7 +181,7 @@ public final class Constants {
     public static final int kDriverXAxis = 0;
     public static final int kDriverRotAxis = 4;
     public static final int kDriverRotAxis_Logitech = 2;
-    public static final int kDriverFieldOrientedButtonIdx = 6; // xbox
+    public static final int kDriverFieldOrientedButtonIdx = XboxController.Button.kX.value; // xbox
     public static final int kDriverFieldOrientedButtonIdx_Logitech = 2; // logitech
     //public static final int kZeroHeadingButtonIdx = 2;
 
@@ -234,6 +249,8 @@ public final class Constants {
       public static final int kRedSpeakerAprilTag2Id = 3;
       // Blue: 7 center (id 1), 8 side (id 2)
       // Red: 4 center (id 1), 3 side (id 2)
+      public static final double kMinDistance = 2.7;
+      public static final double kMaxDistance = 3.2;
   }
 
   public static final class CameraConstants{

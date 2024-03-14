@@ -25,7 +25,10 @@ def main():
 
 	NetworkTables.initialize(sys.argv[1])
 	networktable_tags = NetworkTables.getDefault().getTable("apriltags")
+
 	speaker_tags_subtable = networktable_tags.getSubTable("speakertags")
+	center_x_entry = speaker_tags_subtable.getEntry("centerx")
+	within_distance_entry = speaker_tags_subtable.getEntry("withindist")
 
 	# Camera init
 	capture = cv2.VideoCapture(index=0)
@@ -70,8 +73,11 @@ def main():
 						pos_subtable.getEntry("y").setNumber(pos_y)
 						pos_subtable.getEntry("z").setNumber(pos_z)
 
+						within_distance_entry.setBoolean(((pos_z >= 2.7) and (pos_z <= 3.2)))
+
 						# Center of tag
 						center_x = tag.center[0] - (gray.shape[1] / 2) #center[0] is x, shape[1] is also x
+						center_x_entry.setNumber(center_x)
 						TOLERANCE = 88
 						if center_x < TOLERANCE and center_x > -TOLERANCE:
 							speaker_tags_subtable.getEntry("command").setString("Center")
