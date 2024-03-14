@@ -253,6 +253,10 @@ public final class Constants {
       public static final double kMaxDistance = 3.2;
   }
 
+  public static final class ShooterConstants {
+    public static final double kMaxMotorRPM = 5600;
+  }
+
   public static final class CameraConstants{
     //public static final int kAprilTagCamera = 0;
     //public static final int kFrontCamera = 1;
