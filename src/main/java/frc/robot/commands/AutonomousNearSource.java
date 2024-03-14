@@ -4,14 +4,10 @@
 
 package frc.robot.commands;
 
-import java.util.function.BooleanSupplier;
-
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.DriveConstants.TrajectoryConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -22,22 +18,12 @@ public class AutonomousNearSource extends SequentialCommandGroup {
   public AutonomousNearSource() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    BooleanSupplier aprilTagFound = (() -> NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command").getString("Default") == "Not found");
     addCommands(
       // Start at the opponent's source
       // Wait some time
-      new Timer(6000),
+      new Timer(1000), // Wait 6000 for other teams
       // Move towards the stage
-      new MoveWithTrajectory(TrajectoryConstants.kTrajectoryCommonStart,
-                             null,
-                             null, new Rotation2d(Units.degreesToRadians(135))).getTrajectoryCommandGroup(),
-      // Turn towards the speaker (approximately)
-      new ParallelRaceGroup(
-        new Move(SwerveSubsystem.getInstance(),
-                    0, 0, 0.5)
-                    .until(aprilTagFound),
-        new Timer(2000)
-      ),
+      new MoveToPosition(SwerveSubsystem.getInstance(), new Pose2d(2.873, 1.793, new Rotation2d(Units.degreesToRadians(135)))),
       new ShootWithApriltag()
     );
   }
