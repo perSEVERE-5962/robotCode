@@ -41,6 +41,7 @@ public class RobotContainer {
       
   // Cameras
   //private final Camera frontCamera; // shooter/april tag
+  @SuppressWarnings(value = "unused")
   private final Camera backCamera; // Intake/Note Detection
 
   // Intake and feeder
@@ -61,7 +62,7 @@ public class RobotContainer {
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
    private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
-   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
+   // private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
