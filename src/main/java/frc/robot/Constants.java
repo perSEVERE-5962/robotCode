@@ -153,8 +153,8 @@ public final class Constants {
     public static final double KPID_TKI = 0.0; //0.2
     public static final double KPID_TKD = 0.0; //0.03
 
-    public static final double kAutoMaxAngularVelocity = 9;
-    public static final double kAutoMaxAngularAcceleration = 9 * 5;
+    public static final double kAutoMaxAngularVelocity = 9.0;
+    public static final double kAutoMaxAngularAcceleration = 9.0 * 5.0;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
                 new TrapezoidProfile.Constraints(
