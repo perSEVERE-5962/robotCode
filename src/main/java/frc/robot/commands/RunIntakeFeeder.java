@@ -18,7 +18,7 @@ public class RunIntakeFeeder extends Command {
     this.intakefeeder = feeder;
     this.notification = notification;   
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(feeder, notification);
+    addRequirements(feeder);
   }
 
   // Called when the command is initially scheduled.
@@ -28,7 +28,7 @@ public class RunIntakeFeeder extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakefeeder.run(0.5);
+    intakefeeder.run(0.7);
   }
 
   // Called once the command ends or is interrupted.

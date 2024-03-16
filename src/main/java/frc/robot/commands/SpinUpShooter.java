@@ -4,65 +4,67 @@
 
 package frc.robot.commands;
 
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class SpinUpShooter extends Command {
-  private Shooter motors;
- // private double shooterSpeed;
-  //private double speedPercent= 85;
-  private long startTime;
-  private double distanceFromTag;
-  private double waittime;
-  private double speed=1;
-  public SpinUpShooter(Shooter motors, double waittime) {
-    this.waittime = waittime;
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.motors = motors;
+  private Shooter motors = Shooter.getInstance();
+  private double topShooterSpeed = 1;
+  private double bottomShooterSpeed = 1;
+  private double topMotorCurrentRPM = 0;
+  private double bottomMotorCurrentRPM = 0;
+
+  private long initialTime = 0;
+  private long waitTime = 0;
+
+  /**
+   * @param topShooterSpeed Speed of the top motors. Use positive values.
+   * @param bottomShooterSpeed Speed of the bottom motors. Use positive values.
+   * @param overrideWithWaitTime By default, wait until the motors reach max RPM. Set to a nonzero value to override this behavior with a wait time.
+   * <p> It's still recommended to decorate this command with `.withTimeout` even with 0 wait time.
+   */
+  public SpinUpShooter(double topShooterSpeed, double bottomShooterSpeed, long overrideWithWaitTime) {
+    this.topShooterSpeed = topShooterSpeed;
+    this.bottomShooterSpeed = bottomShooterSpeed;
+    this.waitTime = overrideWithWaitTime;
     addRequirements(motors);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startTime = System.currentTimeMillis();
-    // distanceFromTag = SpeakerTagInfo.tag1Info.getPos().getZ();
-    //  if (distanceFromTag <= Units.inchesToMeters(151) && distanceFromTag > Units.inchesToMeters(132)){
-    //  speed=0.7;
-
-    // }else if(distanceFromTag >= Units.inchesToMeters(112) && distanceFromTag <= Units.inchesToMeters(132)){
-     speed=0.8;
-    //}
-
-    //SmartDas1hboard.putBoolean("Shooter at max speed", false);
+    initialTime = System.currentTimeMillis();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //speedPercent = SmartDashboard.getNumber("ShooterSpeed", 0);
-    //shooterSpeed = (speedPercent/100);
-    motors.runShooter(speed);
-    //SmartDashboard.putNumber("current shooter speed",shooterSpeed);
-    //motors.runShooter(shooterSpeed);
+    motors.runTopShooter(topShooterSpeed);
+    motors.runBottomShooter(bottomShooterSpeed);
+
+    if (waitTime == 0) {
+      topMotorCurrentRPM = motors.getTopVelocity();
+      bottomMotorCurrentRPM = motors.getBottomVelocity();
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if (motors.getVelocity() >= shooterSpeed) {
-    //   return true;
-    // }
-    // return false;
-    long finish = System.currentTimeMillis();
-    long timeElapsed = finish - startTime;
-    double secondsPassed = timeElapsed / 1000.0;
-    return secondsPassed >= waittime;
+    if (waitTime == 0) {
+      boolean topIsMax = topMotorCurrentRPM >= Constants.ShooterConstants.kMaxMotorRPM * topShooterSpeed;
+      boolean bottomIsMax = bottomMotorCurrentRPM >= Constants.ShooterConstants.kMaxMotorRPM * bottomShooterSpeed;
+      return topIsMax && bottomIsMax;
+    } else {
+      long finish = System.currentTimeMillis();
+      long timeElapsed = finish - initialTime;
+      double secondsPassed = timeElapsed / 1000.0;
+      return secondsPassed >= waitTime;
+    }
   }
 }

@@ -37,7 +37,15 @@ public class Shooter extends SubsystemBase {
       bottomMotor.set(speed);
   }
 
-  public double getTopVelocity(){
+  public void runTopShooter(double speed) {
+    topMotor.set(-speed);
+  }
+
+  public void runBottomShooter(double speed) {
+    bottomMotor.set(speed);
+  }
+
+  public double getTopVelocity() {
     double velocity = topShooterEncoder.getVelocity();
     return velocity;
   }

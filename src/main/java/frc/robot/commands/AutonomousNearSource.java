@@ -4,27 +4,27 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Notification;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Shoot extends SequentialCommandGroup {
-  /** Creates a new Shoot. */
-  public Shoot() {
+public class AutonomousNearSource extends SequentialCommandGroup {
+  /** Creates a new Autonomous. */
+  public AutonomousNearSource() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    Shooter shooter = Shooter.getInstance();
-    Feeder feeder = Feeder.getInstance();
-    Notification notification = Notification.getInstance();
     addCommands(
-      // TODO: Add command(s) to turn to the speaker april tag
-      new SpinUpShooter(1.0, 1.0, 0).withTimeout(1),
-      new RunShooterFeeder(feeder, notification),
-      new StopShooter(shooter)
+      // Start at the opponent's source
+      // Wait some time
+      new Timer(1000), // Wait 6000 for other teams
+      // Move towards the stage
+      new MoveToPosition(SwerveSubsystem.getInstance(), new Pose2d(2.873, 1.793, new Rotation2d(Units.degreesToRadians(135)))),
+      new ShootWithApriltag()
     );
   }
 }
