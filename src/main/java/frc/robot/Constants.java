@@ -23,6 +23,13 @@ import edu.wpi.first.wpilibj.XboxController;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+  public static final int TEAM_COLOR_BLUE = 0;
+  public static final int TEAM_COLOR_RED = 1;
+  public static int kTeamColor = 0;
+
+  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
+
   /*
    * L1 values:
    * 0.472168
@@ -40,12 +47,6 @@ public final class Constants {
   private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
   private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
   private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376221;
-  public static final double kmaxShooterRPM = 5676.0;
-  public static final int TEAM_COLOR_BLUE = 0;
-  public static final int TEAM_COLOR_RED = 1;
-  public static int kTeamColor = 0;
-
-  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
@@ -129,20 +130,6 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    /*
-     *  public static final double PID_XKP = 2;
-     *  public static final double PID_XKI = 0.0;
-     *  public static final double PID_XKD = 0.0;
-     *  public static final double PID_YKP = 2;
-     *  public static final double PID_YKI = 0.0;
-     *  public static final double PID_YKD = 0.0;
-     *  public static final double PID_TKP = 3.0;
-     *  public static final double PID_TKI = 0.0;
-     *  public static final double PID_TKD = 0.0;
-     *  
-     *  public static final double MAX_ANGULAR_VELOCITY = 9.0;
-     *  public static final double MAX_ANGULAR_ACCELERATION = 9 * 5;
-     */
     public static final double kPID_XKP = 2.0; //1.0
     public static final double kPID_XKI = 0.0; 
     public static final double kPID_XKD = 0.0; 
@@ -254,7 +241,7 @@ public final class Constants {
   }
 
   public static final class ShooterConstants {
-    public static final double kMaxMotorRPM = 5600;
+    public static final double kMaxMotorRPM = 5600.0;
   }
 
   public static final class CameraConstants{
