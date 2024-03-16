@@ -21,7 +21,7 @@ public class MoveToPosition extends Command {
 
     private HolonomicDriveController holonomicDriveController =
     new HolonomicDriveController(
-        new PIDController(DriveConstants.kPID_XKP + 0.5, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+        new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
         new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
         new ProfiledPIDController(DriveConstants.KPID_TKP,DriveConstants.KPID_TKI, DriveConstants.KPID_TKD,
             DriveConstants.kThetaControllerConstraints));
@@ -33,7 +33,7 @@ public class MoveToPosition extends Command {
      * @param pose2d Pose2d
      */
     public MoveToPosition(SwerveSubsystem swerve, Pose2d pose2d, double tol) {
-        this(swerve, pose2d, 0.05, DriveConstants.KPID_TKP);
+        this(swerve, pose2d, tol, DriveConstants.KPID_TKP);
     }
 
     /**
@@ -75,9 +75,10 @@ public class MoveToPosition extends Command {
     @Override
     public void execute() {
         ChassisSpeeds chassisSpeeds =
-            holonomicDriveController.calculate(swerve.getPose(), pose2d, 0, pose2d.getRotation());
+            // Not great but the y speed needs to be inverted
+            holonomicDriveController.calculate(new Pose2d(swerve.getPose().getX(), -(swerve.getPose().getY()), swerve.getPose().getRotation()), pose2d, 0, pose2d.getRotation());
         SwerveModuleState[] moduleStates = 
-        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+            DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
         swerve.setModuleStates(moduleStates);
     }
 
