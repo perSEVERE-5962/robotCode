@@ -4,7 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -16,39 +17,42 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 public class TurnToAprilTag extends Command {
   /** Creates a new TurnToAprilTag. */
   SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private double turnSpeed = 0;
   private NetworkTableEntry turnCommand = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command");
   private boolean isCentered = false;
-  private double backupAngle = 0.0;
-  private double backupAngleTolarance = 10;
-  public TurnToAprilTag(double backupAngle) {
-    this.backupAngle = backupAngle;
+  private ProfiledPIDController controller = new ProfiledPIDController(DriveConstants.KPID_TKP, DriveConstants.KPID_TKI, DriveConstants.KPID_TKD, DriveConstants.kThetaControllerConstraints);
+
+  public TurnToAprilTag() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    isCentered = false;
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    double turnSpeed = 0.0;
     String command = turnCommand.getString("Not found");
-    if (command != "Not found") {
+    if (!command.equals("Not found")) {
       // Turn towards the apriltag
-      if (command == "Left") {
-        turnSpeed = -0.5;
-      } else if (command == "Right") {
+      if (command.equals("Left")) {
         turnSpeed = 0.5;
-      } else if (command == "Centered") {
+        isCentered = false;
+      } else if (command.equals("Right")) {
+        turnSpeed = -0.5;
+        isCentered = false;
+      } else if (command.equals("Center")) {
+        turnSpeed = 0.0;
         isCentered = true;
       }
     } else {
       // Just turn
       turnSpeed = 0.5;
+      isCentered = false;
     }
+
+    turnSpeed *= DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
     
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
     SwerveModuleState[] moduleStates =
@@ -61,6 +65,7 @@ public class TurnToAprilTag extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("Ending");
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, 0);
     SwerveModuleState[] moduleStates =
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
@@ -72,6 +77,6 @@ public class TurnToAprilTag extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isCentered || MathUtil.isNear(backupAngle, driveTrain.getYaw(), backupAngleTolarance);
+    return isCentered; //|| MathUtil.isNear(backupAngle, driveTrain.getYaw(), backupAngleTolarance);
   }
 }

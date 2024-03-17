@@ -40,7 +40,9 @@ public class MoveToShootDistance extends Command {
       speed = -0.5; // Move forwards
     }
 
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, speed, 0);
+    speed *= DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(speed, 0, 0);
 
     // Convert chassis speeds to individual module states
     SwerveModuleState[] moduleStates =
