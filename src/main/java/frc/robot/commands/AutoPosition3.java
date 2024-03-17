@@ -9,7 +9,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.DriveConstants.TrajectoryConstants;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
@@ -19,8 +18,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPosition3 extends ParallelCommandGroup {
   /** Creates a new AutoPosition1. */
-  public AutoPosition3(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification notification,
-      Intake intake) {
+  public AutoPosition3() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -28,14 +26,14 @@ public class AutoPosition3 extends ParallelCommandGroup {
               .raceWith(new MoveWithTrajectory(TrajectoryConstants.kTrajectoryCommonStart,
                                                 TrajectoryConstants.kTrajectory1Waypoints,
                                                 TrajectoryConstants.kTrajectory1End).getTrajectoryCommandGroup()),
-        new RunShooterFeeder(feeder, notification),
-        new StopShooter(shooter),
-        new TurntoAngle(swerveSubsystem, -110.0, true),
+        new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
+        new StopShooter(Shooter.getInstance()),
+        new TurntoAngle(SwerveSubsystem.getInstance(), -110.0, true),
         new IntakeNote()
-              .alongWith(new MoveToPosition(swerveSubsystem, new Pose2d(0.1, 0.0, new Rotation2d(0)))),
+              .alongWith(new MoveToPosition(SwerveSubsystem.getInstance(), new Pose2d(0.1, 0.0, new Rotation2d(0)))),
         new SpinUpShooter(1.0, 1.0, 10)
-              .raceWith(new TurntoAngle(swerveSubsystem, 0, true)), // change this because this is position
-        new RunShooterFeeder(feeder, notification),
-        new StopShooter(shooter));
+              .raceWith(new TurntoAngle(SwerveSubsystem.getInstance(), 0, true)), // change this because this is position
+        new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
+        new StopShooter(Shooter.getInstance()));
   }
 }

@@ -62,8 +62,8 @@ public class RobotContainer {
   //  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
-   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
-   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
+   //private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   //private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -119,8 +119,8 @@ public class RobotContainer {
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonA.onTrue(new ResetNoteStatus(notification));
 
-    cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
-    cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));
+    //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
+    //cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));
   }
 
   /**
@@ -129,19 +129,17 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
-    /*NetworkTableInstance networktable=NetworkTableInstance.getDefault();
+    NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
-    double autoPosition = table.getEntry("Close Note").getDouble(2);
-    //SmartDashboard.putString("Autonomous Selection", "Postion " + autoPosition);
+    double autoPosition = table.getEntry("Close Note").getDouble(1);
     if(autoPosition == 1) {
-      command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
-    } else if (autoPosition == 3) {
-      command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
+      command = new AutonomousNearSource();
+    } else if (autoPosition == 2) {
+      command = new AutoPosition2();
     } else {
-      command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);
-    }*/
+      command = new AutoPosition3();
+    }
 
     driveTrain.resetOdometry(driveTrain.getPose());
     command = new AutonomousNearSource();
