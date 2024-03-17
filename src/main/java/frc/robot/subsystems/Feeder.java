@@ -40,13 +40,15 @@ public class Feeder extends SubsystemBase {
     feederSolenoid.set(true);
     feeder2Solenoid.set(true);
 
-    feederUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kFeeder_Analog_Channel); 
-    feederUltrasonic2 = new RockwellUltrasonic(UltrasonicConstants.kFeeder2_Analog_Channel); 
+    feederUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kFeeder_Analog_Channel);
+    feederUltrasonic2 = new RockwellUltrasonic(UltrasonicConstants.kFeeder2_Analog_Channel);
   }
-  public RockwellUltrasonic getUltrasonicOne(){
+
+  public RockwellUltrasonic getUltrasonicOne() {
     return feederUltrasonic;
   }
-  public RockwellUltrasonic getUltrasonicTwo(){
+
+  public RockwellUltrasonic getUltrasonicTwo() {
     return feederUltrasonic2;
   }
 
@@ -58,13 +60,13 @@ public class Feeder extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
-  
+
   public boolean isInRange() {
     double range_of_feeder = feederUltrasonic.getRange();
     double range_of_2feeder = feederUltrasonic2.getRange();
     // SmartDashboard.putNumber("Feeder Ultrasonic 1", range_of_feeder);
     // SmartDashboard.putNumber("Feeder Ultrasonic 2", range_of_2feeder);
-    if (range_of_feeder <= Constants.UltrasonicConstants.kMaxRange || 
+    if (range_of_feeder <= Constants.UltrasonicConstants.kMaxRange ||
         range_of_2feeder <= Constants.UltrasonicConstants.kMaxRange) {
       return true;
     } else {
