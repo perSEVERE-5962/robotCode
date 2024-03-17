@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Feeder;
@@ -23,10 +22,7 @@ public class IntakeNote extends SequentialCommandGroup {
     Feeder feeder = Feeder.getInstance();
     Notification notification = Notification.getInstance();
     addCommands(
-        new ParallelCommandGroup(
-            new RunIntake(intake),
-            new RunIntakeFeeder(feeder, notification)              
-        ),
+        new RunIntake(intake).alongWith(new RunIntakeFeeder(feeder, notification)),
         new StopIntake(intake)
     );
   }

@@ -24,8 +24,8 @@ class userInterface:
       #self.label.pack()
       self.canvas = tk.Canvas(self.root, width = 600, height = 550)
       self.canvas.pack()
-      self.image_1 = tk.PhotoImage(file=r"C:\FRC\RedSide2.png")
-      self.image_2 = tk.PhotoImage(file=r"C:\FRC\BlueSide2.png")
+      self.image_1 = tk.PhotoImage(file=r"C:\FRC\RedSide3.png")
+      self.image_2 = tk.PhotoImage(file=r"C:\FRC\BlueSide3.png")
       self.image = self.canvas.create_image(0,20, anchor=tk.NW, image=self.image_1)
       self.currentImage = self.image_1
       self.note = tk.IntVar()
