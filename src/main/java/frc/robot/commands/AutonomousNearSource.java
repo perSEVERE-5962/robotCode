@@ -36,13 +36,13 @@ public class AutonomousNearSource extends SequentialCommandGroup {
         new ConditionalCommand(
           // Blue team
           new MoveToPosition(SwerveSubsystem.getInstance(),
-          new Pose2d(2.4, -2.0,
+          new Pose2d(2.4, -1.45,
               new Rotation2d(Units.degreesToRadians(-27))
           ),
           0.1, DriveConstants.KPID_TKP).withTimeout(4),
           // Red team
           new MoveToPosition(SwerveSubsystem.getInstance(),
-          new Pose2d(2.8, 2.3,
+          new Pose2d(2.8, 1.67,
               new Rotation2d(Units.degreesToRadians(27))
           ),
           0.1, DriveConstants.KPID_TKP).withTimeout(4), 

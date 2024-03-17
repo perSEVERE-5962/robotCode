@@ -25,11 +25,13 @@ public class Shooter extends SubsystemBase {
     topMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter1MotorID, MotorType.kBrushless);
     topShooterEncoder = topMotor.getEncoder();
     topMotor.setIdleMode(IdleMode.kCoast);
-
+    
     // Bottom shooter
     bottomMotor = new CANSparkMax(Constants.CANDeviceIDs.kShooter2MotorID, MotorType.kBrushless);
     bottomShooterEncoder = bottomMotor.getEncoder();
     bottomMotor.setIdleMode(IdleMode.kCoast);
+    topMotor.setSmartCurrentLimit(40);
+    bottomMotor.setSmartCurrentLimit(40);
   }
 
   public void runShooter(double speed) {
