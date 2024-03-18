@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -21,22 +22,19 @@ public class AutonomousMiddleNote extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ConditionalCommand(
-          // Blue team
-          new MoveToPosition(SwerveSubsystem.getInstance(),
-          new Pose2d(3, -2.525,
-              new Rotation2d(Units.degreesToRadians(0))
-          ),
-          0.1, DriveConstants.KPID_TKP).withTimeout(4),
-          // Red team
-          new MoveToPosition(SwerveSubsystem.getInstance(),
-          new Pose2d(7.3, +2.525,
-              new Rotation2d(Units.degreesToRadians(0))
-          ),
-          0.1, DriveConstants.KPID_TKP).withTimeout(4), 
-          // Conditional
-          () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Blue)
-    );
+        new ConditionalCommand(
+            // Blue team
+            new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(3, -2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.1, DriveConstants.KPID_TKP).withTimeout(4),
+            // Red team
+            new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(7.3, +2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.1, DriveConstants.KPID_TKP).withTimeout(4),
+            // Conditional
+            () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Blue));
     new IntakeNote();
   }
 }
