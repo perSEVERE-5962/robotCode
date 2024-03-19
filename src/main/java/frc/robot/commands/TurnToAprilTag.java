@@ -10,6 +10,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
@@ -20,27 +21,34 @@ public class TurnToAprilTag extends Command {
   private NetworkTableEntry turnCommand = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command");
   private boolean isCentered = false;
   private ProfiledPIDController controller = new ProfiledPIDController(DriveConstants.KPID_TKP, DriveConstants.KPID_TKI, DriveConstants.KPID_TKD, DriveConstants.kThetaControllerConstraints);
-
+  private int changeSide=1;
   public TurnToAprilTag() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if(DriverStation.getAlliance().get() == DriverStation.Alliance.Blue){
+      changeSide=1;
+     }else{
+      changeSide=-1;
+     }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double turnSpeed = 0.0;
     String command = turnCommand.getString("Not found");
+
     if (!command.equals("Not found")) {
       // Turn towards the apriltag
       if (command.equals("Left")) {
-        turnSpeed = 0.5;
+        turnSpeed = 0.5* changeSide;
         isCentered = false;
       } else if (command.equals("Right")) {
-        turnSpeed = -0.5;
+        turnSpeed = -0.5*changeSide;
         isCentered = false;
       } else if (command.equals("Center")) {
         turnSpeed = 0.0;

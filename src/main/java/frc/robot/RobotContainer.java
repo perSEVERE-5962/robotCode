@@ -113,7 +113,7 @@ public class RobotContainer {
     dr_leftBumper.onTrue(new IntakeNote());
     dr_buttonA.onTrue(new ShootWithApriltag());
     dr_buttonB.onTrue(new AutonomousNearSource());
-    dr_buttonX.onTrue(new AutonomousMiddleNote());
+    dr_buttonX.onTrue(new AutonomousCollectMiddleNote());
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
