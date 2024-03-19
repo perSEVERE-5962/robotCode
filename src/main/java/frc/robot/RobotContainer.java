@@ -143,7 +143,6 @@ public class RobotContainer {
     }
 
     driveTrain.resetOdometry(driveTrain.getPose());
-    command = new AutonomousNearSource();
     return command;
   }
 
