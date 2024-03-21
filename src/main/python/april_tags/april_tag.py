@@ -4,17 +4,20 @@ from networktables import NetworkTables
 import apriltag
 import cv2
 import sys
+import numpy as np
 
 # All networktable paths:
 # 	NetworkTables.getDefault().getTable("apriltags").getEntry("cameraworking")
 # 	NetworkTables.getDefault().getTable("apriltags").getSubTable("speakertags").getSubTable("pos").getEntry("x/y/z")
 # 	NetworkTables.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command")
+#	NetworkTables.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("angletotag")
 
 def main():
 	# April tag init
 
 	#focal_data = (1.14693147e+03, 1.13616617e+03, 3.86121647e+02, 2.43241211e+02) # 3264 x 2448 camera
 	focal_data = (429.78652322, 463.26344368, 328.23222028, 171.63344415)
+	#focal_data = (699.3778103, 677.7161226393, 345.6059345, 207.12741326)
 	tag_size = 6.5 * 0.0254 # 0.0254 is the inches to meters ratio
 
 	# Network table init
@@ -29,6 +32,8 @@ def main():
 	speaker_tags_subtable = networktable_tags.getSubTable("speakertags")
 	center_x_entry = speaker_tags_subtable.getEntry("centerx")
 	within_distance_entry = speaker_tags_subtable.getEntry("withindist")
+	angle_to_tag_entry = speaker_tags_subtable.getEntry("angletotag")
+	pos_subtable = speaker_tags_subtable.getSubTable("pos")
 
 	# Camera init
 	capture = cv2.VideoCapture(index=0)
@@ -68,10 +73,11 @@ def main():
 						pos_y = pose[1][3]
 						pos_z = pose[2][3]
 
-						pos_subtable = speaker_tags_subtable.getSubTable("pos")
 						pos_subtable.getEntry("x").setNumber(pos_x)
 						pos_subtable.getEntry("y").setNumber(pos_y)
 						pos_subtable.getEntry("z").setNumber(pos_z)
+
+						angle_to_tag_entry.setNumber(np.arctan2(pos_x, pos_z))
 
 						within_distance_entry.setBoolean(((pos_z >= 2.7) and (pos_z <= 3.2)))
 
@@ -87,6 +93,7 @@ def main():
 							speaker_tags_subtable.getEntry("command").setString("Left")
 				else:
 					speaker_tags_subtable.getEntry("command").setString("Not found")
+					within_distance_entry.setBoolean(False)
 
 				print(speaker_tags_subtable.getEntry("command").getString(""))
 					

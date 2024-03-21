@@ -25,7 +25,7 @@ public class TwoNoteAutonomous extends SequentialCommandGroup {
         new Shoot()
           .onlyIf(() -> changeLight.getNoteState() == Notification.NoteState.NOTE_IN_POSSESSION),
         new TurnToZero(driveTrain, 1),
-        new MoveWithDistance(driveTrain, translationXSupplier, 33), // distance from starting point to the outer edge of the note
+        // new MoveWithDistance(driveTrain, translationXSupplier, 33), // distance from starting point to the outer edge of the note
         new IntakeNote()
           .onlyIf(() -> changeLight.getNoteState() == Notification.NoteState.NOTE_NOT_IN_POSSESSION),
         new Shoot()
