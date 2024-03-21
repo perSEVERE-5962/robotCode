@@ -6,7 +6,6 @@ package frc.robot.archive;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.IntakeNote;
-import frc.robot.commands.MoveWithDistance;
 import frc.robot.commands.Shoot;
 import frc.robot.subsystems.Notification;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;

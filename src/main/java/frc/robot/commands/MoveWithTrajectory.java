@@ -44,8 +44,8 @@ public class MoveWithTrajectory {
 
   public MoveWithTrajectory(Pose2d startPoint, List<Translation2d> waypoints, Pose2d endPoint) {
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
+        DriveConstants.kAutoMaxAngularVelocity,
+        DriveConstants.kAutoMaxAngularAcceleration)
         .setKinematics(DriveConstants.kDriveKinematics);
 
     trajectory = TrajectoryGenerator.generateTrajectory(
