@@ -10,9 +10,8 @@ import frc.robot.subsystems.Notification.NoteState;
 
 public class ResetNoteStatus extends Command {
   /** Creates a new ResetNoteStatus. */
-  private Notification notification;
-  public ResetNoteStatus(Notification notification) {
-    this.notification = notification;
+  private Notification notification = Notification.getInstance();
+  public ResetNoteStatus() {  
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

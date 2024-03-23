@@ -23,7 +23,7 @@ public class AutoPosition2 extends SequentialCommandGroup {
         // TODO: Add command(s) to turn to the speaker april tag
         //
         new ResetWheels(SwerveSubsystem.getInstance()),
-        new ResetNoteStatus(Notification.getInstance()),
+        new ResetNoteStatus(),
         new Move(SwerveSubsystem.getInstance(), 0, -0.5, 0).withTimeout(0.5),
         new TurntoAngle(SwerveSubsystem.getInstance(), 90, true),
         new IntakeNote() // I doubt this decorator nest will work
