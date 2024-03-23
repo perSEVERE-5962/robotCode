@@ -18,7 +18,7 @@ def main():
 	#focal_data = (1.14693147e+03, 1.13616617e+03, 3.86121647e+02, 2.43241211e+02) # 3264 x 2448 camera
 	#focal_data = (429.78652322, 463.26344368, 328.23222028, 171.63344415)
 	#focal_data = (699.3778103, 677.7161226393, 345.6059345, 207.12741326)
-	focal_data = (532, 502, 320, 240) # Brute forced, most accurate so far and most accurate at 1 yard
+	focal_data = (532, 502, 320, 240) # Brute forced, most accurate so far and most accurate at 4 yards
 	tag_size = 6.5 * 0.0254 # 0.0254 is the inches to meters ratio
 
 	# Network table init
@@ -65,7 +65,6 @@ def main():
 			exists, frame = capture.read()
 			if exists:
 				image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-				cv2.imwrite("image.png", image)
 				detector = dt_apriltags.Detector(families="tag36h11", quad_decimate=1.0)
 				results = detector.detect(img=image, estimate_tag_pose=True, camera_params=focal_data, tag_size=tag_size)
 
@@ -91,7 +90,7 @@ def main():
 
 						angle_to_tag_entry.setNumber(np.arctan2(pos_x, pos_z))
 
-						within_distance_entry.setBoolean(((pos_z >= 2.7) and (pos_z <= 3.2)))
+						within_distance_entry.setBoolean(((pos_z >= 3.4) and (pos_z <= 3.8)))
 
 						# Center of tag
 						center_x = tag.center[0] - (image.shape[1] / 2) #center[0] is x, shape[1] is also x
