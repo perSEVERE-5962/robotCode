@@ -37,7 +37,7 @@ public class AutonomousNearSource extends SequentialCommandGroup {
                 // Blue team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
                     new Pose2d(2.4, -1.45,
-                        new Rotation2d(Units.degreesToRadians(-27))),
+                        new Rotation2d(Units.degreesToRadians(-30))),
                     0.1, DriveConstants.KPID_TKP).withTimeout(4),
                 // Red team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
@@ -49,6 +49,7 @@ public class AutonomousNearSource extends SequentialCommandGroup {
             new SpinUpShooter(1.0, 1.0, 0).withTimeout(10)),
 
         new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
+        new LogApriltag(),
         new StopShooter(Shooter.getInstance()),
         new ResetNoteStatus());
   }

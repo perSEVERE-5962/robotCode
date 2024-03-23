@@ -20,7 +20,8 @@ public class LogApriltag extends Command {
     var speakerTagCommand = speakerTagsNT.getEntry("command");
     var speakerTagDist = speakerTagsNT.getSubTable("pos").getEntry("z");
     var speakerTagCenterX = speakerTagsNT.getEntry("centerx");
-    System.out.println("[Dist: " + speakerTagDist.getDouble(0) + ", Command: " + speakerTagCommand.getString("Default") + ", Center: " + speakerTagCenterX.getDouble(0) + "]");
+    var speakerTagDYaw = speakerTagsNT.getEntry("angletotag");
+    System.out.println("[Dist: " + speakerTagDist.getDouble(0) + ", Command: " + speakerTagCommand.getString("Default") + ", Center: " + speakerTagCenterX.getDouble(0) + ", DYaw: " + speakerTagDYaw.getDouble(0) + "]");
 }
 
   // Called every time the scheduler runs while the command is scheduled.
