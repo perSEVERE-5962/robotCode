@@ -24,9 +24,9 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public final class Constants {
 
-  public static final int TEAM_COLOR_BLUE = 0;
-  public static final int TEAM_COLOR_RED = 1;
-  public static int kTeamColor = 0;
+  // public static final int TEAM_COLOR_BLUE = 0;
+  // public static final int TEAM_COLOR_RED = 1;
+  // public static int kTeamColor = 0;
 
   public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 

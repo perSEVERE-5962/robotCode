@@ -1,6 +1,7 @@
 package frc.robot.subsystems.drivetrain;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -146,7 +147,11 @@ public class SwerveSubsystem extends SubsystemBase {
     posXEntry.setDouble(pose.getX());
     posYEntry.setDouble(pose.getY());
     rotEntry.setDouble(pose.getRotation().getDegrees());
-    teamColorEntry.setBoolean(DriverStation.getAlliance().get() == DriverStation.Alliance.Blue);
+    try{
+      teamColorEntry.setBoolean(DriverStation.getAlliance().get() == DriverStation.Alliance.Blue); 
+    } catch (NoSuchElementException ex) {
+      teamColorEntry.setBoolean(false);
+    }
   }
 
   public void stopModules() {
