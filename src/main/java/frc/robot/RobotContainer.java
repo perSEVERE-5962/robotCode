@@ -112,13 +112,13 @@ public class RobotContainer {
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
     dr_buttonA.onTrue(new ShootWithApriltag());
-    dr_buttonB.onTrue(new AutonomousNearSource());
-    dr_buttonX.onTrue(new AutonomousCollectMiddleNote());
+    dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
+    dr_buttonX.onTrue(new AutonomousShootMiddleNote());
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonA.onTrue(new ResetNoteStatus(notification));
+    cp_buttonA.onTrue(new ResetNoteStatus());
 
     //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
     //cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));
@@ -135,11 +135,9 @@ public class RobotContainer {
     NetworkTable table = networktable.getTable("AutomonusSelect");
     double autoPosition = table.getEntry("Close Note").getDouble(1);
     if(autoPosition == 1) {
-      command = new AutonomousNearSource();
-    } else if (autoPosition == 2) {
-      command = new AutoPosition2();
+      command = new FullAutonomousMiddleNoteShooting();
     } else {
-      command = new AutoPosition3();
+      command = new AutoPosition2();
     }
 
     driveTrain.resetOdometry(driveTrain.getPose());

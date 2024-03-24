@@ -4,87 +4,31 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class TurnToAprilTag extends Command {
+public class TurnToAprilTag extends TurntoAngle {
   /** Creates a new TurnToAprilTag. */
-  SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private NetworkTableEntry turnCommand = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command");
-  private boolean isCentered = false;
-  private ProfiledPIDController controller = new ProfiledPIDController(DriveConstants.KPID_TKP, DriveConstants.KPID_TKI, DriveConstants.KPID_TKD, DriveConstants.kThetaControllerConstraints);
-  private int changeSide=1;
   public TurnToAprilTag() {
+    super(SwerveSubsystem.getInstance(), NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("angletotag").getDouble(0), true);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    if(DriverStation.getAlliance().get() == DriverStation.Alliance.Blue){
-      changeSide=1;
-     }else{
-      changeSide=-1;
-     }
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double turnSpeed = 0.0;
-    String command = turnCommand.getString("Not found");
-
-    if (!command.equals("Not found")) {
-      // Turn towards the apriltag
-      if (command.equals("Left")) {
-        turnSpeed = 0.5* changeSide;
-        isCentered = false;
-      } else if (command.equals("Right")) {
-        turnSpeed = -0.5*changeSide;
-        isCentered = false;
-      } else if (command.equals("Center")) {
-        turnSpeed = 0.0;
-        isCentered = true;
-      }
-    } else {
-      // Just turn
-      turnSpeed = 0.5;
-      isCentered = false;
-    }
-
-    turnSpeed *= DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
-    
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
-    SwerveModuleState[] moduleStates =
-        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-
-    // Output each module states to wheels
-    driveTrain.setModuleStates(moduleStates);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    System.out.println("Ending");
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, 0);
-    SwerveModuleState[] moduleStates =
-        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-
-    // Output each module states to wheels
-    driveTrain.setModuleStates(moduleStates);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isCentered; //|| MathUtil.isNear(backupAngle, driveTrain.getYaw(), backupAngleTolarance);
+    return false;
   }
 }
