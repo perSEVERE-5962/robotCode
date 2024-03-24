@@ -33,10 +33,10 @@ public class AutonomousShootMiddleNote extends SequentialCommandGroup {
             new MoveToPosition(SwerveSubsystem.getInstance(),
                 new Pose2d(5.0, -2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
-                0.3, DriveConstants.KPID_TKP).andThen(new MoveToPosition(SwerveSubsystem.getInstance(),
+                0.4, DriveConstants.KPID_TKP).andThen(new MoveToPosition(SwerveSubsystem.getInstance(),
                 new Pose2d(2.8, -3.3,
                     new Rotation2d(Units.degreesToRadians(-10))),
-                0.3, DriveConstants.KPID_TKP).alongWith(new SpinUpShooter(1.0, 1.0, 0).withTimeout(0.25))),
+                0.4, DriveConstants.KPID_TKP).alongWith(new SpinUpShooter(1.0, 1.0, 0).withTimeout(0.25))),
 
             // Red team
             new MoveToPosition(SwerveSubsystem.getInstance(),

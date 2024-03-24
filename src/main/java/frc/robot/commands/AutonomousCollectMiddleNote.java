@@ -28,12 +28,12 @@ public class AutonomousCollectMiddleNote extends ParallelCommandGroup {
             new MoveToPosition(SwerveSubsystem.getInstance(),
                 new Pose2d(4.0, -2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
-                0.1, DriveConstants.KPID_TKP).withTimeout(3).andThen(new ParallelCommandGroup(
+                0.4, DriveConstants.KPID_TKP).withTimeout(2).andThen(new ParallelRaceGroup(
                     new IntakeNote(),
                     new MoveToPosition(SwerveSubsystem.getInstance(),
                 new Pose2d(7.9, -2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
-                0.3, DriveConstants.KPID_TKP))),
+                0.4, DriveConstants.KPID_TKP))),
                 
             // Red team
             new MoveToPosition(SwerveSubsystem.getInstance(),

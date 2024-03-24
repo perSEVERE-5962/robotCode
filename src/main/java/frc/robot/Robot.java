@@ -59,10 +59,7 @@ public class Robot extends TimedRobot {
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
 
-    NetworkTableInstance networktable=NetworkTableInstance.getDefault();
-    NetworkTable table = networktable.getTable("AutomonusSelect");
-    double autoPosition = table.getEntry("Close Note").getDouble(2);
-    SmartDashboard.putString("Autonomous Selection", "Postion " + (int)autoPosition);
+
     SmartDashboard.putNumber("Left ultraconic", Feeder.getInstance().getUltrasonicOne().getRange());
     SmartDashboard.putNumber("Right ultraconic", Feeder.getInstance().getUltrasonicTwo().getRange());
   }

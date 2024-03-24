@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -111,9 +112,9 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
-    dr_buttonA.onTrue(new ShootWithApriltag());
+   // dr_buttonA.onTrue(new ShootWithApriltag());
     dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
-    dr_buttonX.onTrue(new AutonomousShootMiddleNote());
+    dr_buttonX.onTrue(new AutonomousNearSource());
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
@@ -139,7 +140,7 @@ public class RobotContainer {
     } else {
       command = new AutoPosition2();
     }
-
+    SmartDashboard.putString("Autonomous Selection", "Postion " + (int)autoPosition);
     driveTrain.resetOdometry(driveTrain.getPose());
     return command;
   }
