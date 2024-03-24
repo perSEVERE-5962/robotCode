@@ -6,6 +6,7 @@ package frc.robot.archive;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants.TrajectoryConstants;
@@ -26,6 +27,7 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoPosition1 extends ParallelCommandGroup {
+      double turnAngle = DriverStation.getAlliance().get() == DriverStation.Alliance.Blue ? 110 : -110;
   /** Creates a new AutoPosition1. */
   public AutoPosition1(SwerveSubsystem swerveSubsystem, Shooter shooter, Feeder feeder, Notification notification,
       Intake intake) {
@@ -38,7 +40,7 @@ public class AutoPosition1 extends ParallelCommandGroup {
                                                 TrajectoryConstants.kTrajectory1End).getTrajectoryCommandGroup()),
         new RunShooterFeeder(feeder, notification),
         new StopShooter(shooter),
-        new TurntoAngle(swerveSubsystem, Constants.kTeamColor == Constants.TEAM_COLOR_RED ? -110 : 110, true),
+        new TurntoAngle(swerveSubsystem, turnAngle, true),
         new IntakeNote()
               .alongWith(new MoveToPosition(swerveSubsystem, new Pose2d(0.1, 0.0, new Rotation2d(0)))),
         new SpinUpShooter(1.0, 1.0, 10)

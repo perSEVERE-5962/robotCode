@@ -15,13 +15,9 @@ public class FullAutonomousMiddleNoteShooting extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SequentialCommandGroup(
-        new AutonomousNearSource(),
-        new AutonomousCollectMiddleNote(),
-        new AutonomousShootMiddleNote()
-      )
-      
-
+      new AutonomousNearSource(),
+      new AutonomousCollectMiddleNote(),
+      new AutonomousShootMiddleNote()
     );
   }
 }

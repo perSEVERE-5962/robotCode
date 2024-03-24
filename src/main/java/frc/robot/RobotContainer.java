@@ -112,13 +112,13 @@ public class RobotContainer {
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
     dr_buttonA.onTrue(new ShootWithApriltag());
-    dr_buttonB.onTrue(new AutonomousNearSource());
-    dr_buttonX.onTrue(new AutonomousCollectMiddleNote());
+    dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
+    dr_buttonX.onTrue(new AutonomousShootMiddleNote());
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonA.onTrue(new ResetNoteStatus(notification));
+    cp_buttonA.onTrue(new ResetNoteStatus());
 
     //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
     //cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));

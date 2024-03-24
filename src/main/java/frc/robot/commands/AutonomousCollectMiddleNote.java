@@ -12,6 +12,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.ConditionalCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -25,25 +26,64 @@ public class AutonomousCollectMiddleNote extends ParallelCommandGroup {
         new ConditionalCommand(
             // Blue team
             new MoveToPosition(SwerveSubsystem.getInstance(),
-                new Pose2d(5, -2.525,
+                new Pose2d(4.0, -2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.1, DriveConstants.KPID_TKP).withTimeout(3).andThen(new ParallelCommandGroup(
+                    new IntakeNote(),
+                    new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(7.9, -2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.3, DriveConstants.KPID_TKP))),
+                
+            // Red team
+            new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(4.0, 2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.1, DriveConstants.KPID_TKP).withTimeout(3).andThen(new ParallelCommandGroup(
+                    new IntakeNote(),
+                    new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(7.9, 2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.3, DriveConstants.KPID_TKP))),
+ 
+            // Conditional
+            () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Blue));
+  }
+}
+
+
+
+
+/*
+            // Blue team
+            new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(4.0, -2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
                 0.1, DriveConstants.KPID_TKP).withTimeout(3).andThen(
                     new MoveToPosition(SwerveSubsystem.getInstance(),
-                new Pose2d(9, 0,
+                new Pose2d(7.25, -2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
-                0.1, DriveConstants.KPID_TKP)
-                ),
+                0.5, DriveConstants.KPID_TKP)
+                ).andThen(new ParallelCommandGroup(
+                    new IntakeNote(),
+                    new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(8.25, -2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.3, DriveConstants.KPID_TKP).withTimeout(3))),
             // Red team
             new MoveToPosition(SwerveSubsystem.getInstance(),
                 new Pose2d(5, 2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
                 0.1, DriveConstants.KPID_TKP).withTimeout(4).andThen(
                     new MoveToPosition(SwerveSubsystem.getInstance(),
-                new Pose2d(9, 0,
+                new Pose2d(7, 2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
-                0.1, DriveConstants.KPID_TKP)),
-            // Conditional
-            () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Blue));
-    new IntakeNote();
-  }
-}
+                0.1, DriveConstants.KPID_TKP)
+                ).andThen(new ParallelRaceGroup(
+                    new IntakeNote(),
+                    new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(9, 2.525,
+                    new Rotation2d(Units.degreesToRadians(0))),
+                0.1, DriveConstants.KPID_TKP))),
+
+                */
