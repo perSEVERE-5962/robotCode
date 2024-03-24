@@ -130,13 +130,13 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    public static final double kPID_XKP = 2.1; //2.25
+    public static final double kPID_XKP = 2.25; //2.1
     public static final double kPID_XKI = 0.0; 
     public static final double kPID_XKD = 0.0; 
-    public static final double kPID_YKP = 2.1; //2.25
+    public static final double kPID_YKP = 2.25; //2.1
     public static final double kPID_YKI = 0.0; 
     public static final double kPID_YKD = 0.0; 
-    public static final double KPID_TKP = 0.9; //2.25
+    public static final double KPID_TKP = 2.25; //0.9
     public static final double KPID_TKI = 0.0; 
     public static final double KPID_TKD = 0.0; 
 
