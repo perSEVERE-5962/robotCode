@@ -22,7 +22,7 @@ public class Shoot extends SequentialCommandGroup {
     Notification notification = Notification.getInstance();
     addCommands(
       // TODO: Add command(s) to turn to the speaker april tag
-      new SpinUpShooter(1.0, 1.0, 0).withTimeout(1),
+      new SpinUpShooter(1.0, 1.0, 2),
       new RunShooterFeeder(feeder, notification),
       new StopShooter(shooter)
     );
