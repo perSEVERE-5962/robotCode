@@ -28,25 +28,25 @@ public class AutonomousNearSource extends SequentialCommandGroup {
     addCommands(
         // Start at the opponent's source
         // Wait some time
-        new Timer(100), // Wait 6000 for other teams
+        //new Timer(100), // Wait 6000 for other teams
         // Move towards the stage
         // 2.4, -2.0, -27 -> is blue team
         // 2.8, 2.3, 27 -> is red team
-        new ParallelRaceGroup(
+            new SpinUpShooter(1.0, 1.0, 0),
+        
             new ConditionalCommand(
                 // Blue team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(2.4, -1.45,
-                        new Rotation2d(Units.degreesToRadians(-30))),
-                    0.1, DriveConstants.KPID_TKP).withTimeout(4),
+                    new Pose2d(2.7, -1.45,
+                        new Rotation2d(Units.degreesToRadians(-36.0))),
+                    0.2, DriveConstants.KPID_TKP).withTimeout(3),
                 // Red team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(2.8, 1.67,
-                        new Rotation2d(Units.degreesToRadians(27))),
+                    new Pose2d(2.4, 1.67,
+                        new Rotation2d(Units.degreesToRadians(36.0))),
                     0.1, DriveConstants.KPID_TKP).withTimeout(4),
                 // Conditional
                 () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Blue),
-            new SpinUpShooter(1.0, 1.0, 0).withTimeout(10)),
 
         new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
         new LogApriltag(),

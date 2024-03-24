@@ -12,8 +12,8 @@ public class SpinUpShooter extends Command {
   private Shooter motors = Shooter.getInstance();
   private double topShooterSpeed = 1;
   private double bottomShooterSpeed = 1;
-  private double topMotorCurrentRPM = 0;
-  private double bottomMotorCurrentRPM = 0;
+  //private double topMotorCurrentRPM = 0;
+  //private double bottomMotorCurrentRPM = 0;
 
   private long initialTime = 0;
   private long waitTime = 0;
@@ -43,10 +43,10 @@ public class SpinUpShooter extends Command {
     motors.runTopShooter(topShooterSpeed);
     motors.runBottomShooter(bottomShooterSpeed);
 
-    if (waitTime == 0) {
-      topMotorCurrentRPM = motors.getTopVelocity();
-      bottomMotorCurrentRPM = motors.getBottomVelocity();
-    }
+    //if (waitTime == 0) {
+     // topMotorCurrentRPM = motors.getTopVelocity();
+      //bottomMotorCurrentRPM = motors.getBottomVelocity();
+    //}
   }
 
   // Called once the command ends or is interrupted.
@@ -57,9 +57,9 @@ public class SpinUpShooter extends Command {
   @Override
   public boolean isFinished() {
     if (waitTime == 0) {
-      boolean topIsMax = topMotorCurrentRPM >= Constants.ShooterConstants.kMaxMotorRPM * topShooterSpeed;
-      boolean bottomIsMax = bottomMotorCurrentRPM >= Constants.ShooterConstants.kMaxMotorRPM * bottomShooterSpeed;
-      return topIsMax && bottomIsMax;
+     // boolean topIsMax = topMotorCurrentRPM >= Constants.ShooterConstants.kMaxMotorRPM * topShooterSpeed;
+      //boolean bottomIsMax = bottomMotorCurrentRPM >= Constants.ShooterConstants.kMaxMotorRPM * bottomShooterSpeed;
+      return true;//topIsMax && bottomIsMax;
     } else {
       long finish = System.currentTimeMillis();
       long timeElapsed = finish - initialTime;

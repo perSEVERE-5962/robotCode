@@ -41,9 +41,9 @@ public class MoveToShootDistance extends Command {
   public void initialize() {
     double dist = distEntry.getDouble(-1);
     if (dist > SpeakerConstants.kMaxDistance) {
-      pose2d = new Pose2d(dist - SpeakerConstants.kMaxDistance, 0, new Rotation2d(0));
+      pose2d = new Pose2d(/*dist - */SpeakerConstants.kMaxDistance, 0, new Rotation2d(0));
     } else if (dist < SpeakerConstants.kMinDistance) {
-      pose2d = new Pose2d(SpeakerConstants.kMinDistance - dist, 0, new Rotation2d(0));
+      pose2d = new Pose2d(SpeakerConstants.kMinDistance/*  - dist*/, 0, new Rotation2d(0));
     } else {
       pose2d = new Pose2d(0, 0, new Rotation2d(0));
     }
