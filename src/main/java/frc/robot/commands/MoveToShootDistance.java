@@ -26,8 +26,8 @@ public class MoveToShootDistance extends Command {
 
   private HolonomicDriveController holonomicDriveController =
   new HolonomicDriveController(
-      new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
-      new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
+      new PIDController(DriveConstants.kPID_XKP_tele, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+      new PIDController(DriveConstants.kPID_YKP_tele, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
       new ProfiledPIDController(DriveConstants.KPID_TKP,DriveConstants.KPID_TKI, DriveConstants.KPID_TKD,
           DriveConstants.kThetaControllerConstraints));
 
@@ -54,7 +54,7 @@ public class MoveToShootDistance extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Pose2d currPose2d = driveTrain.getPose();
+    Pose2d currPose2d = new Pose2d(driveTrain.getPose().getX(), -driveTrain.getPose().getY(), driveTrain.getRotation2d());
     ChassisSpeeds chassisSpeeds =
         holonomicDriveController.calculate(currPose2d, targetPos, 0, targetPos.getRotation());
     SwerveModuleState[] moduleStates = 
