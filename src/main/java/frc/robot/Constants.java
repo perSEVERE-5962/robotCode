@@ -140,6 +140,9 @@ public final class Constants {
     public static final double KPID_TKI = 0.0; 
     public static final double KPID_TKD = 0.0; 
 
+    // Teleop settings
+    public static final double kPID_TKP_tele = 4.0;
+
     public static final double kAutoMaxAngularVelocity = 9.0;
     public static final double kAutoMaxAngularAcceleration = 9.0 * 5.0;
 

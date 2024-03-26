@@ -53,7 +53,7 @@ public class RobotContainer {
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
   private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
-  // private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
+  private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
   // private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
   // private final Trigger dr_buttonX = new JoystickButton(driverController, XboxController.Button.kX.value);
   // Test Controller
@@ -111,7 +111,7 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
-    //dr_buttonA.onTrue(new ShootWithApriltag());
+    dr_buttonA.onTrue(new ShootWithApriltag());
     //dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
     //dr_buttonX.onTrue(new AutonomousShootMiddleNote());
 
