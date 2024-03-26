@@ -20,8 +20,6 @@ public class AutoPosition2 extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        // TODO: Add command(s) to turn to the speaker april tag
-        //
         new ResetWheels(SwerveSubsystem.getInstance()),
         new ResetNoteStatus(),
         new Move(SwerveSubsystem.getInstance(), 0, -0.5, 0).withTimeout(0.5),
@@ -44,7 +42,6 @@ public class AutoPosition2 extends SequentialCommandGroup {
                                               TrajectoryConstants.kTrajectory1Waypoints,
                                               TrajectoryConstants.kTrajectory1End).getTrajectoryCommandGroup()),
         new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
-        new StopShooter(Shooter.getInstance()),
-        new ResetWheels(SwerveSubsystem.getInstance()));
+        new StopShooter(Shooter.getInstance()));
   }
 }
