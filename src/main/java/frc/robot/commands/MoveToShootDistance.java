@@ -20,13 +20,14 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class MoveToShootDistance extends Command {
   private SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private Pose2d pose2d;
+  private Pose2d startPos;
+  private Pose2d targetPos;
   private NetworkTableEntry distEntry = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getSubTable("pos").getEntry("z");
 
   private HolonomicDriveController holonomicDriveController =
   new HolonomicDriveController(
-      new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
-      new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
+      new PIDController(DriveConstants.kPID_XKP_tele, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+      new PIDController(DriveConstants.kPID_YKP_tele, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
       new ProfiledPIDController(DriveConstants.KPID_TKP,DriveConstants.KPID_TKI, DriveConstants.KPID_TKD,
           DriveConstants.kThetaControllerConstraints));
 
@@ -39,22 +40,23 @@ public class MoveToShootDistance extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    startPos = driveTrain.getPose();
     double dist = distEntry.getDouble(-1);
     if (dist > SpeakerConstants.kMaxDistance) {
-      pose2d = new Pose2d(dist - SpeakerConstants.kMaxDistance, 0, new Rotation2d(0));
+      targetPos = new Pose2d(startPos.getX() - (dist - SpeakerConstants.kMaxDistance), startPos.getY(), startPos.getRotation());
     } else if (dist < SpeakerConstants.kMinDistance) {
-      pose2d = new Pose2d(SpeakerConstants.kMinDistance - dist, 0, new Rotation2d(0));
+      targetPos = new Pose2d(startPos.getX() + (SpeakerConstants.kMinDistance - dist), startPos.getY(), startPos.getRotation());
     } else {
-      pose2d = new Pose2d(0, 0, new Rotation2d(0));
+      targetPos = new Pose2d(startPos.getTranslation(), startPos.getRotation());
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Pose2d currPose2d = new Pose2d(driveTrain.getPose().getX(), -driveTrain.getPose().getY(), driveTrain.getRotation2d());
     ChassisSpeeds chassisSpeeds =
-        // Not great but the y speed needs to be inverted
-        holonomicDriveController.calculate(driveTrain.getPose(), pose2d, 0, pose2d.getRotation());
+        holonomicDriveController.calculate(currPose2d, targetPos, 0, targetPos.getRotation());
     SwerveModuleState[] moduleStates = 
         DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
     driveTrain.setModuleStates(moduleStates);
