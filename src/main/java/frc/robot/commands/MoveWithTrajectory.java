@@ -23,41 +23,34 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class MoveWithTrajectory {
   /** Creates a new MoveWithTrajectory. */
-  private SwerveSubsystem swerveSubsystem;
+  private SwerveSubsystem swerveSubsystem = SwerveSubsystem.getInstance();
   private Trajectory trajectory;
   //protected SwerveSubsystem m_driveTrain;
   private SwerveControllerCommand swerveControllerCommand;
 
-  public MoveWithTrajectory(SwerveSubsystem swerveSubsystem) {
-  this.swerveSubsystem = swerveSubsystem;    
-    
+    /*
+     * new Pose2d(0, 0, new Rotation2d(0)),
+     * List.of(
+     *     new Translation2d(0.86, 0)),
+     * new Pose2d(2.05, 0, Rotation2d.fromDegrees(0)),
+     */
+
+    /*
+     * new Pose2d(0.0, 0.0, new Rotation2d(0)),
+     * List.of(
+     *     new Translation2d(0.85, 0)),
+     * new Pose2d(1.74, 0.0, Rotation2d.fromDegrees(0)),
+     */
+
+  public MoveWithTrajectory(Pose2d startPoint, List<Translation2d> waypoints, Pose2d endPoint) {
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
-        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
+        DriveConstants.kAutoMaxAngularVelocity,
+        DriveConstants.kAutoMaxAngularAcceleration)
         .setKinematics(DriveConstants.kDriveKinematics);
 
-     trajectory = TrajectoryGenerator.generateTrajectory(
-        new Pose2d(0, 0, new Rotation2d(0)),
-        List.of(
-            new Translation2d(0.86, 0)),
-        new Pose2d(2.05, 0, Rotation2d.fromDegrees(0)),
-        trajectoryConfig);
-
-    // PIDController xController = new PIDController(DriveConstants.kPXController, 0, 0);
-    // PIDController yController = new PIDController(DriveConstants.kPYController, 0, 0);
-    // ProfiledPIDController thetaController = new ProfiledPIDController(
-    //     DriveConstants.kPThetaController, DriveConstants.kIThetaController, DriveConstants.kDThetaController, DriveConstants.kThetaControllerConstraints);
-    // thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-    // swerveControllerCommand = new SwerveControllerCommand(
-    //     trajectory,
-    //     swerveSubsystem::getPose,
-    //     DriveConstants.kDriveKinematics,
-    //     xController,
-    //     yController,
-    //     thetaController,
-    //     swerveSubsystem::setModuleStates,
-    //     swerveSubsystem);
+    trajectory = TrajectoryGenerator.generateTrajectory(
+      startPoint, waypoints, endPoint,
+      trajectoryConfig);
 
     HolonomicDriveController holonomicDriveController =
         new HolonomicDriveController(
@@ -74,6 +67,37 @@ public class MoveWithTrajectory {
         swerveSubsystem::getPose,
         DriveConstants.kDriveKinematics,
         holonomicDriveController,
+        swerveSubsystem::setModuleStates,
+        swerveSubsystem);
+    
+  }
+
+  public MoveWithTrajectory(Pose2d startPoint, List<Translation2d> waypoints, Pose2d endPoint, Rotation2d desiredAngle) {
+    TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
+        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
+        DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
+        .setKinematics(DriveConstants.kDriveKinematics);
+
+    trajectory = TrajectoryGenerator.generateTrajectory(
+      startPoint, waypoints, endPoint,
+      trajectoryConfig);
+
+    HolonomicDriveController holonomicDriveController =
+        new HolonomicDriveController(
+          new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+          new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
+          new ProfiledPIDController(
+            DriveConstants.KPID_TKP,
+            DriveConstants.KPID_TKI, 
+            DriveConstants.KPID_TKD,
+            DriveConstants.kThetaControllerConstraints));
+
+    swerveControllerCommand = new SwerveControllerCommand(
+        trajectory,
+        swerveSubsystem::getPose,
+        DriveConstants.kDriveKinematics,
+        holonomicDriveController,
+        (() -> desiredAngle),
         swerveSubsystem::setModuleStates,
         swerveSubsystem);
     

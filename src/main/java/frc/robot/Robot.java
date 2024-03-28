@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,14 +21,14 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
-  @Override
-  public void driverStationConnected() {
-    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
-      Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
-    } else {
-      Constants.kTeamColor = Constants.TEAM_COLOR_RED;
-    }
-  }
+  // @Override
+  // public void driverStationConnected() {
+  //   if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
+  //     Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
+  //   } else {
+  //     Constants.kTeamColor = Constants.TEAM_COLOR_RED;
+  //   }
+  // }
 
   /**
    * This function is run when the robot is first started up and should be used for any

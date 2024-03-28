@@ -4,7 +4,11 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -14,64 +18,54 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class TurnToAprilTag extends Command {
-  /** Creates a new TurnToAprilTag. */
-  SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private double turnSpeed = 0;
-  private NetworkTableEntry turnCommand = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("command");
-  private boolean isCentered = false;
-  private double backupAngle = 0.0;
-  private double backupAngleTolarance = 10;
-  public TurnToAprilTag(double backupAngle) {
-    this.backupAngle = backupAngle;
-    // Use addRequirements() here to declare subsystem dependencies.
+  private SwerveSubsystem swerve = SwerveSubsystem.getInstance();
+  private NetworkTableEntry entry = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("angletotag");
+  private double goal;
+  private HolonomicDriveController holonomicDriveController =
+      new HolonomicDriveController(
+          new PIDController(DriveConstants.kPID_XKP, DriveConstants.kPID_XKI, DriveConstants.kPID_XKD), 
+          new PIDController(DriveConstants.kPID_YKP, DriveConstants.kPID_YKI, DriveConstants.kPID_YKD),
+          new ProfiledPIDController(DriveConstants.kPID_TKP_tele,DriveConstants.KPID_TKI, DriveConstants.KPID_TKD,
+              DriveConstants.kThetaControllerConstraints));
+  private Pose2d startPos = new Pose2d();
+  private Pose2d targetPose2d = new Pose2d();
+  private int finishCounter = 0;
+
+  public TurnToAprilTag() {
+      holonomicDriveController.setTolerance(new Pose2d(2, 1.0, Rotation2d.fromDegrees(0.75)));
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    isCentered = false;
+      startPos = swerve.getPose();
+      goal = -Rotation2d.fromRadians(entry.getDouble(0)).getDegrees();
+      targetPose2d = new Pose2d(startPos.getTranslation(),
+              startPos.getRotation().rotateBy(Rotation2d.fromDegrees(goal)));
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    String command = turnCommand.getString("Not found");
-    if (command != "Not found") {
-      // Turn towards the apriltag
-      if (command == "Left") {
-        turnSpeed = -0.5;
-      } else if (command == "Right") {
-        turnSpeed = 0.5;
-      } else if (command == "Centered") {
-        isCentered = true;
-      }
-    } else {
-      // Just turn
-      turnSpeed = 0.5;
-    }
-    
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
-    SwerveModuleState[] moduleStates =
-        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-
-    // Output each module states to wheels
-    driveTrain.setModuleStates(moduleStates);
+      Pose2d currPose2d = swerve.getPose();
+      ChassisSpeeds chassisSpeeds = this.holonomicDriveController.calculate(currPose2d,
+          targetPose2d, 0, targetPose2d.getRotation());
+      SwerveModuleState[] moduleStates = 
+      DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+      swerve.setModuleStates(moduleStates);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, 0);
-    SwerveModuleState[] moduleStates =
-        DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-
-    // Output each module states to wheels
-    driveTrain.setModuleStates(moduleStates);
+  public void end(boolean interrupt) {
+      swerve.stopModules();
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isCentered || MathUtil.isNear(backupAngle, driveTrain.getYaw(), backupAngleTolarance);
+      if (holonomicDriveController.atReference() || (swerve.isAtAngle(goal))) {
+          finishCounter++;
+      } else {
+          finishCounter = 0;
+      }
+
+      return finishCounter > 2;
   }
 }

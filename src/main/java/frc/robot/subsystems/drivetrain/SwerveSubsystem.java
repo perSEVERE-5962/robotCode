@@ -1,5 +1,8 @@
 package frc.robot.subsystems.drivetrain;
 
+import java.util.Map;
+import java.util.NoSuchElementException;
+
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -10,7 +13,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -115,6 +120,16 @@ public class SwerveSubsystem extends SubsystemBase {
         pose);
   }
 
+  String tab = "Autonomous";
+  GenericEntry posXEntry = Shuffleboard.getTab(tab).add("Position X", 0.0).getEntry();
+  GenericEntry posYEntry = Shuffleboard.getTab(tab).add("Position Y", 0.0).getEntry();
+  GenericEntry rotEntry = Shuffleboard.getTab(tab).add("Rotation", 0.0).getEntry();
+  GenericEntry teamColorEntry = Shuffleboard.getTab(tab)
+    .add("Team color", false)
+    .withWidget(BuiltInWidgets.kBooleanBox)
+    .withProperties(Map.of("colorWhenTrue", "blue", "colorWhenFalse", "red"))
+    .getEntry();
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Gyro Angle", getHeading());
@@ -127,6 +142,16 @@ public class SwerveSubsystem extends SubsystemBase {
           backLeft.getPosition(),
           backRight.getPosition()
         });
+
+    Pose2d pose = odometer.getPoseMeters();
+    posXEntry.setDouble(pose.getX());
+    posYEntry.setDouble(pose.getY());
+    rotEntry.setDouble(pose.getRotation().getDegrees());
+    try{
+      teamColorEntry.setBoolean(DriverStation.getAlliance().get() == DriverStation.Alliance.Blue); 
+    } catch (NoSuchElementException ex) {
+      teamColorEntry.setBoolean(false);
+    }
   }
 
   public void stopModules() {

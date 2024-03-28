@@ -41,6 +41,7 @@ public class RobotContainer {
       
   // Cameras
   //private final Camera frontCamera; // shooter/april tag
+  @SuppressWarnings(value = "unused")
   private final Camera backCamera; // Intake/Note Detection
 
   // Intake and feeder
@@ -52,16 +53,18 @@ public class RobotContainer {
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
   private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
-
+  private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
+  // private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
+  // private final Trigger dr_buttonX = new JoystickButton(driverController, XboxController.Button.kX.value);
   // Test Controller
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
   //  private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
   //  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
-   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
-   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
-
+   //private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   //private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
+   private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -106,21 +109,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_rightBumper.onTrue(new Shoot(shooter, feeder, notification));
-    dr_leftBumper.onTrue(new IntakeNote(intake, notification, feeder));
-    
+    dr_rightBumper.onTrue(new Shoot());
+    dr_leftBumper.onTrue(new IntakeNote());
+    dr_buttonA.onTrue(new ShootWithApriltag());
+    //dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
+    //dr_buttonX.onTrue(new AutonomousShootMiddleNote());
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonA.onTrue(new ResetNoteStatus(notification));
-
-    //TODO: the following should be commented out for competition
-    //cp_buttonY.onTrue(new AutoPosition1(driveTrain, shooter, feeder, notification, intake));
-    //cp_buttonX.onTrue(new AutoPosition2(driveTrain, shooter, feeder, notification, intake));
-
-    cp_buttonX.onTrue(new LogApriltag());
-    // cp_buttonY.onTrue(new Move(driveTrain, 0, -0.3, 0));
+    cp_buttonA.onTrue(new ResetNoteStatus());
+    cp_rightBumper.onTrue(new SpinUpShooter(1.0, 1.0, 0).withTimeout(1));
+    //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
+    //cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));
   }
 
   /**
@@ -129,21 +130,17 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // Command command = new Move(driveTrain, 0, 0, 0);
     Command command;
     NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
-    double autoPosition = table.getEntry("Close Note").getDouble(2);
-    //SmartDashboard.putString("Autonomous Selection", "Postion " + autoPosition);
-    if(autoPosition==1){
-        command = new AutoPosition1(driveTrain, shooter, feeder, notification, intake);
+    double autoPosition = table.getEntry("Close Note").getDouble(1);
+    if(autoPosition == 1) {
+      command = new FullAutonomousMiddleNoteShooting();
+    } else {
+      command = new AutoPosition2();
     }
-    else if(autoPosition==3){
-      command = new AutoPosition3(driveTrain, shooter, feeder, notification, intake);
-    }
-    else{
-      command = new AutoPosition2(driveTrain, shooter, feeder, notification, intake);
-    }
+
+    driveTrain.resetOdometry(driveTrain.getPose());
     return command;
   }
 
