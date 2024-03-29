@@ -21,8 +21,8 @@ public class ShootWithApriltag extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      //new TurnToApriltag().withTimeout(2),
-      new MoveToShootDistance()/*,
+      new MoveToShootDistance().withTimeout(2),
+      new TurnToApriltag().withTimeout(2)/*,
       new SpinUpShooter(1, 1, 0).withTimeout(1),
       new RunShooterFeeder(feeder,notification),
       new StopShooter(shooter)*/
