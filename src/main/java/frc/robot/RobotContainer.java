@@ -54,7 +54,7 @@ public class RobotContainer {
   private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
   private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
   private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
-  // private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
+   private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
   // private final Trigger dr_buttonX = new JoystickButton(driverController, XboxController.Button.kX.value);
   // Test Controller
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -62,7 +62,7 @@ public class RobotContainer {
   //  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
-   //private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
    //private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
    private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
   // Autonomous
@@ -112,16 +112,16 @@ public class RobotContainer {
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
     dr_buttonA.onTrue(new ShootWithApriltag());
-    //dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
+   // dr_buttonB.onTrue(new SpinUpShooter(0.65, 0.65, 0).withTimeout(1));
     //dr_buttonX.onTrue(new AutonomousShootMiddleNote());
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonA.onTrue(new ResetNoteStatus());
+    cp_buttonA.onTrue(new SpinUpShooter(0.65, 0.65, 0).withTimeout(1));
     cp_rightBumper.onTrue(new SpinUpShooter(1.0, 1.0, 0).withTimeout(1));
     //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
-    //cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));
+    cp_buttonX.onTrue(new ResetNoteStatus());
   }
 
   /**
