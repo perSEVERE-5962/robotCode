@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -118,9 +121,9 @@ public class RobotContainer {
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonA.onTrue(new SpinUpShooter(0.65, 0.65, 0).withTimeout(1));
+    cp_buttonA.onTrue(new SpinUpShooter(0.25, 0.25, 0).withTimeout(1));
     cp_rightBumper.onTrue(new SpinUpShooter(1.0, 1.0, 0).withTimeout(1));
-    //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
+    //cp_buttonY.onTrue(new LogApriltag());
     cp_buttonX.onTrue(new ResetNoteStatus());
   }
 
@@ -139,7 +142,10 @@ public class RobotContainer {
     } else {
       command = new AutoPosition2();
     }
-
+//new MoveToPosition(SwerveSubsystem.getInstance(),
+               // new Pose2d(2.5, 0,
+                 //   new Rotation2d(Units.degreesToRadians(0))),
+                //0.3, DriveConstants.KPID_TKP)
     driveTrain.resetOdometry(driveTrain.getPose());
     return command;
   }
