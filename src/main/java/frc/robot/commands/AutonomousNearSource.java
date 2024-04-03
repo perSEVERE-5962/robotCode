@@ -36,14 +36,14 @@ public class AutonomousNearSource extends SequentialCommandGroup {
             new ConditionalCommand(
                 // Blue team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(2.4, -1.45,
+                    new Pose2d(2.2, -1.5,
                         new Rotation2d(Units.degreesToRadians(-30))),
                     0.1, DriveConstants.KPID_TKP).withTimeout(4),
 
                 // Red team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(2.8, 1.67,
-                        new Rotation2d(Units.degreesToRadians(27))),
+                    new Pose2d(2.2, 1.5,
+                        new Rotation2d(Units.degreesToRadians(30))),
                     0.1, DriveConstants.KPID_TKP).withTimeout(4),
                     
                 // Conditional
@@ -51,7 +51,8 @@ public class AutonomousNearSource extends SequentialCommandGroup {
             ),
             new SpinUpShooter(1.0, 1.0, 0).withTimeout(10)
         ),
-
+        new MoveToShootDistance().withTimeout(2),
+        new TurnToAprilTag().withTimeout(2),
         new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
         new LogApriltag(),
         new StopShooter(Shooter.getInstance()),
