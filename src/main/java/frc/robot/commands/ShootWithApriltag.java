@@ -22,7 +22,7 @@ public class ShootWithApriltag extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new MoveToShootDistance().withTimeout(2),//The shoot with April tag needs to be fixed
-      new TurnToApriltag().withTimeout(2)/*,
+      new TurnToAprilTag().withTimeout(2)/*,
       new SpinUpShooter(1, 1, 0).withTimeout(1),
       new RunShooterFeeder(feeder,notification),
       new StopShooter(shooter)*/
