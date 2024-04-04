@@ -52,10 +52,10 @@ public class AutonomousNearSource extends SequentialCommandGroup {
             new SpinUpShooter(1.0, 1.0, 0).withTimeout(10)
         ),
      //   new MoveToShootDistance().withTimeout(2),
-        new TurnToApriltag().withTimeout(2),
+        new TurnToAprilTag().withTimeout(2),
         new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
         new LogApriltag(),
         new StopShooter(Shooter.getInstance()),
         new ResetNoteStatus());
-  }
+     }
 }

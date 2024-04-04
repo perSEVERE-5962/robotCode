@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class TurnToApriltag extends Command {
+public class TurnToAprilTag extends Command {
   private SwerveSubsystem swerve = SwerveSubsystem.getInstance();
   private NetworkTableEntry entry = NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("angletotag");
   private double goal;
@@ -31,7 +31,7 @@ public class TurnToApriltag extends Command {
   private Pose2d targetPose2d = new Pose2d();
   private int finishCounter = 0;
 
-  public TurnToApriltag() {
+  public TurnToAprilTag() {
       holonomicDriveController.setTolerance(new Pose2d(2, 1.0, Rotation2d.fromDegrees(0.75)));
   }
 
