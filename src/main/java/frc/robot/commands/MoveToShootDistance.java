@@ -46,9 +46,9 @@ public class MoveToShootDistance extends Command {
     SmartDashboard.putNumber("Start Y pos", driveTrain.getPose().getY());
     double dist = distEntry.getDouble(SpeakerConstants.kMaxDistance - 0.1); // Don't move
     if (dist > SpeakerConstants.kMaxDistance) {
-      targetPos = new Pose2d((startPos.getX() - (dist - SpeakerConstants.kMaxDistance)) - 0.4, startPos.getY(), startPos.getRotation());
+      targetPos = new Pose2d((startPos.getX() - (dist - SpeakerConstants.kMaxDistance)) - 0.35, startPos.getY(), startPos.getRotation());
     } else if (dist < SpeakerConstants.kMinDistance) {
-      targetPos = new Pose2d((startPos.getX() + (SpeakerConstants.kMinDistance - dist)) + 0.4, startPos.getY(), startPos.getRotation());
+      targetPos = new Pose2d((startPos.getX() + (SpeakerConstants.kMinDistance - dist)) + 0.35, startPos.getY(), startPos.getRotation());
     } else {
       targetPos = new Pose2d(startPos.getX(), startPos.getY(), startPos.getRotation());
     }
