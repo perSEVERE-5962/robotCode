@@ -22,7 +22,7 @@ public class IntakeNote extends SequentialCommandGroup {
     Feeder feeder = Feeder.getInstance();
     Notification notification = Notification.getInstance();
     addCommands(
-        new RunIntake(intake).alongWith(new RunIntakeFeeder(feeder, notification)),
+        new RunIntake(intake).alongWith(new RunIntakeFeeder(feeder, notification, false)), // Do not set override to `true` unless testing
         new StopIntake(intake)
     );
   }
