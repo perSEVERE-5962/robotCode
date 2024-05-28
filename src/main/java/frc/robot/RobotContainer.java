@@ -143,8 +143,8 @@ public class RobotContainer {
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonY.onTrue(new SpinUpShooter(0.55, 0.55, 0).withTimeout(1)); // For dump
     //cp_buttonA.onTrue(new SpinUpShooter(0.1, 0.65, 0).withTimeout(1)); // For amp (15.25 inches from front of chassis to amp base)
-    //cp_buttonA.onTrue(new SpinUpShooter(0.05, 0.8, 0).withTimeout(1)); // For being right against the amp
-    cp_buttonA.onTrue(new SpinUpShooter(0.50, 0.25, 0).withTimeout(1)); // Tune down the bottom shooter
+    cp_buttonA.onTrue(new SpinUpShooter(0.0, 0.65, 0).withTimeout(1)); // For being right against the amp
+    //cp_buttonA.onTrue(new SpinUpShooter(0.50, 0.25, 0).withTimeout(1)); // Tune down the bottom shooter
     cp_rightBumper.onTrue(new SpinUpShooter(1.0, 1.0, 0).withTimeout(1));
     //cp_buttonY.onTrue(new FullAutonomousMiddleNoteShooting());
     /*cp_buttonY.onTrue(new Command() {
