@@ -26,23 +26,25 @@ public class AutonomousToTheOutside extends SequentialCommandGroup {
     new ConditionalCommand(
                 // Blue team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(0, 0.4,
+                    new Pose2d(0, 0.7,
                         new Rotation2d(Units.degreesToRadians(0))),
-                    0.1, DriveConstants.KPID_TKP).withTimeout(4),
+                    0.1, DriveConstants.KPID_TKP).andThen(new MoveToPosition(SwerveSubsystem.getInstance(),
+                    new Pose2d(3.7, 0.7,
+                        new Rotation2d(Units.degreesToRadians(0))),
+                    0.1, DriveConstants.KPID_TKP).withTimeout(3)).withTimeout(3),
 
                 // Red team
                 new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(0, -0.4,
+                    new Pose2d(0, -0.7,
                         new Rotation2d(Units.degreesToRadians(0))),
-                    0.1, DriveConstants.KPID_TKP).withTimeout(4),
+                    0.1, DriveConstants.KPID_TKP).andThen(new MoveToPosition(SwerveSubsystem.getInstance(),
+                    new Pose2d(3.7, -0.7,
+                        new Rotation2d(Units.degreesToRadians(0))),
+                    0.1, DriveConstants.KPID_TKP).withTimeout(3)).withTimeout(3),
                     
-                // Conditional
+                // Conditional()
                 () -> DriverStation.getAlliance().get() == DriverStation.Alliance.Blue
-            ),
-             new MoveToPosition(SwerveSubsystem.getInstance(),
-                    new Pose2d(0, 0,
-                        new Rotation2d(Units.degreesToRadians(0))),
-                    0.1, DriveConstants.KPID_TKP).withTimeout(4)
+            )
 
     );
   }
