@@ -7,12 +7,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
@@ -50,20 +55,20 @@ public class RobotContainer {
 
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
-  private final Trigger dr_resetToOffsets = new JoystickButton(driverController, XboxController.Button.kStart.value);
-  private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
-  private final Trigger dr_rightBumper = new JoystickButton(driverController,XboxController.Button.kRightBumper.value);
-  private final Trigger dr_buttonA = new JoystickButton(driverController, XboxController.Button.kA.value);
-  // private final Trigger dr_buttonB = new JoystickButton(driverController, XboxController.Button.kB.value);
-  // private final Trigger dr_buttonX = new JoystickButton(driverController, XboxController.Button.kX.value);
+  private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
+  private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
+  private final Trigger dr_rightBumper    = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kRightBumper.value : 4);
+  private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
+  private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
+  private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
   // Test Controller
    private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
   //  private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
   //  private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
    private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
    private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
-   //private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
-   //private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
+   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
    private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -91,12 +96,19 @@ public class RobotContainer {
             () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
     }
 
+    
     configureButtonBindings();
 
     //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     backCamera = new Camera(Constants.CameraConstants.kBackCamera);
 
-    m_autonomousChooser.setDefaultOption("Default", new Move(driveTrain, 0, 0, 0));
+    m_autonomousChooser.setDefaultOption("No delay", new FullAutonomousMiddleNoteShooting());
+    m_autonomousChooser.addOption("Delayed 5 seconds", new SequentialCommandGroup(
+      new Timer(5000),
+      new FullAutonomousMiddleNoteShooting()
+    ));
+
+    SmartDashboard.putData("Autonomous", m_autonomousChooser);
   }
 
   /**
@@ -111,17 +123,40 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
+    dr_buttonB.onTrue(new Command() {
+      @Override
+      public void initialize() {
+        NetworkTableInstance.getDefault().getTable("apriltags").getEntry("takepicture").setBoolean(true);
+      }
+
+      @Override
+      public boolean isFinished() {
+          return true;
+      }
+    });
     dr_buttonA.onTrue(new ShootWithApriltag());
-    //dr_buttonB.onTrue(new FullAutonomousMiddleNoteShooting());
-    //dr_buttonX.onTrue(new AutonomousShootMiddleNote());
+    // dr_buttonB.onTrue(new SpinUpShooter(0.65, 0.65, 0).withTimeout(1));
+    // dr_buttonX.onTrue(new StopDrive(driveTrain));
 
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonA.onTrue(new ResetNoteStatus());
-    cp_rightBumper.onTrue(new SpinUpShooter(1.0, 1.0, 0).withTimeout(1));
-    //cp_buttonY.onTrue(new Move(driveTrain, 0, 0, -1));
-    //cp_buttonX.onTrue(new Move(driveTrain, 0, 0, 1));
+    cp_buttonY.onTrue(new SpinUpShooter(0.55, 0.55, 0).withTimeout(1)); // For dump
+    cp_buttonA.onTrue(new SpinUpShooter(0.0, 0.65, 0).withTimeout(1)); // For being right against the amp
+    cp_rightBumper.onTrue(new SpinUpShooter(1, 1, 0).withTimeout(1));
+    //cp_buttonY.onTrue(new FullAutonomousMiddleNoteShooting());
+    /*cp_buttonY.onTrue(new Command() {
+      @Override
+      public void initialize() {
+        NetworkTableInstance.getDefault().getTable("apriltags").getEntry("takepicture").setBoolean(true);
+      }
+
+      @Override
+      public boolean isFinished() {
+          return true;
+      }
+    });*/
+    cp_buttonX.onTrue(new ResetNoteStatus());
   }
 
   /**
@@ -131,7 +166,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command;
-    NetworkTableInstance networktable=NetworkTableInstance.getDefault();
+    /*NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
     double autoPosition = table.getEntry("Close Note").getDouble(1);
     if(autoPosition == 1) {
@@ -139,8 +174,12 @@ public class RobotContainer {
     } else {
       command = new AutoPosition2();
     }
-
-    driveTrain.resetOdometry(driveTrain.getPose());
+//new MoveToPosition(SwerveSubsystem.getInstance(),
+               // new Pose2d(2.5, 0,
+                 //   new Rotation2d(Units.degreesToRadians(0))),
+                //0.3, DriveConstants.KPID_TKP)
+    driveTrain.resetOdometry(driveTrain.getPose());*/
+    command = m_autonomousChooser.getSelected();
     return command;
   }
 

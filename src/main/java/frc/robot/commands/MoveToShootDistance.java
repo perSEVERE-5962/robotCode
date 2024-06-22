@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.SpeakerConstants;
@@ -33,28 +34,34 @@ public class MoveToShootDistance extends Command {
 
   /** Creates a new MoveToShootDistance. */
   public MoveToShootDistance() {
-    holonomicDriveController.setTolerance(new Pose2d(0.05, 0.05, Rotation2d.fromDegrees(1)));
+    holonomicDriveController.setTolerance(new Pose2d(0.01, 0.05, Rotation2d.fromDegrees(1)));
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    startPos = driveTrain.getPose();
-    double dist = distEntry.getDouble(-1);
+    startPos = new Pose2d(driveTrain.getPose().getX(), -driveTrain.getPose().getY(), driveTrain.getRotation2d());
+    SmartDashboard.putNumber("Start X pos", driveTrain.getPose().getX());
+    SmartDashboard.putNumber("Start Y pos", driveTrain.getPose().getY());
+    double dist = distEntry.getDouble(SpeakerConstants.kMaxDistance - 0.1); // Don't move
     if (dist > SpeakerConstants.kMaxDistance) {
-      targetPos = new Pose2d(startPos.getX() - (dist - SpeakerConstants.kMaxDistance), startPos.getY(), startPos.getRotation());
+      targetPos = new Pose2d((startPos.getX() - (dist - SpeakerConstants.kMaxDistance)) - 0.35, startPos.getY(), startPos.getRotation());
     } else if (dist < SpeakerConstants.kMinDistance) {
-      targetPos = new Pose2d(startPos.getX() + (SpeakerConstants.kMinDistance - dist), startPos.getY(), startPos.getRotation());
+      targetPos = new Pose2d((startPos.getX() + (SpeakerConstants.kMinDistance - dist)) + 0.35, startPos.getY(), startPos.getRotation());
     } else {
-      targetPos = new Pose2d(startPos.getTranslation(), startPos.getRotation());
+      targetPos = new Pose2d(startPos.getX(), startPos.getY(), startPos.getRotation());
     }
+    SmartDashboard.putNumber("Target X pos", targetPos.getX());
+    SmartDashboard.putNumber("Target Y pos", targetPos.getY());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     Pose2d currPose2d = new Pose2d(driveTrain.getPose().getX(), -driveTrain.getPose().getY(), driveTrain.getRotation2d());
+    SmartDashboard.putNumber("Current X pos", currPose2d.getX());
+    SmartDashboard.putNumber("Current Y pos", currPose2d.getY());
     ChassisSpeeds chassisSpeeds =
         holonomicDriveController.calculate(currPose2d, targetPos, 0, targetPos.getRotation());
     SwerveModuleState[] moduleStates = 

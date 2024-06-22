@@ -25,23 +25,23 @@ public class AutonomousCollectMiddleNote extends ParallelCommandGroup {
         new ConditionalCommand(
             // Blue team
             new MoveToPosition(SwerveSubsystem.getInstance(),
-                new Pose2d(4.0, -2.40,
+                new Pose2d(3.5, -2.5,
                     new Rotation2d(Units.degreesToRadians(0))),
                 0.1, DriveConstants.KPID_TKP).withTimeout(3).andThen(new ParallelCommandGroup(
                     new IntakeNote(),
                     new MoveToPosition(SwerveSubsystem.getInstance(),
-                new Pose2d(7.4, -2.40,
+                new Pose2d(7.8, -2.5,
                     new Rotation2d(Units.degreesToRadians(0))),
                 0.3, DriveConstants.KPID_TKP).withTimeout(3))),
                 
             // Red team
-            new MoveToPosition(SwerveSubs  ystem.getInstance(),
-                new Pose2d(4.0, 2.40,
+            new MoveToPosition(SwerveSubsystem.getInstance(),
+                new Pose2d(4.0, 2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
                 0.1, DriveConstants.KPID_TKP).withTimeout(3).andThen(new ParallelCommandGroup(
                     new IntakeNote(),
                     new MoveToPosition(SwerveSubsystem.getInstance(),
-                new Pose2d(7.4, 2.40,
+                new Pose2d(7.9, 2.525,
                     new Rotation2d(Units.degreesToRadians(0))),
                 0.3, DriveConstants.KPID_TKP).withTimeout(3))),
  
