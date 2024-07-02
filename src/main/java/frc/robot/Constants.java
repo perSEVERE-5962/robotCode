@@ -254,5 +254,8 @@ public final class Constants {
     //public static final int kAprilTagCamera = 0;
     //public static final int kFrontCamera = 1;
     public static final int kBackCamera = 0;
+    public static final double kCameraHeightInches = 16;
+    public static final double kCameraTargetHeightInches = 51.75;
+    public static final double kCameraPitchDegrees = 3;
   }
 }

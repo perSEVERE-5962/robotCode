@@ -5,13 +5,27 @@
 package frc.robot;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+
+import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class PhotonVision {
-    PhotonCamera camera = new PhotonCamera("photonvision");
+    private static PhotonCamera cameraFront = new PhotonCamera("FrontCamera");
 
-    public static double GettargetDistance(){
+    public static double getTargetDistance() {
+        if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
+
+        var result = cameraFront.getLatestResult();
+        if (result.hasTargets()) {
+            var bestTarget = result.getBestTarget();
+            double range = PhotonUtils.calculateDistanceToTargetMeters(
+                Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
+                Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
+                Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
+                Units.degreesToRadians(bestTarget.getPitch()));
+            return range;
+        }
         return 0;
     }
-
 }
