@@ -1,7 +1,10 @@
+To begin, make sure 3D mode is enabled.
+
 NetworkTableInstance.getDefault().getTable("photonvision").getSubTable("FrontCamera")
     .getEntry("hasTarget);
-    .getEntry("targetYaw"); // X pos, estimated with pose
-    .getEntry("targetPitch"); // Y pos, estimated with pose
-    .getEntry("targetArea"); // Inverse of distance. The lower the further away.
     .getEntry("targetPixelsX"); // Lateral distance of the tag seen by the camera
     .getEntry("targetPixelsY"); // Vertical distance of the tag seen by the camera
+    .getEntry("targetPose");
+        -> .getEntry("targetPose")[0]; // Lateral pose
+        -> .getEntry("targetPose")[1]; // Vertical pose
+        -> .getEntry("targetPose")[2]; // Distance pose
