@@ -61,5 +61,5 @@ public class AutonomousNearSource extends SequentialCommandGroup {
         new RunShooterFeeder(Feeder.getInstance(), Notification.getInstance()),
         new StopShooter(Shooter.getInstance()),
         new ResetNoteStatus());
-  }
+     }
 }

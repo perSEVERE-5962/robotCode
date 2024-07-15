@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    //System.out.println(PhotonVision.getTargetDistance());
 
     NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
@@ -64,6 +65,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putString("Autonomous Selection", "Postion " + (int)autoPosition);
     SmartDashboard.putNumber("Left ultraconic", Feeder.getInstance().getUltrasonicOne().getRange());
     SmartDashboard.putNumber("Right ultraconic", Feeder.getInstance().getUltrasonicTwo().getRange());
+
+    //System.out.println(NetworkTableInstance.getDefault().getTable("apriltags").getSubTable("speakertags").getEntry("angletotag").getDouble(0));
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
