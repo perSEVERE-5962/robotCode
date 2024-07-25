@@ -120,7 +120,7 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_rightBumper.onTrue(new Shoot());
     dr_leftBumper.onTrue(new IntakeNote());
-    dr_buttonB.onTrue(new Command() {
+    /*dr_buttonB.onTrue(new Command() {
       @Override
       public void initialize() {
         NetworkTableInstance.getDefault().getTable("apriltags").getEntry("takepicture").setBoolean(true);
@@ -131,7 +131,7 @@ public class RobotContainer {
           return true;
       }
     });
-    dr_buttonA.onTrue(new ShootWithApriltag());
+    dr_buttonA.onTrue(new ShootWithApriltag());*/
     // dr_buttonB.onTrue(new SpinUpShooter(0.65, 0.65, 0).withTimeout(1));
     // dr_buttonX.onTrue(new StopDrive(driveTrain));
 
@@ -140,7 +140,7 @@ public class RobotContainer {
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
     cp_buttonY.onTrue(new SpinUpShooter(0.55, 0.55, 0).withTimeout(1)); // For dump
     cp_buttonA.onTrue(new SpinUpShooter(0.0, 0.65, 0).withTimeout(1)); // For being right against the amp
-    cp_rightBumper.onTrue(new SpinUpShooter(1, 1, 0).withTimeout(1));
+    cp_rightBumper.onTrue(new SpinUpShooter(1, 1, 0).withTimeout(1)); // Shoot
     //cp_buttonY.onTrue(new FullAutonomousMiddleNoteShooting());
     /*cp_buttonY.onTrue(new Command() {
       @Override
