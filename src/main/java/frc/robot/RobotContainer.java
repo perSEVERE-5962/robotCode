@@ -132,6 +132,7 @@ public class RobotContainer {
       }
     });
     dr_buttonA.onTrue(new ShootWithApriltag());
+    //dr_buttonX.onTrue(new ResetOdometry(driveTrain));
     // dr_buttonB.onTrue(new SpinUpShooter(0.65, 0.65, 0).withTimeout(1));
     // dr_buttonX.onTrue(new StopDrive(driveTrain));
 
@@ -198,5 +199,8 @@ public class RobotContainer {
 
   public void resetNoteState() {
     notification.updateState(NoteState.NOTE_NOT_IN_POSSESSION);
+  }
+  public SwerveSubsystem getDrivetrainSubsystem() {
+   return driveTrain;
   }
 }

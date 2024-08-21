@@ -21,9 +21,10 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.PhotonVision;
 import frc.robot.Constants.CANDeviceIDs;
 import frc.robot.Constants.DriveConstants;
-
+import frc.robot.PhotonVision.*;
 public class SwerveSubsystem extends SubsystemBase {
   private static SwerveSubsystem instance;
 
@@ -79,8 +80,10 @@ public class SwerveSubsystem extends SubsystemBase {
             backRight.getPosition()
           });
 
+  private PhotonVision PhotonPoseEstimator;
+
   private SwerveSubsystem() {
-    
+    this.PhotonPoseEstimator=new PhotonVision();
     new Thread(
             () -> {
               try {
