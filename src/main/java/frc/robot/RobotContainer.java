@@ -67,6 +67,8 @@ public class RobotContainer {
    private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
    private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
    private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+   private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -138,8 +140,10 @@ public class RobotContainer {
     // cp_leftBumper.toggleOnTrue(new OutIntake(intake));
     // cp_rightBumper.toggleOnTrue(new OutShooterFeeder(feeder));
     cp_buttonB.onTrue(new StopAll(feeder, intake, shooter));
-    cp_buttonY.onTrue(new SpinUpShooter(0.55, 0.55, 0).withTimeout(1)); // For dump
-    cp_buttonA.onTrue(new SpinUpShooter(0.0, 0.65, 0).withTimeout(1)); // For being right against the amp
+    cp_buttonY.onTrue(new SpinUpShooter(0.45, 0.45, 0).withTimeout(1)); // For dump
+    cp_buttonA.onTrue(new SpinUpShooter(0.0, 0.80, 0).withTimeout(1)); // For being right against the amp
+    //cp_rightBumper.onTrue(new Shoot());
+    cp_leftBumper.onTrue(new IntakeNote());
     cp_rightBumper.onTrue(new SpinUpShooter(1, 1, 0).withTimeout(1)); // Shoot
     //cp_buttonY.onTrue(new FullAutonomousMiddleNoteShooting());
     /*cp_buttonY.onTrue(new Command() {
