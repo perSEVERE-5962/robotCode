@@ -167,6 +167,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command;
+
     /*NetworkTableInstance networktable=NetworkTableInstance.getDefault();
     NetworkTable table = networktable.getTable("AutomonusSelect");
     double autoPosition = table.getEntry("Close Note").getDouble(1);
@@ -180,7 +181,8 @@ public class RobotContainer {
                  //   new Rotation2d(Units.degreesToRadians(0))),
                 //0.3, DriveConstants.KPID_TKP)
     driveTrain.resetOdometry(driveTrain.getPose());*/
-    command = m_autonomousChooser.getSelected();
+    //command = m_autonomousChooser.getSelected();
+    command= new SimpleOutOfBoxAuto();
     return command;
   }
 
