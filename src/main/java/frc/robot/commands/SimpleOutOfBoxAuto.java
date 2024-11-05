@@ -4,26 +4,25 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Notification;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeNote extends SequentialCommandGroup {
-  /** Creates a new IntakeNote. */
-
-  public IntakeNote() {
+public class SimpleOutOfBoxAuto extends SequentialCommandGroup {
+  /** Creates a new SimpleOutOfBoxAuto. */
+  public SimpleOutOfBoxAuto() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    Intake intake = Intake.getInstance();
-    Feeder feeder = Feeder.getInstance();
-    Notification notification = Notification.getInstance();
     addCommands(
-        new RunIntake(intake).alongWith(new RunIntakeFeeder(feeder, notification, false)), // Do not set override to `true` unless testing
-        new StopIntake(intake)
+                    new MoveToPosition(SwerveSubsystem.getInstance(),
+                        new Pose2d(2.65, 0, new Rotation2d(0)),
+                        0.1, DriveConstants.KPID_TKP).withTimeout(4),
+                    new TurntoAngle(SwerveSubsystem.getInstance(), 0, true)
     );
   }
 }

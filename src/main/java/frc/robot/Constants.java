@@ -242,8 +242,8 @@ public final class Constants {
       public static final int kRedSpeakerAprilTag2Id = 3;
       // Blue: 7 center (id 1), 8 side (id 2)
       // Red: 4 center (id 1), 3 side (id 2)
-      public static final double kMinDistance = 3.25;
-      public static final double kMaxDistance = 3.75;
+      public static final double kMinDistance = 2.63;  //3.25;
+      public static final double kMaxDistance = 3.21; //3.75;
   }
 
   public static final class ShooterConstants {
@@ -254,5 +254,8 @@ public final class Constants {
     //public static final int kAprilTagCamera = 0;
     //public static final int kFrontCamera = 1;
     public static final int kBackCamera = 0;
+    public static final double kCameraHeightInches = 16;
+    public static final double kCameraTargetHeightInches = 51.75;
+    public static final double kCameraPitchDegrees = 3;
   }
 }

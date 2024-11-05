@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 public class SpinUpShooter extends Command {
@@ -28,6 +29,8 @@ public class SpinUpShooter extends Command {
     this.topShooterSpeed = topShooterSpeed;
     this.bottomShooterSpeed = bottomShooterSpeed;
     this.waitTime = overrideWithWaitTime;
+    //SmartDashboard.putNumber("TopSpeed", 0);
+    //SmartDashboard.putNumber("BottomSpeed", 0);
     addRequirements(motors);
   }
 
@@ -40,6 +43,8 @@ public class SpinUpShooter extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    //topShooterSpeed = SmartDashboard.getNumber("TopSpeed", 0);
+    //bottomShooterSpeed = SmartDashboard.getNumber("BottomSpeed", 0);
     motors.runTopShooter(topShooterSpeed);
     motors.runBottomShooter(bottomShooterSpeed);
 

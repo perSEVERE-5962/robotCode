@@ -12,11 +12,13 @@ import frc.robot.subsystems.Notification.NoteState;
 public class RunIntakeFeeder extends Command {
   private Feeder intakefeeder ;
   private final Notification notification;
+  private boolean overrideFinish = false;
   
   /** Creates a new Feeder. */
-  public RunIntakeFeeder(Feeder feeder, Notification notification){
+  public RunIntakeFeeder(Feeder feeder, Notification notification, boolean overrideFinish){
     this.intakefeeder = feeder;
-    this.notification = notification;   
+    this.notification = notification;
+    this.overrideFinish = overrideFinish;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(feeder);
   }
@@ -41,6 +43,6 @@ public class RunIntakeFeeder extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intakefeeder.isInRange();
+    return overrideFinish ? false : intakefeeder.isInRange();
   }
 }
