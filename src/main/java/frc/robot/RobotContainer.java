@@ -132,4 +132,7 @@ public class RobotContainer {
     return instance;
   }
 
+  public SwerveSubsystem getDrivetrainSubsystem() {
+   return driveTrain;
+  }
 }
