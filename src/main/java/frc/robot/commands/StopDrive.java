@@ -1,41 +1,47 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.math.controller.HolonomicDriveController;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
-public class StopDrive extends CommandBase {
-  private final DriveTrain m_driveTrain;
+/**
+ * Move to Position
+ */
+public class StopDrive extends Command {
 
-  public StopDrive(DriveTrain drive) {
-    m_driveTrain = drive;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drive);
-  }
+    public SwerveSubsystem swerve;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_driveTrain.stopDrive();
-  }
+    /**
+     * Move to Position
+     *
+     * @param swerve Swerve Drive Subsystem
+     */
+    public StopDrive(SwerveSubsystem swerve) {
+        this.swerve=swerve;
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
+    @Override
+    public void initialize() {}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
-  }
+    @Override
+    public void execute() {
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        swerve.stopModules();
+    }
+
+    @Override
+    public boolean isFinished() {
+        return true;
+    }
 }

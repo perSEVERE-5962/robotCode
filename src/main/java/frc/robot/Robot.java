@@ -4,10 +4,13 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -19,15 +22,25 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
 
+  // @Override
+  // public void driverStationConnected() {
+  //   if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
+  //     Constants.kTeamColor = Constants.TEAM_COLOR_BLUE;
+  //   } else {
+  //     Constants.kTeamColor = Constants.TEAM_COLOR_RED;
+  //   }
+  // }
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
   public void robotInit() {
+  
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    m_robotContainer = RobotContainer.getInstance();
   }
 
   /**
@@ -39,7 +52,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+   // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
@@ -48,7 +61,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    CommandScheduler.getInstance().cancelAll(); 
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -56,7 +71,6 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_robotContainer.setMotorControllerType();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -78,21 +92,12 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-
-    m_robotContainer.setMotorControllerType();
-    m_robotContainer.getDriveTrain().setIdleMode(Constants.MotorControllerIdleModes.kBrake);
-
-    Command driveCommand = m_robotContainer.getDriveCommand();
-    if (driveCommand != null) {
-      driveCommand.schedule();
-    }
-    double rate = SmartDashboard.getNumber("Ramp Rate", 0);
-    m_robotContainer.getDriveTrain().setRampRate(rate);
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 
   @Override
   public void testInit() {

@@ -4,6 +4,16 @@
 
 package frc.robot;
 
+import java.util.List;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.XboxController;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -14,44 +24,194 @@ package frc.robot;
  */
 public final class Constants {
 
-  /**
-   * Types of motor controllers
-   *
-   * <p>kCTRE represents {@link com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX} with a {@link
-   * com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX} follower
-   *
-   * <p>kREV represents {@link com.revrobotics.CANSparkMax} with a {@link
-   * com.revrobotics.CANSparkMax} follower
+  // public static final int TEAM_COLOR_BLUE = 0;
+  // public static final int TEAM_COLOR_RED = 1;
+  // public static int kTeamColor = 0;
+
+  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
+
+  /*
+   * L1 values:
+   * 0.472168
+   * 0.051758
+   * 0.028809
+   * 0.277588
+   * L3 values:
+   * 0.25
+   * 0.168701
+   * 0.3396
+   * 0.376465
    */
-  public static final class MotorControllerType {
-    public static final int kCTRE = 1;
-    public static final int kREV = 2;
-    public static final int kHybrid = 3;
+  public static final boolean kUseL1Ratio = false;
+  private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.246582;
+  private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
+  private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
+  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376221;
+
+  public static final class ModuleConstants {
+    public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
+    public static final double kWheelDiameterInches = 3.9;
+    public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.34;
+    public static final double kITuning = kUseL1Ratio ? 0.0 : 0.0;
+    public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0;
+
+    public static final double kL1Ratio = 1 / 8.14;
+    public static final double kL3Ratio = 1 / 6.12;
+    
+    public static final double kDriveMotorGearRatio = kUseL1Ratio ? kL1Ratio : kL3Ratio;
+    public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0);
+    public static final double kDriveEncoderRot2Meter =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
+    public static final double kDriveEncoderRot2Inch =
+        kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
+    public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
+    public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
+    public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
   }
 
-  public static final class MotorControllerDeviceID {
-    public static final int leftLeadDeviceID = 23;
-    public static final int leftFollowerDeviceID = 20;
+  public static final class DriveConstants {
+    public static final String kCanBusName = "rio";
+    public static final double kTrackWidth = Units.inchesToMeters(20.5); 
+    // Distance between right and left wheels
+    public static final double kWheelBase = Units.inchesToMeters(20.5);
+    // Distance between front and back wheels
+    public static final SwerveDriveKinematics kDriveKinematics =
+        new SwerveDriveKinematics(
+            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0),
+            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0),
+            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0),
+            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0));
 
-    public static final int rightLeadDeviceID = 22;
-    public static final int rightFollowerDeviceID = 21;
+    public static final boolean kFrontLeftTurningEncoderReversed = false;
+    public static final boolean kBackLeftTurningEncoderReversed = false;
+    public static final boolean kFrontRightTurningEncoderReversed = false;
+    public static final boolean kBackRightTurningEncoderReversed = false;
+
+    public static final boolean kFrontLeftDriveEncoderReversed = false;
+    public static final boolean kBackLeftDriveEncoderReversed = false;
+    public static final boolean kFrontRightDriveEncoderReversed = false;
+    public static final boolean kBackRightDriveEncoderReversed = false;
+
+    public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
+    public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
+    public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
+    public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
+
+    // Back Right
+    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees() + 180.0;
+    // Back Left
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees() + 180.0;
+    // Front Right
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180.0;
+    // Front Left
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180.0;
+                                                              
+    // Back Right
+    public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(kBackRightDriveAbsoluteEncoderOffsetDeg);
+    // Back Left
+    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(kBackLeftDriveAbsoluteEncoderOffsetDeg);
+    // Front Right
+    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(kFrontRightDriveAbsoluteEncoderOffsetDeg);
+    // Front Left
+    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
+        Math.toRadians(kFrontLeftDriveAbsoluteEncoderOffsetDeg);
+
+    public static final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters((kUseL1Ratio ? 12.5 : 16.6));
+    public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.0 * 2.0 * Math.PI;
+
+    public static final double kTeleDriveMaxSpeedMetersPerSecond =
+        kPhysicalMaxSpeedMetersPerSecond / 4.0;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
+        kPhysicalMaxAngularSpeedRadiansPerSecond / 4.0;
+    public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
+    public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
+
+    // Autonomous settings
+    public static final double kPID_XKP = 2.25; //2.1
+    public static final double kPID_XKI = 0.0; 
+    public static final double kPID_XKD = 0.0; 
+    public static final double kPID_YKP = 2.25; //2.1
+    public static final double kPID_YKI = 0.0; 
+    public static final double kPID_YKD = 0.0; 
+    public static final double KPID_TKP = 2.25; //0.9
+    public static final double KPID_TKI = 0.0; 
+    public static final double KPID_TKD = 0.0; 
+
+    // Teleop settings
+    public static final double kPID_XKP_tele = 5.0;
+    public static final double kPID_YKP_tele = 4.0;
+    public static final double kPID_TKP_tele = 4.0;
+
+    public static final double kAutoMaxAngularVelocity = 9.0;
+    public static final double kAutoMaxAngularAcceleration = 9.0 * 5.0;
+
+    public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
+                new TrapezoidProfile.Constraints(
+                        kAutoMaxAngularVelocity,
+                        kAutoMaxAngularAcceleration);
+
+    // Temporary until there's enough time and testing for a better solution
+    public static final class TrajectoryConstants {
+      public static final Pose2d kTrajectoryCommonStart = new Pose2d(0, 0, new Rotation2d());
+      public static final double kTolerance = 0.1;
+
+      public static final List<Translation2d> kTrajectory1Waypoints = List.of(new Translation2d(0.86, 0));
+      public static final Pose2d kTrajectory1End = new Pose2d(2.05, 0, Rotation2d.fromDegrees(0));
+
+      public static final List<Translation2d> kTrajectory2Waypoints = List.of(new Translation2d(0.85, 0));
+      public static final Pose2d kTrajectory2End = new Pose2d(1.74, 0, Rotation2d.fromDegrees(0));
+    }
   }
 
-  public static final double driveTrainGearRatio = 10.71;
-  public static final double driveTrainWheelDiameter = 6;
+  public static final class OIConstants {
+    public static final int kDriverControllerPort = 0;
+    public static final int kCoPilotControllerPort = 1;
 
-  public static final class DrivePIDCoeffients {
-    public static final double kP = 0.1;
-    public static final double kI = 0;
-    public static final double kD = 0;
-    public static final double kIz = 0;
-    public static final double kFF = 0;
-    public static final double kMaxOutput = 0.5;
-    public static final double kMinOutput = -0.5;
+    public static final int kDriverYAxis = 1;
+    public static final int kDriverXAxis = 0;
+    public static final int kDriverRotAxis = 4;
+    public static final int kDriverRotAxis_Logitech = 2;
+    public static final int kDriverFieldOrientedButtonIdx = XboxController.Button.kX.value; // xbox
+    public static final int kDriverFieldOrientedButtonIdx_Logitech = 2; // logitech
+    //public static final int kZeroHeadingButtonIdx = 2;
+    public static final double kDeadband = 0.15; // 0.05;
   }
 
-  public static final class MotorControllerIdleModes {
-    public static final int kBrake = 0;
-    public static final int kCoast = 1;
+  public static final class CANDeviceIDs {
+    // drive motors
+    public static final int kFrontLeftDriveMotorID = 40;
+    public static final int kBackLeftDriveMotorID = 20;
+    public static final int kFrontRightDriveMotorID = 30;
+    public static final int kBackRightDriveMotorID = 10;
+    // steer motors
+    public static final int kFrontLeftTurningMotorID = 41;
+    public static final int kBackLeftTurningMotorID = 21;
+    public static final int kFrontRightTurningMotorID = 31;
+    public static final int kBackRightTurningMotorID = 11;
+    // absolute encoders
+    public static final int kFrontLeftDriveAbsoluteEncoderID = 42;
+    public static final int kBackLeftDriveAbsoluteEncoderID = 22;
+    public static final int kFrontRightDriveAbsoluteEncoderID = 32;
+    public static final int kBackRightDriveAbsoluteEncoderID = 12;
+    // PCM
+    public static final int kPCMID24V = 1;
+  }
+
+  public static final class UltrasonicConstants {
+    public static final double kMinRange = 6.0;
+    public static final double kMaxRange = 11.0;
+    public static final double kNotDetectedRange = 12.0;
+  }
+
+  public static final class CameraConstants{
+    //public static final int kAprilTagCamera = 0;
+    //public static final int kFrontCamera = 1;
+    public static final int kBackCamera = 0;
+    public static final double kCameraHeightInches = 16;
+    public static final double kCameraTargetHeightInches = 51.75;
+    public static final double kCameraPitchDegrees = 3;
   }
 }

@@ -8,65 +8,110 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.*;
 import frc.robot.commands.*;
-import frc.robot.subsystems.DriveTrain;
-
+import frc.robot.sensors.Camera;
+import frc.robot.subsystems.drivetrain.*;
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
- * subsystems, commands, and button mappings) should be declared here.
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
+ * subsystems, commands, and button mappings) should be declared here.import
+ * frc.robot.Constants.CANDeviceIDs;
  */
 public class RobotContainer {
+  private static RobotContainer instance;
 
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain m_driveTrain = new DriveTrain();
-  private AutoSequence m_autoSequence = new AutoSequence(m_driveTrain);
-  private final Joystick m_driverController = new Joystick(0);
+  private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+      
+  // Cameras
+  //private final Camera frontCamera; // shooter/april tag
+  @SuppressWarnings(value = "unused")
+  private final Camera backCamera; // Intake/Note Detection
 
-  private SendableChooser<Command> m_driveChooser = new SendableChooser<>();
-  private SendableChooser<Command> m_autoChooser = new SendableChooser<>();
-  private SendableChooser<Integer> m_motorControllerChooser = new SendableChooser<>();
+  // Driver Controller
+  private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
+  private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
+  // private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
+  // private final Trigger dr_rightBumper    = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kRightBumper.value : 4);
+  // private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
+  // private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
+  // private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
 
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-    // Configure the button bindings
+  // Copilot Controller
+  // private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+  // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  // private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+  // private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
+  // private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
+  // private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+  // private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
+  // private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+  // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+
+  // Autonomous
+  private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
+
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
+  private RobotContainer() {
+    if (Constants.kUseJoystick) {
+      driveTrain.setDefaultCommand(
+        new DriveCommandWithThrottle(
+            driveTrain,
+            () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverRotAxis_Logitech),
+            () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx_Logitech),
+            () -> driverController.getRawAxis(3)));
+    } else {
+      driveTrain.setDefaultCommand(
+        new DriveCommand(
+            driveTrain,
+            () -> driverController.getRawAxis(OIConstants.kDriverYAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverXAxis),
+            () -> driverController.getRawAxis(OIConstants.kDriverRotAxis),
+            () -> driverController.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+    }
+
+    
     configureButtonBindings();
 
-    m_motorControllerChooser.setDefaultOption(
-        "Spark Max", Integer.valueOf(Constants.MotorControllerType.kREV));
-    m_motorControllerChooser.addOption(
-        "Talon SRX/Victor SPX", Integer.valueOf(Constants.MotorControllerType.kCTRE));
-    m_motorControllerChooser.addOption(
-        "Hybrid", Integer.valueOf(Constants.MotorControllerType.kHybrid));
-    SmartDashboard.putData("Drivetrain Motor Controller", m_motorControllerChooser);
+    //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
+    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
 
-    m_driveChooser.setDefaultOption(
-        "Two Stick Arcade", new TwoStickArcade(m_driveTrain, m_driverController));
-    m_driveChooser.addOption("Tank Drive", new RunTankDrive(m_driveTrain, m_driverController));
-    m_driveChooser.addOption(
-        "One Stick Arcade", new OneStickArcade(m_driveTrain, m_driverController));
-    SmartDashboard.putData("Driver Control", m_driveChooser);
+    m_autonomousChooser.setDefaultOption("No delay", getAutonomousCommand());
+    m_autonomousChooser.addOption("Delayed 5 seconds", new SequentialCommandGroup(
+      new Timer(5000),
+      getAutonomousCommand()
+    ));
 
-    m_autoChooser.setDefaultOption("default auto", m_autoSequence);
-    // autoChooser.addOption("alternative auto", alternative_auto);
-    SmartDashboard.putData("auto chooser", m_autoChooser);
-
-    SmartDashboard.putNumber("Ramp Rate", 0.5);
+    SmartDashboard.putData("Autonomous", m_autonomousChooser);
   }
 
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -74,20 +119,17 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return (Command) m_autoChooser.getSelected();
+    Command command;
+    command= new ExampleAuto();
+    return command;
   }
 
-  public Command getDriveCommand() {
-    return (Command) m_driveChooser.getSelected();
+  public static RobotContainer getInstance() {
+    if (instance == null) {
+      instance = new RobotContainer();
+    }
+
+    return instance;
   }
 
-  public void setMotorControllerType() {
-    m_driveTrain.setMotorControllerType(
-        ((Integer) m_motorControllerChooser.getSelected()).intValue());
-  }
-
-  public DriveTrain getDriveTrain() {
-    return m_driveTrain;
-  }
 }
