@@ -23,6 +23,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 
 
+import edu.wpi.first.math.util.Units;
+
 /** Add your docs here. */
 public class PhotonVision {
    private static PhotonCamera cameraFront = new PhotonCamera("FrontCamera");
@@ -47,10 +49,25 @@ public class PhotonVision {
         return mapPose2d;
     }
 
+    PhotonPoseEstimator PoseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
+    public static double getTargetDistance() {
+        if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
     // public static double GettargetDistance(){
     //     double distance = cameraFront.getCameraTable().getEntry("targetPose").getDoubleArray(new double[] {0,0,0})[0];
     //     System.out.println(distance);
     //     return distance;
     // }
 
+        var result = cameraFront.getLatestResult();
+        if (result.hasTargets()) {
+            var bestTarget = result.getBestTarget();
+            double range = PhotonUtils.calculateDistanceToTargetMeters(
+                Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
+                Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
+                Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
+                Units.degreesToRadians(bestTarget.getPitch()));
+            return range;
+        }
+        return 0;
+    }
 }
