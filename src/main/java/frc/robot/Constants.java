@@ -177,13 +177,6 @@ public final class Constants {
     public static final int kDriverFieldOrientedButtonIdx = XboxController.Button.kX.value; // xbox
     public static final int kDriverFieldOrientedButtonIdx_Logitech = 2; // logitech
     //public static final int kZeroHeadingButtonIdx = 2;
-
-    // xbox shoot = driver btn 6
-    // xbox intake = driver btn 5
-
-    // logitech shoot = driver btn 1
-    // logitech intake = driver btn 3
-
     public static final double kDeadband = 0.15; // 0.05;
   }
 
@@ -203,51 +196,14 @@ public final class Constants {
     public static final int kBackLeftDriveAbsoluteEncoderID = 22;
     public static final int kFrontRightDriveAbsoluteEncoderID = 32;
     public static final int kBackRightDriveAbsoluteEncoderID = 12;
-    // manipulator
-    public static final int kIntakeMotorID = 50;
-    public static final int kFeederMotorID = 51;
+    // PCM
     public static final int kPCMID24V = 1;
-    public static final int kShooter1MotorID = 52;
-    public static final int kShooter2MotorID = 53;
-  }
-
-  public static final class MiscSubsystemConstants {
-    public static final boolean kFeederInverted = false;
-    public static final boolean kIntakeInverted = false;
-  }
-
-  public static final class ColorConstants {
-    public static final int BlueHue = 103;
-    public static final int YellowHue = 20;
-    public static final int RedHue = 0;
   }
 
   public static final class UltrasonicConstants {
-    public static final int kIntake_Analog_Channel = 0;
-    public static final int kIntake_PCM_Channel = 0;
-    public static final int kFeeder_Analog_Channel = 1;
-    public static final int kFeeder_PCM_Channel = 1;
-    public static final int kFeeder2_Analog_Channel = 2;
-    public static final int kFeeder2_PCM_Channel = 2;
     public static final double kMinRange = 6.0;
     public static final double kMaxRange = 11.0;
     public static final double kNotDetectedRange = 12.0;
-  }
-
-  public static final class SpeakerConstants {
-      // The speaker has 2 april tags from it
-      public static final int kBlueSpeakerAprilTag1Id = 7;
-      public static final int kBlueSpeakerAprilTag2Id = 8;
-      public static final int kRedSpeakerAprilTag1Id = 4;
-      public static final int kRedSpeakerAprilTag2Id = 3;
-      // Blue: 7 center (id 1), 8 side (id 2)
-      // Red: 4 center (id 1), 3 side (id 2)
-      public static final double kMinDistance = 2.63;  //3.25;
-      public static final double kMaxDistance = 3.21; //3.75;
-  }
-
-  public static final class ShooterConstants {
-    public static final double kMaxMotorRPM = 5600.0;
   }
 
   public static final class CameraConstants{
