@@ -198,6 +198,8 @@ public final class Constants {
     public static final int kBackRightDriveAbsoluteEncoderID = 12;
     // PCM
     public static final int kPCMID24V = 1;
+    // Arm
+    public static int kArmID = 53;
   }
 
   public static final class UltrasonicConstants {
@@ -213,5 +215,20 @@ public final class Constants {
     public static final double kCameraHeightInches = 16;
     public static final double kCameraTargetHeightInches = 51.75;
     public static final double kCameraPitchDegrees = 3;
+  }
+
+  public static final class ArmPositions {
+    public static final double lowerLimit = -21.6;
+    public static final double upperLimit = 0;
+  }
+
+  public static final class ArmPIDCoeffients {
+    public static final double kP = 0.5; 
+    public static final double kI = 0; 
+    public static final double kD = 0; 
+    public static final double kIz = 0;
+    public static final double kFF = 0; 
+    public static final double kMaxOutput = 0.5; // raise?
+    public static final double kMinOutput = -0.25; // lower ?
   }
 }
