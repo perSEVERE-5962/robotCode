@@ -181,6 +181,10 @@ public final class Constants {
   }
 
   public static final class CANDeviceIDs {
+    //Intake
+    public static final int kIntakeID = 50;
+    //Arm
+    public static final int kArmID = 53;
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
@@ -213,5 +217,20 @@ public final class Constants {
     public static final double kCameraHeightInches = 16;
     public static final double kCameraTargetHeightInches = 51.75;
     public static final double kCameraPitchDegrees = 3;
+  }
+
+  public static final class ArmConstants {
+    // PID
+    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kIz = 0;
+    public static final double kFF = 0; // 0,
+
+    // Limits
+    public static final double kMaxOutput = 0.4; // extend?
+    public static final double kMinOutput = -0.25; // retract ?
+    public static final float kRetractSoftLimit = 0; // kReverse
+    public static final float kExtendSoftLimit = 15.5f; // kForward
   }
 }
