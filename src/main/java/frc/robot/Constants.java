@@ -184,7 +184,7 @@ public final class Constants {
     //Intake
     public static final int kIntakeID = 50;
     //Arm
-    public static final int kArmID = 53;
+    public static final int kArmID = 52;
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
@@ -208,6 +208,7 @@ public final class Constants {
     public static final double kMinRange = 6.0;
     public static final double kMaxRange = 11.0;
     public static final double kNotDetectedRange = 12.0;
+    public static final int kArm_Analog_Channel = 1;
   }
 
   public static final class CameraConstants{
