@@ -34,6 +34,6 @@ public class PickUpIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intakeSub.isInRange();
+    return false;//intakeSub.isInRange();
   }
 }

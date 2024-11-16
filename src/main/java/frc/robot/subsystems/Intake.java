@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase{
 
   /** Creates a new Intake. */
   public Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeID, CANSparkLowLevel.MotorType.kBrushed);
+    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeID, CANSparkLowLevel.MotorType.kBrushless);
     intakeMotor.setInverted(false);
     armUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kArm_Analog_Channel);
 

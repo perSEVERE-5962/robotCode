@@ -15,7 +15,7 @@ public class Arm extends SubsystemBase{
     private static RelativeEncoder armEncoder;
 
     public Arm(){
-        armMotor = new CANSparkMax(Constants.CANDeviceIDs.kArmID, CANSparkLowLevel.MotorType.kBrushed);
+        armMotor = new CANSparkMax(Constants.CANDeviceIDs.kArmID, CANSparkLowLevel.MotorType.kBrushless);
         armMotor.setInverted(false);
 
         armMotor.getPIDController().setP(Constants.ArmConstants.kP);
