@@ -230,7 +230,7 @@ public final class Constants {
     // Limits
     public static final double kMaxOutput = 0.4; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kRetractSoftLimit = 0; // kReverse
-    public static final float kExtendSoftLimit = 15.5f; // kForward
+    public static final float kLowerSoftLimit = 0; // kReverse
+    public static final float kUpperSoftLimit = 15.5f; // kForward
   }
 }

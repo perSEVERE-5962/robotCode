@@ -32,9 +32,9 @@ public class Arm extends SubsystemBase{
         armEncoder.setPosition(0);
 
         armMotor.setSoftLimit(
-        SoftLimitDirection.kForward, Constants.ArmConstants.kExtendSoftLimit);
+        SoftLimitDirection.kForward, Constants.ArmConstants.kUpperSoftLimit);
         armMotor.setSoftLimit(
-        SoftLimitDirection.kReverse, Constants.ArmConstants.kRetractSoftLimit);
+        SoftLimitDirection.kReverse, Constants.ArmConstants.kLowerSoftLimit);
     }
     public double getPosition() {
         return armEncoder.getPosition();
