@@ -7,7 +7,6 @@ import com.revrobotics.CANSparkLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.RelativeEncoder;
-import frc.robot.Constants.CANDeviceIDs;
 
 public class Arm extends SubsystemBase{
     private CANSparkMax armMotor;
