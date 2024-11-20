@@ -202,6 +202,8 @@ public final class Constants {
     public static final int kBackRightDriveAbsoluteEncoderID = 12;
     // PCM
     public static final int kPCMID24V = 1;
+    // Arm
+    public static int kArmID = 53;
   }
 
   public static final class UltrasonicConstants {

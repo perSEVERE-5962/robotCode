@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.sensors.Camera;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.drivetrain.*;
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -34,6 +35,7 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+  private final Arm arm = Arm.getInstance();
       
   // Cameras
   //private final Camera frontCamera; // shooter/april tag
