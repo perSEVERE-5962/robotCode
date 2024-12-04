@@ -17,8 +17,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
-import frc.robot.sensors.Camera;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.drivetrain.*;
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -35,21 +33,19 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
-  private final Arm arm = Arm.getInstance();
       
   // Cameras
-  //private final Camera frontCamera; // shooter/april tag
-  @SuppressWarnings(value = "unused")
-  private final Camera backCamera; // Intake/Note Detection
+  //private final Camera frontCamera; 
+  //private final Camera backCamera; 
 
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
-  private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
+  // private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
   private final Trigger dr_rightBumper    = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kRightBumper.value : 4);
-  // private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
-  // private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
-  // private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
+  private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
+  private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
+  private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
 
   // Copilot Controller
   // private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -92,7 +88,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
-    backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+    //backCamera = new Camera(Constants.CameraConstants.kBackCamera);
 
     m_autonomousChooser.setDefaultOption("No delay", getAutonomousCommand());
     m_autonomousChooser.addOption("Delayed 5 seconds", new SequentialCommandGroup(
@@ -113,10 +109,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-
-    // Arm
-    dr_rightBumper.onTrue(new LowerArm(arm));
-    dr_leftBumper.onTrue(new RaiseArm(arm));
+    dr_buttonA.onTrue(new PickUpIntake());
+    dr_buttonB.onTrue(new SetArmShootPosition());
+    dr_buttonX.onTrue(new SetArmIntakePosition());
+    dr_rightBumper.onTrue(new ShootWithIntake());
   }
 
   /**
@@ -137,5 +133,8 @@ public class RobotContainer {
 
     return instance;
   }
+  public SwerveSubsystem getDrivetrainSubsystem() {
+    return driveTrain;
+   }
 
 }

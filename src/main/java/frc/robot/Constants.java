@@ -181,6 +181,10 @@ public final class Constants {
   }
 
   public static final class CANDeviceIDs {
+    //Intake
+    public static final int kIntakeID = 50;
+    //Arm
+    public static final int kArmID = 52;
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
@@ -198,14 +202,13 @@ public final class Constants {
     public static final int kBackRightDriveAbsoluteEncoderID = 12;
     // PCM
     public static final int kPCMID24V = 1;
-    // Arm
-    public static int kArmID = 53;
   }
 
   public static final class UltrasonicConstants {
     public static final double kMinRange = 6.0;
     public static final double kMaxRange = 11.0;
     public static final double kNotDetectedRange = 12.0;
+    public static final int kArm_Analog_Channel = 1;
   }
 
   public static final class CameraConstants{
@@ -217,18 +220,18 @@ public final class Constants {
     public static final double kCameraPitchDegrees = 3;
   }
 
-  public static final class ArmPositions {
-    public static final double lowerLimit = -21.6;
-    public static final double upperLimit = 0;
-  }
-
-  public static final class ArmPIDCoeffients {
-    public static final double kP = 0.5; 
-    public static final double kI = 0; 
-    public static final double kD = 0; 
+  public static final class ArmConstants {
+    // PID
+    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+    public static final double kI = 0; // 1e-4,
+    public static final double kD = 0; // 1, 0.5, 0.1
     public static final double kIz = 0;
-    public static final double kFF = 0; 
-    public static final double kMaxOutput = 0.5; // raise?
-    public static final double kMinOutput = -0.25; // lower ?
+    public static final double kFF = 0; // 0,
+
+    // Limits
+    public static final double kMaxOutput = 0.4; // extend?
+    public static final double kMinOutput = -0.25; // retract ?
+    public static final float kLowerSoftLimit = 0; // kReverse
+    public static final float kUpperSoftLimit = 15.5f; // kForward
   }
 }

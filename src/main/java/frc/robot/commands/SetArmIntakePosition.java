@@ -8,12 +8,16 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class RaiseArm extends Command {
-  private Arm arm;
 
-  public RaiseArm(Arm arm) {
-    this.arm = arm;
-    addRequirements(arm);
+public class SetArmIntakePosition extends Command {
+  private Arm armSub;
+  private double m_targetPos;
+  /** Creates a new SetArmIntakePosition. */
+  public SetArmIntakePosition() {
+    armSub = Arm.getInstance();
+    m_targetPos =  Constants.ArmConstants.kLowerSoftLimit;
+    addRequirements(armSub);
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -23,18 +27,21 @@ public class RaiseArm extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    arm.moveToPositionWithPID(Constants.ArmPositions.upperLimit); // raise arm
+    armSub.moveToPositionWithPID(m_targetPos);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    // arm.moveArm(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return arm.getPosition() <= Constants.ArmPositions.upperLimit;
+    if(armSub.getPosition() <= m_targetPos){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

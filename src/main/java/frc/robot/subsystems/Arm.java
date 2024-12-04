@@ -1,77 +1,56 @@
-
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.SoftLimitDirection;
+import com.revrobotics.CANSparkLowLevel;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.drivetrain.SwerveSubsystem;
+import com.revrobotics.RelativeEncoder;
 
-public class Arm extends SubsystemBase {
-  /** Creates a new Arm. */
-  private static Arm instance;
-  private CANSparkMax m_ArmSpark;
+public class Arm extends SubsystemBase{
+    private CANSparkMax armMotor;
+    private static Arm instance;
+    private static RelativeEncoder armEncoder;
 
-  private RelativeEncoder m_encoder;
+    public Arm(){
+        armMotor = new CANSparkMax(Constants.CANDeviceIDs.kArmID, CANSparkLowLevel.MotorType.kBrushless);
+        armMotor.setInverted(false);
 
-  public Arm() {
-    m_ArmSpark =
-        new CANSparkMax(
-            Constants.CANDeviceIDs.kArmID,
-            CANSparkLowLevel.MotorType.kBrushless);
+        armMotor.getPIDController().setP(Constants.ArmConstants.kP);
+        armMotor.getPIDController().setI(Constants.ArmConstants.kI);
+        armMotor.getPIDController().setD(Constants.ArmConstants.kD);
+        armMotor.getPIDController().setIZone(Constants.ArmConstants.kIz);
+        armMotor.getPIDController().setFF(Constants.ArmConstants.kFF);
 
-    /**
-     * The RestoreFactoryDefaults method can be used to reset the configuration parameters in the
-     * SPARK MAX to their factory default state. If no argument is passed, these parameters will not
-     * persist between power cycles
-     */
-    //    m_ArmSpark.restoreFactoryDefaults();
-
-    m_ArmSpark.setInverted(false);
-    m_encoder = m_ArmSpark.getEncoder();
-    m_encoder.setPosition(0);
-    m_ArmSpark.getPIDController().setP(Constants.ArmPIDCoeffients.kP);
-    m_ArmSpark.getPIDController().setI(Constants.ArmPIDCoeffients.kI);
-    m_ArmSpark.getPIDController().setD(Constants.ArmPIDCoeffients.kD);
-    m_ArmSpark.getPIDController().setIZone(Constants.ArmPIDCoeffients.kIz);
-    m_ArmSpark.getPIDController().setFF(Constants.ArmPIDCoeffients.kFF);
-    m_ArmSpark
+        armMotor
         .getPIDController()
-        .setOutputRange(
-            Constants.ArmPIDCoeffients.kMinOutput, Constants.ArmPIDCoeffients.kMaxOutput);
+        .setOutputRange(Constants.ArmConstants.kMinOutput, Constants.ArmConstants.kMaxOutput);
 
-  }
+        armEncoder = armMotor.getEncoder();
+        armEncoder.setPosition(0);
 
-  public void moveArm(double speed) {
-    m_ArmSpark.set(speed);
-  }
-
-  public double getPosition() {
-    return m_encoder.getPosition();
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
-
-  public void moveToPositionWithPID(double position) {
-    m_ArmSpark.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
-  }
-
-    /**
-   * @return the instance
-   */
-  public static Arm getInstance() {
-    if (instance == null) {
-      instance = new Arm();
+        armMotor.setSoftLimit(
+        SoftLimitDirection.kForward, Constants.ArmConstants.kUpperSoftLimit);
+        armMotor.setSoftLimit(
+        SoftLimitDirection.kReverse, Constants.ArmConstants.kLowerSoftLimit);
     }
+    public double getPosition() {
+        return armEncoder.getPosition();
+    }
+    public void moveToPositionWithPID(double position) {
+        armMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
+      }
+    
+    @Override
+    public void periodic(){
 
-    return instance;
-  }
+    }
+    public static Arm getInstance() {
+        if (instance == null) {
+          instance = new Arm();
+        }
+    
+        return instance;
+      }
 }
