@@ -32,7 +32,7 @@ public class Arm extends SubsystemBase{
         armEncoder.setPosition(0);
 
         armMotor.setSoftLimit(
-        SoftLimitDirection.kForward, Constants.ArmConstants.kUpperSoftLimit);
+        SoftLimitDirection.kForward, Constants.ArmConstants.kShootSoftLimit);
         armMotor.setSoftLimit(
         SoftLimitDirection.kReverse, Constants.ArmConstants.kLowerSoftLimit);
     }
@@ -54,4 +54,8 @@ public class Arm extends SubsystemBase{
     
         return instance;
       }
+    public void stop(){
+      armMotor.stopMotor();;
+
+    }
 }

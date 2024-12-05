@@ -42,20 +42,30 @@ public final class Constants {
    * 0.3396
    * 0.376465
    */
-  public static final boolean kUseL1Ratio = false;
+   public static final boolean kUseL1Ratio = false;
   private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.246582;
   private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
   private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
-  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376221;
+  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376221;  
+  // L2 
+/*   private static final double BACK_RIGHT_OFFSET = ;
+  private static final double BACK_LEFT_OFFSET = ;
+  private static final double FRONT_RIGHT_OFFSET = ;
+  private static final double FRONT_LEFT_OFFSET = ; */
 
   public static final class ModuleConstants {
     public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
     public static final double kWheelDiameterInches = 3.9;
     public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.34;
     public static final double kITuning = kUseL1Ratio ? 0.0 : 0.0;
-    public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0;
+    public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0; 
+    //L2
+    // public static final double kPTurning = ;
+    // public static final double kITuning = ;
+    // public static final double kDTuning = ;
 
     public static final double kL1Ratio = 1 / 8.14;
+    public static final double kL2Ratio = 1/6.35;
     public static final double kL3Ratio = 1 / 6.12;
     
     public static final double kDriveMotorGearRatio = kUseL1Ratio ? kL1Ratio : kL3Ratio;
@@ -231,7 +241,8 @@ public final class Constants {
     // Limits
     public static final double kMaxOutput = 0.4; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final float kLowerSoftLimit = 15.5f; // kReverse
+    public static final float kShootSoftLimit = 5.0f; // kForward
+    public static final float kHomeSoftLimit = 0;
   }
 }

@@ -28,6 +28,9 @@ import edu.wpi.first.math.util.Units;
 /** Add your docs here. */
 public class PhotonVision {
    private static PhotonCamera cameraFront = new PhotonCamera("FrontCamera");
+   private static PhotonCamera cameraOne = new PhotonCamera("FrontOne");
+   private static PhotonCamera cameraTwo = new PhotonCamera("FrontTwo");
+   private static PhotonCamera cameraThree = new PhotonCamera("FrontThree");
     static AprilTagFieldLayout fieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
     PhotonPipelineResult result=cameraFront.getLatestResult();
     List<PhotonTrackedTarget> targets = result.getTargets();
@@ -36,6 +39,9 @@ public class PhotonVision {
     //Pose3d robotPose=PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(),fieldLayout.getTagPose(target.getFiducialId()).get(), camerapose);
     
     public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
+    public static PhotonPoseEstimator poseEstimatorOne = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
+    public static PhotonPoseEstimator poseEstimatorTwo = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
+    public static PhotonPoseEstimator poseEstimatorThree = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
  public Pose2d getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
  
         poseEstimator.setLastPose(prevEstimatedRobotPose);
@@ -47,10 +53,11 @@ public class PhotonVision {
         Translation2d translation2d= new Translation2d(estimatedRobotPose.estimatedPose.getX(),estimatedRobotPose.estimatedPose.getY());
         Pose2d mapPose2d=new Pose2d(translation2d,rotation2d);
         return mapPose2d;
+        
     }
 
     PhotonPoseEstimator PoseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
-    public static double getTargetDistance() {
+   /* public static double getTargetDistance() {
         if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
     // public static double GettargetDistance(){
     //     double distance = cameraFront.getCameraTable().getEntry("targetPose").getDoubleArray(new double[] {0,0,0})[0];
@@ -69,5 +76,9 @@ public class PhotonVision {
             return range;
         }
         return 0;
-    }
+    }*/
+ 
+    
+
+
 }

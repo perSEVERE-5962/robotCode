@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import frc.robot.PhotonVision;
 import frc.robot.RobotContainer;
+import frc.robot.sensors.HCSR04Ultrasonic;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private PhotonVision poseEstimator= new PhotonVision();
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+  private HCSR04Ultrasonic ultrasonic=new HCSR04Ultrasonic();
   // @Override
   // public void driverStationConnected() {
   //   if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
@@ -47,7 +49,9 @@ public class Robot extends TimedRobot {
   
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+
     m_robotContainer = RobotContainer.getInstance();
+    
   }
 
   /**
@@ -59,14 +63,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-   Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
+   /*Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
     driveTrain.resetOdometry(PoseEstimator);
-    System.out.println(PoseEstimator);
+    System.out.println(PoseEstimator)*/;
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+   SmartDashboard.putNumber("range", ultrasonic.getRange());
+
   }
 
   /** This function is called once each time the robot enters Disabled mode. */

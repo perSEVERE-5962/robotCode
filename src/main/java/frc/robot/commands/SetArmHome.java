@@ -8,13 +8,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 
-public class SetArmShootPosition extends Command {
+
+public class SetArmHome extends Command {
   private Arm armSub;
   private double m_targetPos;
-  /** Creates a new SetArmShootPosition. */
-  public SetArmShootPosition() {
+  /** Creates a new SetArmIntakePosition. */
+  public SetArmHome() {
     armSub = Arm.getInstance();
-    m_targetPos =  Constants.ArmConstants.kShootSoftLimit;
+    m_targetPos =  Constants.ArmConstants.kHomeSoftLimit;
     addRequirements(armSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -32,14 +33,14 @@ public class SetArmShootPosition extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    armSub.stop();
 
-    
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(armSub.getPosition() >= m_targetPos){
+    if(armSub.getPosition() <= m_targetPos){
       return true;
     }
     else{
