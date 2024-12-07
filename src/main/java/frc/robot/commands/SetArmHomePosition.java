@@ -5,14 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.Constants;
+import frc.robot.subsystems.Arm;
 
-public class PickUpIntake extends Command {
-  private Intake intakeSub;
-
-  /** Creates a new PickUpIntake. */
-  public PickUpIntake() {
-    intakeSub = Intake.getInstance();
+public class SetArmHomePosition extends Command {
+  private Arm armSub;
+  private double m_targetPos;
+  /** Creates a new SetArmShootPosition. */
+  public SetArmHomePosition() {
+    armSub = Arm.getInstance();
+    m_targetPos =  Constants.ArmConstants.kHomeSoftLimit;
+    addRequirements(armSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -23,18 +26,23 @@ public class PickUpIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(-0.5);
+    armSub.moveToPositionWithPID(m_targetPos);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSub.run(0);
+    armSub.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;//intakeSub.isInRange();
+    if(armSub.getPosition() <= m_targetPos+2){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

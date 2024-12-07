@@ -44,8 +44,8 @@ public class DriveCommand extends Command {
   @Override
   public void execute() {
     // 1. Get real-time joystick inputs
-    double xSpeed = xSpdFunction.getAsDouble();
-    double ySpeed = ySpdFunction.getAsDouble();
+    double xSpeed = xSpdFunction.getAsDouble()*0.33;
+    double ySpeed = ySpdFunction.getAsDouble()*0.33;
     double turningSpeed = turningSpdFunction.getAsDouble();
 
     // 2. Apply deadband

@@ -11,18 +11,18 @@ import frc.robot.sensors.RockwellUltrasonic;
 public class Intake extends SubsystemBase{
     private CANSparkMax intakeMotor;
     private static Intake instance;
-    private RockwellUltrasonic armUltrasonic;
+ //   private RockwellUltrasonic armUltrasonic;
 
   /** Creates a new Intake. */
   public Intake() {
     intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeID, CANSparkLowLevel.MotorType.kBrushless);
     intakeMotor.setInverted(false);
-    armUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kArm_Analog_Channel);
+   // armUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kArm_Analog_Channel);
 
   }
-  public RockwellUltrasonic getUltrasonicOne() {
-    return armUltrasonic;
-  }
+  //public RockwellUltrasonic getUltrasonicOne() {
+   // return armUltrasonic;
+ // }
 
 
 
@@ -30,16 +30,16 @@ public class Intake extends SubsystemBase{
     intakeMotor.set(speed);
 
   }
-  public boolean isInRange() {
-    double range_of_intake = armUltrasonic.getRange();
-    // SmartDashboard.putNumber("Feeder Ultrasonic 1", range_of_feeder);
-    // SmartDashboard.putNumber("Feeder Ultrasonic 2", range_of_2feeder);
-    if (range_of_intake <= Constants.UltrasonicConstants.kMaxRange) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // public boolean isInRange() {
+  //   double range_of_intake = armUltrasonic.getRange();
+  //   // SmartDashboard.putNumber("Feeder Ultrasonic 1", range_of_feeder);
+  //   // SmartDashboard.putNumber("Feeder Ultrasonic 2", range_of_2feeder);
+  //   if (range_of_intake <= Constants.UltrasonicConstants.kMaxRange) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   @Override
   public void periodic() {

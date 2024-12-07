@@ -14,7 +14,7 @@ public class SetArmShootPosition extends Command {
   /** Creates a new SetArmShootPosition. */
   public SetArmShootPosition() {
     armSub = Arm.getInstance();
-    m_targetPos =  Constants.ArmConstants.kUpperSoftLimit;
+    m_targetPos =  Constants.ArmConstants.kShootSoftLimit;
     addRequirements(armSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
