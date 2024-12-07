@@ -41,22 +41,23 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
-  // private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
-  private final Trigger dr_rightBumper    = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kRightBumper.value : 4);
+  //private final Trigger dr_lefttTrigger     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Axis.kLeftTrigger.value : 3);
+  //private final Trigger dr_righttTrigger   = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Axis.kRightTrigger.value : 4);
   private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
   private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
   private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
-
+  private final Trigger dr_leftBumper = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value);
+  private final Trigger dr_rightBumper = new JoystickButton(driverController, XboxController.Button.kRightBumper.value);
   // Copilot Controller
-  // private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
-  // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
-  // private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
-  // private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
-  // private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
-  // private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
+   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+   private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+   private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
+   private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
+   private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
+   private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
   // private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
-  // private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
-  // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  //private final Trigger cp_lefttTrigger     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Axis.kLeftTrigger.value : 3);
+  //private final Trigger cp_righttTrigger   = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Axis.kRightTrigger.value : 4);
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -109,11 +110,19 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_buttonA.onTrue(new PickUpIntake());
-    dr_buttonB.onTrue(new SetArmShootPosition());
-    dr_buttonX.onTrue(new SetArmIntakePosition());
-    dr_rightBumper.onTrue(new ShootWithIntake());
+    // dr_buttonA.onTrue(new SetArmHomePosition());
+    // dr_buttonB.onTrue(new SetArmShootPosition());
+    // dr_buttonX.onTrue(new SetArmIntakePosition());
+    // dr_rightBumper.whileTrue(new ShootWithIntake());
+    // dr_leftBumper.whileTrue(new PickUpIntake());
+
+    cp_buttonA.onTrue(new SetArmHomePosition());
+    cp_buttonB.onTrue(new SetArmShootPosition());
+    cp_buttonX.onTrue(new SetArmIntakePosition());
+    cp_rightBumper.whileTrue(new ShootWithIntake());
+    cp_leftBumper.whileTrue(new PickUpIntake());
   }
+  
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

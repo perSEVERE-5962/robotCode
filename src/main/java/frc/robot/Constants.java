@@ -42,7 +42,7 @@ public final class Constants {
    * 0.3396
    * 0.376465
    */
-  public static final boolean kUseL1Ratio = false;
+  public static final boolean kUseL1Ratio = true;
   private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.246582;
   private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
   private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
@@ -231,7 +231,8 @@ public final class Constants {
     // Limits
     public static final double kMaxOutput = 0.4; // extend?
     public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final float kLowerSoftLimit = 110f; // pickup from floor
+    public static final float kShootSoftLimit = 50f; // shoot into cannon
+    public static final float kHomeSoftLimit = 0; // start position
   }
 }

@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import com.revrobotics.CANSparkLowLevel;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.RelativeEncoder;
@@ -31,7 +32,7 @@ public class Arm extends SubsystemBase{
         armEncoder.setPosition(0);
 
         armMotor.setSoftLimit(
-        SoftLimitDirection.kForward, Constants.ArmConstants.kUpperSoftLimit);
+        SoftLimitDirection.kForward, Constants.ArmConstants.kHomeSoftLimit);
         armMotor.setSoftLimit(
         SoftLimitDirection.kReverse, Constants.ArmConstants.kLowerSoftLimit);
     }
@@ -43,7 +44,7 @@ public class Arm extends SubsystemBase{
       }
     
     @Override
-    public void periodic(){
+    public void periodic(){SmartDashboard.putNumber("arm position",getPosition());
 
     }
     public static Arm getInstance() {
@@ -53,4 +54,7 @@ public class Arm extends SubsystemBase{
     
         return instance;
       }
+    public void stop() {
+        armMotor.stopMotor();
+    }
 }
