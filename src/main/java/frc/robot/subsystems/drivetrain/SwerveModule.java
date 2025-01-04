@@ -11,8 +11,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.ModuleConstants;
+import frc.robot.SDSModules.SDSModuleInterface;
 
 public class SwerveModule {
 
@@ -30,6 +29,8 @@ public class SwerveModule {
   private final boolean absoluteEncoderReversed;
   private double absoluteEncoderOffsetRad;
 
+  private SDSModuleInterface sdsModuleInterface;
+
   public SwerveModule(
       int driveMotorId,
       int turningMotorId,
@@ -37,8 +38,10 @@ public class SwerveModule {
       boolean turningMotorReversed,
       int absoluteEncoderId,
       double absoluteEncoderOffset,
-      boolean absoluteEncoderReversed) {
+      boolean absoluteEncoderReversed,
+      SDSModuleInterface sdsModuleInterface) {
 
+    this.sdsModuleInterface = sdsModuleInterface;
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     absoluteEncoder = new CANcoder(absoluteEncoderId, Constants.DriveConstants.kCanBusName);
@@ -67,10 +70,10 @@ public class SwerveModule {
     driveEncoder = driveMotor.getEncoder();
     turningEncoder = turningMotor.getEncoder();
 
-    driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
-    driveEncoder.setVelocityConversionFactor(ModuleConstants.kDriveEncoderRPM2MeterPerSec);
-    turningEncoder.setPositionConversionFactor(ModuleConstants.kTurningEncoderRot2Rad);
-    turningEncoder.setVelocityConversionFactor(ModuleConstants.kTurningEncoderRPM2RadPerSec);
+    driveEncoder.setPositionConversionFactor(sdsModuleInterface.getDriveEncoderRot2Meter());
+    driveEncoder.setVelocityConversionFactor(sdsModuleInterface.getDriveEncoderRPM2MeterPerSec());
+    turningEncoder.setPositionConversionFactor(sdsModuleInterface.getTurningEncoderRot2Rad());
+    turningEncoder.setVelocityConversionFactor(sdsModuleInterface.getTurningEncoderRPM2RadPerSec());
 
     driveMotor.getPIDController().setP(0.1);
     driveMotor.getPIDController().setI(0);
@@ -81,7 +84,7 @@ public class SwerveModule {
 
     driveMotor.getPIDController().setOutputRange(-0.5, 0.5);
 
-    turningPidController = new PIDController(ModuleConstants.kPTurning, ModuleConstants.kITuning, ModuleConstants.kDTuning);
+    turningPidController = new PIDController(sdsModuleInterface.getPTurning(), sdsModuleInterface.getITurning(), sdsModuleInterface.getDTurning());
     turningPidController.enableContinuousInput(-Math.PI, Math.PI);
 
     resetController = new PIDController(0.01, 0, 0);
@@ -151,7 +154,7 @@ public class SwerveModule {
       return;
     }
     state = SwerveModuleState.optimize(state, getState().angle);
-    driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+    driveMotor.set(state.speedMetersPerSecond / sdsModuleInterface.getPhysicalMaxSpeedMetersPerSecond());
     turningMotor.set(
         turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
   }
@@ -162,7 +165,7 @@ public class SwerveModule {
       return;
     }
 
-    driveMotor.set(state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+    driveMotor.set(state.speedMetersPerSecond / sdsModuleInterface.getPhysicalMaxSpeedMetersPerSecond());
     turningMotor.set(
         -(resetController.calculate(getAbsoluteEncoderAngle(), state.angle.getDegrees() + 180)));
   }

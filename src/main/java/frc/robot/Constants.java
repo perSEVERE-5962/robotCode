@@ -30,44 +30,16 @@ public final class Constants {
 
   public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
-  /*
-   * L1 values:
-   * 0.472168
-   * 0.051758
-   * 0.028809
-   * 0.277588
-   * L3 values:
-   * 0.25
-   * 0.168701
-   * 0.3396
-   * 0.376465
+  /**
+   * Types of SDS Swerve Drive Modules
    */
-  public static final boolean kUseL1Ratio = false;
-  private static final double BACK_RIGHT_OFFSET = kUseL1Ratio ? 0.472168 : 0.246582;
-  private static final double BACK_LEFT_OFFSET = kUseL1Ratio ? 0.051758 : 0.173096;
-  private static final double FRONT_RIGHT_OFFSET = kUseL1Ratio ? 0.028809: 0.342529;
-  private static final double FRONT_LEFT_OFFSET = kUseL1Ratio ? 0.277588: 0.376221;
-
-  public static final class ModuleConstants {
-    public static final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
-    public static final double kWheelDiameterInches = 3.9;
-    public static final double kPTurning = kUseL1Ratio ? 0.34 : 0.34;
-    public static final double kITuning = kUseL1Ratio ? 0.0 : 0.0;
-    public static final double kDTuning = kUseL1Ratio ? 0.0 : 0.0;
-
-    public static final double kL1Ratio = 1 / 8.14;
-    public static final double kL3Ratio = 1 / 6.12;
-    
-    public static final double kDriveMotorGearRatio = kUseL1Ratio ? kL1Ratio : kL3Ratio;
-    public static final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0);
-    public static final double kDriveEncoderRot2Meter =
-        kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
-    public static final double kDriveEncoderRot2Inch =
-        kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
-    public static final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
-    public static final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
-    public static final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
+  public static final class SDSModuleType {
+    public static final int kL1 = 1; // L1 Gear Ratio
+    public static final int kL2 = 2; // L2 Gear Ratio
+    public static final int kL3 = 3; // L3 Gear Ratio
+    public static final int kCurrent = kL2; // set the module that we are using
   }
+
 
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
@@ -97,33 +69,8 @@ public final class Constants {
     public static final boolean kFrontRightDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackRightDriveAbsoluteEncoderReversed = false;
 
-    // Back Right
-    public static final double kBackRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees() + 180.0;
-    // Back Left
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees() + 180.0;
-    // Front Right
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180.0;
-    // Front Left
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetDeg = Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180.0;
-                                                              
-    // Back Right
-    public static final double kBackRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(kBackRightDriveAbsoluteEncoderOffsetDeg);
-    // Back Left
-    public static final double kBackLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(kBackLeftDriveAbsoluteEncoderOffsetDeg);
-    // Front Right
-    public static final double kFrontRightDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(kFrontRightDriveAbsoluteEncoderOffsetDeg);
-    // Front Left
-    public static final double kFrontLeftDriveAbsoluteEncoderOffsetRad =
-        Math.toRadians(kFrontLeftDriveAbsoluteEncoderOffsetDeg);
-
-    public static final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters((kUseL1Ratio ? 12.5 : 16.6));
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.0 * 2.0 * Math.PI;
 
-    public static final double kTeleDriveMaxSpeedMetersPerSecond =
-        kPhysicalMaxSpeedMetersPerSecond / 4.0;
     public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
         kPhysicalMaxAngularSpeedRadiansPerSecond / 4.0;
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
