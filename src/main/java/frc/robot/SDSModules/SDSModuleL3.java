@@ -27,7 +27,7 @@ public class SDSModuleL3 extends SDSModuleBase {
   private final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
   private final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
   private final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters(16.6);
-  //private final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4.0;
+  private final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4.0;
 
   public double getPTurning() {
     return kPTurning;
@@ -102,4 +102,7 @@ public class SDSModuleL3 extends SDSModuleBase {
     return kPhysicalMaxSpeedMetersPerSecond;
   }
 
+  public double getTeleDriveMaxSpeedMetersPerSecond() {
+    return kTeleDriveMaxSpeedMetersPerSecond;
+  }
 }
