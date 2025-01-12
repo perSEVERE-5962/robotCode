@@ -44,4 +44,6 @@ public interface SDSModuleInterface {
   double getDTurning();
 
   double getPhysicalMaxSpeedMetersPerSecond();
+
+  double getTeleDriveMaxSpeedMetersPerSecond();
 }

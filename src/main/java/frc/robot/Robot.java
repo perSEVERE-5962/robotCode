@@ -19,8 +19,8 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
-  private PhotonVision poseEstimator= new PhotonVision();
-  private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+  // private PhotonVision poseEstimator= new PhotonVision();
+  // private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
   // @Override
   // public void driverStationConnected() {
   //   if (DriverStation.getAlliance().get() == DriverStation.Alliance.Blue) {
@@ -51,9 +51,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-   Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
-    driveTrain.resetOdometry(PoseEstimator);
-    System.out.println(PoseEstimator);
+  //  Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
+  //   driveTrain.resetOdometry(PoseEstimator);
+  //   System.out.println(PoseEstimator);
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic

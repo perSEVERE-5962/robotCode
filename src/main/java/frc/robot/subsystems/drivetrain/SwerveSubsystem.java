@@ -29,15 +29,20 @@ import frc.robot.SDSModules.SDSModuleInterface;
 public class SwerveSubsystem extends SubsystemBase {
   private static SwerveSubsystem instance;
 
-  private SDSModuleInterface sdsModuleInterface;
-  private boolean sdsModuleTypeSet = false;
+  //private boolean sdsModuleTypeSet = false;
+  private SDSModuleFactory sdsModuleFactory = new SDSModuleFactory();
+  private SDSModuleInterface sdsModuleInterface = sdsModuleFactory.createSDSModule(SDSModuleType.kCurrent);
 
-  public void setSDSModuleType(int sdsModuleType) {
-    if (sdsModuleTypeSet == false) {
-      SDSModuleFactory sdsModuleFactory = new SDSModuleFactory();
-      sdsModuleInterface = sdsModuleFactory.createSDSModule(sdsModuleType);
-      sdsModuleTypeSet = true;
-    }
+  // public void setSDSModuleType(int sdsModuleType) {
+  //   if (sdsModuleTypeSet == false) {
+  //     SDSModuleFactory sdsModuleFactory = new SDSModuleFactory();
+  //     sdsModuleInterface = sdsModuleFactory.createSDSModule(sdsModuleType);
+  //     sdsModuleTypeSet = true;
+  //   }
+  // }
+
+  public SDSModuleInterface getSDSModuleInterface() {
+    return sdsModuleInterface;
   }
 
   public final SwerveModule frontLeft =
@@ -97,7 +102,6 @@ public class SwerveSubsystem extends SubsystemBase {
           });
 
   private SwerveSubsystem() {
-    setSDSModuleType(SDSModuleType.kCurrent);
 
     new Thread(
             () -> {
