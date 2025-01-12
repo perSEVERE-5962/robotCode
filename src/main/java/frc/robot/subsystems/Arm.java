@@ -1,46 +1,59 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase.SoftLimitDirection;
-import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SoftLimitConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import com.revrobotics.RelativeEncoder;
 
 public class Arm extends SubsystemBase{
-    private CANSparkMax armMotor;
+    private SparkMax armMotor;
+    private SparkMaxConfig motorConfig; 
     private static Arm instance;
     private static RelativeEncoder armEncoder;
 
     public Arm(){
-        armMotor = new CANSparkMax(Constants.CANDeviceIDs.kArmID, CANSparkLowLevel.MotorType.kBrushless);
-        armMotor.setInverted(false);
-
-        armMotor.getPIDController().setP(Constants.ArmConstants.kP);
-        armMotor.getPIDController().setI(Constants.ArmConstants.kI);
-        armMotor.getPIDController().setD(Constants.ArmConstants.kD);
-        armMotor.getPIDController().setIZone(Constants.ArmConstants.kIz);
-        armMotor.getPIDController().setFF(Constants.ArmConstants.kFF);
-
-        armMotor
-        .getPIDController()
-        .setOutputRange(Constants.ArmConstants.kMinOutput, Constants.ArmConstants.kMaxOutput);
+        armMotor = new SparkMax(Constants.CANDeviceIDs.kArmID, SparkLowLevel.MotorType.kBrushless);
+        motorConfig = new SparkMaxConfig(); 
+    
+        motorConfig.inverted(false); 
+        armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        
+        motorConfig.closedLoop 
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder) 
+        .p(Constants.ArmConstants.kP) 
+        .i(Constants.ArmConstants.kI) 
+        .d(Constants.ArmConstants.kD) 
+        .outputRange(Constants.ArmConstants.kMinOutput, Constants.ArmConstants.kMaxOutput) 
+        .velocityFF(Constants.ArmConstants.kFF) 
+        .iZone(Constants.ArmConstants.kIz); 
 
         armEncoder = armMotor.getEncoder();
         armEncoder.setPosition(0);
 
-        armMotor.setSoftLimit(
-        SoftLimitDirection.kForward, Constants.ArmConstants.kUpperSoftLimit);
-        armMotor.setSoftLimit(
-        SoftLimitDirection.kReverse, Constants.ArmConstants.kLowerSoftLimit);
+        SoftLimitConfig softLimitConfig = new SoftLimitConfig();
+        softLimitConfig.forwardSoftLimitEnabled(true);
+        softLimitConfig.forwardSoftLimit(Constants.ArmConstants.kUpperSoftLimit);
+        softLimitConfig.reverseSoftLimitEnabled(true);
+        softLimitConfig.reverseSoftLimit(Constants.ArmConstants.kUpperSoftLimit);
+
+        motorConfig.apply(softLimitConfig);
+        armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
+
     public double getPosition() {
         return armEncoder.getPosition();
     }
+
     public void moveToPositionWithPID(double position) {
-        armMotor.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
-      }
+      armMotor.getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
+    }
     
     @Override
     public void periodic(){
