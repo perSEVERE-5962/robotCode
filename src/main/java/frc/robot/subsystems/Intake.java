@@ -1,7 +1,10 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -9,14 +12,19 @@ import frc.robot.Constants.UltrasonicConstants;
 import frc.robot.sensors.RockwellUltrasonic;
 
 public class Intake extends SubsystemBase{
-    private CANSparkMax intakeMotor;
+    private SparkMax intakeMotor;
     private static Intake instance;
     private RockwellUltrasonic armUltrasonic;
+    private SparkMaxConfig motorConfig; 
 
   /** Creates a new Intake. */
   public Intake() {
-    intakeMotor = new CANSparkMax(Constants.CANDeviceIDs.kIntakeID, CANSparkLowLevel.MotorType.kBrushless);
-    intakeMotor.setInverted(false);
+    intakeMotor = new SparkMax(Constants.CANDeviceIDs.kIntakeID, SparkLowLevel.MotorType.kBrushless);
+    motorConfig = new SparkMaxConfig(); 
+    
+    motorConfig.inverted(false); 
+    intakeMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+
     armUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kArm_Analog_Channel);
 
   }

@@ -3,7 +3,8 @@ package frc.robot.subsystems.drivetrain;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.studica.frc.AHRS; 
+import com.studica.frc.AHRS.NavXComType; 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -14,7 +15,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
@@ -89,7 +89,7 @@ public class SwerveSubsystem extends SubsystemBase {
           DriveConstants.kBackRightDriveAbsoluteEncoderReversed,
           sdsModuleInterface);
 
-  private final AHRS gyro = new AHRS(SPI.Port.kMXP);
+  private final AHRS gyro = new AHRS(NavXComType.kMXP_SPI); 
   private final SwerveDriveOdometry odometer =
       new SwerveDriveOdometry(
           DriveConstants.kDriveKinematics,

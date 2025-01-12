@@ -35,11 +35,11 @@ public class PhotonVision {
     static Transform3d camerapose = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
     //Pose3d robotPose=PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(),fieldLayout.getTagPose(target.getFiducialId()).get(), camerapose);
     
-    public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
+    public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,camerapose);
  public Pose2d getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
  
         poseEstimator.setLastPose(prevEstimatedRobotPose);
-        EstimatedRobotPose estimatedRobotPose= poseEstimator.update().orElse(null);
+        EstimatedRobotPose estimatedRobotPose= poseEstimator.update(result).orElse(null);
         if(estimatedRobotPose==null){
             return prevEstimatedRobotPose;
         }
@@ -49,7 +49,7 @@ public class PhotonVision {
         return mapPose2d;
     }
 
-    PhotonPoseEstimator PoseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,cameraFront,camerapose);
+    PhotonPoseEstimator PoseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,camerapose);
     public static double getTargetDistance() {
         if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
     // public static double GettargetDistance(){
