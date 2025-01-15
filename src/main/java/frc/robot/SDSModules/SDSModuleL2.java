@@ -17,10 +17,10 @@ public class SDSModuleL2 extends SDSModuleBase {
   /******************************************/
 
 
-  private final double BACK_RIGHT_OFFSET = 0.246582; 
-  private final double BACK_LEFT_OFFSET = 0.173096; 
-  private final double FRONT_RIGHT_OFFSET = 0.342529; 
-  private final double FRONT_LEFT_OFFSET = 0.376221; 
+  private final double BACK_RIGHT_OFFSET = 0.251221; //chassis one 12
+  private final double BACK_LEFT_OFFSET = 0.167236;//chassis one 22 
+  private final double FRONT_RIGHT_OFFSET = 0.346436; //chassis one 32
+  private final double FRONT_LEFT_OFFSET = 0.379150;//chassis one 42
 
 
   private final double kPTurning = 0.34;
