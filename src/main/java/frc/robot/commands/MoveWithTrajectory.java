@@ -74,7 +74,7 @@ public class MoveWithTrajectory {
 
   public MoveWithTrajectory(Pose2d startPoint, List<Translation2d> waypoints, Pose2d endPoint, Rotation2d desiredAngle) {
     TrajectoryConfig trajectoryConfig = new TrajectoryConfig(
-        DriveConstants.kTeleDriveMaxSpeedMetersPerSecond,
+        swerveSubsystem.getSDSModuleInterface().getTeleDriveMaxSpeedMetersPerSecond(),
         DriveConstants.kTeleDriveMaxAccelerationMetersPerSecondSquared)
         .setKinematics(DriveConstants.kDriveKinematics);
 
