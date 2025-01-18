@@ -8,13 +8,10 @@ import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.UltrasonicConstants;
-import frc.robot.sensors.RockwellUltrasonic;
 
 public class Intake extends SubsystemBase{
     private SparkMax intakeMotor;
     private static Intake instance;
-    private RockwellUltrasonic armUltrasonic;
     private SparkMaxConfig motorConfig; 
 
   /** Creates a new Intake. */
@@ -24,12 +21,6 @@ public class Intake extends SubsystemBase{
     
     motorConfig.inverted(false); 
     intakeMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-
-    armUltrasonic = new RockwellUltrasonic(UltrasonicConstants.kArm_Analog_Channel);
-
-  }
-  public RockwellUltrasonic getUltrasonicOne() {
-    return armUltrasonic;
   }
 
 
@@ -38,16 +29,7 @@ public class Intake extends SubsystemBase{
     intakeMotor.set(speed);
 
   }
-  public boolean isInRange() {
-    double range_of_intake = armUltrasonic.getRange();
-    // SmartDashboard.putNumber("Feeder Ultrasonic 1", range_of_feeder);
-    // SmartDashboard.putNumber("Feeder Ultrasonic 2", range_of_2feeder);
-    if (range_of_intake <= Constants.UltrasonicConstants.kMaxRange) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  
 
   @Override
   public void periodic() {
