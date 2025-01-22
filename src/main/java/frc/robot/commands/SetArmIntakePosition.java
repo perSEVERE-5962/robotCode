@@ -6,16 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Reach;
 
 
 public class SetArmIntakePosition extends Command {
-  private Arm armSub;
+  private Reach armSub;
   private double m_targetPos;
   /** Creates a new SetArmIntakePosition. */
   public SetArmIntakePosition() {
-    armSub = Arm.getInstance();
-    m_targetPos =  Constants.ArmConstants.kLowerSoftLimit;
+    armSub = Reach.getInstance();
+    m_targetPos =  Constants.ReachConstants.kLowerSoftLimit;
     addRequirements(armSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }

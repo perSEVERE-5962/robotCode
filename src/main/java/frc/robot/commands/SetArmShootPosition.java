@@ -6,15 +6,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.Reach;
 
 public class SetArmShootPosition extends Command {
-  private Arm armSub;
+  private Reach armSub;
   private double m_targetPos;
   /** Creates a new SetArmShootPosition. */
   public SetArmShootPosition() {
-    armSub = Arm.getInstance();
-    m_targetPos =  Constants.ArmConstants.kUpperSoftLimit;
+    armSub = Reach.getInstance();
+    m_targetPos =  Constants.ReachConstants.kUpperSoftLimit;
     addRequirements(armSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }

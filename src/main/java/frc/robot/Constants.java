@@ -59,10 +59,15 @@ public final class Constants {
     public static final boolean kFrontRightTurningEncoderReversed = false;
     public static final boolean kBackRightTurningEncoderReversed = false;
 
-    public static final boolean kFrontLeftDriveEncoderReversed = false;
-    public static final boolean kBackLeftDriveEncoderReversed = false;
-    public static final boolean kFrontRightDriveEncoderReversed = false;
-    public static final boolean kBackRightDriveEncoderReversed = false;
+    // public static final boolean kFrontLeftDriveEncoderReversed = false;
+    // public static final boolean kBackLeftDriveEncoderReversed = false;
+    // public static final boolean kFrontRightDriveEncoderReversed = false;
+    // public static final boolean kBackRightDriveEncoderReversed = false;
+
+    public static final boolean kFrontLeftDriveEncoderReversed = true;
+    public static final boolean kBackLeftDriveEncoderReversed = true;
+    public static final boolean kFrontRightDriveEncoderReversed = true;
+    public static final boolean kBackRightDriveEncoderReversed = true;
 
     public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
@@ -132,7 +137,7 @@ public final class Constants {
     //Intake
     public static final int kIntakeID = 50;
     //Arm
-    public static final int kArmID = 52;
+   
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
@@ -168,8 +173,11 @@ public final class Constants {
     public static final double kCameraPitchDegrees = 3;
   }
 
-  public static final class ArmConstants {
+
+  public static final class ReachConstants {
+    public static final int kReachID = 52;
     // PID
+
     public static final double kP = 0.1; // 0.1, 0, -0.1, -2
     public static final double kI = 0; // 1e-4,
     public static final double kD = 0; // 1, 0.5, 0.1
@@ -182,4 +190,20 @@ public final class Constants {
     public static final float kLowerSoftLimit = 0; // kReverse
     public static final float kUpperSoftLimit = 15.5f; // kForward
   }
+  public static final class PivotConstants {
+    public static final int kPivotID = 52; 
+    // PID
+     public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+     public static final double kI = 0; // 1e-4,
+     public static final double kD = 0; // 1, 0.5, 0.1
+     public static final double kIz = 0;
+     public static final double kFF = 0; // 0,
+ 
+     // Limits
+     public static final double kMaxOutput = 0.4; // extend?
+     public static final double kMinOutput = -0.25; // retract ?
+     public static final float kLowerSoftLimit = 0; // kReverse
+     public static final float kUpperSoftLimit = 15.5f; // kForward
+  
+}
 }
