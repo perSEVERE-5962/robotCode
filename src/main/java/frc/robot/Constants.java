@@ -219,5 +219,9 @@ public final class Constants {
       public static final double kMinOutput = -0.25; // retract ?
       public static final float kLowerSoftLimit = 0; // kReverse
       public static final float kUpperSoftLimit = 15.5f; // kForward
+      public static final float kL1Limit = 1.5f;
+      public static final float kL2Limit = 1.6f;
+      public static final float kL3Limit = 1.9f;
+      public static final float kIntakeLimit = 2.0f;
   }
 }
