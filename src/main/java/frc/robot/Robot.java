@@ -99,6 +99,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    SwerveSubsystem sss = SwerveSubsystem.getInstance();
+    sss.outputEncoderPositions();
   }
 
   @Override

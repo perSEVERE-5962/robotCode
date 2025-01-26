@@ -59,8 +59,8 @@ public class SwerveModule {
     absoluteEncoder.getConfigurator().apply(toApply);
 
     /* Speed up signals to an appropriate rate */
-    absoluteEncoder.getPosition().setUpdateFrequency(100);
-    absoluteEncoder.getVelocity().setUpdateFrequency(100);
+    absoluteEncoder.getPosition().setUpdateFrequency(50);
+    absoluteEncoder.getVelocity().setUpdateFrequency(50);
 
     driveMotor = new SparkMax(driveMotorId, MotorType.kBrushless); 
     turningMotor = new SparkMax(turningMotorId, MotorType.kBrushless); 

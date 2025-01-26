@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -20,9 +21,14 @@ public class Intake extends SubsystemBase{
     motorConfig = new SparkMaxConfig(); 
     
     motorConfig.inverted(false); 
+    motorConfig.limitSwitch.forwardLimitSwitchEnabled(true);
+    motorConfig.limitSwitch.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
     intakeMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
+  public boolean isLimitSwitchTriggered() {
+    return intakeMotor.getForwardLimitSwitch().isPressed();
+  }
 
 
   public void run(double speed) {

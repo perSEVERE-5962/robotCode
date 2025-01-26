@@ -43,17 +43,17 @@ public final class Constants {
 
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
-    public static final double kTrackWidth = Units.inchesToMeters(20.5); 
+    public static final double kTrackWidth = Units.inchesToMeters(20.75); 
     // Distance between right and left wheels
-    public static final double kWheelBase = Units.inchesToMeters(20.5);
+    public static final double kWheelBase = Units.inchesToMeters(20.75);
     // Distance between front and back wheels
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
-            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0),
-            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0),
-            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0),
-            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0));
-
+            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0), //FL
+            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0), //FR
+            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0), //BL
+            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0)); //BR
+            
     public static final boolean kFrontLeftTurningEncoderReversed = false;
     public static final boolean kBackLeftTurningEncoderReversed = false;
     public static final boolean kFrontRightTurningEncoderReversed = false;

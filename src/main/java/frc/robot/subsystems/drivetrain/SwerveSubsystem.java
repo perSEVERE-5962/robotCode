@@ -355,4 +355,21 @@ public class SwerveSubsystem extends SubsystemBase {
 
     return instance;
   }
+
+  public void outputEncoderPositions(){
+    SmartDashboard.putNumber("FL Neo Encoder", frontLeft.getTurningPosition());
+    SmartDashboard.putNumber("FR Neo Encoder", frontRight.getTurningPosition());
+    SmartDashboard.putNumber("BL Neo Encoder", backLeft.getTurningPosition());
+    SmartDashboard.putNumber("BR Neo Encoder", backRight.getTurningPosition());
+
+    SmartDashboard.putNumber("FL CTRE Encoder", frontLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("FR CTRE Encoder", frontRight.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("BL CTRE Encoder", backLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("BR CTRE Encoder", backRight.getAbsoluteEncoderAngle());
+
+    SmartDashboard.putNumber("FL Drv Encoder", frontLeft.getDrivePosition());
+    SmartDashboard.putNumber("FR Drv Encoder", frontRight.getDrivePosition());
+    SmartDashboard.putNumber("BL Drv Encoder", backLeft.getDrivePosition());
+    SmartDashboard.putNumber("BR Drv Encoder", backRight.getDrivePosition());
+}
 }
