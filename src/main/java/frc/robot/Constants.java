@@ -205,5 +205,19 @@ public final class Constants {
      public static final float kLowerSoftLimit = 0; // kReverse
      public static final float kUpperSoftLimit = 15.5f; // kForward
   
-}
+  } public static final class WristConstants {
+      public static final int kWristID = 53; 
+      // PID
+      public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+      public static final double kI = 0; // 1e-4,
+      public static final double kD = 0; // 1, 0.5, 0.1
+      public static final double kIz = 0;
+      public static final double kFF = 0; // 0,
+  
+      // Limits
+      public static final double kMaxOutput = 0.4; // extend?
+      public static final double kMinOutput = -0.25; // retract ?
+      public static final float kLowerSoftLimit = 0; // kReverse
+      public static final float kUpperSoftLimit = 15.5f; // kForward
+  }
 }
