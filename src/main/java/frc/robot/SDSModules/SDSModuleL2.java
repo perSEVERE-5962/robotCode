@@ -9,14 +9,6 @@ import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class SDSModuleL2 extends SDSModuleBase {
-
-
-  /******************************************/
-  /* THIS IS JUST A COPY OF THE L3 MODULE   */
-  /* IT WILL NEED TO BE MODIFIED FOR THE L2 */
-  /******************************************/
-
-
   // chassis #2
   // private final double BACK_RIGHT_OFFSET = 0.473389; /*0.251221; //chassis one 12*/
   // private final double BACK_LEFT_OFFSET = 0.049805; /*0.167236;//chassis one 22 */
@@ -65,19 +57,19 @@ public class SDSModuleL2 extends SDSModuleBase {
   }
 
   public double getBackRightDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees()+180;
+    return Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees() + 180.0;
   }
 
   public double getBackLeftDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees()+180;
+    return Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees() + 180.0;
   }
 
   public double getFrontRightDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees()+180;
+    return Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees() + 180.0;
   }
 
   public double getFrontLeftDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees()+180;
+    return Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees() + 180.0;
   }
 
   public double getBackRightDriveAbsoluteEncoderOffsetRad(){
