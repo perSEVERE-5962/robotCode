@@ -19,11 +19,16 @@ public class Intake extends SubsystemBase{
   public Intake() {
     intakeMotor = new SparkMax(Constants.CANDeviceIDs.kIntakeID, SparkLowLevel.MotorType.kBrushless);
     motorConfig = new SparkMaxConfig(); 
+
     
-    motorConfig.inverted(false); 
-    motorConfig.limitSwitch.forwardLimitSwitchEnabled(true);
+    motorConfig.inverted(false);
+    motorConfig.limitSwitch.forwardLimitSwitchEnabled(true); 
     motorConfig.limitSwitch.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
     intakeMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    
+  }
+  public boolean checkNormallyOpenLimitSwitch(){
+    return intakeMotor.getForwardLimitSwitch().isPressed();
   }
 
   public boolean isLimitSwitchTriggered() {
