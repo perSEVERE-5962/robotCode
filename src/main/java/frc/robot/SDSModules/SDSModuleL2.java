@@ -65,19 +65,19 @@ public class SDSModuleL2 extends SDSModuleBase {
   }
 
   public double getBackRightDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees();
+    return Rotation2d.fromRotations(BACK_RIGHT_OFFSET).getDegrees()+180;
   }
 
   public double getBackLeftDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees();
+    return Rotation2d.fromRotations(BACK_LEFT_OFFSET).getDegrees()+180;
   }
 
   public double getFrontRightDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees();
+    return Rotation2d.fromRotations(FRONT_RIGHT_OFFSET).getDegrees()+180;
   }
 
   public double getFrontLeftDriveAbsoluteEncoderOffsetDeg(){
-    return Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees();
+    return Rotation2d.fromRotations(FRONT_LEFT_OFFSET).getDegrees()+180;
   }
 
   public double getBackRightDriveAbsoluteEncoderOffsetRad(){

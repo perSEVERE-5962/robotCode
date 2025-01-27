@@ -3,20 +3,33 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+
 import frc.robot.Constants;
 
 public class Wrist extends Actuator {
-    private static Wrist instance;
-    public Wrist(){
-      super(Constants.WristConstants.kWristID, Constants.WristConstants.kP, Constants.WristConstants.kI, Constants.WristConstants.kD, Constants.WristConstants.kMinOutput, Constants.WristConstants.kMaxOutput, Constants.WristConstants.kFF, Constants.WristConstants.kIz, Constants.WristConstants.kUpperSoftLimit);
+  private static Wrist instance;
+
+  public Wrist() {
+    super(
+        Constants.WristConstants.kWristID,
+        Constants.WristConstants.kP,
+        Constants.WristConstants.kI,
+        Constants.WristConstants.kD,
+        Constants.WristConstants.kMinOutput,
+        Constants.WristConstants.kMaxOutput,
+        Constants.WristConstants.kFF,
+        Constants.WristConstants.kIz,
+        Constants.WristConstants.kUpperSoftLimit);
+  }
+
+  @Override
+  public void periodic() {
+  }
+
+  public static Wrist getInstance() {
+    if (instance == null) {
+      instance = new Wrist();
     }
-    @Override
-    public void periodic(){
-    }
-    public static Wrist getInstance() {
-        if (instance == null) {
-          instance = new Wrist();
-        }
-        return instance;
-      }
+    return instance;
+  }
 }
