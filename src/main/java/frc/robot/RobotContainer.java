@@ -112,7 +112,8 @@ public class RobotContainer {
     dr_buttonA.onTrue(new PickUpIntake());
     dr_buttonB.onTrue(new SetArmShootPosition());
     dr_buttonX.onTrue(new SetArmIntakePosition());
-    dr_rightBumper.onTrue(new ShootWithIntake());
+    dr_rightBumper.whileTrue(new ShootWithIntake());
+
   }
 
   /**
