@@ -51,7 +51,7 @@ public class SwerveModule {
     this.absoluteEncoderOffsetRad = absoluteEncoderOffset;
     this.absoluteEncoderReversed = absoluteEncoderReversed;
     absoluteEncoder = new CANcoder(absoluteEncoderId, Constants.DriveConstants.kCanBusName);
-    // SAT CHANGE: absoluteEncoder.setPosition(0);
+   
     /* Configure CANcoder */
     var toApply = new CANcoderConfiguration();
 
@@ -121,6 +121,10 @@ public class SwerveModule {
     return driveEncoder.getPosition();
   }
 
+  /**
+   * get the turning motor position
+   * @return the position in radians
+   */
   public double getTurningPosition() {
     return turningEncoder.getPosition();
   }
@@ -135,7 +139,6 @@ public class SwerveModule {
 
   public double getAbsoluteEncoderAngle() {
     double angle = Rotation2d.fromRotations(absoluteEncoder.getPosition().getValueAsDouble()).getDegrees();
-    // SAT CHANGE: double angle = absoluteEncoder.getPosition()*(360/4096);
     return angle;
   }
 
@@ -152,14 +155,12 @@ public class SwerveModule {
   public void resetEncoders() {
     driveEncoder.setPosition(0);
     turningEncoder.setPosition(getAbsoluteEncoderRad());
-    // SAT CHANGE: turningEncoder.setPosition(0);
-    // SAT CHANGE: absoluteEncoder.setPosition(0);
   }
 
-  public void resetEncodersWithOffsets() {
-    driveEncoder.setPosition(0);
-    turningEncoder.setPosition(absoluteEncoderOffsetRad * (absoluteEncoderReversed ? -1.0 : 1.0));
-  }
+  // public void resetEncodersWithOffsets() {
+  //   driveEncoder.setPosition(0);
+  //   turningEncoder.setPosition(absoluteEncoderOffsetRad * (absoluteEncoderReversed ? -1.0 : 1.0));
+  // }
 
   public SwerveModuleState getState() {
     return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningPosition()));

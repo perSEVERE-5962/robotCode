@@ -9,36 +9,31 @@ import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class SDSModuleL2 extends SDSModuleBase {
+  // chassis #2
+  // private final double BACK_RIGHT_OFFSET = 0.473389; /*0.251221; //chassis one 12*/
+  // private final double BACK_LEFT_OFFSET = 0.049805; /*0.167236;//chassis one 22 */
+  // private final double FRONT_RIGHT_OFFSET = 0.024170; /* 0.346436; //chassis one 32 */
+  // private final double FRONT_LEFT_OFFSET = 0.291016; /* 0.379150;//chassis one  */
 
-
-  /******************************************/
-  /* THIS IS JUST A COPY OF THE L3 MODULE   */
-  /* IT WILL NEED TO BE MODIFIED FOR THE L2 */
-  /******************************************/
-
-
-  private final double BACK_RIGHT_OFFSET = 0.251221; //chassis one 12
-  private final double BACK_LEFT_OFFSET = 0.167236;//chassis one 22 
-  private final double FRONT_RIGHT_OFFSET = 0.346436; //chassis one 32
-  private final double FRONT_LEFT_OFFSET = 0.379150;//chassis one 42
-
- // private final double BACK_RIGHT_OFFSET = 0.251221; //chassis two 12
-  //private final double BACK_LEFT_OFFSET = 0.167236;//chassis two 22 
-  //private final double FRONT_RIGHT_OFFSET = 0.346436; //chassis two 32
-  //private final double FRONT_LEFT_OFFSET = 0.379150;//chassis two 42
+  //chassis #1
+  private final double BACK_RIGHT_OFFSET = 0.254883;
+  private final double BACK_LEFT_OFFSET = 0.163574; 
+  private final double FRONT_RIGHT_OFFSET = 0.330566;
+  private final double FRONT_LEFT_OFFSET = -0.429199; 
+  
 
   private final double kPTurning = 0.34;
   private final double kITurning = 0.0; 
   private final double kDTurning = 0.0; 
   
-  private final double kDriveMotorGearRatio = 1 / 6.12; 
+  private final double kDriveMotorGearRatio = 1.0 / 6.75; 
   private final double kTurningMotorGearRatio = 1.0 / (150.0 / 7.0);
   private final double kDriveEncoderRot2Meter = kDriveMotorGearRatio * Math.PI * kWheelDiameterMeters;
   private final double kDriveEncoderRot2Inch = kDriveMotorGearRatio * Math.PI * kWheelDiameterInches;
   private final double kTurningEncoderRot2Rad = kTurningMotorGearRatio * 2 * Math.PI;
   private final double kDriveEncoderRPM2MeterPerSec = kDriveEncoderRot2Meter / 60.0;
   private final double kTurningEncoderRPM2RadPerSec = kTurningEncoderRot2Rad / 60.0;
-  private final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters(16.6);  
+  private final double kPhysicalMaxSpeedMetersPerSecond = Units.feetToMeters(15.1);  
   private final double kTeleDriveMaxSpeedMetersPerSecond = kPhysicalMaxSpeedMetersPerSecond / 4.0;
 
   protected double getBackRightOffset() {

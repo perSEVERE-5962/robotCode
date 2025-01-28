@@ -31,13 +31,10 @@ public class Intake extends SubsystemBase{
     return intakeMotor.getForwardLimitSwitch().isPressed();
   }
 
-
-
   public void run(double speed) {
     intakeMotor.set(speed);
 
   }
-  
 
   @Override
   public void periodic() {
