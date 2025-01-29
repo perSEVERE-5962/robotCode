@@ -9,7 +9,7 @@ import frc.robot.Constants;
 public class Wrist extends Actuator {
   private static Wrist instance;
 
-  public Wrist() {
+  private Wrist() {
     super(
         Constants.WristConstants.kWristID,
         Constants.WristConstants.kP,

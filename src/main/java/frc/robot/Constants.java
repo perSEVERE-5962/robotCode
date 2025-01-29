@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -170,7 +171,7 @@ public final class Constants {
 
 
   public static final class ReachConstants {
-    public static final int kReachID = 52;
+    public static final int kReachID = 51;
     // PID
 
     public static final double kP = 0.1; // 0.1, 0, -0.1, -2
@@ -218,5 +219,27 @@ public final class Constants {
       public static final float kL2Limit = 1.6f;
       public static final float kL3Limit = 1.9f;
       public static final float kIntakeLimit = 2.0f;
+  }
+  public static final class ScoringConstants {
+    //{trough,L1,L2,L3}
+    public static final double[][] postions = { 
+        { 15.0, 25.0, 35.0 },//Trough(1.Arm, 2.Wrist,3.Pivot)
+        { 15.0, 25.0, 35.0 },//L1
+        { 15.0, 25.0, 35.0 },//L2
+        { 15.0, 25.0, 35.0 } };//L3
+    public static final int trough=1;
+    public static final int L1=2;
+    public static final int L2=3;
+    public static final int L3=4;
+    public static final int pivot=3;
+    public static final int wrist=2;
+    public static final int reach=1;
+
+
+
+
+  
+  
+  
   }
 }

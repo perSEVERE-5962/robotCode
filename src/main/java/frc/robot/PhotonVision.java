@@ -27,6 +27,7 @@ import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class PhotonVision {
+    
    private static PhotonCamera cameraFront = new PhotonCamera("FrontCamera");
     static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
     PhotonPipelineResult result=cameraFront.getLatestResult();
@@ -49,7 +50,7 @@ public class PhotonVision {
         return mapPose2d;
     }
 
-    // PhotonPoseEstimator PoseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,camerapose);
+     PhotonPoseEstimator PoseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,camerapose);
     // public static double getTargetDistance() {
     //     if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
     //  public static double GettargetDistance(){

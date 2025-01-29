@@ -9,7 +9,7 @@ import frc.robot.Constants;
 public class Pivot extends Actuator {
   private static Pivot instance;
 
-  public Pivot() {
+  private Pivot() {
     super(
         Constants.PivotConstants.kPivotID,
         Constants.PivotConstants.kP,
