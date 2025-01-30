@@ -221,26 +221,17 @@ public final class Constants {
       public static final float kIntakeLimit = 2.0f;
   }
   public static final class ScoringConstants {
-    //{trough,L1,L2,L3}
     public static final double[][] postions = { 
-        { 15.0, 25.0, 35.0 },//Trough(1.Arm, 2.Wrist,3.Pivot)
-        { 15.0, 25.0, 35.0 },//L1
-        { 15.0, 25.0, 35.0 },//L2
-        { 15.0, 25.0, 35.0 } };//L3
-    public static final int trough=1;
-    public static final int L1=2;
-    public static final int L2=3;
-    public static final int L3=4;
-    public static final int pivot=3;
-    public static final int wrist=2;
-    public static final int reach=1;
-    //Work done
-
-
-
-
-  
-  
-  
+        { 15.0, 25.0, 35.0 },   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0 },   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0 },   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0 } }; //L4 (1.Reach, 2.Wrist, 3.Pivot)
+    public static final int kL1=0;
+    public static final int kL2=1;
+    public static final int kL3=2;
+    public static final int kL4=3;
+    public static final int kReach=0;
+    public static final int kWrist=1;
+    public static final int kPivot=2;
   }
 }

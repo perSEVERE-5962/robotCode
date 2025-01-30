@@ -12,7 +12,7 @@ import frc.robot.subsystems.Wrist;
 
 public class SetArmShootPosition extends Command {
   private Reach reachSub;
-  private int m_targetPos;
+  private int targetPos;
   private Pivot pivotSub;
   private Wrist wristSub;
   /** Creates a new SetArmShootPosition. */
@@ -21,7 +21,7 @@ public class SetArmShootPosition extends Command {
     wristSub = Wrist.getInstance();
     pivotSub = Pivot.getInstance();
 
-    m_targetPos =  scorePostion;
+    targetPos =  scorePostion;
     addRequirements(reachSub,wristSub,pivotSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -33,9 +33,9 @@ public class SetArmShootPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    reachSub.moveToPositionWithPID(ScoringConstants.postions[m_targetPos][ScoringConstants.reach]);
-    wristSub.moveToPositionWithPID(ScoringConstants.postions[m_targetPos][ScoringConstants.wrist]);
-    pivotSub.moveToPositionWithPID(ScoringConstants.postions[m_targetPos][ScoringConstants.pivot]);
+    reachSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kReach]);
+    wristSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kWrist]);
+    pivotSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kPivot]);
   }
 
   // Called once the command ends or is interrupted.
