@@ -6,7 +6,7 @@ public class Reach extends Actuator {
 
   private static Reach instance;
 
-  public Reach() {
+  private Reach() {
     super(
         Constants.ReachConstants.kReachID,
         Constants.ReachConstants.kP,

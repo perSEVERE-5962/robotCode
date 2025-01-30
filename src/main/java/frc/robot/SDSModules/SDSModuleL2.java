@@ -10,16 +10,16 @@ import edu.wpi.first.math.util.Units;
 /** Add your docs here. */
 public class SDSModuleL2 extends SDSModuleBase {
   // chassis #2
-  // private final double BACK_RIGHT_OFFSET = 0.473389; /*0.251221; //chassis one 12*/
-  // private final double BACK_LEFT_OFFSET = 0.049805; /*0.167236;//chassis one 22 */
-  // private final double FRONT_RIGHT_OFFSET = 0.024170; /* 0.346436; //chassis one 32 */
-  // private final double FRONT_LEFT_OFFSET = 0.291016; /* 0.379150;//chassis one  */
+   private final double BACK_RIGHT_OFFSET = 0.473389; /*0.251221; //chassis one 12*/
+   private final double BACK_LEFT_OFFSET = 0.049805; /*0.167236;//chassis one 22 */
+   private final double FRONT_RIGHT_OFFSET = 0.024170; /* 0.346436; //chassis one 32 */
+   private final double FRONT_LEFT_OFFSET = 0.291016; /* 0.379150;//chassis one  */
 
   //chassis #1
-  private final double BACK_RIGHT_OFFSET = 0.254883;
-  private final double BACK_LEFT_OFFSET = 0.163574; 
-  private final double FRONT_RIGHT_OFFSET = 0.330566;
-  private final double FRONT_LEFT_OFFSET = -0.429199; 
+  //private final double BACK_RIGHT_OFFSET = 0.254883;
+ // private final double BACK_LEFT_OFFSET = 0.163574; 
+ // private final double FRONT_RIGHT_OFFSET = 0.330566;
+ // private final double FRONT_LEFT_OFFSET = -0.429199; 
   
 
   private final double kPTurning = 0.34;
