@@ -57,9 +57,9 @@ public class DriveCommand extends Command {
     xSpeed = MathUtil.applyDeadband(xSpeed, 0.15);
     turningSpeed = MathUtil.applyDeadband(turningSpeed, 0.15); // 0.15 for xbox
 
-    ySpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
-    xSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
-    turningSpeed *= Constants.DriveConstants.kPhysicalMaxSpeedMetersPerSecond;
+    ySpeed *= swerveSubsystem.getSDSModuleInterface().getPhysicalMaxSpeedMetersPerSecond();
+    xSpeed *= swerveSubsystem.getSDSModuleInterface().getPhysicalMaxSpeedMetersPerSecond();
+    turningSpeed *= swerveSubsystem.getSDSModuleInterface().getPhysicalMaxSpeedMetersPerSecond();
 
     // 3. Make the driving smoother
     // xSpeed = xLimiter.calculate(xSpeed) *

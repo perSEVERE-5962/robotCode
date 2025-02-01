@@ -3,7 +3,8 @@ package frc.robot.subsystems.drivetrain;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import com.kauailabs.navx.frc.AHRS;
+import com.studica.frc.AHRS; 
+import com.studica.frc.AHRS.NavXComType; 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -14,18 +15,35 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.CANDeviceIDs;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.SDSModuleType;
+import frc.robot.SDSModules.SDSModuleFactory;
+import frc.robot.SDSModules.SDSModuleInterface;
 
 public class SwerveSubsystem extends SubsystemBase {
   private static SwerveSubsystem instance;
+
+  //private boolean sdsModuleTypeSet = false;
+  private SDSModuleFactory sdsModuleFactory = new SDSModuleFactory();
+  private SDSModuleInterface sdsModuleInterface = sdsModuleFactory.createSDSModule(SDSModuleType.kCurrent);
+
+  // public void setSDSModuleType(int sdsModuleType) {
+  //   if (sdsModuleTypeSet == false) {
+  //     SDSModuleFactory sdsModuleFactory = new SDSModuleFactory();
+  //     sdsModuleInterface = sdsModuleFactory.createSDSModule(sdsModuleType);
+  //     sdsModuleTypeSet = true;
+  //   }
+  // }
+
+  public SDSModuleInterface getSDSModuleInterface() {
+    return sdsModuleInterface;
+  }
 
   public final SwerveModule frontLeft =
       new SwerveModule(
@@ -34,8 +52,9 @@ public class SwerveSubsystem extends SubsystemBase {
           DriveConstants.kFrontLeftDriveEncoderReversed,
           DriveConstants.kFrontLeftTurningEncoderReversed,
           CANDeviceIDs.kFrontLeftDriveAbsoluteEncoderID,
-          DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetRad,
-          DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed);
+          sdsModuleInterface.getFrontLeftDriveAbsoluteEncoderOffsetRad(),
+          DriveConstants.kFrontLeftDriveAbsoluteEncoderReversed,
+          sdsModuleInterface);
 
   private final SwerveModule frontRight =
       new SwerveModule(
@@ -44,8 +63,9 @@ public class SwerveSubsystem extends SubsystemBase {
           DriveConstants.kFrontRightDriveEncoderReversed,
           DriveConstants.kFrontRightTurningEncoderReversed,
           CANDeviceIDs.kFrontRightDriveAbsoluteEncoderID,
-          DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
-          DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
+          sdsModuleInterface.getFrontRightDriveAbsoluteEncoderOffsetRad(),
+          DriveConstants.kFrontRightDriveAbsoluteEncoderReversed,
+          sdsModuleInterface);
 
   private final SwerveModule backLeft =
       new SwerveModule(
@@ -54,8 +74,9 @@ public class SwerveSubsystem extends SubsystemBase {
           DriveConstants.kBackLeftDriveEncoderReversed,
           DriveConstants.kBackLeftTurningEncoderReversed,
           CANDeviceIDs.kBackLeftDriveAbsoluteEncoderID,
-          DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetRad,
-          DriveConstants.kBackLeftDriveAbsoluteEncoderReversed);
+          sdsModuleInterface.getBackLeftDriveAbsoluteEncoderOffsetRad(),
+          DriveConstants.kBackLeftDriveAbsoluteEncoderReversed,
+          sdsModuleInterface);
 
   private final SwerveModule backRight =
       new SwerveModule(
@@ -64,10 +85,11 @@ public class SwerveSubsystem extends SubsystemBase {
           DriveConstants.kBackRightDriveEncoderReversed,
           DriveConstants.kBackRightTurningEncoderReversed,
           CANDeviceIDs.kBackRightDriveAbsoluteEncoderID,
-          DriveConstants.kBackRightDriveAbsoluteEncoderOffsetRad,
-          DriveConstants.kBackRightDriveAbsoluteEncoderReversed);
+          sdsModuleInterface.getBackRightDriveAbsoluteEncoderOffsetRad(),
+          DriveConstants.kBackRightDriveAbsoluteEncoderReversed,
+          sdsModuleInterface);
 
-  private final AHRS gyro = new AHRS(SPI.Port.kMXP);
+  private final AHRS gyro = new AHRS(NavXComType.kMXP_SPI); 
   private final SwerveDriveOdometry odometer =
       new SwerveDriveOdometry(
           DriveConstants.kDriveKinematics,
@@ -80,7 +102,7 @@ public class SwerveSubsystem extends SubsystemBase {
           });
 
   private SwerveSubsystem() {
-    
+
     new Thread(
             () -> {
               try {
@@ -171,7 +193,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
   public void setModuleStates(SwerveModuleState[] desiredStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(
-        desiredStates, DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
+        desiredStates, sdsModuleInterface.getPhysicalMaxSpeedMetersPerSecond());
     frontLeft.setDesiredState(desiredStates[0]);
     frontRight.setDesiredState(desiredStates[1]);
     backLeft.setDesiredState(desiredStates[2]);
@@ -206,12 +228,12 @@ public class SwerveSubsystem extends SubsystemBase {
   }
 
   public double convertPositionToDistance(double position) {
-    return Units.metersToInches(position) / (Constants.ModuleConstants.kDriveEncoderRot2Inch);
+    return Units.metersToInches(position) / (sdsModuleInterface.getDriveEncoderRot2Inch());
   }
 
   public double convertDistanceToPosition(double distance) {
-    return (distance * Constants.ModuleConstants.kDriveMotorGearRatio)
-        / (Math.PI * Constants.ModuleConstants.kWheelDiameterInches);
+    return (distance * sdsModuleInterface.getDriveMotorGearRatio())
+        / (Math.PI * sdsModuleInterface.getWheelDiameterInches());
   }
 
   public double getAverageDistanceInches() {
@@ -292,22 +314,22 @@ public class SwerveSubsystem extends SubsystemBase {
           new SwerveModuleState(
               0.1,
               Rotation2d.fromDegrees(
-                  Constants.DriveConstants.kFrontLeftDriveAbsoluteEncoderOffsetDeg)),
+                  sdsModuleInterface.getFrontLeftDriveAbsoluteEncoderOffsetDeg())),
           // front right
           new SwerveModuleState(
               0.1,
               Rotation2d.fromDegrees(
-                  Constants.DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetDeg)),
+                  sdsModuleInterface.getFrontRightDriveAbsoluteEncoderOffsetDeg())),
           // back left
           new SwerveModuleState(
               0.1,
               Rotation2d.fromDegrees(
-                  Constants.DriveConstants.kBackLeftDriveAbsoluteEncoderOffsetDeg)),
+                  sdsModuleInterface.getBackLeftDriveAbsoluteEncoderOffsetDeg())),
           // back right
           new SwerveModuleState(
               0.1,
               Rotation2d.fromDegrees(
-                  Constants.DriveConstants.kBackRightDriveAbsoluteEncoderOffsetDeg))
+                  sdsModuleInterface.getBackRightDriveAbsoluteEncoderOffsetDeg()))
         });
   }
 
@@ -332,5 +354,17 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     return instance;
+  }
+
+  public void outputEncoderPositions(){
+    SmartDashboard.putNumber("FL Turn Encoder (degrees)", Rotation2d.fromRadians(frontLeft.getTurningPosition()).getDegrees());
+    SmartDashboard.putNumber("FR Turn Encoder (degrees)", Rotation2d.fromRadians(frontRight.getTurningPosition()).getDegrees());
+    SmartDashboard.putNumber("BL Turn Encoder (degrees)", Rotation2d.fromRadians(backLeft.getTurningPosition()).getDegrees());
+    SmartDashboard.putNumber("BR Turn Encoder (degrees)", Rotation2d.fromRadians(backRight.getTurningPosition()).getDegrees());
+
+    SmartDashboard.putNumber("FL CTRE Encoder (degrees)", frontLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("FR CTRE Encoder (degrees)", frontRight.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("BL CTRE Encoder (degrees)", backLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("BR CTRE Encoder (degrees)", backRight.getAbsoluteEncoderAngle());
   }
 }
