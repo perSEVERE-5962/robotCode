@@ -12,6 +12,7 @@ public class ConstantsTest {
     int kL2 = ScoringConstants.kL2;
     int kL3 = ScoringConstants.kL3;
     int kL4 = ScoringConstants.kL4;
+    int kStation = ScoringConstants.kStation;
     int kPivot = ScoringConstants.kPivot;
     int kWrist = ScoringConstants.kWrist;
     int kReach = ScoringConstants.kReach;
@@ -31,5 +32,9 @@ public class ConstantsTest {
     assertEquals(15.0, positions[kL4][kReach]);
     assertEquals(25.0, positions[kL4][kWrist]);
     assertEquals(35.0, positions[kL4][kPivot]);
+
+    assertEquals(15.0, positions[kStation][kReach]);
+    assertEquals(25.0, positions[kStation][kWrist]);
+    assertEquals(20.0, positions[kStation][kPivot]);
   }
 }

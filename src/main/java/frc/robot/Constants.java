@@ -222,14 +222,16 @@ public final class Constants {
   }
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 15.0, 25.0, 35.0 },   //L1 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0 },   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0 },   //L3 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0 } }; //L4 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0},   //L4
+        { 15.0, 25.0, 20.0} }; //Coral Station
     public static final int kL1=0;
     public static final int kL2=1;
     public static final int kL3=2;
     public static final int kL4=3;
+    public static final int kStation = 4;
     public static final int kReach=0;
     public static final int kWrist=1;
     public static final int kPivot=2;
