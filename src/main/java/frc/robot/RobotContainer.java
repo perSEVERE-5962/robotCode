@@ -110,10 +110,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_leftBumper.onTrue(new CollectCoral());
-    dr_buttonA.onTrue(new SetArmShootPosition(Constants.ScoringConstants.kL1));//trough
-    dr_buttonB.onTrue(new SetArmShootPosition(Constants.ScoringConstants.kL2));//l2
-    dr_buttonX.onTrue(new SetArmShootPosition(Constants.ScoringConstants.kL3));//l3
-    dr_buttonY.onTrue(new SetArmShootPosition(Constants.ScoringConstants.kL4));//l4
+    dr_buttonA.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
+    dr_buttonB.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
+    dr_buttonX.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
+    dr_buttonY.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
 
     dr_rightBumper.whileTrue(new ScoreCoral());
 
