@@ -88,7 +88,7 @@ public class SwerveModule {
         .positionConversionFactor(sdsModuleInterface.getTurningEncoderRot2Rad()) 
         .velocityConversionFactor(sdsModuleInterface.getTurningEncoderRPM2RadPerSec()); 
  
-    motorConfig.closedLoop 
+        motorConfig.closedLoop 
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder) 
         .p(0.1) 
         .i(0) 
@@ -96,12 +96,13 @@ public class SwerveModule {
         .outputRange(-0.5,0.5) 
         .velocityFF(0) 
         .iZone(0); 
-
+ 
     driveEncoder = driveMotor.getEncoder();
     turningEncoder = turningMotor.getEncoder();
 
     driveMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-
+    turningMotor.configure(turningConfig,ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    
     turningPidController = new PIDController(sdsModuleInterface.getPTurning(), 0, 0); 
 
     resetController = new PIDController(0.01, 0, 0);
