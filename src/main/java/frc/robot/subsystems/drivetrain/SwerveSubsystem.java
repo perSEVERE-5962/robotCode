@@ -355,4 +355,16 @@ public class SwerveSubsystem extends SubsystemBase {
 
     return instance;
   }
+
+  public void outputEncoderPositions(){
+    SmartDashboard.putNumber("FL Turn Encoder (degrees)", Rotation2d.fromRadians(frontLeft.getTurningPosition()).getDegrees());
+    SmartDashboard.putNumber("FR Turn Encoder (degrees)", Rotation2d.fromRadians(frontRight.getTurningPosition()).getDegrees());
+    SmartDashboard.putNumber("BL Turn Encoder (degrees)", Rotation2d.fromRadians(backLeft.getTurningPosition()).getDegrees());
+    SmartDashboard.putNumber("BR Turn Encoder (degrees)", Rotation2d.fromRadians(backRight.getTurningPosition()).getDegrees());
+
+    SmartDashboard.putNumber("FL CTRE Encoder (degrees)", frontLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("FR CTRE Encoder (degrees)", frontRight.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("BL CTRE Encoder (degrees)", backLeft.getAbsoluteEncoderAngle());
+    SmartDashboard.putNumber("BR CTRE Encoder (degrees)", backRight.getAbsoluteEncoderAngle());
+  }
 }
