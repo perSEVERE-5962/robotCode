@@ -21,27 +21,36 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
+import frc.robot.Constants.PhotonVisionConstant;
 
 
 import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class PhotonVision {
-    
+    private int placeInArray;
+    private Transform3d cameraPose; 
+    private Transform3d  cameraPoses[]=new Transform3d[4];//4 is the number of Cameras
+    public PhotonVision(){
+    }
+
    private static PhotonCamera cameraFront = new PhotonCamera("FrontCamera");
-    static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
-    PhotonPipelineResult result=cameraFront.getLatestResult();
+   PhotonPipelineResult result=cameraFront.getLatestResult();
+   private static PhotonCamera cameraSront = new PhotonCamera("Frontzmera");
+   PhotonPipelineResult result1=cameraSront.getLatestResult();
     List<PhotonTrackedTarget> targets = result.getTargets();
+    List<PhotonTrackedTarget> targets1 = result1.getTargets();
    // PhotonTrackedTarget target= result.getBestTarget();
     static Transform3d camerapose = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
     //Pose3d robotPose=PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(),fieldLayout.getTagPose(target.getFiducialId()).get(), camerapose);
     
-    public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,camerapose);
+    public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,camerapose);
  public Pose2d getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
  
         poseEstimator.setLastPose(prevEstimatedRobotPose);
         EstimatedRobotPose estimatedRobotPose= poseEstimator.update(result).orElse(null);
-        if(estimatedRobotPose==null){
+        EstimatedRobotPose estimatedRobotPose1= poseEstimator.update(result1).orElse(null);
+        if(estimatedRobotPose==null && estimatedRobotPose1==null){
             return prevEstimatedRobotPose;
         }
         Rotation2d rotation2d = new Rotation2d(estimatedRobotPose.estimatedPose.getRotation().getX(),estimatedRobotPose.estimatedPose.getRotation().getY());
