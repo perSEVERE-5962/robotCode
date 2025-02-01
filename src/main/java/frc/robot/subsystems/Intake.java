@@ -16,7 +16,7 @@ public class Intake extends SubsystemBase{
     private SparkMaxConfig motorConfig; 
 
   /** Creates a new Intake. */
-  public Intake() {
+  private Intake() {
     intakeMotor = new SparkMax(Constants.CANDeviceIDs.kIntakeID, SparkLowLevel.MotorType.kBrushless);
     motorConfig = new SparkMaxConfig(); 
 
@@ -31,13 +31,10 @@ public class Intake extends SubsystemBase{
     return intakeMotor.getForwardLimitSwitch().isPressed();
   }
 
-
-
   public void run(double speed) {
     intakeMotor.set(speed);
 
   }
-  
 
   @Override
   public void periodic() {

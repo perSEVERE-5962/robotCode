@@ -5,17 +5,24 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
+import frc.robot.Constants.ScoringConstants;
+import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Reach;
+import frc.robot.subsystems.Wrist;
 
 public class SetArmShootPosition extends Command {
-  private Reach armSub;
-  private double m_targetPos;
+  private Reach reachSub;
+  private int targetPos;
+  private Pivot pivotSub;
+  private Wrist wristSub;
   /** Creates a new SetArmShootPosition. */
-  public SetArmShootPosition() {
-    armSub = Reach.getInstance();
-    m_targetPos =  Constants.ReachConstants.kUpperSoftLimit;
-    addRequirements(armSub);
+  public SetArmShootPosition(int scorePostion) {
+    reachSub = Reach.getInstance();
+    wristSub = Wrist.getInstance();
+    pivotSub = Pivot.getInstance();
+
+    targetPos =  scorePostion;
+    addRequirements(reachSub,wristSub,pivotSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,7 +33,9 @@ public class SetArmShootPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSub.moveToPositionWithPID(m_targetPos);
+    reachSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kReach]);
+    wristSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kWrist]);
+    pivotSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kPivot]);
   }
 
   // Called once the command ends or is interrupted.
@@ -38,11 +47,12 @@ public class SetArmShootPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(armSub.getPosition() >= m_targetPos){
-      return true;
-    }
-    else{
-      return false;
-    }
+    // if(reachSub.getPosition() >= m_targetPos){
+    //   return true;
+    // }
+    // else{
+    //   return false;
+    // }
+    return true;
   }
 }

@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -24,9 +25,9 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public final class Constants {
 
-  // public static final int TEAM_COLOR_BLUE = 0;
-  // public static final int TEAM_COLOR_RED = 1;
-  // public static int kTeamColor = 0;
+  public static final int TEAM_COLOR_BLUE = 0;
+   public static final int TEAM_COLOR_RED = 1;
+  public static int kTeamColor = 0;
 
   public static final boolean kUseJoystick = false; // true for joystick, false for xbox
 
@@ -43,31 +44,26 @@ public final class Constants {
 
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
-    public static final double kTrackWidth = Units.inchesToMeters(20.5); 
+    public static final double kTrackWidth = Units.inchesToMeters(20.75); 
     // Distance between right and left wheels
-    public static final double kWheelBase = Units.inchesToMeters(20.5);
+    public static final double kWheelBase = Units.inchesToMeters(20.75);
     // Distance between front and back wheels
     public static final SwerveDriveKinematics kDriveKinematics =
         new SwerveDriveKinematics(
-            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0),
-            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0),
-            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0),
-            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0));
-
+            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0), //FL
+            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0), //FR
+            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0), //BL
+            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0)); //BR
+            
     public static final boolean kFrontLeftTurningEncoderReversed = false;
     public static final boolean kBackLeftTurningEncoderReversed = false;
     public static final boolean kFrontRightTurningEncoderReversed = false;
     public static final boolean kBackRightTurningEncoderReversed = false;
 
-    // public static final boolean kFrontLeftDriveEncoderReversed = false;
-    // public static final boolean kBackLeftDriveEncoderReversed = false;
-    // public static final boolean kFrontRightDriveEncoderReversed = false;
-    // public static final boolean kBackRightDriveEncoderReversed = false;
-
-    public static final boolean kFrontLeftDriveEncoderReversed = true;
-    public static final boolean kBackLeftDriveEncoderReversed = true;
-    public static final boolean kFrontRightDriveEncoderReversed = true;
-    public static final boolean kBackRightDriveEncoderReversed = true;
+    public static final boolean kFrontLeftDriveEncoderReversed = false;
+    public static final boolean kBackLeftDriveEncoderReversed = false;
+    public static final boolean kFrontRightDriveEncoderReversed = false;
+    public static final boolean kBackRightDriveEncoderReversed = false;
 
     public static final boolean kFrontLeftDriveAbsoluteEncoderReversed = false;
     public static final boolean kBackLeftDriveAbsoluteEncoderReversed = false;
@@ -175,7 +171,7 @@ public final class Constants {
 
 
   public static final class ReachConstants {
-    public static final int kReachID = 52;
+    public static final int kReachID = 51;
     // PID
 
     public static final double kP = 0.1; // 0.1, 0, -0.1, -2
@@ -205,5 +201,37 @@ public final class Constants {
      public static final float kLowerSoftLimit = 0; // kReverse
      public static final float kUpperSoftLimit = 15.5f; // kForward
   
-}
+  } public static final class WristConstants {
+      public static final int kWristID = 53; 
+      // PID
+      public static final double kP = 0.1; // 0.1, 0, -0.1, -2
+      public static final double kI = 0; // 1e-4,
+      public static final double kD = 0; // 1, 0.5, 0.1
+      public static final double kIz = 0;
+      public static final double kFF = 0; // 0,
+  
+      // Limits
+      public static final double kMaxOutput = 0.4; // extend?
+      public static final double kMinOutput = -0.25; // retract ?
+      public static final float kLowerSoftLimit = 0; // kReverse
+      public static final float kUpperSoftLimit = 15.5f; // kForward
+      public static final float kL1Limit = 1.5f;
+      public static final float kL2Limit = 1.6f;
+      public static final float kL3Limit = 1.9f;
+      public static final float kIntakeLimit = 2.0f;
+  }
+  public static final class ScoringConstants {
+    public static final double[][] postions = { 
+        { 15.0, 25.0, 35.0 },   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0 },   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0 },   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { 15.0, 25.0, 35.0 } }; //L4 (1.Reach, 2.Wrist, 3.Pivot)
+    public static final int kL1=0;
+    public static final int kL2=1;
+    public static final int kL3=2;
+    public static final int kL4=3;
+    public static final int kReach=0;
+    public static final int kWrist=1;
+    public static final int kPivot=2;
+  }
 }

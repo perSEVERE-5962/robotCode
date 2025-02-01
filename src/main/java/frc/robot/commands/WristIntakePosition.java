@@ -5,14 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
+import frc.robot.Constants;
+import frc.robot.subsystems.Wrist;
 
-public class PickUpIntake extends Command {
-  private Intake intakeSub;
 
-  /** Creates a new PickUpIntake. */
-  public PickUpIntake() {
-    intakeSub = Intake.getInstance();
+public class WristIntakePosition extends Command {
+  private Wrist armSub;
+  private double m_targetPos;
+  /** Creates a new SetArmIntakePosition. */
+  public WristIntakePosition() {
+    armSub = Wrist.getInstance();
+    m_targetPos =  Constants.WristConstants.kIntakeLimit;
+    addRequirements(armSub);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -23,18 +27,21 @@ public class PickUpIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(0.5);
+    armSub.moveToPositionWithPID(m_targetPos);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    intakeSub.run(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intakeSub.checkNormallyOpenLimitSwitch();
+    if(armSub.getPosition() <= m_targetPos){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
