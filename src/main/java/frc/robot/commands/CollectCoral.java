@@ -6,10 +6,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
-public class ShootWithIntake extends Command {
+
+public class CollectCoral extends Command {
   private Intake intakeSub;
-  /** Creates a new ShootWithIntake. */
-  public ShootWithIntake() {
+
+  /** Creates a new PickUpIntake. */
+  public CollectCoral() {
     intakeSub = Intake.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -21,18 +23,18 @@ public class ShootWithIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(-0.5);
+    intakeSub.run(0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intakeSub.run(0.0);
+    intakeSub.run(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;//!intakeSub.isInRange();
+    return intakeSub.checkNormallyOpenLimitSwitch();
   }
 }

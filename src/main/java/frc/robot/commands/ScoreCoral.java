@@ -5,18 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
-import frc.robot.subsystems.Reach;
-
-
-public class SetArmIntakePosition extends Command {
-  private Reach armSub;
-  private double m_targetPos;
-  /** Creates a new SetArmIntakePosition. */
-  public SetArmIntakePosition() {
-    armSub = Reach.getInstance();
-    m_targetPos =  Constants.ReachConstants.kLowerSoftLimit;
-    addRequirements(armSub);
+import frc.robot.subsystems.Intake;
+public class ScoreCoral extends Command {
+  private Intake intakeSub;
+  /** Creates a new ShootWithIntake. */
+  public ScoreCoral() {
+    intakeSub = Intake.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -27,21 +21,18 @@ public class SetArmIntakePosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    armSub.moveToPositionWithPID(m_targetPos);
+    intakeSub.run(-0.5);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intakeSub.run(0.0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(armSub.getPosition() <= m_targetPos){
-      return true;
-    }
-    else{
-      return false;
-    }
+    return false;//!intakeSub.isInRange();
   }
 }
