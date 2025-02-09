@@ -10,13 +10,13 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Reach;
 import frc.robot.subsystems.Wrist;
 
-public class SetArmShootPosition extends Command {
+public class SetArmPosition extends Command {
   private Reach reachSub;
   private int targetPos;
   private Pivot pivotSub;
   private Wrist wristSub;
   /** Creates a new SetArmShootPosition. */
-  public SetArmShootPosition(int scorePostion) {
+  public SetArmPosition(int scorePostion) {
     reachSub = Reach.getInstance();
     wristSub = Wrist.getInstance();
     pivotSub = Pivot.getInstance();
