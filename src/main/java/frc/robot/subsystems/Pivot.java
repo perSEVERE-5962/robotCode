@@ -3,11 +3,20 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.revrobotics.spark.SparkLowLevel;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
 import frc.robot.Constants;
+import frc.robot.Constants.PivotConstants;
+
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Pivot extends Actuator {
   private static Pivot instance;
+  private SparkMax followerMotor;
+  private SparkMaxConfig followerConfig;
 
   private Pivot() {
     super(
@@ -20,6 +29,10 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kFF,
         Constants.PivotConstants.kIz,
         Constants.PivotConstants.kUpperSoftLimit);
+        followerMotor = new SparkMax(Constants.CANDeviceIDs.kFollowerID, SparkLowLevel.MotorType.kBrushless);
+        followerConfig = new SparkMaxConfig();
+        followerConfig.follow(PivotConstants.kPivotID);
+        followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   @Override

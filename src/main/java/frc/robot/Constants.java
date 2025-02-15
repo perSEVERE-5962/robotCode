@@ -136,8 +136,8 @@ public final class Constants {
   public static final class CANDeviceIDs {
     // Intake
     public static final int kIntakeID = 50;
-    // Arm
-
+    //Arm
+    public static final int kFollowerID = 60;
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
