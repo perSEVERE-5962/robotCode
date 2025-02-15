@@ -13,15 +13,16 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Actuator extends SubsystemBase {
     private SparkMax armMotor;
     private SparkMaxConfig motorConfig; 
     private static RelativeEncoder armEncoder;
+    
 
-
-    public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float UpperSoftLimit){
+    public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float kUpperSoftLimit,float kLowerSoftLimit){
 
         armMotor = new SparkMax(ID, SparkLowLevel.MotorType.kBrushless);
         motorConfig = new SparkMaxConfig(); 
@@ -43,12 +44,17 @@ public class Actuator extends SubsystemBase {
 
         SoftLimitConfig softLimitConfig = new SoftLimitConfig();
         softLimitConfig.forwardSoftLimitEnabled(true);
-        softLimitConfig.forwardSoftLimit(UpperSoftLimit);
+        softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
         softLimitConfig.reverseSoftLimitEnabled(true);
-        softLimitConfig.reverseSoftLimit(UpperSoftLimit);
+        softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
+
 
         motorConfig.apply(softLimitConfig);
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    }
+   
+    public void periodic() {
+        //nothing here
     }
 
     public double getPosition() {
