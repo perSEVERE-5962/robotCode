@@ -29,11 +29,11 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kMaxOutput,
         Constants.PivotConstants.kFF,
         Constants.PivotConstants.kIz,
-        Constants.PivotConstants.kUpperSoftLimit);
-        followerMotor = new SparkMax(Constants.CANDeviceIDs.kFollowerID, SparkLowLevel.MotorType.kBrushless);
-        followerConfig = new SparkMaxConfig();
-        followerConfig.follow(PivotConstants.kPivotID);
-        followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        Constants.PivotConstants.kUpperSoftLimit,
+        Constants.PivotConstants.kLowerSoftLimit, 
+        true);
+
+        
   }
 @Override
   public void periodic() {
