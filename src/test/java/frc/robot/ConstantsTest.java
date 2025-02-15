@@ -16,6 +16,7 @@ public class ConstantsTest {
     int kPivot = ScoringConstants.kPivot;
     int kWrist = ScoringConstants.kWrist;
     int kReach = ScoringConstants.kReach;
+    
 
     assertEquals(15.0, positions[kL1][kReach]);
     assertEquals(25.0, positions[kL1][kWrist]);

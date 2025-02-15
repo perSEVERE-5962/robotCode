@@ -231,9 +231,10 @@ public final class Constants {
     public static final int kL2=1;
     public static final int kL3=2;
     public static final int kL4=3;
-    public static final int kStation = 4;
+    public static final int kStation=4;
     public static final int kReach=0;
     public static final int kWrist=1;
     public static final int kPivot=2;
+
   }
 }
