@@ -23,7 +23,8 @@ public class Wrist extends Actuator {
         Constants.WristConstants.kFF,
         Constants.WristConstants.kIz,
         Constants.WristConstants.kUpperSoftLimit,
-        Constants.WristConstants.kLowerSoftLimit);
+        Constants.WristConstants.kLowerSoftLimit,
+        false);
   }
   @Override
   public void periodic() {

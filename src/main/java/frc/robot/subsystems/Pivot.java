@@ -30,7 +30,9 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kFF,
         Constants.PivotConstants.kIz,
         Constants.PivotConstants.kUpperSoftLimit,
-        Constants.PivotConstants.kLowerSoftLimit);
+        Constants.PivotConstants.kLowerSoftLimit, 
+        true);
+
         
   }
 @Override

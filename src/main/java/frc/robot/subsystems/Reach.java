@@ -18,7 +18,8 @@ public class Reach extends Actuator {
         Constants.ReachConstants.kFF,
         Constants.ReachConstants.kIz,
         Constants.ReachConstants.kUpperSoftLimit,
-        Constants.ReachConstants.kLowerSoftLimit);
+        Constants.ReachConstants.kLowerSoftLimit,
+        false);
   }
   @Override
   public void periodic() {
