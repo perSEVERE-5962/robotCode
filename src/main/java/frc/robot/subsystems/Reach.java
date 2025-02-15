@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class Reach extends Actuator {
@@ -16,12 +17,14 @@ public class Reach extends Actuator {
         Constants.ReachConstants.kMaxOutput,
         Constants.ReachConstants.kFF,
         Constants.ReachConstants.kIz,
-        Constants.ReachConstants.kUpperSoftLimit);
+        Constants.ReachConstants.kUpperSoftLimit,
+        Constants.ReachConstants.kLowerSoftLimit,
+        false);
   }
-
   @Override
   public void periodic() {
-
+        double theEncoder=instance.getPosition();
+       SmartDashboard.putNumber("Reach", theEncoder);
   }
 
   public static Reach getInstance() {
