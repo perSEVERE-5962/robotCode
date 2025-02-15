@@ -13,22 +13,17 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Actuator extends SubsystemBase {
     private SparkMax armMotor;
     private SparkMaxConfig motorConfig; 
     private RelativeEncoder armEncoder;
-    private boolean useThroughBoreEncoder = false;
     
-
     public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float kUpperSoftLimit,float kLowerSoftLimit, boolean useThroughBoreEncoder){
 
         armMotor = new SparkMax(ID, SparkLowLevel.MotorType.kBrushless);
         motorConfig = new SparkMaxConfig(); 
-        this.useThroughBoreEncoder = useThroughBoreEncoder;
     
         motorConfig.inverted(false); 
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
