@@ -133,7 +133,7 @@ public final class Constants {
     //Intake
     public static final int kIntakeID = 50;
     //Arm
-   
+    public static final int kFollowerID = 60;
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
