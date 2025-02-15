@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel;
@@ -20,7 +21,6 @@ public class Actuator extends SubsystemBase {
     private SparkMax armMotor;
     private SparkMaxConfig motorConfig; 
     private RelativeEncoder armEncoder;
-    private SparkAbsoluteEncoder throughBoreEncoder;
     private boolean useThroughBoreEncoder = false;
     
 
@@ -33,31 +33,26 @@ public class Actuator extends SubsystemBase {
         motorConfig.inverted(false); 
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
         
+        FeedbackSensor feedBackSensor = FeedbackSensor.kPrimaryEncoder;
+         
         if(useThroughBoreEncoder == true){
-             motorConfig.closedLoop
-            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
-            .p(P) 
-            .i(I) 
-            .d(D) 
-            .outputRange(MinOutput,MaxOutput) 
-            .velocityFF(FF) 
-            .iZone(Iz); 
-        }else{
-            motorConfig.closedLoop
-            .feedbackSensor(FeedbackSensor.kPrimaryEncoder) 
-            .p(P) 
-            .i(I) 
-            .d(D) 
-            .outputRange(MinOutput,MaxOutput) 
-            .velocityFF(FF) 
-            .iZone(Iz); 
+            feedBackSensor = FeedbackSensor.kAlternateOrExternalEncoder;
         }
-
-        armEncoder = armMotor.getEncoder();
+        motorConfig.closedLoop
+            .feedbackSensor(feedBackSensor)
+            .p(P) 
+            .i(I) 
+            .d(D) 
+            .outputRange(MinOutput,MaxOutput) 
+            .velocityFF(FF) 
+            .iZone(Iz); 
+        if(useThroughBoreEncoder == true){
+            armEncoder = armMotor.getAlternateEncoder();
+        }else{
+            armEncoder = armMotor.getEncoder();
+        }
         armEncoder.setPosition(0);
-        throughBoreEncoder = armMotor.getAbsoluteEncoder();
-        throughBoreEncoder.setPosition(0);
-
+        
         SoftLimitConfig softLimitConfig = new SoftLimitConfig();
         softLimitConfig.forwardSoftLimitEnabled(true);
         softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
@@ -74,11 +69,8 @@ public class Actuator extends SubsystemBase {
     }
 
     public double getPosition() {
-        if(useThroughBoreEncoder == true){
-            return throughBoreEncoder.getPosition();
-        }else{
            return armEncoder.getPosition(); 
-        }
+        
     }
     public void moveToPositionWithPID(double position) {
       armMotor.getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
