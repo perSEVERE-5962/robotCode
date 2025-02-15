@@ -41,12 +41,12 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
-  // private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
+   private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
   private final Trigger dr_rightBumper    = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kRightBumper.value : 4);
   private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
   private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
   private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
-
+ private final Trigger dr_buttonY = new JoystickButton(driverController, XboxController.Button.kY.value);
   // Copilot Controller
   // private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
   // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
@@ -109,10 +109,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_buttonA.onTrue(new PickUpIntake());
-    dr_buttonB.onTrue(new SetArmShootPosition());
-    dr_buttonX.onTrue(new SetArmIntakePosition());
-    dr_rightBumper.whileTrue(new ShootWithIntake());
+    dr_leftBumper.onTrue(new CollectCoral());
+    dr_buttonA.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
+    dr_buttonB.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
+    dr_buttonX.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
+    dr_buttonY.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
+
+    dr_rightBumper.whileTrue(new ScoreCoral());
 
   }
 
