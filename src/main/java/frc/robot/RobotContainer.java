@@ -41,22 +41,17 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
-   private final Trigger dr_leftBumper     = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kLeftBumper.value : 3);
-  private final Trigger dr_rightBumper    = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kRightBumper.value : 4);
-  private final Trigger dr_buttonA        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kA.value : 12);
-  private final Trigger dr_buttonB        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kB.value : 11);
-  private final Trigger dr_buttonX        = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kX.value : 6);
- private final Trigger dr_buttonY = new JoystickButton(driverController, XboxController.Button.kY.value);
+
   // Copilot Controller
-  // private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
-  // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
-  // private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
-  // private final Trigger cp_buttonB = new JoystickButton(copilotController, XboxController.Button.kB.value);
-  // private final Trigger cp_buttonA = new JoystickButton(copilotController, XboxController.Button.kA.value);
-  // private final Trigger cp_buttonX = new JoystickButton(copilotController, XboxController.Button.kX.value);
-  // private final Trigger cp_buttonY = new JoystickButton(copilotController, XboxController.Button.kY.value);
-  // private final Trigger cp_rightBumper = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
-  // private final Trigger cp_leftBumper = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
+  private final Trigger cp_ReefLevel1 = new JoystickButton(copilotController, XboxController.Button.kA.value);
+  private final Trigger cp_ReefLevel2 = new JoystickButton(copilotController, XboxController.Button.kB.value);
+  private final Trigger cp_ReefLevel3 = new JoystickButton(copilotController, XboxController.Button.kC.value);
+  private final Trigger cp_ReefLevel4 = new JoystickButton(copilotController, XboxController.Button.kD.value);
+  private final Trigger cp_CoralStation = new JoystickButton(copilotController, XboxController.Button.LeftBumper.value);
+  private final Trigger cp_CollectCoral = new JoystickButton(copilotController, XboxController.Button.kLeftStick.value);
+  private final Trigger cp_ScoreCoral = new JoystickButton(copilotController, XboxController.Button.kRightStick.value);
+
 
   // Autonomous
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
@@ -109,13 +104,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_leftBumper.onTrue(new CollectCoral());
-    dr_buttonA.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
-    dr_buttonB.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
-    dr_buttonX.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
-    dr_buttonY.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
-
-    dr_rightBumper.whileTrue(new ScoreCoral());
+    cp_CollectCoral.onTrue(new CollectCoral());
+    cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
+    cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
+    cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
+    cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
+    cp_CoralStation.onTrue(new SetArmPosition(Constants.ScoringConstants.kStation));//Coral Station
+    cp_ScoreCoral.whileTrue(new ScoreCoral());
 
   }
 
