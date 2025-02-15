@@ -60,7 +60,7 @@ public class Robot extends TimedRobot {
     driveTrain.resetOdometry(PoseEstimator);
     System.out.println(PoseEstimator);
     }
-    System.out.println(PhotonVision.targets.isEmpty());
+    //System.out.println(PhotonVision.targets.isEmpty());
 
     
 

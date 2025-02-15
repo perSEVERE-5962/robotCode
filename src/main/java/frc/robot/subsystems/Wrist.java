@@ -4,6 +4,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.RelativeEncoder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class Wrist extends Actuator {
@@ -19,11 +22,13 @@ public class Wrist extends Actuator {
         Constants.WristConstants.kMaxOutput,
         Constants.WristConstants.kFF,
         Constants.WristConstants.kIz,
-        Constants.WristConstants.kUpperSoftLimit);
+        Constants.WristConstants.kUpperSoftLimit,
+        Constants.WristConstants.kLowerSoftLimit);
   }
-
   @Override
   public void periodic() {
+      double theEncoder=instance.getPosition();
+       SmartDashboard.putNumber("Wrist", theEncoder);
   }
 
   public static Wrist getInstance() {

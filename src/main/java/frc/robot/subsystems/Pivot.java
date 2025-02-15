@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 public class Pivot extends Actuator {
@@ -19,12 +20,14 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kMaxOutput,
         Constants.PivotConstants.kFF,
         Constants.PivotConstants.kIz,
-        Constants.PivotConstants.kUpperSoftLimit);
+        Constants.PivotConstants.kUpperSoftLimit,
+        Constants.PivotConstants.kLowerSoftLimit);
+        
   }
-
-  @Override
+@Override
   public void periodic() {
-
+        double theEncoder=instance.getPosition();
+       SmartDashboard.putNumber("Pivot", theEncoder);
   }
 
   public static Pivot getInstance() {
