@@ -276,4 +276,12 @@ public final class Constants {
       BackRight.cameraposeBackRight};
 
   }
+  public static final class StartingPos {
+
+
+   public static double statingRotation2dx=0;
+   public static  double statingRotation2dy=0;
+   public static  double startingTranslation2dx=0;
+   public static  double startingTranslation2dy=0;
+  }
 }
