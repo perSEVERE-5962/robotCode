@@ -52,8 +52,7 @@ public class RobotContainer {
   private final Trigger cp_CollectCoral = new JoystickButton(copilotController, XboxController.Button.kLeftStick.value);
   private final Trigger cp_ScoreCoral = new JoystickButton(copilotController, XboxController.Button.kRightStick.value);
 
-
-  // Autonomous
+  // Autonomous 
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
   /**
