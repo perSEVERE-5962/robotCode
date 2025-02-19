@@ -8,6 +8,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.PivotConstants;
 
@@ -28,16 +29,19 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kMaxOutput,
         Constants.PivotConstants.kFF,
         Constants.PivotConstants.kIz,
-        Constants.PivotConstants.kUpperSoftLimit);
+        Constants.PivotConstants.kUpperSoftLimit,
+        Constants.PivotConstants.kLowerSoftLimit, 
+        true);
+        
         followerMotor = new SparkMax(Constants.CANDeviceIDs.kFollowerID, SparkLowLevel.MotorType.kBrushless);
         followerConfig = new SparkMaxConfig();
         followerConfig.follow(PivotConstants.kPivotID);
         followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
   }
-
-  @Override
+@Override
   public void periodic() {
-
+        double theEncoder=instance.getPosition();
+       SmartDashboard.putNumber("Pivot", theEncoder);
   }
 
   public static Pivot getInstance() {

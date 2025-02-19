@@ -7,26 +7,40 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.photonvision.PhotonCamera;
+
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import com.revrobotics.spark.SparkMaxAlternateEncoder;
+import com.revrobotics.spark.config.AlternateEncoderConfig.Type;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
+ * The Constants class provides a convenient place for teams to hold robot-wide
+ * numerical or boolean
+ * constants. This class should not be used for any other purpose. All constants
+ * should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
+ * <p>
+ * It is advised to statically import this class (or one of its inner classes)
+ * wherever the
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
 
   public static final int TEAM_COLOR_BLUE = 0;
-   public static final int TEAM_COLOR_RED = 1;
+  public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
 
   public static final boolean kUseJoystick = false; // true for joystick, false for xbox
@@ -41,20 +55,18 @@ public final class Constants {
     public static final int kCurrent = kL2; // set the module that we are using
   }
 
-
   public static final class DriveConstants {
     public static final String kCanBusName = "rio";
-    public static final double kTrackWidth = Units.inchesToMeters(20.75); 
+    public static final double kTrackWidth = Units.inchesToMeters(20.75);
     // Distance between right and left wheels
     public static final double kWheelBase = Units.inchesToMeters(20.75);
     // Distance between front and back wheels
-    public static final SwerveDriveKinematics kDriveKinematics =
-        new SwerveDriveKinematics(
-            new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0), //FL
-            new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0), //FR
-            new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0), //BL
-            new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0)); //BR
-            
+    public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
+        new Translation2d(kWheelBase / 2.0, -kTrackWidth / 2.0), // FL
+        new Translation2d(kWheelBase / 2.0, kTrackWidth / 2.0), // FR
+        new Translation2d(-kWheelBase / 2.0, -kTrackWidth / 2.0), // BL
+        new Translation2d(-kWheelBase / 2.0, kTrackWidth / 2.0)); // BR
+
     public static final boolean kFrontLeftTurningEncoderReversed = false;
     public static final boolean kBackLeftTurningEncoderReversed = false;
     public static final boolean kFrontRightTurningEncoderReversed = false;
@@ -72,22 +84,21 @@ public final class Constants {
 
     public static final double kPhysicalMaxAngularSpeedRadiansPerSecond = 2.0 * 2.0 * Math.PI;
 
-    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond =
-        kPhysicalMaxAngularSpeedRadiansPerSecond / 4.0;
+    public static final double kTeleDriveMaxAngularSpeedRadiansPerSecond = kPhysicalMaxAngularSpeedRadiansPerSecond
+        / 4.0;
     public static final double kTeleDriveMaxAccelerationMetersPerSecondSquared = 3.0;
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    public static final double kPID_XKP = 2.25
-    ; //2.1
-    public static final double kPID_XKI = 0.0; 
-    public static final double kPID_XKD = 0.0; 
-    public static final double kPID_YKP = 2.25; //2.1
-    public static final double kPID_YKI = 0.0; 
-    public static final double kPID_YKD = 0.0; 
-    public static final double KPID_TKP = 2.25; //0.9
-    public static final double KPID_TKI = 0.0; 
-    public static final double KPID_TKD = 0.0; 
+    public static final double kPID_XKP = 2.25; // 2.1
+    public static final double kPID_XKI = 0.0;
+    public static final double kPID_XKD = 0.0;
+    public static final double kPID_YKP = 2.25; // 2.1
+    public static final double kPID_YKI = 0.0;
+    public static final double kPID_YKD = 0.0;
+    public static final double KPID_TKP = 2.25; // 0.9
+    public static final double KPID_TKI = 0.0;
+    public static final double KPID_TKD = 0.0;
 
     // Teleop settings
     public static final double kPID_XKP_tele = 5.0;
@@ -98,9 +109,9 @@ public final class Constants {
     public static final double kAutoMaxAngularAcceleration = 9.0 * 5.0;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
-                new TrapezoidProfile.Constraints(
-                        kAutoMaxAngularVelocity,
-                        kAutoMaxAngularAcceleration);
+        new TrapezoidProfile.Constraints(
+            kAutoMaxAngularVelocity,
+            kAutoMaxAngularAcceleration);
 
     // Temporary until there's enough time and testing for a better solution
     public static final class TrajectoryConstants {
@@ -125,12 +136,12 @@ public final class Constants {
     public static final int kDriverRotAxis_Logitech = 2;
     public static final int kDriverFieldOrientedButtonIdx = XboxController.Button.kX.value; // xbox
     public static final int kDriverFieldOrientedButtonIdx_Logitech = 2; // logitech
-    //public static final int kZeroHeadingButtonIdx = 2;
+    // public static final int kZeroHeadingButtonIdx = 2;
     public static final double kDeadband = 0.15; // 0.05;
   }
 
   public static final class CANDeviceIDs {
-    //Intake
+    // Intake
     public static final int kIntakeID = 50;
     //Arm
     public static final int kFollowerID = 60;
@@ -160,25 +171,28 @@ public final class Constants {
     public static final int kArm_Analog_Channel = 1;
   }
 
-  public static final class CameraConstants{
-    //public static final int kAprilTagCamera = 0;
-    //public static final int kFrontCamera = 1;
+  public static final class CameraConstants {
+    // public static final int kAprilTagCamera = 0;
+    // public static final int kFrontCamera = 1;
     public static final int kBackCamera = 0;
     public static final double kCameraHeightInches = 16;
     public static final double kCameraTargetHeightInches = 51.75;
     public static final double kCameraPitchDegrees = 3;
   }
 
-
   public static final class ReachConstants {
     public static final int kReachID = 51;
     // PID
-
-    public static final double kP = 0.1; // 0.1, 0, -0.1, -2
-    public static final double kI = 0; // 1e-4,
-    public static final double kD = 0; // 1, 0.5, 0.1
+    public static final double kP = 0.1; 
+    public static final double kI = 0; 
+    public static final double kD = 0; 
     public static final double kIz = 0;
-    public static final double kFF = 0; // 0,
+    public static final double kFF = 0; 
+
+    // feedforward
+    public static final double ks = 0.0;
+    public static final double kv = 0.0;
+    public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
     public static final double kMaxOutput = 0.4; // extend?
@@ -186,47 +200,66 @@ public final class Constants {
     public static final float kLowerSoftLimit = 0; // kReverse
     public static final float kUpperSoftLimit = 15.5f; // kForward
   }
+
   public static final class PivotConstants {
-    public static final int kPivotID = 52; 
+    public static final int kPivotID = 52;
     // PID
-     public static final double kP = 0.1; // 0.1, 0, -0.1, -2
-     public static final double kI = 0; // 1e-4,
-     public static final double kD = 0; // 1, 0.5, 0.1
-     public static final double kIz = 0;
-     public static final double kFF = 0; // 0,
- 
-     // Limits
-     public static final double kMaxOutput = 0.4; // extend?
-     public static final double kMinOutput = -0.25; // retract ?
-     public static final float kLowerSoftLimit = 0; // kReverse
-     public static final float kUpperSoftLimit = 15.5f; // kForward
-  
-  } public static final class WristConstants {
-      public static final int kWristID = 53; 
-      // PID
-      public static final double kP = 0.1; // 0.1, 0, -0.1, -2
-      public static final double kI = 0; // 1e-4,
-      public static final double kD = 0; // 1, 0.5, 0.1
-      public static final double kIz = 0;
-      public static final double kFF = 0; // 0,
-  
-      // Limits
-      public static final double kMaxOutput = 0.4; // extend?
-      public static final double kMinOutput = -0.25; // retract ?
-      public static final float kLowerSoftLimit = 0; // kReverse
-      public static final float kUpperSoftLimit = 15.5f; // kForward
-      public static final float kL1Limit = 1.5f;
-      public static final float kL2Limit = 1.6f;
-      public static final float kL3Limit = 1.9f;
-      public static final float kIntakeLimit = 2.0f;
+    public static final double kP = 0.1; 
+    public static final double kI = 0; 
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0; 
+
+    // feedforward
+    public static final double ks = 0.0;
+    public static final double kv = 0.0;
+    public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
+
+    // Limits
+    public static final double kMaxOutput = 0.4; // extend?
+    public static final double kMinOutput = -0.25; // retract ?
+    public static final float kLowerSoftLimit = 0; // kReverse
+    public static final float kUpperSoftLimit = 15.5f; // kForward
+
+    // absolute encoder
+    public static final int kTicks = 8192;
+    public static final float ticksPerDeg = (float) kTicks / 360.0f;
+    public static final Type kEncoderType = Type.kQuadrature;
+
   }
+
+  public static final class WristConstants {
+    public static final int kWristID = 53;
+    // PID
+    public static final double kP = 0.1; 
+    public static final double kI = 0; 
+    public static final double kD = 0; 
+    public static final double kIz = 0;
+    public static final double kFF = 0; 
+
+    // feedforward
+    public static final double ks = 0.0;
+    public static final double kv = 0.0;
+    public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
+
+    // Limits
+    public static final double kMaxOutput = 0.4; // extend?
+    public static final double kMinOutput = -0.25; // retract ?
+    public static final float kLowerSoftLimit = 0; // kReverse
+    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final float kL1Limit = 1.5f;
+    public static final float kL2Limit = 1.6f;
+    public static final float kL3Limit = 1.9f;
+    public static final float kIntakeLimit = 2.0f;
+  }
+
   public static final class ScoringConstants {
     public static final double[][] postions = { 
         { 15.0, 25.0, 35.0},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0},  //L4 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 20.0} };//Coral Station
+        { 15.0, 25.0, 35.0},   //L4
+        { 15.0, 25.0, 20.0} }; //Coral Station
     public static final int kL1=0;
     public static final int kL2=1;
     public static final int kL3=2;
@@ -235,6 +268,38 @@ public final class Constants {
     public static final int kReach=0;
     public static final int kWrist=1;
     public static final int kPivot=2;
+
+  }
+  public static final class PhotonVisionConstant {
+    public static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
+    public static final class FrontLeft{
+      public static String name="Arducam_OV2311_USB_Camera";
+      public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    }
+    public static final class FrontRight{
+      public static String name="5962_camera_1";
+      public static Transform3d cameraposeFrontRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    }
+    public static final class BackLeft{
+      public static String name="FrontLeft";
+      public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    }
+    public static final class BackRight{
+      public static String name="FrontLeft";
+      public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+
+    }
+    
+    public static PhotonCamera[] CameraNames={
+    new PhotonCamera(FrontLeft.name),
+    new PhotonCamera(FrontRight.name),
+    new PhotonCamera(BackLeft.name),
+    new PhotonCamera(BackRight.name)};
+    public static Transform3d[] CameraPoses={
+      FrontLeft.cameraposeFrontLeft,
+      FrontRight.cameraposeFrontRight,
+      BackLeft.cameraposeBackLeft,
+      BackRight.cameraposeBackRight};
 
   }
 }
