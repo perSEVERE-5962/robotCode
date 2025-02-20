@@ -41,7 +41,7 @@ public class RobotContainer {
   // Driver Controller
   private final XboxController driverController = new XboxController(OIConstants.kDriverControllerPort);
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
-
+  private final Trigger dr_ResestAllParts = new JoystickButton(driverController, XboxController.Button.kA.value);
   // Copilot Controller
   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
   private final Trigger cp_ReefLevel1 = new JoystickButton(copilotController, XboxController.Button.kA.value);
@@ -103,7 +103,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-
+    dr_ResestAllParts.onTrue(new ResetArmAndWrist());
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
