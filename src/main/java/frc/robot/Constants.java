@@ -142,9 +142,8 @@ public final class Constants {
 
   public static final class CANDeviceIDs {
     // Intake
-    public static final int kIntakeID = 50;
-    //Arm
-    public static final int kFollowerID = 60;
+    public static final int kIntakeID = 51;
+    
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
     public static final int kBackLeftDriveMotorID = 20;
@@ -181,7 +180,7 @@ public final class Constants {
   }
 
   public static final class ReachConstants {
-    public static final int kReachID = 51;
+    public static final int kReachID = 50;
     // PID
     public static final double kP = 0.1; 
     public static final double kI = 0; 
@@ -203,6 +202,7 @@ public final class Constants {
 
   public static final class PivotConstants {
     public static final int kPivotID = 52;
+    public static final int kFollowerID = 60;
     // PID
     public static final double kP = 0.1; 
     public static final double kI = 0; 
@@ -225,6 +225,8 @@ public final class Constants {
     public static final int kTicks = 8192;
     public static final float ticksPerDeg = (float) kTicks / 360.0f;
     public static final Type kEncoderType = Type.kQuadrature;
+//offsets
+    public static final double koffSet=0.0;
 
   }
 
@@ -251,6 +253,8 @@ public final class Constants {
     public static final float kL2Limit = 1.6f;
     public static final float kL3Limit = 1.9f;
     public static final float kIntakeLimit = 2.0f;
+    //Offsets
+    public static final double koffSet=0.0;
   }
 
   public static final class ScoringConstants {

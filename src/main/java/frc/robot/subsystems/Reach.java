@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import com.revrobotics.AbsoluteEncoder;
+
 
 public class Reach extends Actuator {
 
