@@ -52,6 +52,10 @@ public class RobotContainer {
   private final Trigger cp_CollectCoral = new JoystickButton(copilotController, XboxController.Button.kLeftStick.value);
   private final Trigger cp_ScoreCoral = new JoystickButton(copilotController, XboxController.Button.kRightStick.value);
 
+  //testing controller
+  private final XboxController testingController = new XboxController(OIConstants.kTestingControllerPort);
+  private final Trigger tc_Forward = new JoystickButton(testingController, XboxController.Button.kRightBumper.value);
+  private final Trigger tc_Backward = new JoystickButton(testingController, XboxController.Button.kLeftBumper.value);
   // Autonomous 
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -104,7 +108,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_ResestAllParts.onTrue(new ResetArmAndWrist());
-    
+
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
@@ -113,6 +117,9 @@ public class RobotContainer {
 
     cp_CollectCoral.onTrue(new CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());
+
+    tc_Forward.whileTrue(new moveSubsystems(0.25));
+    tc_Backward.whileTrue(new moveSubsystems(-0.25));
   }
 
   /**
