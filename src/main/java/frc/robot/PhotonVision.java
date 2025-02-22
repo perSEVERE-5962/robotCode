@@ -73,7 +73,6 @@ public class PhotonVision {
 /*+estimatedRobotPose2.estimatedPose.getY()+estimatedRobotPose3.estimatedPose.getY()*/)/2
 /*PhotonVisionConstant.CameraNames.length*/);
         Pose2d mapPose2d=new Pose2d(translation2d,rotation2d);
-        System.out.print(mapPose2d);
         return mapPose2d;
 
     }

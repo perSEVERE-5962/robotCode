@@ -4,15 +4,24 @@
 
 package frc.robot;
 
+import java.util.List;
+
 import javax.naming.spi.DirStateFactory.Result;
 
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import frc.robot.PhotonVision;
+import frc.robot.Constants;
+import frc.robot.Constants.PhotonVisionConstant;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -40,7 +49,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-  
+    Translation2d startingTranslation2d=new Translation2d(Constants.StartingPos.startingTranslation2dx, Constants.StartingPos.startingTranslation2dy);
+    Rotation2d statingRotation2d=new Rotation2d(Constants.StartingPos.statingRotation2dx,Constants.StartingPos.statingRotation2dy);
+    Pose2d startPose2d =new Pose2d(startingTranslation2d,statingRotation2d);
+    driveTrain.resetOdometry(startPose2d);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
@@ -55,12 +67,24 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    if(PhotonVision.targets.isEmpty() ){
+    PhotonPipelineResult result=PhotonVisionConstant.CameraNames[0].getLatestResult();
+  PhotonVision.targets = result.getTargets();
+  PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
+  PhotonVision.targets1 = result1.getTargets();
+  PhotonPipelineResult result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
+  PhotonVision.targets2 = result2.getTargets();
+  PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
+  PhotonVision.targets3 = result3.getTargets();
+    if(!PhotonVision.targets.isEmpty() || !PhotonVision.targets1.isEmpty()|| !PhotonVision.targets2.isEmpty()|| !PhotonVision.targets3.isEmpty()){
     Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
-    driveTrain.resetOdometry(PoseEstimator);
-    System.out.println(PoseEstimator);
-    }
-    //System.out.println(PhotonVision.targets.isEmpty());
+   driveTrain.resetOdometry(PoseEstimator);
+   System.out.print(PoseEstimator);
+  }
+  
+  System.out.println(PhotonVision.targets1.isEmpty());
+
+
+    
 
     
 
