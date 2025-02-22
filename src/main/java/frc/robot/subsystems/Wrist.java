@@ -3,16 +3,18 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.revrobotics.AbsoluteEncoder;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import frc.robot.Constants.WristConstants;
 
 public class Wrist extends Actuator {
   private static Wrist instance;
-
+  private static AbsoluteEncoder absoluteEncoder;
   private Wrist() {
     super(
         Constants.WristConstants.kWristID,
@@ -25,7 +27,9 @@ public class Wrist extends Actuator {
         Constants.WristConstants.kIz,
         Constants.WristConstants.kUpperSoftLimit,
         Constants.WristConstants.kLowerSoftLimit,
-        false);
+        true);
+
+        
   }
   @Override
   public void periodic() {
@@ -39,4 +43,5 @@ public class Wrist extends Actuator {
     }
     return instance;
   }
+  
 }

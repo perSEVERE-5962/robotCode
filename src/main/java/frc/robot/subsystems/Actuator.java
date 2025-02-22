@@ -19,7 +19,7 @@ public class Actuator extends SubsystemBase {
     private SparkMax armMotor;
     private SparkMaxConfig motorConfig; 
     private RelativeEncoder armEncoder;
-    
+    private SparkAbsoluteEncoder absoluteEncoder;
     public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float kUpperSoftLimit,float kLowerSoftLimit, boolean useThroughBoreEncoder){
 
         armMotor = new SparkMax(ID, SparkLowLevel.MotorType.kBrushless);
@@ -27,11 +27,10 @@ public class Actuator extends SubsystemBase {
     
         motorConfig.inverted(false); 
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        
         FeedbackSensor feedBackSensor = FeedbackSensor.kPrimaryEncoder;
-         
         if(useThroughBoreEncoder == true){
-            feedBackSensor = FeedbackSensor.kAlternateOrExternalEncoder;
+            feedBackSensor = FeedbackSensor.kAbsoluteEncoder;
+            
         }
         motorConfig.closedLoop
             .feedbackSensor(feedBackSensor)
@@ -42,11 +41,11 @@ public class Actuator extends SubsystemBase {
             .velocityFF(FF) 
             .iZone(Iz); 
         if(useThroughBoreEncoder == true){
-            armEncoder = armMotor.getAlternateEncoder();
+            absoluteEncoder = armMotor.getAbsoluteEncoder();
         }else{
             armEncoder = armMotor.getEncoder();
+            armEncoder.setPosition(0);
         }
-        armEncoder.setPosition(0);
         
         SoftLimitConfig softLimitConfig = new SoftLimitConfig();
         softLimitConfig.forwardSoftLimitEnabled(true);
