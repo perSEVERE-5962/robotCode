@@ -13,6 +13,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -75,16 +76,25 @@ public class Robot extends TimedRobot {
   PhotonVision.targets2 = result2.getTargets();
   PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
   PhotonVision.targets3 = result3.getTargets();
-    if(!PhotonVision.targets.isEmpty() || !PhotonVision.targets1.isEmpty()|| !PhotonVision.targets2.isEmpty()|| !PhotonVision.targets3.isEmpty()){
-    Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
-   driveTrain.resetOdometry(PoseEstimator);
-   System.out.print(PoseEstimator);
-  }
+   // if(!PhotonVision.targets.isEmpty() || !PhotonVision.targets1.isEmpty()|| !PhotonVision.targets2.isEmpty()|| !PhotonVision.targets3.isEmpty()){
+  ////  Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
+  // driveTrain.resetOdometry(PoseEstimator);
+  // System.out.print(PoseEstimator);
+ // }
   
-  System.out.println(PhotonVision.targets1.isEmpty());
+//  System.out.println(PhotonVision.targets1.isEmpty());
 
-
-    
+//tag 21 if blue
+Transform2d distanceToTarget3=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,6);
+Transform2d distanceToTarget1=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,6);
+Transform2d distanceToTarget=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,6);
+Transform2d distanceToTarget2=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,6);
+//tag 10 if red
+Transform2d distanceToTarget3tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,10);
+Transform2d distanceToTarget1tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,10);
+Transform2d distanceToTargettag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,10);
+Transform2d distanceToTarget2tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,10);
+System.out.println();
 
     
 
@@ -97,6 +107,7 @@ public class Robot extends TimedRobot {
     SwerveSubsystem sss = SwerveSubsystem.getInstance();
     sss.outputEncoderPositions();
   }
+
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override

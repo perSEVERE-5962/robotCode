@@ -25,8 +25,7 @@ public class Actuator extends SubsystemBase {
         armMotor = new SparkMax(ID, SparkLowLevel.MotorType.kBrushless);
         motorConfig = new SparkMaxConfig(); 
     
-        motorConfig.inverted(false); 
-        armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        motorConfig.inverted(false);
         FeedbackSensor feedBackSensor = FeedbackSensor.kPrimaryEncoder;
         if(useThroughBoreEncoder == true){
             feedBackSensor = FeedbackSensor.kAbsoluteEncoder;
@@ -55,7 +54,7 @@ public class Actuator extends SubsystemBase {
 
 
         motorConfig.apply(softLimitConfig);
-        armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
    
     public void periodic() {

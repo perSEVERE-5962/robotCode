@@ -35,8 +35,8 @@ public class Pivot extends Actuator {
         
         followerMotor = new SparkMax(PivotConstants.kFollowerID, SparkLowLevel.MotorType.kBrushless);
         followerConfig = new SparkMaxConfig();
-        followerConfig.follow(PivotConstants.kPivotID);
-        followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        followerConfig.follow(PivotConstants.kPivotID,false);
+        followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 @Override
   public void periodic() {

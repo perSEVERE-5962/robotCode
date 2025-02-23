@@ -13,16 +13,26 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ExampleAuto extends SequentialCommandGroup {
-  /** Creates a new SimpleOutOfBoxAuto. */
-  public ExampleAuto() {
+public class AutoToTroughScore extends SequentialCommandGroup {
+  /** Creates a new ToTroughScore. */
+  public AutoToTroughScore() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-                    new MoveToPosition(SwerveSubsystem.getInstance(),
-                        new Pose2d(2.65, 0, new Rotation2d(0)),
+ new MoveToPosition(SwerveSubsystem.getInstance(),
+                        new Pose2d(1.00, 0, new Rotation2d(0)),
                         0.1, DriveConstants.KPID_TKP).withTimeout(4),
-                    new TurntoAngle(SwerveSubsystem.getInstance(), 0, true)
+                    new TurntoAngle(SwerveSubsystem.getInstance(), 0, true).andThen(
+
+                    //The L1
+                    new SetArmPosition(0)
+                    ).andThen(
+                      new ScoreCoral()
+                    ).andThen(
+                      
+                      
+                    )
+    
     );
   }
 }

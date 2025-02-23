@@ -285,7 +285,7 @@ public final class Constants {
       public static Transform3d cameraposeFrontRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
     }
     public static final class BackLeft{
-      public static String name="FrontLeft";
+      public static String name="Arducam_OV2311_USB_Camera (1)";
       public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
     }
     public static final class BackRight{
