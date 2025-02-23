@@ -69,7 +69,7 @@ public class Actuator extends SubsystemBase {
     public void moveToPositionWithPID(double position) {
       armMotor.getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
     }
-
-
-    
+    public void move(double speed){
+        armMotor.set(speed);
+    }
 }

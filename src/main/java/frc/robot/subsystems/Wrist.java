@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 import com.revrobotics.AbsoluteEncoder;
 
+import com.revrobotics.AbsoluteEncoder;
+import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.WristConstants;
@@ -24,7 +27,7 @@ public class Wrist extends Actuator {
         Constants.WristConstants.kIz,
         Constants.WristConstants.kUpperSoftLimit,
         Constants.WristConstants.kLowerSoftLimit,
-        true);
+        false);
 
         
   }
