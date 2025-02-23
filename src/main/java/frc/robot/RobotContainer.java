@@ -129,7 +129,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command;
-    command= new ExampleAuto();
+    command= new AutoExample();
     return command;
   }
 
