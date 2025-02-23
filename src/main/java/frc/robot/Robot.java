@@ -15,8 +15,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
@@ -94,8 +96,9 @@ Transform2d distanceToTarget3tag10=PhotonVision.distanceToAprilTagForOneCamera(P
 Transform2d distanceToTarget1tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,10);
 Transform2d distanceToTargettag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,10);
 Transform2d distanceToTarget2tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,10);
-System.out.println();
-
+System.out.println(distanceToTarget2);
+SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
+SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
     
 
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled

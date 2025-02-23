@@ -19,9 +19,10 @@ public class ResetArmAndWrist extends Command{
 
     @Override
   public void execute() {
+    //reachSub.moveToPositionWithPID(0);
     wristSub.moveToPositionWithPID(0);
-    pivotSub.moveToPositionWithPID(0);
-    reachSub.move(.6);
+    //pivotSub.moveToPositionWithPID(0.69);
+    //reachSub.move(.6);
   }
 
   @Override
