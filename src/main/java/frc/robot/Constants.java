@@ -226,7 +226,7 @@ public final class Constants {
     public static final float ticksPerDeg = (float) kTicks / 360.0f;
     public static final Type kEncoderType = Type.kQuadrature;
 //offsets
-    public static final double koffSet=0.0;
+    public static final double koffSet=0.69;
 
   }
 
@@ -259,7 +259,7 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 15.0, 25.0, 35.0},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, -23.3, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L4

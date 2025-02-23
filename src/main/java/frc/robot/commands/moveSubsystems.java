@@ -9,28 +9,45 @@ public class moveSubsystems extends Command {
     private Reach reachSub;
     private Pivot pivotSub;
     private double speed;
-    public moveSubsystems(double speed){
+    private String sub;
+    public moveSubsystems(double speed, String sub){
         wristSub = Wrist.getInstance();
         reachSub = Reach.getInstance();
         pivotSub = Pivot.getInstance();
         this.speed = speed;
+        this.sub = sub;
     }
     @Override
   public void initialize() {}
 
   public void execute() {
-    //wristSub.move(0);
-    //pivotSub.move(0);
-    reachSub.move(speed);
+    if(sub == "wristSub"){
+    wristSub.move(speed);
+    }
+    if(sub == "pivotSub"){
+      pivotSub.move(speed);
+    }
+    if(sub == "reachSub"){
+      reachSub.move(speed);
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
-
+    if(sub == "wristSub"){
+      wristSub.move(0);
+    }
+    if(sub == "pivotSub"){
+      pivotSub.move(0);
+    }
+    if(sub == "reachSub"){
+      reachSub.move(0);
+    }
+    
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
