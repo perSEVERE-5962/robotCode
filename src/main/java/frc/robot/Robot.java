@@ -70,35 +70,35 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    PhotonPipelineResult result=PhotonVisionConstant.CameraNames[0].getLatestResult();
-  PhotonVision.targets = result.getTargets();
-  PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
-  PhotonVision.targets1 = result1.getTargets();
-  PhotonPipelineResult result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
-  PhotonVision.targets2 = result2.getTargets();
-  PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
-  PhotonVision.targets3 = result3.getTargets();
-   // if(!PhotonVision.targets.isEmpty() || !PhotonVision.targets1.isEmpty()|| !PhotonVision.targets2.isEmpty()|| !PhotonVision.targets3.isEmpty()){
-  ////  Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
-  // driveTrain.resetOdometry(PoseEstimator);
-  // System.out.print(PoseEstimator);
- // }
+//     PhotonPipelineResult result=PhotonVisionConstant.CameraNames[0].getLatestResult();
+//   PhotonVision.targets = result.getTargets();
+//   PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
+//   PhotonVision.targets1 = result1.getTargets();
+//   PhotonPipelineResult result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
+//   PhotonVision.targets2 = result2.getTargets();
+//   PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
+//   PhotonVision.targets3 = result3.getTargets();
+//    // if(!PhotonVision.targets.isEmpty() || !PhotonVision.targets1.isEmpty()|| !PhotonVision.targets2.isEmpty()|| !PhotonVision.targets3.isEmpty()){
+//   ////  Pose2d PoseEstimator =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
+//   // driveTrain.resetOdometry(PoseEstimator);
+//   // System.out.print(PoseEstimator);
+//  // }
   
-//  System.out.println(PhotonVision.targets1.isEmpty());
+// //  System.out.println(PhotonVision.targets1.isEmpty());
 
-//tag 21 if blue
-Transform2d distanceToTarget3=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,6);
-Transform2d distanceToTarget1=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,6);
-Transform2d distanceToTarget=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,6);
-Transform2d distanceToTarget2=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,6);
-//tag 10 if red
-Transform2d distanceToTarget3tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,10);
-Transform2d distanceToTarget1tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,10);
-Transform2d distanceToTargettag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,10);
-Transform2d distanceToTarget2tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,10);
-System.out.println(distanceToTarget2);
-SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
-SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
+// //tag 21 if blue
+// Transform2d distanceToTarget3=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,6);
+// Transform2d distanceToTarget1=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,6);
+// Transform2d distanceToTarget=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,6);
+// Transform2d distanceToTarget2=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,6);
+// //tag 10 if red
+// Transform2d distanceToTarget3tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,10);
+// Transform2d distanceToTarget1tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,10);
+// Transform2d distanceToTargettag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,10);
+// Transform2d distanceToTarget2tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,10);
+// System.out.println(distanceToTarget2);
+// SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
+// SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
     
 
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
