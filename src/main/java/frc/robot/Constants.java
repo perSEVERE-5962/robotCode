@@ -226,7 +226,7 @@ public final class Constants {
     public static final float ticksPerDeg = (float) kTicks / 360.0f;
     public static final Type kEncoderType = Type.kQuadrature;
 //offsets
-    public static final double koffSet=0.0;
+    public static final double koffSet=0.69;
 
   }
 

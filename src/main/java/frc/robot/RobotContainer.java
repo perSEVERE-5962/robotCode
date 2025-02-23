@@ -54,8 +54,12 @@ public class RobotContainer {
 
   //testing controller
   private final XboxController testingController = new XboxController(OIConstants.kTestingControllerPort);
-  private final Trigger tc_Forward = new JoystickButton(testingController, XboxController.Button.kRightBumper.value);
-  private final Trigger tc_Backward = new JoystickButton(testingController, XboxController.Button.kLeftBumper.value);
+  private final Trigger tc_ForwardPivot = new JoystickButton(testingController, XboxController.Button.kRightBumper.value);
+  private final Trigger tc_BackwardPivot = new JoystickButton(testingController, XboxController.Button.kLeftBumper.value);
+  private final Trigger tc_ForwardWrist = new JoystickButton(testingController, XboxController.Button.kA.value);
+  private final Trigger tc_BackwardWrist = new JoystickButton(testingController, XboxController.Button.kB.value);
+  private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Axis.kRightTrigger.value);
+  private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Axis.kLeftTrigger.value);
   // Autonomous 
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -118,8 +122,12 @@ public class RobotContainer {
     cp_CollectCoral.onTrue(new CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());
 
-    tc_Forward.whileTrue(new moveSubsystems(0.25));
-    tc_Backward.whileTrue(new moveSubsystems(-0.25));
+    tc_ForwardPivot.whileTrue(new moveSubsystems(0.1, "pivotSub"));
+    tc_BackwardPivot.whileTrue(new moveSubsystems(-0.1, "pivotSub"));
+    tc_ForwardWrist.whileTrue(new moveSubsystems(0.1, "wristSub"));
+    tc_BackwardWrist.whileTrue(new moveSubsystems(-0.1, "wristSub"));
+    tc_ForwardReach.whileTrue(new moveSubsystems(0.1, "reachSub"));
+    tc_BackwardReach.whileTrue(new moveSubsystems(-0.1, "reachSub"));
   }
 
   /**

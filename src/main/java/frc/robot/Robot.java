@@ -81,7 +81,6 @@ public class Robot extends TimedRobot {
    System.out.print(PoseEstimator);
   }
   
-  System.out.println(PhotonVision.targets1.isEmpty());
 
 
     

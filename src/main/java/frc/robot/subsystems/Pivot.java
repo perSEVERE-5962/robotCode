@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.PivotConstants;
 
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Pivot extends Actuator {
@@ -31,14 +32,18 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kIz,
         Constants.PivotConstants.kUpperSoftLimit,
         Constants.PivotConstants.kLowerSoftLimit, 
+        false,
         true);
         
         followerMotor = new SparkMax(PivotConstants.kFollowerID, SparkLowLevel.MotorType.kBrushless);
         followerConfig = new SparkMaxConfig();
-        followerConfig.follow(PivotConstants.kPivotID);
-        followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        followerConfig.follow(PivotConstants.kPivotID, true);
+        followerConfig.inverted(true);
+        followerConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
+        followerConfig.smartCurrentLimit(40);
+        followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
-@Override
+
   public void periodic() {
         double theEncoder=instance.getPosition();
        SmartDashboard.putNumber("Pivot", theEncoder);
