@@ -44,13 +44,13 @@ public class RobotContainer {
   private final Trigger dr_ResestAllParts = new JoystickButton(driverController, XboxController.Button.kA.value);
   // Copilot Controller
   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
-  private final Trigger cp_ReefLevel1 = new JoystickButton(copilotController, XboxController.Button.kStart.value);
+  private final Trigger cp_ReefLevel1 = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
   private final Trigger cp_ReefLevel2 = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
   private final Trigger cp_ReefLevel3 = new JoystickButton(copilotController, XboxController.Button.kLeftStick.value);
   private final Trigger cp_ReefLevel4 = new JoystickButton(copilotController, XboxController.Button.kRightStick.value);
   private final Trigger cp_CoralStation = new JoystickButton(copilotController, XboxController.Button.kBack.value);
-  private final Trigger cp_CollectCoral = new JoystickButton(copilotController, XboxController.Button.kY.value);
-  private final Trigger cp_ScoreCoral = new JoystickButton(copilotController, XboxController.Button.kLeftBumper.value);
+  private final Trigger cp_CollectCoral = new JoystickButton(copilotController, XboxController.Button.kStart.value);
+  private final Trigger cp_ScoreCoral = new JoystickButton(copilotController, XboxController.Button.kY.value);
 
   //testing controller
   private final XboxController testingController = new XboxController(OIConstants.kTestingControllerPort);
@@ -58,8 +58,8 @@ public class RobotContainer {
   private final Trigger tc_BackwardPivot = new JoystickButton(testingController, XboxController.Button.kLeftBumper.value);
   private final Trigger tc_ForwardWrist = new JoystickButton(testingController, XboxController.Button.kA.value);
   private final Trigger tc_BackwardWrist = new JoystickButton(testingController, XboxController.Button.kB.value);
-  private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Axis.kRightTrigger.value);
-  private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Axis.kLeftTrigger.value);
+  private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Button.kX.value);
+  private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Button.kY.value);
   // Autonomous 
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 

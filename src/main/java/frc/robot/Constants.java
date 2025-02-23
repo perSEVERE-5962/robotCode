@@ -259,7 +259,7 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 15.0, 25.0, 35.0},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, -23.3, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L4
