@@ -116,9 +116,9 @@ public class RobotContainer {
     dr_ResestAllParts.onTrue(new ResetArmAndWrist());
     dr_ButtonB.onTrue(new AutoToTroughScore());
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
-    cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
-    cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
-    cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
+    //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
+    //cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
+    //cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
     cp_CoralStation.onTrue(new SetArmPosition(Constants.ScoringConstants.kStation));//Coral Station
 
     cp_CollectCoral.onTrue(new CollectCoral());

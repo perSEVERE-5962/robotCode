@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
@@ -25,14 +26,10 @@ public class AutoToTroughScore extends SequentialCommandGroup {
                     new TurntoAngle(SwerveSubsystem.getInstance(), 0, true).andThen(
 
                     //The L1
-                    new SetArmPosition(0)
+                    new SetArmPosition(Constants.ScoringConstants.kL1)
                     ).andThen(
                       new ScoreCoral()
-                    ).andThen(
-                      
-                      
                     )
-    
     );
   }
 }

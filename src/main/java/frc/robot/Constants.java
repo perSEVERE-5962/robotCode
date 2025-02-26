@@ -96,7 +96,7 @@ public final class Constants {
     public static final double kPID_YKP = 2.0; // 2.1
     public static final double kPID_YKI = 0.0;
     public static final double kPID_YKD = 0.0;
-    public static final double KPID_TKP = 1.0; // 0.9
+    public static final double KPID_TKP = 0.5; // 0.9
     public static final double KPID_TKI = 0.0;
     public static final double KPID_TKD = 0.0;
 
@@ -259,11 +259,11 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 0, -23.3, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
-        { 15.0, 25.0, 35.0},   //L4
-        { 15.0, 25.0, 20.0} }; //Coral Station
+        { 0, -24.2, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, 0, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, 0, 0.69},   //L4
+        { 0, -19.3, 0.69} }; //Coral Station
     public static final int kL1=0;
     public static final int kL2=1;
     public static final int kL3=2;
