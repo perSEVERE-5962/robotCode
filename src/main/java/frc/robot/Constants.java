@@ -90,13 +90,13 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    public static final double kPID_XKP = 2.25; // 2.1
+    public static final double kPID_XKP = 2.0; // 2.1
     public static final double kPID_XKI = 0.0;
     public static final double kPID_XKD = 0.0;
-    public static final double kPID_YKP = 2.25; // 2.1
+    public static final double kPID_YKP = 2.0; // 2.1
     public static final double kPID_YKI = 0.0;
     public static final double kPID_YKD = 0.0;
-    public static final double KPID_TKP = 2.25; // 0.9
+    public static final double KPID_TKP = 1.0; // 0.9
     public static final double KPID_TKI = 0.0;
     public static final double KPID_TKD = 0.0;
 
@@ -226,7 +226,7 @@ public final class Constants {
     public static final float ticksPerDeg = (float) kTicks / 360.0f;
     public static final Type kEncoderType = Type.kQuadrature;
 //offsets
-    public static final double koffSet=0.0;
+    public static final double koffSet=0.69;
 
   }
 
@@ -259,7 +259,7 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 15.0, 25.0, 35.0},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, -23.3, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 15.0, 25.0, 35.0},   //L4
@@ -275,35 +275,35 @@ public final class Constants {
 
   }
   public static final class PhotonVisionConstant {
-    public static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
-    public static final class FrontLeft{
-      public static String name="Arducam_OV2311_USB_Camera";
-      public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
-    }
-    public static final class FrontRight{
-      public static String name="5962_camera_1";
-      public static Transform3d cameraposeFrontRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
-    }
-    public static final class BackLeft{
-      public static String name="Arducam_OV2311_USB_Camera (1)";
-      public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
-    }
-    public static final class BackRight{
-      public static String name="FrontLeft";
-      public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    // //public static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
+    // public static final class FrontLeft{
+    //   public static String name="Arducam_OV2311_USB_Camera";
+    //   public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    // }
+    // public static final class FrontRight{
+    //   public static String name="5962_camera_1";
+    //   public static Transform3d cameraposeFrontRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    // }
+    // public static final class BackLeft{
+    //   public static String name="Arducam_OV2311_USB_Camera (1)";
+    //   public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+    // }
+    // public static final class BackRight{
+    //   public static String name="FrontLeft";
+    //   public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
 
-    }
+    // }
     
-    public static PhotonCamera[] CameraNames={
-    new PhotonCamera(FrontLeft.name),
-    new PhotonCamera(FrontRight.name),
-    new PhotonCamera(BackLeft.name),
-    new PhotonCamera(BackRight.name)};
-    public static Transform3d[] CameraPoses={
-      FrontLeft.cameraposeFrontLeft,
-      FrontRight.cameraposeFrontRight,
-      BackLeft.cameraposeBackLeft,
-      BackRight.cameraposeBackRight};
+    // public static PhotonCamera[] CameraNames={
+    // new PhotonCamera(FrontLeft.name),
+    // new PhotonCamera(FrontRight.name),
+    // new PhotonCamera(BackLeft.name),
+    // new PhotonCamera(BackRight.name)};
+    // public static Transform3d[] CameraPoses={
+    //   FrontLeft.cameraposeFrontLeft,
+    //   FrontRight.cameraposeFrontRight,
+    //   BackLeft.cameraposeBackLeft,
+    //   BackRight.cameraposeBackRight};
 
   }
   public static final class StartingPos {

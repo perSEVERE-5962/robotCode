@@ -14,18 +14,24 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
+import com.revrobotics.spark.config.SparkBaseConfig;
 public class Actuator extends SubsystemBase {
     private SparkMax armMotor;
     private SparkMaxConfig motorConfig; 
     private RelativeEncoder armEncoder;
     private SparkAbsoluteEncoder absoluteEncoder;
-    public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float kUpperSoftLimit,float kLowerSoftLimit, boolean useThroughBoreEncoder){
+    private boolean useThroughBoreEncoder=false;
+    public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float kUpperSoftLimit,float kLowerSoftLimit, boolean inverted, boolean useThroughBoreEncoder){
 
         armMotor = new SparkMax(ID, SparkLowLevel.MotorType.kBrushless);
         motorConfig = new SparkMaxConfig(); 
     
-        motorConfig.inverted(false);
+        motorConfig.inverted(inverted); 
+        //Reach needs to be inverted
+        //Wrist should not be inverted
+        //Pivot should not be inverted
+        motorConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
+        motorConfig.smartCurrentLimit(40);
         FeedbackSensor feedBackSensor = FeedbackSensor.kPrimaryEncoder;
         if(useThroughBoreEncoder == true){
             feedBackSensor = FeedbackSensor.kAbsoluteEncoder;
@@ -43,18 +49,19 @@ public class Actuator extends SubsystemBase {
             absoluteEncoder = armMotor.getAbsoluteEncoder();
         }else{
             armEncoder = armMotor.getEncoder();
-            armEncoder.setPosition(0);
+            //armEncoder.setPosition(0);
         }
         
-        SoftLimitConfig softLimitConfig = new SoftLimitConfig();
-        softLimitConfig.forwardSoftLimitEnabled(true);
-        softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
-        softLimitConfig.reverseSoftLimitEnabled(true);
-        softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
+       // SoftLimitConfig softLimitConfig = new SoftLimitConfig();
+       // softLimitConfig.forwardSoftLimitEnabled(true);
+        //softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
+        //softLimitConfig.reverseSoftLimitEnabled(true);
+        //softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
 
 
-        motorConfig.apply(softLimitConfig);
+        //motorConfig.apply(softLimitConfig);
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        this.useThroughBoreEncoder=useThroughBoreEncoder;
     }
    
     public void periodic() {
@@ -62,7 +69,19 @@ public class Actuator extends SubsystemBase {
     }
 
     public double getPosition() {
-           return armEncoder.getPosition(); 
+        if(useThroughBoreEncoder==true){
+            if(absoluteEncoder == null){
+                return 0;
+            }
+            return absoluteEncoder.getPosition(); 
+        }else {
+            if(armEncoder == null){
+                return 0;
+            }
+            return armEncoder.getPosition(); 
+        }
+      
+
         
     }
     public void moveToPositionWithPID(double position) {
