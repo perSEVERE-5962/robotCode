@@ -76,7 +76,7 @@ public class MoveToPosition extends Command {
     public void execute() {
         ChassisSpeeds chassisSpeeds =
             // Not great but the y speed needs to be inverted
-            holonomicDriveController.calculate(new Pose2d(swerve.getPose().getX(), -(swerve.getPose().getY()), swerve.getPose().getRotation()), pose2d, 0, pose2d.getRotation());
+            holonomicDriveController.calculate(new Pose2d((swerve.getPose().getX()), -(swerve.getPose().getY()), (swerve.getPose().getRotation())), pose2d, 0, pose2d.getRotation());
         SwerveModuleState[] moduleStates = 
             DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
         swerve.setModuleStates(moduleStates);
