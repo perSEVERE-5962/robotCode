@@ -7,25 +7,16 @@ package frc.robot;
 import java.util.List;
 
 import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import frc.robot.Constants.PhotonVisionConstant;
-
-
-import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class PhotonVision {
@@ -86,25 +77,25 @@ public class PhotonVision {
 //     //     return distance;
 //     // }
 
-//     //     var result = cameraFront.getLatestResult();
-//     //     if (result.hasTargets()) {
-//     //         var bestTarget = result.getBestTarget();
-//     //         double range = PhotonUtils.calculateDistanceToTargetMeters(
-//     //             Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
-//     //             Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
-//     //             Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
-//     //             Units.degreesToRadians(bestTarget.getPitch()));
-//     //         return range;
-//     //     }
-//     //     return 0;
-//     // }
-//     public static Transform2d distanceToAprilTagForOneCamera(List<PhotonTrackedTarget> targets3,int Apriltag){
-//         Transform3d pose=new Transform3d();
-//         for(PhotonTrackedTarget var:targets3 ){
-//             if(var.getFiducialId()==Apriltag){
-//                 pose = var.getBestCameraToTarget();
-//                 break;
-//             }
+    //     var result = cameraFront.getLatestResult();
+    //     if (result.hasTargets()) {
+    //         var bestTarget = result.getBestTarget();
+    //         double range = PhotonUtils.calculateDistanceToTargetMeters(
+    //             Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
+    //             Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
+    //             Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
+    //             Units.degreesToRadians(bestTarget.getPitch()));
+    //         return range;
+    //      }
+    //      return 0;
+    //  }
+    // public static Transform2d distanceToAprilTagForOneCamera(List<PhotonTrackedTarget> targets3,int Apriltag){
+    //     Transform3d pose=new Transform3d();
+    //     for(PhotonTrackedTarget var:targets3 ){
+    //         if(var.getFiducialId()==Apriltag){
+    //             pose = var.getBestCameraToTarget();
+    //             break;
+    //         }
 
 //         }
 //         double x = pose.getX();
