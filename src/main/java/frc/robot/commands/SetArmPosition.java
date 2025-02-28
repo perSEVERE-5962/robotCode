@@ -47,12 +47,12 @@ public class SetArmPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // if(reachSub.getPosition() >= m_targetPos){
-    //   return true;
-    // }
-    // else{
-    //   return false;
-    // }
-    return true;
+     if(wristSub.getPosition() <= -24.2){
+       return true;
+     }
+     else{
+       return false;
+     }
+    //return true;
   }
 }

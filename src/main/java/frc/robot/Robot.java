@@ -55,10 +55,10 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    Translation2d startingTranslation2d=new Translation2d(Constants.StartingPos.startingTranslation2dx, Constants.StartingPos.startingTranslation2dy);
-    Rotation2d statingRotation2d=new Rotation2d(Constants.StartingPos.statingRotation2dx,Constants.StartingPos.statingRotation2dy);
-    Pose2d startPose2d =new Pose2d(startingTranslation2d,statingRotation2d);
-    driveTrain.resetOdometry(startPose2d);
+   // Translation2d startingTranslation2d=new Translation2d(Constants.StartingPos.startingTranslation2dx, Constants.StartingPos.startingTranslation2dy);
+   // Rotation2d statingRotation2d=new Rotation2d(Constants.StartingPos.statingRotation2dx,Constants.StartingPos.statingRotation2dy);
+   // Pose2d startPose2d =new Pose2d(startingTranslation2d,statingRotation2d);
+   // driveTrain.resetOdometry(startPose2d);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer.getInstance();
@@ -93,15 +93,15 @@ public class Robot extends TimedRobot {
 //Transform2d distanceToTarget3=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,6);
 //Transform2d distanceToTarget1=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,6);
 //Transform2d distanceToTarget=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,6);
-Transform2d distanceToTarget2=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,6);
+//Transform2d distanceToTarget2=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,6);
 //tag 10 if red
 //Transform2d distanceToTarget3tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,10);
 //Transform2d distanceToTarget1tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,10);
 //Transform2d distanceToTargettag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,10);
 //Transform2d distanceToTarget2tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,10);
-System.out.println(distanceToTarget2);
-SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
-SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
+// System.out.println(distanceToTarget2);
+// SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
+// SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
     
 
    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -145,7 +145,7 @@ SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     boolean targetVisible = false;
-    var results = PhotonVisionConstant.CameraNames[0].getAllUnreadResults();
+    var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();
     if (!results.isEmpty()) {
         // Camera processed a new frame since last
         // Get the last one in the list.
