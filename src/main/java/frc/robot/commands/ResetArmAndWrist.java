@@ -11,12 +11,15 @@ public class ResetArmAndWrist extends Command{
     private Reach reachSub;
     private Pivot pivotSub;
     private Intake intakeSub;
-    public ResetArmAndWrist(){
+    private double postion;
+    public ResetArmAndWrist(double postion){
         wristSub = Wrist.getInstance();
         reachSub = Reach.getInstance();
         pivotSub = Pivot.getInstance();
         intakeSub = Intake.getInstance();
-    }
+        addRequirements(intakeSub,wristSub,reachSub, pivotSub);
+        this.postion=postion;
+       }
 
     @Override
   public void initialize() {}
@@ -24,8 +27,9 @@ public class ResetArmAndWrist extends Command{
     @Override
   public void execute() {
     //reachSub.moveToPositionWithPID(0);
-    wristSub.moveToPositionWithPID(0);
     intakeSub.run(0);
+    wristSub.moveToPositionWithPID(postion);
+    
     //pivotSub.moveToPositionWithPID(Constants.PivotConstants.koffSet);
     //reachSub.move(-0.25);
   }

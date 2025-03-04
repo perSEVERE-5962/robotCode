@@ -7,40 +7,31 @@ package frc.robot;
 import java.util.List;
 
 import org.photonvision.EstimatedRobotPose;
-import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.geometry.Translation3d;
 import frc.robot.Constants.PhotonVisionConstant;
-
-
-import edu.wpi.first.math.util.Units;
 
 /** Add your docs here. */
 public class PhotonVision {
-//   static PhotonPipelineResult result=PhotonVisionConstant.CameraNames[0].getLatestResult();
+   //static PhotonPipelineResult result=PhotonVisionConstant.CameraNames[0].getLatestResult();
 //   static PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
 //   static PhotonPipelineResult result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
 //   static PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
 
-//    static List<PhotonTrackedTarget> targets = result.getTargets();
+  //  static List<PhotonTrackedTarget> targets = result.getTargets();
 //     static List<PhotonTrackedTarget> targets1 = result1.getTargets();
 //     static List<PhotonTrackedTarget> targets2 = result2.getTargets();
 //     static List<PhotonTrackedTarget> targets3 = result3.getTargets();
 //    // PhotonTrackedTarget target= result.getBestTarget();
 //     //static Transform3d camerapose = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
-//     //Pose3d robotPose=PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(),fieldLayout.getTagPose(target.getFiducialId()).get(), camerapose);
+//Pose3d robotPose=PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(),fieldLayout.getTagPose(target.getFiducialId()).get(), camerapose);
    
 //     public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[0]);
 //     public static PhotonPoseEstimator poseEstimator1 = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[1]);
@@ -86,34 +77,34 @@ public class PhotonVision {
 //     //     return distance;
 //     // }
 
-//     //     var result = cameraFront.getLatestResult();
-//     //     if (result.hasTargets()) {
-//     //         var bestTarget = result.getBestTarget();
-//     //         double range = PhotonUtils.calculateDistanceToTargetMeters(
-//     //             Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
-//     //             Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
-//     //             Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
-//     //             Units.degreesToRadians(bestTarget.getPitch()));
-//     //         return range;
-//     //     }
-//     //     return 0;
-//     // }
-//     public static Transform2d distanceToAprilTagForOneCamera(List<PhotonTrackedTarget> targets3,int Apriltag){
-//         Transform3d pose=new Transform3d();
-//         for(PhotonTrackedTarget var:targets3 ){
-//             if(var.getFiducialId()==Apriltag){
-//                 pose = var.getBestCameraToTarget();
-//                 break;
-//             }
+    //     var result = cameraFront.getLatestResult();
+    //     if (result.hasTargets()) {
+    //         var bestTarget = result.getBestTarget();
+    //         double range = PhotonUtils.calculateDistanceToTargetMeters(
+    //             Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
+    //             Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
+    //             Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
+    //             Units.degreesToRadians(bestTarget.getPitch()));
+    //         return range;
+    //      }
+    //      return 0;
+    //  }
+    //  public static Transform2d distanceToAprilTagForOneCamera(List<PhotonTrackedTarget> targets3,int Apriltag){
+    //  Transform3d pose=new Transform3d();
+    //  for(PhotonTrackedTarget var:targets3 ){
+    //     if(var.getFiducialId()==Apriltag){
+    //          pose = var.getBestCameraToTarget();
+    //          break;
+    //      }
 
-//         }
-//         double x = pose.getX();
-//         double y = pose.getY();
-//         Translation2d translation2d = new Translation2d(x, y);
-//         Rotation2d rotation2d = pose.getRotation().toRotation2d();
-//         Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
+    //      }
+    //      double x = pose.getX();
+    //      double y = pose.getY();
+    //       Translation2d translation2d = new Translation2d(x, y);
+    //       Rotation2d rotation2d = pose.getRotation().toRotation2d();
+    //       Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
         
 
-//         return poseTransform2d;
-//     }
+    //       return poseTransform2d;
+    //  }
 }
