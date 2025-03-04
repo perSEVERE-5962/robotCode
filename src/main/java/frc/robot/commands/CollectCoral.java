@@ -4,16 +4,22 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.SparkBase.ControlType;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Wrist;
 
 public class CollectCoral extends Command {
   private Intake intakeSub;
-
+  private Wrist wristSub;
   /** Creates a new PickUpIntake. */
   public CollectCoral() {
     intakeSub = Intake.getInstance();
+    wristSub= Wrist.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSub,wristSub);
   }
 
   // Called when the command is initially scheduled.
@@ -23,7 +29,8 @@ public class CollectCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(0.25);
+    intakeSub.run(0.3);
+    //intakeSub.moveToPositionWithPID(1);
   }
 
   // Called once the command ends or is interrupted.
