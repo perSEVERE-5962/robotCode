@@ -37,4 +37,16 @@ public class Reach extends Actuator {
 
     return instance;
   }
+  @Override
+  public double getP(){
+    return SmartDashboard.getNumber("reachP", Constants.ReachConstants.kP);
+  }
+  @Override
+  public double getI(){
+    return SmartDashboard.getNumber("reachI", Constants.ReachConstants.kI);
+  }
+  @Override
+  public double getD(){
+    return SmartDashboard.getNumber("reachD", Constants.ReachConstants.kD);
+  }
 }

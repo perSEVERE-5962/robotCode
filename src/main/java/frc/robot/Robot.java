@@ -101,6 +101,16 @@ public class Robot extends TimedRobot {
 
     }
     SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
+
+    SmartDashboard.putNumber("wristP", Constants.WristConstants.kP);
+    SmartDashboard.putNumber("wristI", Constants.WristConstants.kI);
+    SmartDashboard.putNumber("wristD", Constants.WristConstants.kD);
+    SmartDashboard.putNumber("pivotP", Constants.PivotConstants.kP);
+    SmartDashboard.putNumber("pivotI", Constants.PivotConstants.kI);
+    SmartDashboard.putNumber("pivotD", Constants.PivotConstants.kD);
+    SmartDashboard.putNumber("reachP", Constants.ReachConstants.kP);
+    SmartDashboard.putNumber("reachI", Constants.ReachConstants.kI);
+    SmartDashboard.putNumber("reachD", Constants.ReachConstants.kD);
   }
 
   /**

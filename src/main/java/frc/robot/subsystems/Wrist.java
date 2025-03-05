@@ -44,5 +44,15 @@ public class Wrist extends Actuator {
     }
     return instance;
   }
-  
+  public double getP(){
+    return SmartDashboard.getNumber("wristP", Constants.WristConstants.kP);
+  }
+  @Override
+  public double getI(){
+    return SmartDashboard.getNumber("wristI", Constants.WristConstants.kI);
+  }
+  @Override
+  public double getD(){
+    return SmartDashboard.getNumber("wristD", Constants.WristConstants.kD);
+  }
 }

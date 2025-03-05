@@ -74,6 +74,7 @@ public class Intake extends SubsystemBase{
 
     return instance;
   }
+
   // public void moveToPositionWithPID(double velocity) {
   //   intakeMotor.getClosedLoopController().setReference(velocity, SparkMax.ControlType.kVelocity);
   // }
