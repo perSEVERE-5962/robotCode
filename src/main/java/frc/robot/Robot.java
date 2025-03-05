@@ -84,9 +84,12 @@ public class Robot extends TimedRobot {
         var result = results.get(results.size() - 1);
         if (result.hasTargets()) {
           // At least one AprilTag was seen by the camera
+          PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[0].getLatestResult();
+     PhotonVision.targets3 = result1.getTargets();
           for (var target : result.getTargets()) {
           //  var targetPose=target;
             if (target.getFiducialId() == 7) {
+              poseTransform2d=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,7);
               // Found Tag 7, record its information
          //     poseTransform2d= target.getFiducialId().getCameraToTarget();
               targetVisible = true;

@@ -20,7 +20,7 @@ public class Intake extends SubsystemBase{
     private SparkMax intakeMotor;
     private static Intake instance;
     private SparkMaxConfig motorConfig; 
-    private SparkMax followerMotor;
+    //private SparkMax followerMotor;
     private SparkMaxConfig followerConfig;
 
   /** Creates a new Intake. */
@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase{
     motorConfig.inverted(false);
     motorConfig.limitSwitch.forwardLimitSwitchEnabled(true); 
     motorConfig.limitSwitch.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
-    motorConfig.smartCurrentLimit(20);
+    motorConfig.smartCurrentLimit(40);
     motorConfig.encoder.velocityConversionFactor(1);
     // motorConfig.closedLoop
     //         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
