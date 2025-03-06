@@ -22,16 +22,20 @@ public class AutoToTroughScore extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
- new MoveToPosition(SwerveSubsystem.getInstance(),
-                        new Pose2d(5, 0, new Rotation2d(0)),
-                        0.1, DriveConstants.KPID_TKP).withTimeout(10),
-                    new TurntoAngle(SwerveSubsystem.getInstance(), 0, true).andThen(
+//  new MoveToPosition(SwerveSubsystem.getInstance(),
+//                         new Pose2d(5, 0, new Rotation2d(0)),
+//                         0.1, DriveConstants.KPID_TKP).withTimeout(10),
+//                     new TurntoAngle(SwerveSubsystem.getInstance(), 0, true).andThen(
 
-                    //The L1
-                    new SetArmPosition(Constants.ScoringConstants.kL1)
-                    ).andThen(
-                      new ScoreCoral()
-                    )
+//                     //The L1
+//                     new SetArmPosition(Constants.ScoringConstants.kL1)
+//                     ).andThen(
+//                       new ScoreCoral()
+//                     )
+new MoveToPosition(SwerveSubsystem.getInstance(),
+                         new Pose2d(2.1, 0, new Rotation2d(0)),
+                         0.1, DriveConstants.KPID_TKP),
+                     new TurntoAngle(SwerveSubsystem.getInstance(), 0, true)
     );
   }
 }
