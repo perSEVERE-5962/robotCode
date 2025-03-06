@@ -232,7 +232,7 @@ public final class Constants {
   }
 
   public static final class WristConstants {
-    public static final int kWristID = 50;//53
+    public static final int kWristID = 53;//53
 
     // PID
     public static final double kP = 0.1; 
