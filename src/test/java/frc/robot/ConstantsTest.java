@@ -19,24 +19,24 @@ public class ConstantsTest {
     int kReach = ScoringConstants.kReach;
     
 
-    assertEquals(15.0, positions[kL1][kReach]);
-    assertEquals(25.0, positions[kL1][kWrist]);
-    assertEquals(35.0, positions[kL1][kPivot]);
+    assertEquals(0.0, positions[kL1][kReach]);
+    assertEquals(-25.0, positions[kL1][kWrist]);
+    assertEquals(0.69, positions[kL1][kPivot]);
 
-    assertEquals(15.0, positions[kL2][kReach]);
-    assertEquals(25.0, positions[kL2][kWrist]);
-    assertEquals(35.0, positions[kL2][kPivot]);
+    assertEquals(0, positions[kL2][kReach]);
+    assertEquals(0, positions[kL2][kWrist]);
+    assertEquals(0.69, positions[kL2][kPivot]);
 
-    assertEquals(15.0, positions[kL3][kReach]);
-    assertEquals(25.0, positions[kL3][kWrist]);
-    assertEquals(35.0, positions[kL3][kPivot]);
+    assertEquals(0, positions[kL3][kReach]);
+    assertEquals(0, positions[kL3][kWrist]);
+    assertEquals(0.69, positions[kL3][kPivot]);
 
-    assertEquals(15.0, positions[kL4][kReach]);
-    assertEquals(25.0, positions[kL4][kWrist]);
-    assertEquals(35.0, positions[kL4][kPivot]);
+    assertEquals(0, positions[kL4][kReach]);
+    assertEquals(0, positions[kL4][kWrist]);
+    assertEquals(0.69, positions[kL4][kPivot]);
 
-    assertEquals(15.0, positions[kStation][kReach]);
-    assertEquals(25.0, positions[kStation][kWrist]);
-    assertEquals(20.0, positions[kStation][kPivot]);
+    assertEquals(0, positions[kStation][kReach]);
+    assertEquals(-21.0, positions[kStation][kWrist]);
+    assertEquals(0.69, positions[kStation][kPivot]);
   }
 }

@@ -55,4 +55,16 @@ public class Pivot extends Actuator {
     }
     return instance;
   }
+  @Override
+  public double getP(){
+    return SmartDashboard.getNumber("pivotP", Constants.PivotConstants.kP);
+  }
+  @Override
+  public double getI(){
+    return SmartDashboard.getNumber("pivotI", Constants.PivotConstants.kI);
+  }
+  @Override
+  public double getD(){
+    return SmartDashboard.getNumber("pivotD", Constants.PivotConstants.kD);
+  }
 }

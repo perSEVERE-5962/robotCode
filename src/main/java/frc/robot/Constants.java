@@ -90,10 +90,10 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    public static final double kPID_XKP = 0.6; // 2.1
+    public static final double kPID_XKP = 1.0; // 2.1
     public static final double kPID_XKI = 0.0;
     public static final double kPID_XKD = 0.0;
-    public static final double kPID_YKP = 0.6; // 2.1
+    public static final double kPID_YKP = 1.0; // 2.1
     public static final double kPID_YKI = 0.0;
     public static final double kPID_YKD = 0.0;
     public static final double KPID_TKP = 0.85; // 0.9
@@ -143,6 +143,7 @@ public final class Constants {
   public static final class CANDeviceIDs {
     // Intake
     public static final int kIntakeID = 51;
+    //public static final int kFollowerID = 53;
     
     // drive motors
     public static final int kFrontLeftDriveMotorID = 40;
@@ -231,7 +232,8 @@ public final class Constants {
   }
 
   public static final class WristConstants {
-    public static final int kWristID = 53;
+    public static final int kWristID = 53;//53
+
     // PID
     public static final double kP = 0.1; 
     public static final double kI = 0; 
@@ -245,10 +247,10 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.25; // retract ?
+    public static final double kMaxOutput = 0.3; // extend?
+    public static final double kMinOutput = -0.3; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final float kUpperSoftLimit =  -27.0f; // kForward
     public static final float kL1Limit = 1.5f;
     public static final float kL2Limit = 1.6f;
     public static final float kL3Limit = 1.9f;
@@ -259,12 +261,13 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 0, -24.2, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, -25, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
         { 0, 0, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { 0, -19.3, 0.69} }; //Coral Station
-    public static final int kL1=0;
+        { 0, -21, 0.69},//corall Station
+      {0,-13,0.69} }; // Straight up
+          public static final int kL1=0;
     public static final int kL2=1;
     public static final int kL3=2;
     public static final int kL4=3;

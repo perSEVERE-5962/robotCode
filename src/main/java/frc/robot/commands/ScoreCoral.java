@@ -12,6 +12,8 @@ public class ScoreCoral extends Command {
   public ScoreCoral() {
     intakeSub = Intake.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSub);
+
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +23,7 @@ public class ScoreCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(-0.1);
+    intakeSub.run(-0.7);
   }
 
   // Called once the command ends or is interrupted.
