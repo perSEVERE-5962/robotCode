@@ -43,6 +43,7 @@ public class RobotContainer {
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController, !Constants.kUseJoystick ? XboxController.Button.kStart.value : 5);
   private final Trigger dr_ResestAllParts = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final Trigger dr_ButtonB = new JoystickButton(driverController, XboxController.Button.kB.value);
+  private final Trigger dr_ButtonX = new JoystickButton(driverController, XboxController.Button.kX.value);
 
   // Copilot Controller
   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -113,8 +114,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_ResestAllParts.onTrue(new ResetArmAndWrist());
-    dr_ButtonB.onTrue(new AutoToTroughScore());
+    dr_ResestAllParts.onTrue(new ResetArmAndWrist(0));
+   //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     //cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
@@ -124,12 +125,12 @@ public class RobotContainer {
     cp_CollectCoral.onTrue(new CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());
 
-    tc_ForwardPivot.whileTrue(new moveSubsystems(0.1, "pivotSub"));
-    tc_BackwardPivot.whileTrue(new moveSubsystems(-0.1, "pivotSub"));
-    tc_ForwardWrist.whileTrue(new moveSubsystems(0.1, "wristSub"));
-    tc_BackwardWrist.whileTrue(new moveSubsystems(-0.1, "wristSub"));
-    tc_ForwardReach.whileTrue(new moveSubsystems(0.1, "reachSub"));
-    tc_BackwardReach.whileTrue(new moveSubsystems(-0.1, "reachSub"));
+    //tc_ForwardPivot.whileTrue(new moveSubsystems(0.1, "pivotSub"));
+    //tc_BackwardPivot.whileTrue(new moveSubsystems(-0.1, "pivotSub"));
+    dr_ButtonX.whileTrue(new moveSubsystems(0.1, "wristSub"));
+    dr_ButtonB.whileTrue(new moveSubsystems(-0.1, "wristSub"));
+    //tc_ForwardReach.whileTrue(new moveSubsystems(0.1, "reachSub"));
+    //tc_BackwardReach.whileTrue(new moveSubsystems(-0.1, "reachSub"));
   }
 
   /**
@@ -139,7 +140,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command;
-    command= new AutoExample();
+    command=new SetArmPosition(5).withTimeout(1).andThen( new ResetWheels(driveTrain).andThen(new AutoToTroughScore()));
     return command;
   }
 
