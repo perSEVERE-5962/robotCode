@@ -13,6 +13,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SoftLimitConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.config.SparkBaseConfig;
 public class Actuator extends SubsystemBase {
@@ -66,6 +68,10 @@ public class Actuator extends SubsystemBase {
    
     public void periodic() {
         //nothing here
+        motorConfig.closedLoop
+            .p(getP()) 
+            .i(getI()) 
+            .d(getD());
     }
 
     public double getPosition() {
@@ -89,5 +95,14 @@ public class Actuator extends SubsystemBase {
     }
     public void move(double speed){
         armMotor.set(speed);
+    }
+    public double getP(){
+        return 0;
+    }
+    public double getI(){
+        return 0;
+    }
+    public double getD(){
+        return 0;
     }
 }
