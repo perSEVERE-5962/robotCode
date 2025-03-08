@@ -34,9 +34,9 @@ public class SetArmPosition extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //reachSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kReach]);
+    reachSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kReach]);
     wristSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kWrist]);
-    //pivotSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kPivot]);
+    pivotSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kPivot]);
   }
 
   // Called once the command ends or is interrupted.

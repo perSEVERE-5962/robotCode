@@ -90,15 +90,18 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    public static final double kPID_XKP = 0.8; // 2.1
-    public static final double kPID_XKI = 0.35;
-    public static final double kPID_XKD = 0.0;
-    public static final double kPID_YKP = 0.3; // 2.1
+    public static final double kPID_XKP = 0.8; // 2.1, 0.8
+    public static final double kPID_XKI = 0.3;//0.3,0.65
+    public static final double kPID_XKD = 0.1;
+    public static final double kPID_XKIzone = 0.8;
+    public static final double kPID_YKP = 0.3; // 2.1, 0.3
     public static final double kPID_YKI = 0.0;
     public static final double kPID_YKD = 0.0;
+    public static final double kPID_YKIzone = 0.0;
     public static final double KPID_TKP = 0.0; // 0.9
     public static final double KPID_TKI = 0.0;
     public static final double KPID_TKD = 0.0;
+    public static final double kPID_TKIzone = 0.0;
 
     // Teleop settings
     public static final double kPID_XKP_tele = 5.0;
@@ -265,7 +268,7 @@ public final class Constants {
         { 0, 0, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { 0, -21, 0.69},//corall Station
+        { 7.66, 12.5, 0.86},//corall Station
       {0,-13,0.69} }; // Straight up
           public static final int kL1=0;
     public static final int kL2=1;
