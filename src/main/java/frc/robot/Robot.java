@@ -104,6 +104,8 @@ public class Robot extends TimedRobot {
 
     }
     SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
+    SmartDashboard.putNumber("x", poseTransform2d.getX());
+    SmartDashboard.putNumber("y", poseTransform2d.getY());
 
     SmartDashboard.putNumber("wristP", Constants.WristConstants.kP);
     SmartDashboard.putNumber("wristI", Constants.WristConstants.kI);
