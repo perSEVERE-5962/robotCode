@@ -90,13 +90,13 @@ public final class Constants {
     public static final double kTeleDriveMaxAngularAccelerationRadiansPerSecondSquared = Math.PI / 4.0;
 
     // Autonomous settings
-    public static final double kPID_XKP = 0.6; // 2.1
-    public static final double kPID_XKI = 0.0;
+    public static final double kPID_XKP = 0.8; // 2.1
+    public static final double kPID_XKI = 0.35;
     public static final double kPID_XKD = 0.0;
-    public static final double kPID_YKP = 0.6; // 2.1
+    public static final double kPID_YKP = 0.3; // 2.1
     public static final double kPID_YKI = 0.0;
     public static final double kPID_YKD = 0.0;
-    public static final double KPID_TKP = 0.85; // 0.9
+    public static final double KPID_TKP = 0.0; // 0.9
     public static final double KPID_TKI = 0.0;
     public static final double KPID_TKD = 0.0;
 
@@ -105,8 +105,8 @@ public final class Constants {
     public static final double kPID_YKP_tele = 4.0;
     public static final double kPID_TKP_tele = 4.0;
 
-    public static final double kAutoMaxAngularVelocity = 9.0;
-    public static final double kAutoMaxAngularAcceleration = 9.0 * 5.0;
+    public static final double kAutoMaxAngularVelocity = 12.0;
+    public static final double kAutoMaxAngularAcceleration = 12.0 * 5.0;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
         new TrapezoidProfile.Constraints(

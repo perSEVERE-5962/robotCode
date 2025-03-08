@@ -9,8 +9,8 @@ import edu.wpi.first.math.util.Units;
 /** Add your docs here. */
 public abstract class SDSModuleBase implements SDSModuleInterface {
 
-  protected final double kWheelDiameterMeters = Units.inchesToMeters(3.9);
-  protected final double kWheelDiameterInches = 3.9;
+  protected final double kWheelDiameterMeters = Units.inchesToMeters(4.0);
+  protected final double kWheelDiameterInches = 4.0;
 
   @Override
   public double getWheelDiameterInches() {

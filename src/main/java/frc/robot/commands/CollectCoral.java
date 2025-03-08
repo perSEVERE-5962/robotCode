@@ -29,7 +29,7 @@ public class CollectCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(0.3);
+    intakeSub.run(0.6);
     //intakeSub.moveToPositionWithPID(1);
   }
 
