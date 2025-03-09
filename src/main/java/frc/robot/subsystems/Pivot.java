@@ -32,7 +32,7 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kIz,
         Constants.PivotConstants.kUpperSoftLimit,
         Constants.PivotConstants.kLowerSoftLimit, 
-        true,
+        false,
         true);
         
         followerMotor = new SparkMax(PivotConstants.kFollowerID, SparkLowLevel.MotorType.kBrushless);
