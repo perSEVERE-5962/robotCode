@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase{
     private static Intake instance;
     private SparkMaxConfig motorConfig; 
     //private SparkMax followerMotor;
-    private SparkMaxConfig followerConfig;
+    //private SparkMaxConfig followerConfig;
 
   /** Creates a new Intake. */
   private Intake() {
@@ -30,10 +30,10 @@ public class Intake extends SubsystemBase{
 
 
     
-    motorConfig.inverted(false);
-    motorConfig.limitSwitch.forwardLimitSwitchEnabled(true); 
-    motorConfig.limitSwitch.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
-    motorConfig.smartCurrentLimit(40);
+    motorConfig.inverted(true);
+    //motorConfig.limitSwitch.forwardLimitSwitchEnabled(true); 
+    //motorConfig.limitSwitch.forwardLimitSwitchType(LimitSwitchConfig.Type.kNormallyOpen);
+    motorConfig.smartCurrentLimit(20);
     motorConfig.encoder.velocityConversionFactor(1);
     // motorConfig.closedLoop
     //         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
@@ -42,7 +42,7 @@ public class Intake extends SubsystemBase{
     //         .d(0) 
     //         .outputRange(-1,1) 
     //         .velocityFF(1.0/5767); 
-    intakeMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    intakeMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     //  followerMotor = new SparkMax(CANDeviceIDs.kFollowerID, SparkLowLevel.MotorType.kBrushless);
     //     followerConfig = new SparkMaxConfig();
     //     followerConfig.follow(Constants.CANDeviceIDs.kIntakeID, true);
@@ -59,7 +59,7 @@ public class Intake extends SubsystemBase{
 
   public void run(double speed) {
     intakeMotor.set(speed);
-
+    SmartDashboard.putNumber("intake Current", intakeMotor.getOutputCurrent());
   }
 
   @Override
