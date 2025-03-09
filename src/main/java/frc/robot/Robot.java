@@ -71,9 +71,6 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     Transform3d pose=new Transform3d();
-    Translation2d translation2d = new Translation2d(0, 0);
-    Rotation2d rotation2d = pose.getRotation().toRotation2d();
-    Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
     m_robotContainer = RobotContainer.getInstance();
     boolean targetVisible = false;
     for (int i = 0; i < 10; i++) {
@@ -88,8 +85,9 @@ public class Robot extends TimedRobot {
      PhotonVision.targets3 = result1.getTargets();
           for (var target : result.getTargets()) {
           //  var targetPose=target;
-            if (target.getFiducialId() == 17) {
+            if (target.getFiducialId() == 6) {
               pose=target.getBestCameraToTarget();
+              Constants.StartingPos.poseTransform2d=PhotonVision.transform3dtoTransform2d(pose);
               // Found Tag 7, record its information
          //     poseTransform2d= target.getFiducialId().getCameraToTarget();
               targetVisible = true;
@@ -104,7 +102,7 @@ public class Robot extends TimedRobot {
 
     }
     SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
-    SmartDashboard.putNumber("x", pose.getX());
+    SmartDashboard.putNumber("x-pos", pose.getX());
     SmartDashboard.putNumber("y", pose.getY());
 
     SmartDashboard.putNumber("wristP", Constants.WristConstants.kP);

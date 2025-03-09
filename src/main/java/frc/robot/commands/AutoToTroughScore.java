@@ -34,7 +34,7 @@ public class AutoToTroughScore extends SequentialCommandGroup {
 //                     )
 new MoveToPosition(SwerveSubsystem.getInstance(),
                          new Pose2d(1.88, 0, new Rotation2d(0)),
-                         0, DriveConstants.KPID_TKP),
+                         0.2, DriveConstants.KPID_TKP),
                      new TurntoAngle(SwerveSubsystem.getInstance(), 0, true)
     );
   }

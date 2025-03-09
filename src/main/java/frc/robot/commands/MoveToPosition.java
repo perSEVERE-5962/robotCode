@@ -48,6 +48,7 @@ public class MoveToPosition extends Command {
         this.addRequirements(swerve);
         holonomicDriveController.getThetaController().setP(turnP);
         holonomicDriveController.setTolerance(new Pose2d(tol, tol, Rotation2d.fromDegrees(0)));
+        holonomicDriveController.getXController().setIZone(DriveConstants.kPID_XKIzone);
     }
 
     /**

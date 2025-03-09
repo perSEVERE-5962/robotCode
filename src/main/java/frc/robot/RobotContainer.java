@@ -140,7 +140,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command;
-    command=new SetArmPosition(5).withTimeout(1).andThen( new ResetWheels(driveTrain).andThen(new AutoToTroughScore()));
+    command= new AutoToTroughWithCamera();
+    
     return command;
   }
 
