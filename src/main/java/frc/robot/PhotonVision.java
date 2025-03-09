@@ -105,8 +105,7 @@ public class PhotonVision {
            Translation2d translation2d = new Translation2d(x, y);
            Rotation2d rotation2d = pose.getRotation().toRotation2d();
            Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
-           SmartDashboard.putNumber("X",x);
-          SmartDashboard.putNumber("y",x);
+      
           SmartDashboard.putData("RotationToTag",(Sendable) rotation2d);
         
 
