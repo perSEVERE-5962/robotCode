@@ -17,6 +17,7 @@ import com.revrobotics.spark.config.AlternateEncoderConfig.Type;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -91,22 +92,25 @@ public final class Constants {
 
     // Autonomous settings
     public static final double kPID_XKP = 0.8; // 2.1
-    public static final double kPID_XKI = 0.35;
+    public static final double kPID_XKI = 0.1;
     public static final double kPID_XKD = 0.0;
-    public static final double kPID_YKP = 0.3; // 2.1
-    public static final double kPID_YKI = 0.0;
+    public static final double kPID_XKIzone=0.8;
+    public static final double kPID_YKP = 0.001; // 2.1
+    public static final double kPID_YKI = 0.001;
     public static final double kPID_YKD = 0.0;
-    public static final double KPID_TKP = 0.0; // 0.9
-    public static final double KPID_TKI = 0.0;
+    public static final double kPID_YKIzone=0.0;
+    public static final double KPID_TKP = 0.001; // 0.9
+    public static final double KPID_TKI = 0.001;
     public static final double KPID_TKD = 0.0;
+    public static final double kPID_TKIzone=0.0;
 
     // Teleop settings
     public static final double kPID_XKP_tele = 5.0;
     public static final double kPID_YKP_tele = 4.0;
     public static final double kPID_TKP_tele = 4.0;
 
-    public static final double kAutoMaxAngularVelocity = 12.0;
-    public static final double kAutoMaxAngularAcceleration = 12.0 * 5.0;
+    public static final double kAutoMaxAngularVelocity = 4.0;
+    public static final double kAutoMaxAngularAcceleration = 4.0 * 5.0;
 
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints = //
         new TrapezoidProfile.Constraints(
@@ -196,17 +200,17 @@ public final class Constants {
 
     // Limits
     public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.25; // retract ?
+    public static final double kMinOutput = -0.4; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final float kUpperSoftLimit = -73.3f; // kForward
   }
 
   public static final class PivotConstants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 0.1; 
-    public static final double kI = 0; 
+    public static final double kP = 1.0; 
+    public static final double kI = 0.04; 
     public static final double kD = 0;
     public static final double kIz = 0;
     public static final double kFF = 0; 
@@ -217,10 +221,10 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final double kMaxOutput = 0.75; // extend?
+    public static final double kMinOutput = -0.75; // retract ?
+    public static final float kLowerSoftLimit = 0.69f; // kReverse
+    public static final float kUpperSoftLimit = 0.85f; // kForward
 
     // absolute encoder
     public static final int kTicks = 8192;
@@ -250,7 +254,7 @@ public final class Constants {
     public static final double kMaxOutput = 0.3; // extend?
     public static final double kMinOutput = -0.3; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit =  -27.0f; // kForward
+    public static final float kUpperSoftLimit =  -19.0f; // kForward
     public static final float kL1Limit = 1.5f;
     public static final float kL2Limit = 1.6f;
     public static final float kL3Limit = 1.9f;
@@ -262,10 +266,10 @@ public final class Constants {
   public static final class ScoringConstants {
     public static final double[][] postions = { 
         { 0, -25, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { 0, 0, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, -25, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { 0, -21, 0.69},//corall Station
+        { -13.1, -11.74, 0.836},//corall Station
       {0,-13,0.69} }; // Straight up
           public static final int kL1=0;
     public static final int kL2=1;
@@ -316,5 +320,10 @@ public final class Constants {
    public static  double statingRotation2dy=0;
    public static  double startingTranslation2dx=0;
    public static  double startingTranslation2dy=0;
+   //Not a Constant
+   public static Translation2d translation2d = new Translation2d(0, 0);
+   public static Rotation2d rotation2d = new Rotation2d(0);
+    public static Transform2d  poseTransform2d=new Transform2d(translation2d, rotation2d);
+
   }
 }

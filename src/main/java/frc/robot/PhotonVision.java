@@ -91,23 +91,15 @@ public class PhotonVision {
     //      }
     //      return 0;
     //  }
-      public static Transform2d distanceToAprilTagForOneCamera(List<PhotonTrackedTarget> targets3,int Apriltag){
-      Transform3d pose=new Transform3d();
-      for(PhotonTrackedTarget var:targets3 ){
-         if(var.getFiducialId()==Apriltag){
-              pose = var.getBestCameraToTarget();
-             break;
-          }
+      public static Transform2d transform3dtoTransform2d(Transform3d pose){
 
-          }
+          
           double x = pose.getX();
           double y = pose.getY();
            Translation2d translation2d = new Translation2d(x, y);
            Rotation2d rotation2d = pose.getRotation().toRotation2d();
            Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
-           SmartDashboard.putNumber("X",x);
-          SmartDashboard.putNumber("y",x);
-          SmartDashboard.putData("RotationToTag",(Sendable) rotation2d);
+      
         
 
            return poseTransform2d;

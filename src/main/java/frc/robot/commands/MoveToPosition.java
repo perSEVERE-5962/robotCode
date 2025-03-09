@@ -7,6 +7,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
@@ -34,6 +35,7 @@ public class MoveToPosition extends Command {
      */
     public MoveToPosition(SwerveSubsystem swerve, Pose2d pose2d, double tol) {
         this(swerve, pose2d, tol, DriveConstants.KPID_TKP);
+        holonomicDriveController.getXController().setIZone(DriveConstants.kPID_XKIzone);
     }
 
     /**
@@ -48,6 +50,7 @@ public class MoveToPosition extends Command {
         this.addRequirements(swerve);
         holonomicDriveController.getThetaController().setP(turnP);
         holonomicDriveController.setTolerance(new Pose2d(tol, tol, Rotation2d.fromDegrees(0)));
+        holonomicDriveController.getXController().setIZone(DriveConstants.kPID_XKIzone);
     }
 
     /**
@@ -58,6 +61,7 @@ public class MoveToPosition extends Command {
      */
     public MoveToPosition(SwerveSubsystem swerve, Pose2d pose2d) {
         this(swerve, pose2d, 0.05);
+        holonomicDriveController.getXController().setIZone(DriveConstants.kPID_XKIzone);
     }
 
     /**
@@ -67,6 +71,7 @@ public class MoveToPosition extends Command {
      */
     public MoveToPosition(SwerveSubsystem swerve) {
         this(swerve, new Pose2d());
+     holonomicDriveController.getXController().setIZone(DriveConstants.kPID_XKIzone);
     }
 
     @Override
@@ -80,6 +85,7 @@ public class MoveToPosition extends Command {
         SwerveModuleState[] moduleStates = 
             DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
         swerve.setModuleStates(moduleStates);
+        SmartDashboard.putNumber("AccumulatedError",holonomicDriveController.getXController().getAccumulatedError());
     }
 
     @Override

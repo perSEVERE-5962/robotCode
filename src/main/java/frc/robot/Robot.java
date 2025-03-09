@@ -29,6 +29,7 @@ import frc.robot.Constants.PhotonVisionConstant;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonPoseEstimator;
 
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -71,25 +72,23 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     Transform3d pose=new Transform3d();
-    Translation2d translation2d = new Translation2d(0, 0);
-    Rotation2d rotation2d = pose.getRotation().toRotation2d();
-    Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
     m_robotContainer = RobotContainer.getInstance();
     boolean targetVisible = false;
     for (int i = 0; i < 10; i++) {
-      var results = PhotonVisionConstant.CameraNames[0].getAllUnreadResults();
+      var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();
       if (!results.isEmpty()) {
         // Camera processed a new frame since last
         // Get the last one in the list.
         var result = results.get(results.size() - 1);
         if (result.hasTargets()) {
           // At least one AprilTag was seen by the camera
-          PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[0].getLatestResult();
+          PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
      PhotonVision.targets3 = result1.getTargets();
           for (var target : result.getTargets()) {
           //  var targetPose=target;
-            if (target.getFiducialId() == 7) {
-              poseTransform2d=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,7);
+            if (target.getFiducialId() == 6) {
+              pose=target.getBestCameraToTarget();
+              Constants.StartingPos.poseTransform2d=PhotonVision.transform3dtoTransform2d(pose);
               // Found Tag 7, record its information
          //     poseTransform2d= target.getFiducialId().getCameraToTarget();
               targetVisible = true;
@@ -104,6 +103,8 @@ public class Robot extends TimedRobot {
 
     }
     SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
+    SmartDashboard.putNumber("x-pos", pose.getX());
+    SmartDashboard.putNumber("y", pose.getY());
 
     SmartDashboard.putNumber("wristP", Constants.WristConstants.kP);
     SmartDashboard.putNumber("wristI", Constants.WristConstants.kI);
@@ -172,7 +173,7 @@ public class Robot extends TimedRobot {
     // System.out.println(distanceToTarget2);
     // SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
     // SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
-
+    
     // Runs the Scheduler. This is responsible for polling buttons, adding
     // newly-scheduled
     // commands, running already-scheduled commands, removing finished or
