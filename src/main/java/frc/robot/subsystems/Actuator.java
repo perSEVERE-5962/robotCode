@@ -51,17 +51,17 @@ public class Actuator extends SubsystemBase {
             absoluteEncoder = armMotor.getAbsoluteEncoder();
         }else{
             armEncoder = armMotor.getEncoder();
-            //armEncoder.setPosition(0);
+            armEncoder.setPosition(0);
         }
         
-       // SoftLimitConfig softLimitConfig = new SoftLimitConfig();
-       // softLimitConfig.forwardSoftLimitEnabled(true);
-        //softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
-        //softLimitConfig.reverseSoftLimitEnabled(true);
-        //softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
+       /* SoftLimitConfig softLimitConfig = new SoftLimitConfig();
+       softLimitConfig.forwardSoftLimitEnabled(true);
+        softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
+        softLimitConfig.reverseSoftLimitEnabled(true);
+        softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
 
 
-        //motorConfig.apply(softLimitConfig);
+        motorConfig.apply(softLimitConfig); */
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         this.useThroughBoreEncoder=useThroughBoreEncoder;
     }

@@ -200,17 +200,17 @@ public final class Constants {
 
     // Limits
     public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.25; // retract ?
+    public static final double kMinOutput = -0.4; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final float kUpperSoftLimit = -73.3f; // kForward
   }
 
   public static final class PivotConstants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 0.1; 
-    public static final double kI = 0; 
+    public static final double kP = 1.0; 
+    public static final double kI = 0.04; 
     public static final double kD = 0;
     public static final double kIz = 0;
     public static final double kFF = 0; 
@@ -221,10 +221,10 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.25; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = 15.5f; // kForward
+    public static final double kMaxOutput = 0.75; // extend?
+    public static final double kMinOutput = -0.75; // retract ?
+    public static final float kLowerSoftLimit = 0.69f; // kReverse
+    public static final float kUpperSoftLimit = 0.85f; // kForward
 
     // absolute encoder
     public static final int kTicks = 8192;
@@ -254,7 +254,7 @@ public final class Constants {
     public static final double kMaxOutput = 0.3; // extend?
     public static final double kMinOutput = -0.3; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit =  -27.0f; // kForward
+    public static final float kUpperSoftLimit =  -19.0f; // kForward
     public static final float kL1Limit = 1.5f;
     public static final float kL2Limit = 1.6f;
     public static final float kL3Limit = 1.9f;
@@ -266,10 +266,10 @@ public final class Constants {
   public static final class ScoringConstants {
     public static final double[][] postions = { 
         { 0, -25, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { 0, 0, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 0, -25, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { 0, -21, 0.69},//corall Station
+        { -13.1, -11.74, 0.836},//corall Station
       {0,-13,0.69} }; // Straight up
           public static final int kL1=0;
     public static final int kL2=1;
