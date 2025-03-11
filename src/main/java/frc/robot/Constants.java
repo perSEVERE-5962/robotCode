@@ -325,5 +325,13 @@ public final class Constants {
    public static Rotation2d rotation2d = new Rotation2d(0);
     public static Transform2d  poseTransform2d=new Transform2d(translation2d, rotation2d);
 
+    public static Translation2d translation2d_2= new Translation2d(0, 0);
+   public static Rotation2d rotation2d_2= new Rotation2d(0);
+    public static Transform2d  poseTransform2d_2=new Transform2d(translation2d, rotation2d);
+//April tags
+public static final double[][] apriltagsToReef = { 
+  { 20, 11},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+  { 21,10},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+  { 22, 9}};
   }
 }
