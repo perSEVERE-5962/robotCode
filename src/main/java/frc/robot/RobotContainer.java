@@ -114,16 +114,16 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_ResestAllParts.onTrue(new ResetArmAndWrist(0));
+    dr_ResestAllParts.onTrue(new  ResetFuuctionComplete());
    //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     //cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
     //cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
-    cp_CoralStation.onTrue(new SetArmPosition(Constants.ScoringConstants.kStation));//Coral Station
+    cp_CoralStation.onTrue(new SetReachPosition(6).andThen(new SetArmPosition(Constants.ScoringConstants.kStation)));//Coral Station
 
-    cp_CollectCoral.onTrue(new CollectCoral());
-    cp_ScoreCoral.whileTrue(new ScoreCoral());
+    cp_CollectCoral.onTrue(new  CollectCoral());
+    cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
     tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
     tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));

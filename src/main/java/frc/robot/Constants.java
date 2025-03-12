@@ -199,8 +199,8 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.4; // retract ?
+    public static final double kMaxOutput = 0.2; // extend?
+    public static final double kMinOutput = -0.2; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
     public static final float kUpperSoftLimit = -73.3f; // kForward
   }
@@ -209,10 +209,10 @@ public final class Constants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 1.0; 
-    public static final double kI = 0.04; 
+    public static final double kP = 1.7; 
+    public static final double kI = 0.0007; 
     public static final double kD = 0;
-    public static final double kIz = 0;
+    public static final double kIz = 0.4;
     public static final double kFF = 0; 
 
     // feedforward
@@ -221,8 +221,8 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.75; // extend?
-    public static final double kMinOutput = -0.75; // retract ?
+    public static final double kMaxOutput = 1.0; // extend?
+    public static final double kMinOutput = -1.0; // retract ?
     public static final float kLowerSoftLimit = 0.69f; // kReverse
     public static final float kUpperSoftLimit = 0.85f; // kForward
 
@@ -270,7 +270,10 @@ public final class Constants {
         { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
         { -13.1, -11.74, 0.836},//corall Station
-      {0,-13,0.69} }; // Straight up
+      {0,-13,0.69},// Straight up
+      {-2,0,0.69}
+    }; // Reset function
+
           public static final int kL1=0;
     public static final int kL2=1;
     public static final int kL3=2;
