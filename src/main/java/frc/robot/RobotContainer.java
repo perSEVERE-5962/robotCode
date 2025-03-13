@@ -119,18 +119,20 @@ public class RobotContainer {
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     //cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
-    //cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4
+    cp_ReefLevel3.whileTrue(new moveSubsystems(-0.5, "pivotSub")); // move pivot back - towards starting point
+    //cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4    
+    cp_ReefLevel4.whileTrue(new moveSubsystems(0.5, "pivotSub")); // move pivot forward - towards scoring position
     cp_CoralStation.onTrue(new SetReachPosition(6).andThen(new SetArmPosition(Constants.ScoringConstants.kStation)));//Coral Station
 
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
-    tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
-    tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));
-    tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));
-    tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
-    tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
-    tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
+    // tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
+    // tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));
+    // tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));
+    // tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
+    // tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
+    // tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
   }
 
   /**
