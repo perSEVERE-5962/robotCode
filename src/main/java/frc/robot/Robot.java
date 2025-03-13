@@ -11,6 +11,7 @@ import javax.naming.spi.DirStateFactory.Result;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -28,8 +29,7 @@ import frc.robot.Constants;
 import frc.robot.Constants.PhotonVisionConstant;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonPoseEstimator;
-
-
+import frc.robot.Constants.StartingPos;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to
@@ -76,17 +76,19 @@ public class Robot extends TimedRobot {
     boolean targetVisible = false;
     for (int i = 0; i < 10; i++) {
       var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();
-      if (!results.isEmpty()) {
+      var resultsCamera = PhotonVisionConstant.CameraNames[0].getAllUnreadResults();
+      if (!results.isEmpty()|| !resultsCamera.isEmpty()) {
         // Camera processed a new frame since last
         // Get the last one in the list.
         var result = results.get(results.size() - 1);
-        if (result.hasTargets()) {
+        var resultsCameras = resultsCamera.get(resultsCamera.size() - 1);
+        if (result.hasTargets() || resultsCameras.hasTargets() ) {
           // At least one AprilTag was seen by the camera
-          PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
-     PhotonVision.targets3 = result1.getTargets();
+   
+     
           for (var target : result.getTargets()) {
           //  var targetPose=target;
-            if (target.getFiducialId() == 6) {
+            if (target.getFiducialId() == StartingPos.apriltagsToReef[0][0]) {//First is which on you want to go to, the second one is the color you are.
               pose=target.getBestCameraToTarget();
               Constants.StartingPos.poseTransform2d=PhotonVision.transform3dtoTransform2d(pose);
               // Found Tag 7, record its information
@@ -95,6 +97,17 @@ public class Robot extends TimedRobot {
 
             }
           }
+          for (var target : resultsCameras.getTargets()) {
+            //  var targetPose=target;
+              if (target.getFiducialId() == StartingPos.apriltagsToReef[0][0]) {//First is which on you want to go to, the second one is the color you are.
+                pose=target.getBestCameraToTarget();
+                Constants.StartingPos.poseTransform2d_2=PhotonVision.transform3dtoTransform2d(pose);
+                // Found Tag 7, record its information
+           //     poseTransform2d= target.getFiducialId().getCameraToTarget();
+                targetVisible = true;
+  
+              }
+            }
         }
       }
       if (targetVisible == true) {

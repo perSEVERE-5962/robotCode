@@ -19,7 +19,8 @@ public class AutoToTroughWithCamera extends SequentialCommandGroup {
   public AutoToTroughWithCamera() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-     final double target=Constants.StartingPos.poseTransform2d.getX()-0.3;
+     final double target=(Constants.StartingPos.poseTransform2d.getX()+Constants.StartingPos.poseTransform2d_2.getX())/2+-0.3;
+
     addCommands(
                  new MoveToPosition(SwerveSubsystem.getInstance(),
                          new Pose2d((target), 0, new Rotation2d(0)),
