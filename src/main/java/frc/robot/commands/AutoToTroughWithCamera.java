@@ -25,7 +25,7 @@ public class AutoToTroughWithCamera extends SequentialCommandGroup {
                  new MoveToPosition(SwerveSubsystem.getInstance(),
                          new Pose2d((target), 0, new Rotation2d(0)),
                          0.5, DriveConstants.KPID_TKP).withTimeout(10),
-                new CollectCoral().withTimeout(0.25))
+                new ScoreCoral().withTimeout(0.25))
     ;
   }
 }
