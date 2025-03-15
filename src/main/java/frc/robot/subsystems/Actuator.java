@@ -17,92 +17,102 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.config.SparkBaseConfig;
+
 public class Actuator extends SubsystemBase {
     private SparkMax armMotor;
-    private SparkMaxConfig motorConfig; 
+    private SparkMaxConfig motorConfig;
     private RelativeEncoder armEncoder;
     private SparkAbsoluteEncoder absoluteEncoder;
-    private boolean useThroughBoreEncoder=false;
-    public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz, float kUpperSoftLimit,float kLowerSoftLimit, boolean inverted, boolean useThroughBoreEncoder){
+    private boolean useThroughBoreEncoder = false;
+
+    public Actuator(int ID, double P, double I, double D, double MinOutput, double MaxOutput, double FF, double Iz,
+            float kUpperSoftLimit, float kLowerSoftLimit, boolean inverted, boolean useThroughBoreEncoder,
+            boolean useSoftLimits) {
 
         armMotor = new SparkMax(ID, SparkLowLevel.MotorType.kBrushless);
-        motorConfig = new SparkMaxConfig(); 
-    
-        motorConfig.inverted(inverted); 
-        //Reach needs to be inverted
-        //Wrist should not be inverted
-        //Pivot should not be inverted
+        motorConfig = new SparkMaxConfig();
+
+        motorConfig.inverted(inverted);
+        // Reach needs to be inverted
+        // Wrist should not be inverted
+        // Pivot should not be inverted
         motorConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
         motorConfig.smartCurrentLimit(40);
         FeedbackSensor feedBackSensor = FeedbackSensor.kPrimaryEncoder;
-        if(useThroughBoreEncoder == true){
+        if (useThroughBoreEncoder == true) {
             feedBackSensor = FeedbackSensor.kAbsoluteEncoder;
-            
+
         }
         motorConfig.closedLoop
-            .feedbackSensor(feedBackSensor)
-            .p(P) 
-            .i(I) 
-            .d(D) 
-            .outputRange(MinOutput,MaxOutput) 
-            .velocityFF(FF) 
-            .iZone(Iz); 
-        if(useThroughBoreEncoder == true){
+                .feedbackSensor(feedBackSensor)
+                .p(P)
+                .i(I)
+                .d(D)
+                .outputRange(MinOutput, MaxOutput)
+                .velocityFF(FF)
+                .iZone(Iz);
+        if (useThroughBoreEncoder == true) {
             absoluteEncoder = armMotor.getAbsoluteEncoder();
-        }else{
+        } else {
             armEncoder = armMotor.getEncoder();
             armEncoder.setPosition(0);
         }
-        
-       /* SoftLimitConfig softLimitConfig = new SoftLimitConfig();
-       softLimitConfig.forwardSoftLimitEnabled(true);
-        softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
-        softLimitConfig.reverseSoftLimitEnabled(true);
-        softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
 
+        if (useSoftLimits == true) {
 
-        motorConfig.apply(softLimitConfig); */
+            SoftLimitConfig softLimitConfig = new SoftLimitConfig();
+            softLimitConfig.forwardSoftLimitEnabled(true);
+            softLimitConfig.forwardSoftLimit(kUpperSoftLimit);
+            softLimitConfig.reverseSoftLimitEnabled(true);
+            softLimitConfig.reverseSoftLimit(kLowerSoftLimit);
+
+            motorConfig.apply(softLimitConfig);
+        }
         armMotor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        this.useThroughBoreEncoder=useThroughBoreEncoder;
+        this.useThroughBoreEncoder = useThroughBoreEncoder;
+
     }
-   
+
     public void periodic() {
-        //nothing here
+        // nothing here
         motorConfig.closedLoop
-            .p(getP()) 
-            .i(getI()) 
-            .d(getD());
+                .p(getP())
+                .i(getI())
+                .d(getD());
     }
 
     public double getPosition() {
-        if(useThroughBoreEncoder==true){
-            if(absoluteEncoder == null){
+        if (useThroughBoreEncoder == true) {
+            if (absoluteEncoder == null) {
                 return 0;
             }
-            return absoluteEncoder.getPosition(); 
-        }else {
-            if(armEncoder == null){
+            return absoluteEncoder.getPosition();
+        } else {
+            if (armEncoder == null) {
                 return 0;
             }
-            return armEncoder.getPosition(); 
+            return armEncoder.getPosition();
         }
-      
 
-        
     }
+
     public void moveToPositionWithPID(double position) {
-      armMotor.getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
+        armMotor.getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
     }
-    public void move(double speed){
+
+    public void move(double speed) {
         armMotor.set(speed);
     }
-    public double getP(){
+
+    public double getP() {
         return 0;
     }
-    public double getI(){
+
+    public double getI() {
         return 0;
     }
-    public double getD(){
+
+    public double getD() {
         return 0;
     }
 }

@@ -209,10 +209,10 @@ public final class Constants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 1.0; 
-    public static final double kI = 0.04; 
+    public static final double kP = 1.7; 
+    public static final double kI = 0.0007; 
     public static final double kD = 0;
-    public static final double kIz = 0;
+    public static final double kIz = 0.4;
     public static final double kFF = 0; 
 
     // feedforward
@@ -221,10 +221,10 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.75; // extend?
-    public static final double kMinOutput = -0.75; // retract ?
-    public static final float kLowerSoftLimit = 0.69f; // kReverse
-    public static final float kUpperSoftLimit = 0.85f; // kForward
+    public static final double kMaxOutput = 1.0; // extend?
+    public static final double kMinOutput = -1.0; // retract ?
+    public static final float kLowerSoftLimit = 0.60f; // kReverse
+    public static final float kUpperSoftLimit = 0.834f; // kForward
 
     // absolute encoder
     public static final int kTicks = 8192;
@@ -265,17 +265,24 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 0, -25, 0.69},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { 0, -25, 0.69},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { 0, 0, 0.69},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { -5, -22, 0.67},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+        { -5, -22, 0.67},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { -48, -28, 0.64},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { -13.1, -11.74, 0.836},//corall Station
-      {0,-13,0.69} }; // Straight up
+        { -7.0, -8.5, 0.836},//corall Station
+      {0,-13,0.69},// Straight up
+      {-5,0,0.67}, // Starting position
+      {-5,-24,0.67} // auto L1
+    }; // Reset function
+
           public static final int kL1=0;
     public static final int kL2=1;
     public static final int kL3=2;
     public static final int kL4=3;
     public static final int kStation=4;
+    public static final int kStraightUp=5;
+    public static final int kStartPos=6;
+    public static final int kAutoL1=7;
     public static final int kReach=0;
     public static final int kWrist=1;
     public static final int kPivot=2;
@@ -325,5 +332,13 @@ public final class Constants {
    public static Rotation2d rotation2d = new Rotation2d(0);
     public static Transform2d  poseTransform2d=new Transform2d(translation2d, rotation2d);
 
+    public static Translation2d translation2d_2= new Translation2d(0, 0);
+   public static Rotation2d rotation2d_2= new Rotation2d(0);
+    public static Transform2d  poseTransform2d_2=new Transform2d(translation2d, rotation2d);
+//April tags
+public static final double[][] apriltagsToReef = { 
+  { 20, 11},   //Right
+  { 21,10},   //center
+  { 22, 9}};//left
   }
 }

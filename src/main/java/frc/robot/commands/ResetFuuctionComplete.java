@@ -5,19 +5,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ScoringConstants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SetArmPosition extends SequentialCommandGroup {
-  /** Creates a new SetArmPosition. */
-  public SetArmPosition(int scorePosition) {
+public class ResetFuuctionComplete extends SequentialCommandGroup {
+  /** Creates a new ResetFuuctionComplete. */
+  public ResetFuuctionComplete() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetReachPosition(scorePosition), /*new SetPivotPosition(scorePosition),*/ new SetWristPosition(scorePosition)
+      new SetPivotPosition(4).withTimeout(1),
+      new StopIntake()/* .andThen(new SetPivotPosition(4)) */.andThen(new SetPivotPosition(6).withTimeout(1)).andThen(new SetWristPosition(6)).andThen(new SetReachPosition(6))
     );
-
   }
 }
