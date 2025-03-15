@@ -19,13 +19,16 @@ public class AutoToTroughWithCamera extends SequentialCommandGroup {
   public AutoToTroughWithCamera() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-     final double target=(Constants.StartingPos.poseTransform2d.getX()+Constants.StartingPos.poseTransform2d_2.getX())/2+-0.3;
+     final double target=Constants.StartingPos.poseTransform2d.getX()/*+Constants.StartingPos.poseTransform2d_2.getX())/2*/-0.3;
 
-    addCommands(
+    addCommands(//new GetAprilTagDistance(),
                  new MoveToPosition(SwerveSubsystem.getInstance(),
-                         new Pose2d((target), 0, new Rotation2d(0)),
+                         new Pose2d(Constants.StartingPos.poseTransform2d.getX()/*+Constants.StartingPos.poseTransform2d_2.getX())/2*/-0.3, 0.5, new Rotation2d(0)),
                          0.5, DriveConstants.KPID_TKP).withTimeout(10),
-                new ScoreCoral().withTimeout(0.25))
-    ;
+              //  new SetArmPosition(Constants.ScoringConstants.kAutoL1),
+                new ScoreCoral(-0.1).withTimeout(0.1),
+                new ScoreCoral(-0.1).withTimeout(0.1),
+                new ScoreCoral(-0.1).withTimeout(2)
+    );
   }
 }

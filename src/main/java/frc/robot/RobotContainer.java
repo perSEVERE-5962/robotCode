@@ -94,14 +94,12 @@ public class RobotContainer {
 
     //frontCamera = new Camera(Constants.CameraConstants.kFrontCamera);
     //backCamera = new Camera(Constants.CameraConstants.kBackCamera);
+/* 
+    m_autonomousChooser.setDefaultOption("Center", getAutonomousCommand(1));
+    m_autonomousChooser.addOption("Right", getAutonomousCommand(0));
+    m_autonomousChooser.addOption("left", getAutonomousCommand(2));
 
-    m_autonomousChooser.setDefaultOption("No delay", getAutonomousCommand());
-    m_autonomousChooser.addOption("Delayed 5 seconds", new SequentialCommandGroup(
-      new Timer(5000),
-      getAutonomousCommand()
-    ));
-
-    SmartDashboard.putData("Autonomous", m_autonomousChooser);
+    SmartDashboard.putData("Autonomous", m_autonomousChooser); */
   }
 
   /**
@@ -118,21 +116,21 @@ public class RobotContainer {
    //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
     cp_ReefLevel1.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
-    //cp_ReefLevel3.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
-    cp_ReefLevel3.whileTrue(new moveSubsystems(-0.5, "pivotSub")); // move pivot back - towards starting point
+    cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL3));//l3
+    cp_ReefLevel3.whileTrue(new moveSubsystems(-0.7, "pivotSub")); // move pivot back - towards starting point
     //cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4    
-    cp_ReefLevel4.whileTrue(new moveSubsystems(0.5, "pivotSub")); // move pivot forward - towards scoring position
+    cp_ReefLevel4.whileTrue(new moveSubsystems(0.7, "pivotSub")); // move pivot forward - towards scoring position
     cp_CoralStation.onTrue(new SetReachPosition(6).andThen(new SetArmPosition(Constants.ScoringConstants.kStation)));//Coral Station
 
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
-    // tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
-    // tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));
-    // tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));
-    // tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
-    // tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
-    // tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
+    tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
+    tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));
+    tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));
+    tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
+    tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
+    tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
   }
 
   /**
@@ -142,6 +140,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     Command command;
+  
     command=new SetArmPosition(1)./*andThen( new ResetWheels(driveTrain).*/andThen(new AutoToTroughWithCamera());
     return command;
   }

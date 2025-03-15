@@ -9,13 +9,20 @@ import frc.robot.subsystems.Intake;
 public class ScoreCoral extends Command {
   private Intake intakeSub;
   /** Creates a new ShootWithIntake. */
+  private double speed=-0.3;
+  public ScoreCoral(double speed) {
+    intakeSub = Intake.getInstance();
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSub);
+    this.speed=speed;
+
+  }
   public ScoreCoral() {
     intakeSub = Intake.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSub);
 
   }
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
@@ -23,7 +30,8 @@ public class ScoreCoral extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intakeSub.run(-0.7);
+    intakeSub.run(speed);
+    
   }
 
   // Called once the command ends or is interrupted.
