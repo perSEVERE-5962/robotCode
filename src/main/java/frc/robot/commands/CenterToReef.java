@@ -13,18 +13,20 @@ import frc.robot.Constants.StartingPos;
 import frc.robot.PhotonVision;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class GetAprilTagDistance extends Command {
-  /** Creates a new GetAprilTagDistance. */
-  private int tag;
+public class CenterToReef extends Command {
   private boolean targetVisible=false;
-  public GetAprilTagDistance() {
+  /** Creates a new CenterToReef. */
+  public CenterToReef() {
     // Use addRequirements() here to declare subsystem dependencies.
-    
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() {}
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
     Transform3d pose=new Transform3d();
 
     for (int i = 0; i < 10; i++) {
@@ -72,10 +74,7 @@ public class GetAprilTagDistance extends Command {
     SmartDashboard.putNumber("x-pos", pose.getX());
     SmartDashboard.putNumber("y", pose.getY());
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -84,6 +83,7 @@ public class GetAprilTagDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return targetVisible;
+    return false;
+    //
   }
 }
