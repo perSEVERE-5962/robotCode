@@ -11,13 +11,18 @@ import frc.robot.Constants;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.Constants.StartingPos;
 import frc.robot.PhotonVision;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class CenterToReef extends Command {
+  private boolean isRightPost = true;
   private boolean targetVisible=false;
+  SwerveSubsystem swerveSubsystem;
   /** Creates a new CenterToReef. */
-  public CenterToReef() {
+  public CenterToReef(boolean isRightPost) {
+    this.isRightPost = isRightPost;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements();
   }
 
   // Called when the command is initially scheduled.
@@ -29,7 +34,6 @@ public class CenterToReef extends Command {
   public void execute() {
     Transform3d pose=new Transform3d();
 
-    for (int i = 0; i < 10; i++) {
       var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();//1 before
       if (!results.isEmpty()) {
         // Camera processed a new frame since last
@@ -65,11 +69,8 @@ public class CenterToReef extends Command {
             }
         }
       }
-      if (targetVisible == true) {
-        break;
-      }
 
-    }
+    
     SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
     SmartDashboard.putNumber("x-pos", pose.getX());
     SmartDashboard.putNumber("y", pose.getY());

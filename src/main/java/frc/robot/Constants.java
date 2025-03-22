@@ -319,9 +319,12 @@ public final class Constants {
     BackLeft.cameraposeBackLeft,
        BackRight.cameraposeBackRight};
 
-  }
-  public static final class StartingPos {
-
+      } 
+      public static final class StartingPos { 
+         
+      public static final double kArmOffset = 0.0406; //meters
+      public static final double kTargetXPos = 0.3; //meters
+      public static final double kTagToPost = 0.165; //meters
 
    public static double statingRotation2dx=0;
    public static  double statingRotation2dy=0;
@@ -340,5 +343,12 @@ public static final double[][] apriltagsToReef = {
   { 20, 11},   //Right
   { 21,10},   //center
   { 22, 9}};//left
+  
   }
+  public static final class ColorConstants {
+    public static final int BlueHue = 103;
+    public static final int YellowHue = 20;
+    public static final int RedHue = 0;
 }
+}
+
