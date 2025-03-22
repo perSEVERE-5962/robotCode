@@ -7,98 +7,128 @@ package frc.robot.commands;
 import org.photonvision.PhotonUtils;
 
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.PhotonVision;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveToCoralStationWithTags extends Command {
- private boolean targetVisible =false;
- private double targetYaw = 0.0;
- private double targetRange = 0.0;
- private boolean targetVisible2 =false;
- private double targetYaw2 = 0.0;
- private double targetRange2 = 0.0;
- private double area=0.0;
- private boolean isRightPost = false;
- 
+  private boolean targetVisible = false;
+  private double targetYaw = 0.0;
+  private double targetRange = 0.0;
+  private boolean targetVisible2 = false;
+  private double targetYaw2 = 0.0;
+  private double targetRange2 = 0.0;
+  private double area = 0.0;
+  private boolean isRightPost = false;
+
+  private AddressableLED m_led;
+  private AddressableLEDBuffer m_ledBuffer;
+
   /** Creates a new MoveToCoralStationWithTags. */
   public MoveToCoralStationWithTags(boolean isRightPost) {
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();
-    var results2 = PhotonVisionConstant.CameraNames[0].getAllUnreadResults();
-    
-    if (!results.isEmpty()||!results2.isEmpty()) {
-     // Camera processed a new frame since last
-     // Get the last one in the list.
-     var result = results.get(results.size() - 1);
-     var result2 = results2.get(results.size() - 1);
-     if (result.hasTargets()||result2.hasTargets()) {
-         // At least one AprilTag was seen by the camera
-         for (var target : result.getTargets()) {
-             if (target.getFiducialId() == 9 || target.getFiducialId() == 6) {
-                 // Found Tag 7, record its information
-                 if(target.getArea()>area){
-                 targetYaw = target.getYaw();
-                 targetRange =
-                         PhotonUtils.calculateDistanceToTargetMeters(
-                                 0.5, // Measured with a tape measure, or in CAD.
-                                 0.3, // From 2024 game manual for ID 7
-                                 Units.degreesToRadians(-30.0), // Measured with a protractor, or in CAD.
-                                 Units.degreesToRadians(target.getPitch()));
-                 
- 
-                 targetVisible = true;
-                 area=target.getArea();
-                 }
-
-
-             }
-             for (var target2 : result.getTargets()) {
-              if (target2.getFiducialId() == 9 || target2.getFiducialId() == 6) {
-                  // Found Tag 7, record its information
-                  if(target2.getArea()>area){
-                  targetYaw = target.getYaw();
-                  targetRange =
-                          PhotonUtils.calculateDistanceToTargetMeters(
-                                  0.5, // Measured with a tape measure, or in CAD.
-                                  0.3, // From 2024 game manual for ID 7
-                                  Units.degreesToRadians(-30.0), // Measured with a protractor, or in CAD.
-                                  Units.degreesToRadians(target.getPitch()));
-                  
+    m_led = new AddressableLED(0); // 0 = number of port on three letter thing i forgot what it called
+    m_ledBuffer = new AddressableLEDBuffer(9); // 1 = number of leds in length of it
+    m_led.setLength(m_ledBuffer.getLength());
+    m_led.setData(m_ledBuffer);
+    m_led.start();
+    setLED();
+  }
+  private void setLED(){
+    int hue = 0;
+    if (targetVisible || targetVisible2) {
+      hue = ColorConstants.BlueHue;
+    } else {
+      hue = ColorConstants.RedHue;
+    }
   
-                  targetVisible = true;
-                  area=target.getArea();
-                  }
- 
- 
-              }
-         }
-     }
- }
-}
+    for (int i = 0; i < m_ledBuffer.getLength(); i++) {
+        m_ledBuffer.setHSV(i, hue, 255, 255);   // could also do .setRGB if we want that color system
+    }
+  
+    m_led.setData(m_ledBuffer);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    targetVisible = false;
+    targetVisible2 = false;
+    try{
+    var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();
+    var results2 = PhotonVisionConstant.CameraNames[0].getAllUnreadResults();
 
+    if (!results.isEmpty() && !results2.isEmpty()) {
+      // Camera processed a new frame since last
+      // Get the last one in the list.
+      var result = results.get(results.size() - 1);
+      var result2 = results2.get(results.size() - 1);
+      if (result.hasTargets() || result2.hasTargets()) {
+        // At least one AprilTag was seen by the camera
+        for (var target : result.getTargets()) {
+          if (target.getFiducialId() == 9 || target.getFiducialId() == 6) {
+            // Found Tag 7, record its information
+            if (target.getArea() > area) {
+              targetYaw = target.getYaw();
+              targetRange = PhotonUtils.calculateDistanceToTargetMeters(
+                  0.5, // Measured with a tape measure, or in CAD.
+                  0.3, // From 2024 game manual for ID 7
+                  Units.degreesToRadians(-30.0), // Measured with a protractor, or in CAD.
+                  Units.degreesToRadians(target.getPitch()));
+
+              targetVisible = true;
+              area = target.getArea();
+            }
+
+          }
+          // for (var target2 : result2.getTargets()) {
+          //   if (target2.getFiducialId() == 9 || target2.getFiducialId() == 6) {
+          //     // Found Tag 7, record its information
+          //     if (target2.getArea() > area) {
+          //       targetYaw = target2.getYaw();
+          //       targetRange = PhotonUtils.calculateDistanceToTargetMeters(
+          //           0.5, // Measured with a tape measure, or in CAD.
+          //           0.3, // From 2024 game manual for ID 7
+          //           Units.degreesToRadians(-30.0), // Measured with a protractor, or in CAD.
+          //           Units.degreesToRadians(target2.getPitch()));
+
+          //       targetVisible = true;
+          //       area = target2.getArea();
+          //     }
+
+          //   }
+          //}
+        }
+      }
+    }
+  } catch(Exception e) {
+    SmartDashboard.putString("Exception", e.getMessage());
   }
+  finally{
+
+  
+    setLED();
+  }
+}
+
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
-   
-  
+
   }
 
   // Returns true when the command should end.

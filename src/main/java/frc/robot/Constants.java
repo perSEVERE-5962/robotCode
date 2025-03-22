@@ -343,5 +343,12 @@ public static final double[][] apriltagsToReef = {
   { 20, 11},   //Right
   { 21,10},   //center
   { 22, 9}};//left
+  
   }
+  public static final class ColorConstants {
+    public static final int BlueHue = 103;
+    public static final int YellowHue = 20;
+    public static final int RedHue = 0;
 }
+}
+

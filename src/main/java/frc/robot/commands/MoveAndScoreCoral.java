@@ -5,7 +5,7 @@ public class MoveAndScoreCoral extends SequentialCommandGroup {
     public MoveAndScoreCoral(int scorePosition, boolean isRightPost){
 
         addCommands(
-            new SetArmPosition(scorePosition).andThen(new MoveToCoralStationWithTags(isRightPost))
+            /* new SetArmPosition(scorePosition).andThen */(new MoveToCoralStationWithTags(isRightPost))
         );
     }
 }
