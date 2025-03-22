@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.PhotonVisionConstant;
-
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import frc.robot.PhotonVision;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class MoveToCoralStationWithTags extends Command {
 
   /** Creates a new MoveToCoralStationWithTags. */
   public MoveToCoralStationWithTags(boolean isRightPost) {
-
+      addRequirements(SwerveSubsystem.getInstance());
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -51,7 +51,7 @@ public class MoveToCoralStationWithTags extends Command {
   }
   private void setLED(){
     int hue = 0;
-    if (targetVisible || targetVisible2) {
+    if (targetVisible) {
       hue = ColorConstants.BlueHue;
     } else {
       hue = ColorConstants.RedHue;
@@ -67,6 +67,7 @@ public class MoveToCoralStationWithTags extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    targetVisible = false;
     PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
     PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
     List<PhotonTrackedTarget> targets = results.getTargets();
@@ -74,10 +75,8 @@ public class MoveToCoralStationWithTags extends Command {
     targets.sort(PhotonTargetSortMode.Highest.getComparator());
     targets2.sort(PhotonTargetSortMode.Highest.getComparator());
 
-    if (targets.isEmpty() && targets.isEmpty()) {
-
-      // Turn lights
-    } else if (targets.isEmpty() || targets2.isEmpty()) {
+    if (targets.isEmpty() || targets2.isEmpty()) {
+      
       if (!targets.isEmpty()) {
         targetYaw = targets.get(0).getYaw();
         targetRange = PhotonUtils.calculateDistanceToTargetMeters(
@@ -96,7 +95,8 @@ public class MoveToCoralStationWithTags extends Command {
         targetVisible = true;
       }
 
-    } else if (!targets.isEmpty() && !targets.isEmpty()) {
+    } else if (!targets.isEmpty() && !targets2.isEmpty()) {
+      targetVisible = true;
       if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() < targets2.get(0).getArea()) {
         targetYaw = targets2.get(0).getYaw();
@@ -106,7 +106,7 @@ public class MoveToCoralStationWithTags extends Command {
             Units.degreesToRadians(0),
             Units.degreesToRadians(targets2.get(0).getPitch()));
 
-        targetVisible = true;
+        
         System.out.println(targetRange + "Range");
         System.out.println(targetYaw + "Yaw");
       } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
@@ -117,7 +117,7 @@ public class MoveToCoralStationWithTags extends Command {
             0.31,
             Units.degreesToRadians(0),
             Units.degreesToRadians(targets.get(0).getPitch()));
-
+            
       } else if (targets.get(0).getFiducialId() == targets2.get(0).getFiducialId()) {
         // Change to do averages
         targetYaw = targets.get(0).getYaw();
@@ -126,24 +126,20 @@ public class MoveToCoralStationWithTags extends Command {
             0.31,
             Units.degreesToRadians(0),
             Units.degreesToRadians(targets.get(0).getPitch()));
-
+          
       }
 
     }
-
-  }
-  finally{
-
-  
     setLED();
   }
-}
+  
 
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    m_led.stop();
+    m_led.close();
   }
 
   // Returns true when the command should end.
