@@ -322,9 +322,9 @@ public final class Constants {
       } 
       public static final class StartingPos { 
          
-      public static final double kArmOffset = 1.6; //inches
+      public static final double kArmOffset = 0.0406; //meters
       public static final double kTargetXPos = 0.3; //meters
-      public static final double kTagToPost = 6.5; //inches
+      public static final double kTagToPost = 0.165; //meters
 
    public static double statingRotation2dx=0;
    public static  double statingRotation2dy=0;

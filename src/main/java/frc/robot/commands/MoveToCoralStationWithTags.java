@@ -8,6 +8,10 @@ import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -29,10 +33,13 @@ public class MoveToCoralStationWithTags extends Command {
   private double targetYaw = 0.0;
   private double targetRange = 0.0;
   private boolean isRightPost = false;
+  public static Translation2d translation2d_2= new Translation2d(0, 0);
+   public static Rotation2d rotation2d_2= new Rotation2d(0);
+    public static Transform2d  poseTransform2d_2=new Transform2d(translation2d_2, rotation2d_2);
 
   private AddressableLED m_led;
   private AddressableLEDBuffer m_ledBuffer;
-
+ private SwerveSubsystem cart= SwerveSubsystem.getInstance();
   /** Creates a new MoveToCoralStationWithTags. */
   public MoveToCoralStationWithTags(boolean isRightPost) {
       addRequirements(SwerveSubsystem.getInstance());
@@ -76,22 +83,14 @@ public class MoveToCoralStationWithTags extends Command {
     targets2.sort(PhotonTargetSortMode.Highest.getComparator());
 
     if (targets.isEmpty() || targets2.isEmpty()) {
-      
+
       if (!targets.isEmpty()) {
-        targetYaw = targets.get(0).getYaw();
-        targetRange = PhotonUtils.calculateDistanceToTargetMeters(
-            0.35,
-            0.31,
-            Units.degreesToRadians(0),
-            Units.degreesToRadians(targets.get(0).getPitch()));
+       Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
         targetVisible = true;
       } else if (!targets2.isEmpty()) {
-        targetYaw = targets2.get(0).getYaw();
-        targetRange = PhotonUtils.calculateDistanceToTargetMeters(
-            0.35,
-            0.31,
-            Units.degreesToRadians(0),
-            Units.degreesToRadians(targets2.get(0).getPitch()));
+        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
         targetVisible = true;
       }
 
@@ -99,38 +98,29 @@ public class MoveToCoralStationWithTags extends Command {
       targetVisible = true;
       if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() < targets2.get(0).getArea()) {
-        targetYaw = targets2.get(0).getYaw();
-        targetRange = PhotonUtils.calculateDistanceToTargetMeters(
-            0.35,
-            0.31,
-            Units.degreesToRadians(0),
-            Units.degreesToRadians(targets2.get(0).getPitch()));
-
-        
-        System.out.println(targetRange + "Range");
-        System.out.println(targetYaw + "Yaw");
+      
+            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
+            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
       } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() > targets2.get(0).getArea()) {
-        targetYaw = targets.get(0).getYaw();
-        targetRange = PhotonUtils.calculateDistanceToTargetMeters(
-            0.35,
-            0.31,
-            Units.degreesToRadians(0),
-            Units.degreesToRadians(targets.get(0).getPitch()));
+        
+            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
             
       } else if (targets.get(0).getFiducialId() == targets2.get(0).getFiducialId()) {
         // Change to do averages
-        targetYaw = targets.get(0).getYaw();
-        targetRange = PhotonUtils.calculateDistanceToTargetMeters(
-            0.35,
-            0.31,
-            Units.degreesToRadians(0),
-            Units.degreesToRadians(targets.get(0).getPitch()));
+       
+        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
           
       }
 
     }
     setLED();
+    if(targetVisible==true){
+
+      
+    }
   }
   
 
@@ -145,6 +135,11 @@ public class MoveToCoralStationWithTags extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if ( cart.getPose().getX()<= Constants.StartingPos.kTargetXPos){
+      return true;
+    }
+    else{
     return false;
+    }
   }
 }
