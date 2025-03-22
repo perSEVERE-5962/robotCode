@@ -319,9 +319,12 @@ public final class Constants {
     BackLeft.cameraposeBackLeft,
        BackRight.cameraposeBackRight};
 
-  }
-  public static final class StartingPos {
-
+      } 
+      public static final class StartingPos { 
+         
+      public static final double kArmOffset = 1.6; //inches
+      public static final double kTargetXPos = 0.3; //meters
+      public static final double kTagToPost = 6.5; //inches
 
    public static double statingRotation2dx=0;
    public static  double statingRotation2dy=0;

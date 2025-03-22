@@ -23,10 +23,10 @@ public class MoveToCoralStationWithTags extends Command {
  private double targetYaw2 = 0.0;
  private double targetRange2 = 0.0;
  private double area=0.0;
-
+ private boolean isRightPost = false;
  
   /** Creates a new MoveToCoralStationWithTags. */
-  public MoveToCoralStationWithTags() {
+  public MoveToCoralStationWithTags(boolean isRightPost) {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
