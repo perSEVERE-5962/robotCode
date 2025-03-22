@@ -41,6 +41,7 @@ import frc.robot.Constants.StartingPos;
  * build.gradle file in the
  * project.
  */
+
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
@@ -235,13 +236,7 @@ public class Robot extends TimedRobot {
     // SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
     // SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
     
-    // Runs the Scheduler. This is responsible for polling buttons, adding
-    // newly-scheduled
-    // commands, running already-scheduled commands, removing finished or
-    // interrupted commands,
-    // and running subsystem periodic() methods. This must be called from the
-    // robot's periodic
-    // block in order for anything in the Command-based framework to work.
+  
     CommandScheduler.getInstance().run();
 
     SwerveSubsystem sss = SwerveSubsystem.getInstance();

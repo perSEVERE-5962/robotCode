@@ -8,14 +8,17 @@ import java.util.List;
 
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonPoseEstimator;
+import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.PhotonTargetSortMode;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.PhotonVisionConstant;
@@ -26,7 +29,12 @@ public class PhotonVision {
 //   static PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
 //   static PhotonPipelineResult result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
    static PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
+   
 
+   public boolean targetVisible = false;
+ public double targetYaw = 0.0;
+ public double targetRange = 0.0;
+ 
   //  static List<PhotonTrackedTarget> targets = result.getTargets();
 //     static List<PhotonTrackedTarget> targets1 = result1.getTargets();
 //     static List<PhotonTrackedTarget> targets2 = result2.getTargets();
@@ -71,26 +79,21 @@ public class PhotonVision {
 
 //     }
 
-//     // public static double getTargetDistance() {
-//     //     if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
-//     //  public static double GettargetDistance(){
-//     //      double distance = cameraFront.getCameraTable().getEntry("targetPose").getDoubleArray(new double[] {0,0,0})[0];
-//     //      System.out.println(distance);
-//     //     return distance;
-//     // }
+//  public static double getTargetDistance() {
+//      if (cameraFront == null || !cameraFront.isConnected()) { return 0; }
 
-    //     var result = cameraFront.getLatestResult();
-    //     if (result.hasTargets()) {
-    //         var bestTarget = result.getBestTarget();
-    //         double range = PhotonUtils.calculateDistanceToTargetMeters(
-    //             Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
-    //             Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
-    //             Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
-    //             Units.degreesToRadians(bestTarget.getPitch()));
-    //         return range;
-    //      }
-    //      return 0;
-    //  }
+//          var result = cameraFront.getLatestResult();
+//          if (result.hasTargets()) {
+//              var bestTarget = result.getTargetDistance();
+//              double range = PhotonUtils.calculateDistanceToTargetMeters(
+//                 Units.inchesToMeters(Constants.CameraConstants.kCameraHeightInches),
+//                 Units.inchesToMeters(Constants.CameraConstants.kCameraTargetHeightInches),
+//                  Units.degreesToRadians(Constants.CameraConstants.kCameraPitchDegrees),
+//                Units.degreesToRadians(bestTarget.getPitch()));
+//              return range;
+//          }
+//          return 0;
+//       }
       public static Transform2d transform3dtoTransform2d(Transform3d pose){
 
           
@@ -104,4 +107,5 @@ public class PhotonVision {
 
            return poseTransform2d;
       }
+   
 }
