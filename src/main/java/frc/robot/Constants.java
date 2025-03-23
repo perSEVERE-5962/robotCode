@@ -307,6 +307,7 @@ public final class Constants {
        public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
 
      }
+
     
      public static PhotonCamera[] CameraNames={
      new PhotonCamera(FrontLeft.name),
@@ -318,13 +319,17 @@ public final class Constants {
        FrontRight.cameraposeFrontRight,
     BackLeft.cameraposeBackLeft,
        BackRight.cameraposeBackRight};
-
-      } 
-      public static final class StartingPos { 
-         
-      public static final double kArmOffset = 0.0406; //meters
+        } 
+        public static final double kArmOffset = 0.0406; //meters
       public static final double kTargetXPos = 0.3; //meters
       public static final double kTagToPost = 0.165; //meters
+
+      public static final double YoffsetsForCameras=0.15;
+      
+      public static final class StartingPos { 
+         
+      
+
 
    public static double statingRotation2dx=0;
    public static  double statingRotation2dy=0;
