@@ -49,6 +49,52 @@ public class MoveToReefWithTags extends Command {
   @Override
   public void execute() {
     
+    targetVisible = false;
+    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
+    List<PhotonTrackedTarget> targets = results.getTargets();
+    List<PhotonTrackedTarget> targets2 = results2.getTargets();
+    targets.sort(PhotonTargetSortMode.Highest.getComparator());
+    targets2.sort(PhotonTargetSortMode.Highest.getComparator());
+
+    if (targets.isEmpty() || targets2.isEmpty()) {
+
+      if (!targets.isEmpty()) {
+       Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+        targetVisible = true;
+      } else if (!targets2.isEmpty()) {
+        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+        targetVisible = true;
+      }
+
+    } else if (!targets.isEmpty() && !targets2.isEmpty()) {
+      targetVisible = true;
+      if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
+          && targets.get(0).getArea() < targets2.get(0).getArea()) {
+      
+            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
+            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+      } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
+          && targets.get(0).getArea() > targets2.get(0).getArea()) {
+        
+            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+            
+      } else if (targets.get(0).getFiducialId() == targets2.get(0).getFiducialId()) {
+        // Change to do averages
+       
+      
+          
+      }
+
+    }
+    setLED();
+    if(targetVisible==true){
+
+      
+    }
   }
   
 
