@@ -28,7 +28,7 @@ import java.util.List;
 import org.photonvision.PhotonTargetSortMode;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class MoveToCoralStationWithTags extends Command {
+public class MoveToReefWithTags extends Command {
   private boolean targetVisible = false;
   private double targetYaw = 0.0;
   private double targetRange = 0.0;
@@ -41,7 +41,7 @@ public class MoveToCoralStationWithTags extends Command {
   private AddressableLEDBuffer m_ledBuffer;
  private SwerveSubsystem cart= SwerveSubsystem.getInstance();
   /** Creates a new MoveToCoralStationWithTags. */
-  public MoveToCoralStationWithTags(boolean isRightPost) {
+  public MoveToReefWithTags(boolean isRightPost) {
       addRequirements(SwerveSubsystem.getInstance());
     // Use addRequirements() here to declare subsystem dependencies.
   }
