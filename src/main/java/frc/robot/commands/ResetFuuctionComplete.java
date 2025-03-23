@@ -15,7 +15,8 @@ public class ResetFuuctionComplete extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new StopIntake().andThen(new SetPivotPosition(4)).andThen(new SetPivotPosition(6)).andThen(new SetWristPosition(6)).andThen(new SetReachPosition(6))
+      new SetPivotPosition(4).withTimeout(1),
+      new StopIntake()/* .andThen(new SetPivotPosition(4)) */.andThen(new SetPivotPosition(6).withTimeout(1)).andThen(new SetWristPosition(6)).andThen(new SetReachPosition(6))
     );
   }
 }

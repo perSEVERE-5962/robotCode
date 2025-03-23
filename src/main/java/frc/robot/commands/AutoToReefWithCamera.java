@@ -14,9 +14,9 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoToTroughWithCamera extends SequentialCommandGroup {
+public class AutoToReefWithCamera extends SequentialCommandGroup {
   /** Creates a new AutoToTroughWithCamera. */
-  public AutoToTroughWithCamera() {
+  public AutoToReefWithCamera() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
      final double target=Constants.StartingPos.poseTransform2d.getX()/*+Constants.StartingPos.poseTransform2d_2.getX())/2*/-0.3;
@@ -30,5 +30,6 @@ public class AutoToTroughWithCamera extends SequentialCommandGroup {
                 new ScoreCoral(-0.1).withTimeout(0.1),
                 new ScoreCoral(-0.1).withTimeout(2)
     );
+    
   }
 }

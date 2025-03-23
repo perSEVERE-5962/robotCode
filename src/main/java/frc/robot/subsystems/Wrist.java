@@ -28,6 +28,7 @@ public class Wrist extends Actuator {
         Constants.WristConstants.kUpperSoftLimit,
         Constants.WristConstants.kLowerSoftLimit,
         false,
+        true,
         false);
         
 

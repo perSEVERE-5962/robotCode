@@ -22,6 +22,7 @@ public class Reach extends Actuator {
         Constants.ReachConstants.kUpperSoftLimit,
         Constants.ReachConstants.kLowerSoftLimit,
         false,
+        false,
         false);
   }
   @Override
