@@ -8,10 +8,13 @@ import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -19,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.ColorConstants;
+import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.subsystems.AprilTags;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
@@ -31,11 +35,15 @@ import org.photonvision.PhotonTargetSortMode;
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveToReefWithTags extends Command {
   private boolean isRightPost = false;
+  private AprilTags aprilTags;
+  private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
 
   /** Creates a new MoveToCoralStationWithTags. */
   public MoveToReefWithTags(boolean isRightPost) {
       addRequirements(SwerveSubsystem.getInstance());
       addRequirements(AprilTags.getInstance());
+      this.aprilTags=AprilTags.getInstance();
+      
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -49,52 +57,12 @@ public class MoveToReefWithTags extends Command {
   @Override
   public void execute() {
     
-    targetVisible = false;
-    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
-    List<PhotonTrackedTarget> targets = results.getTargets();
-    List<PhotonTrackedTarget> targets2 = results2.getTargets();
-    targets.sort(PhotonTargetSortMode.Highest.getComparator());
-    targets2.sort(PhotonTargetSortMode.Highest.getComparator());
+    if(aprilTags.getPosTogoTo().getX()*Math.sin(Math.abs(aprilTags.getPosTogoTo().getX()))>Constants.PhotonVisionConstant.kTargetXPos){
 
-    if (targets.isEmpty() || targets2.isEmpty()) {
-
-      if (!targets.isEmpty()) {
-       Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
-       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
-        targetVisible = true;
-      } else if (!targets2.isEmpty()) {
-        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
-       poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
-        targetVisible = true;
-      }
-
-    } else if (!targets.isEmpty() && !targets2.isEmpty()) {
-      targetVisible = true;
-      if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
-          && targets.get(0).getArea() < targets2.get(0).getArea()) {
-      
-            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
-            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
-      } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
-          && targets.get(0).getArea() > targets2.get(0).getArea()) {
-        
-            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
-            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
-            
-      } else if (targets.get(0).getFiducialId() == targets2.get(0).getFiducialId()) {
-        // Change to do averages
-       
-      
-          
-      }
-
+      driveTrain.move(-0.6, 0, 0);
     }
-    setLED();
-    if(targetVisible==true){
 
-      
-    }
+
   }
   
 
@@ -107,7 +75,7 @@ public class MoveToReefWithTags extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if ( AprilTags.getInstance().getXPos()<= Constants.StartingPos.kTargetXPos){
+   if ( aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos){
       return true;
     }
     else{
