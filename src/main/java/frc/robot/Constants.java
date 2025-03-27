@@ -209,10 +209,10 @@ public final class Constants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 1.7; 
-    public static final double kI = 0.0007; 
+    public static final double kP = 20.0; 
+    public static final double kI = 0.0000; 
     public static final double kD = 0;
-    public static final double kIz = 0.4;
+    public static final double kIz = 0.0;
     public static final double kFF = 0; 
 
     // feedforward
@@ -224,7 +224,7 @@ public final class Constants {
     public static final double kMaxOutput = 1.0; // extend?
     public static final double kMinOutput = -1.0; // retract ?
     public static final float kLowerSoftLimit = 0.60f; // kReverse
-    public static final float kUpperSoftLimit = 0.834f; // kForward
+    public static final float kUpperSoftLimit = 0.966f; // kForward
 
     // absolute encoder
     public static final int kTicks = 8192;
@@ -265,14 +265,15 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { -5, -22, 0.67},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+        { 14.02, .38, 0.966},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
         { -5, -22, 0.67},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { -48, -28, 0.64},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
         { -7.0, -8.5, 0.836},//corall Station
       {0,-13,0.69},// Straight up
       {-5,0,0.67}, // Starting position
-      {-5,-24,0.67} // auto L1
+      {-5,-24,0.67}, // auto L1
+      {-5, -22, 0.75}//testing PID values
     }; // Reset function
 
           public static final int kL1=0;

@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.drivetrain.*;
-import frc.robot.commands.MoveAndScoreCoral;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -68,6 +67,7 @@ public class RobotContainer {
   private final Trigger tc_BackwardWrist = new JoystickButton(testingController, XboxController.Button.kB.value);
   private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Button.kX.value);
   private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Button.kY.value);
+  private final Trigger tc_TestPivot = new JoystickButton(copilotController, XboxController.Button.kStart.value);
   // Autonomous 
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -137,7 +137,7 @@ public class RobotContainer {
     //dr_ButtonB.whileTrue(new MoveToCoralStationWithTags());
     
 
-
+    //tc_ForwardWrist.onTrue(new SetPivotPosition(8));
     tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
     tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));
     tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));

@@ -79,7 +79,7 @@ public class AprilTags extends SubsystemBase {
 
     private void createLED(){
         m_led = new AddressableLED(0); // 0 = number of port on three letter thing i forgot what it called
-        m_ledBuffer = new AddressableLEDBuffer(9); // 1 = number of leds in length of it
+        m_ledBuffer = new AddressableLEDBuffer(18); // 1 = number of leds in length of it
         m_led.setLength(m_ledBuffer.getLength());
         m_led.setData(m_ledBuffer);
         m_led.start();
