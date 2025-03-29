@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.AprilTags;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import frc.robot.PhotonVision;
 import frc.robot.Constants;
@@ -75,7 +76,7 @@ public class Robot extends TimedRobot {
   @Override
    public void robotInit() {
     m_robotContainer = RobotContainer.getInstance();
-    Transform3d pose=new Transform3d();
+    /* Transform3d pose=new Transform3d();
     boolean targetVisible = false;
 
     for (int i = 0; i < 10; i++) {
@@ -100,7 +101,7 @@ public class Robot extends TimedRobot {
               targetVisible = true;
 
             }
-          }
+          } */
           /* for (var target : resultsCameras.getTargets()) {
             //  var targetPose=target;
               if (target.getFiducialId() == StartingPos.apriltagsToReef[0][0] || target.getFiducialId() == StartingPos.apriltagsToReef[0][1] ) {//First is which on you want to go to, the second one is the color you are.
@@ -112,16 +113,16 @@ public class Robot extends TimedRobot {
   
               }
             } */
-        }
-      }
-      if (targetVisible == true) {
-        break;
-      }
+        //}
+      //}
+      //if (targetVisible == true) {
+        //break;
+      //}
 
-    }
-    SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
-    SmartDashboard.putNumber("x-pos", pose.getX());
-    SmartDashboard.putNumber("y", pose.getY());
+   //}
+    //SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
+    //SmartDashboard.putNumber("x-pos", pose.getX());
+    //SmartDashboard.putNumber("y", pose.getY());
   //   // Translation2d startingTranslation2d=new
   //   // Translation2d(Constants.StartingPos.startingTranslation2dx,
   //   // Constants.StartingPos.startingTranslation2dy);
@@ -187,6 +188,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("reachP", Constants.ReachConstants.kP);
     SmartDashboard.putNumber("reachI", Constants.ReachConstants.kI);
     SmartDashboard.putNumber("reachD", Constants.ReachConstants.kD);
+
+    AprilTags.getInstance();
   }
 
   /**

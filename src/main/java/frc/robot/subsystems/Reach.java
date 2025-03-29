@@ -24,6 +24,7 @@ public class Reach extends Actuator {
         true,
         false,
         false);
+        moveToPositionWithPID(5);
   }
   @Override
   public void periodic() {

@@ -42,12 +42,11 @@ public class SetWristPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-     if(wristSub.getPosition() <= ScoringConstants.postions[targetPos][ScoringConstants.kWrist]){
+    if(wristSub.getPosition() >= ScoringConstants.postions[targetPos][ScoringConstants.kWrist]){
        return true;
      }
-     else{
-       return false;
-     }
-    //return true;
+    else{
+      return false;
+    }
   }
 }
