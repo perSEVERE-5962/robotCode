@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.drivetrain.*;
-import frc.robot.commands.MoveAndScoreCoral;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -134,7 +133,7 @@ public class RobotContainer {
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
-    //dr_ButtonB.whileTrue(new MoveToCoralStationWithTags());
+    dr_ButtonB.onTrue(new MoveToReefWithTags(false));
     
 
 

@@ -75,7 +75,7 @@ public class MoveToReefWithTags extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if ( aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos){
+   if (  aprilTags.getXPos()<= Constants.PhotonVisionConstant.kTargetXPos){
       return true;
     }
     else{

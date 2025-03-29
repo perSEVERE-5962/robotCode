@@ -48,28 +48,17 @@ public class AprilTags extends SubsystemBase {
   
 
     
-    if (targets.isEmpty() || targets2.isEmpty()) {
+    if (!targets.isEmpty() || !targets2.isEmpty()) {
 
       if (!targets.isEmpty()) {
         Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
-        angleToTagForCameraOne=targetYaw.getRotation().getZ();
-        if(angleToTagForCameraOne<0){
-          angleToTagForCameraOne=Math.PI+angleToTagForCameraOne;
-        }else{
-          angleToTagForCameraOne=Math.PI-angleToTagForCameraOne;
-        }
-       
-double x=Math.cos(angleToTagForCameraOne)*targetYaw.getX();
-double y=Math.sin(angleToTagForCameraOne)*targetYaw.getX();
-        poseTransform2d_2=new Transform2d(x,y,new Rotation2d(angleToTagForCameraOne));
-        System.out.println(poseTransform2d_2.toString());
+        poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+            targetVisible = true;
         
       } else if (!targets2.isEmpty()) {
         Transform3d targetYaw = targets2.get(0).getBestCameraToTarget();
-        ;
-        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw,false);
-        targetVisible = true;
-        System.out.println(poseTransform2d_2.getY());
+        poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+            targetVisible = true;
       }
 
     } else if (!targets.isEmpty() && !targets2.isEmpty()) {
@@ -77,32 +66,21 @@ double y=Math.sin(angleToTagForCameraOne)*targetYaw.getX();
       if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() < targets2.get(0).getArea()) {
 
-        Transform3d targetYaw = targets2.get(0).getBestCameraToTarget();
-        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw);
+            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();;
+            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+                targetVisible = true;
       } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() > targets2.get(0).getArea()) {
 
-        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
-        ;
-        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw);
+            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
+            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+                targetVisible = true;
 
       } else if (targets.get(0).getFiducialId() == targets2.get(0).getFiducialId()) {
         // Change to do averages
-
-        Transform3d targetOfCamera1 = targets.get(0).getBestCameraToTarget();
-        Transform2d poseTransform2dOfCamera1 = PhotonVision.transform3dtoTransform2d(targetOfCamera1, true);
-        Transform3d targetOfCamera2 = targets2.get(0).getBestCameraToTarget();
-        Transform2d poseTransform2dOfCamera2 = PhotonVision.transform3dtoTransform2d(targetOfCamera2, false);
-
-        Translation2d translation2dComplete = new Translation2d(
-            (poseTransform2dOfCamera1.getX() + poseTransform2dOfCamera2.getX()) / 2,
-            (poseTransform2dOfCamera1.getY() + poseTransform2dOfCamera2.getY()) / 2);
-        Rotation2d rotation2dComplete = new Rotation2d(Math.toRadians(
-            (poseTransform2dOfCamera1.getRotation().getDegrees() + poseTransform2dOfCamera1.getRotation().getDegrees())
-                / 2));
-        Transform2d poseTransform2dComplete = new Transform2d(translation2dComplete, rotation2dComplete);
-        poseTransform2d_2 = poseTransform2dComplete;
-        System.out.println(poseTransform2d_2.getY());
+        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
+        poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw);
+            targetVisible = true;
       }
 
     }
