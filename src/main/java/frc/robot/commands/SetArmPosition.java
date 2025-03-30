@@ -16,7 +16,7 @@ public class SetArmPosition extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new SetReachPosition(scorePosition), /*new SetPivotPosition(scorePosition),*/ new SetWristPosition(scorePosition)
+      new SetReachPosition(scorePosition).andThen( new SetPivotPosition(scorePosition)).andThen(new SetWristPosition(scorePosition))
     );
 
   }
