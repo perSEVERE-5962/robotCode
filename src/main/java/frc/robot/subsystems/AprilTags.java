@@ -38,8 +38,8 @@ public class AprilTags extends SubsystemBase {
   }
 
   public void periodic() {
-    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
+    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[0].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[3].getLatestResult();
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
     targets.sort(PhotonTargetSortMode.Highest.getComparator());
@@ -89,13 +89,13 @@ public class AprilTags extends SubsystemBase {
       }
 
     }
-    System.out.println(poseTransform2d_2.toString());
+   
     setLED();
   }
 
   private void createLED() {
     m_led = new AddressableLED(0); // 0 = number of port on three letter thing i forgot what it called
-    m_ledBuffer = new AddressableLEDBuffer(9); // 1 = number of leds in length of it
+    m_ledBuffer = new AddressableLEDBuffer(28); // 1 = number of leds in length of it
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();

@@ -301,7 +301,7 @@ public final class Constants {
     public static final double YoffsetsForCameras=0.15;
     public static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
      public static final class FrontLeft{
-       public static String name="Arducam_OV2311_USB_Camera";
+       public static String name="Arducam_OV2311_USB_Camera (1)";
        public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
      }
      public static final class FrontRight{
@@ -313,7 +313,7 @@ public final class Constants {
        public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
      }
     public static final class BackRight{
-       public static String name="FrontLeft";
+       public static String name="Arducam_OV2311_USB_Camera";
        public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
 
      }

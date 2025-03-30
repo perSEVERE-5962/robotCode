@@ -117,7 +117,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_ResestAllParts.onTrue(new  ResetFuuctionComplete());
+    //dr_ResestAllParts.onTrue(new  ResetFuuctionComplete());
   //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
     cp_ReefLevel1Right.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, true));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
@@ -144,7 +144,7 @@ public class RobotContainer {
     tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
     tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
     tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
-    tc_TestPivot.onTrue(new ResetFuuctionComplete());
+    tc_TestPivot.onTrue(new ResetFunctionComplete());
   }
 
   /**
