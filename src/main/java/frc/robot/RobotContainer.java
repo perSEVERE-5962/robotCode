@@ -44,6 +44,7 @@ public class RobotContainer {
   private final Trigger dr_ResestAllParts = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final Trigger dr_ButtonB = new JoystickButton(driverController, XboxController.Button.kB.value);
   private final Trigger dr_ButtonX = new JoystickButton(driverController, XboxController.Button.kX.value);
+  private final Trigger dr_ButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
   // Copilot Controller
   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -133,7 +134,8 @@ public class RobotContainer {
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
-    dr_ButtonB.onTrue(new MoveToReefWithTags(false));
+    dr_ButtonB.whileTrue(new MoveToReefWithTags(false));
+    dr_ButtonA.whileTrue(new MoveToReefWithTags(true));
     
 
 

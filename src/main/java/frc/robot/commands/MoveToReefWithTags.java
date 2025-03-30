@@ -34,15 +34,26 @@ import org.photonvision.PhotonTargetSortMode;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
 public class MoveToReefWithTags extends Command {
-  private boolean isRightPost = false;
   private AprilTags aprilTags;
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
+  private boolean angleIsCorrect= false;
+private double rotation=0;
+private double x=0;
+private double y=0;
+private boolean yIsCorrect=false;
+private double offest;
 
   /** Creates a new MoveToCoralStationWithTags. */
   public MoveToReefWithTags(boolean isRightPost) {
       addRequirements(SwerveSubsystem.getInstance());
       addRequirements(AprilTags.getInstance());
       this.aprilTags=AprilTags.getInstance();
+      if(isRightPost==true){
+        offest=Constants.PhotonVisionConstant.kTagToPost;
+      }else{
+        offest=-Constants.PhotonVisionConstant.kTagToPost;
+      }
+    
       
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -56,13 +67,44 @@ public class MoveToReefWithTags extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(aprilTags.getPosTogoTo().getX()*Math.sin(Math.abs(aprilTags.getPosTogoTo().getX()))>Constants.PhotonVisionConstant.kTargetXPos){
+   
+    if(!(aprilTags.getPosTogoTo().getRotation().getRadians()<Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()>Math.toRadians(179.5) 
+    ||(aprilTags.getPosTogoTo().getRotation().getRadians()>-Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()<Math.toRadians(-179.5) ))){
+      if(aprilTags.getPosTogoTo().getRotation().getRadians()>0){
+        rotation=0.4;
 
-      driveTrain.move(-0.6, 0, 0);
+      }else {
+        rotation=-0.4;
+      }
+      angleIsCorrect= false;
+
+    }else{
+      rotation=0;
+      angleIsCorrect= true;
     }
+    if(aprilTags.getPosTogoTo().getX()>Constants.PhotonVisionConstant.kTargetXPos){
 
+      x=-0.4;
+      
+    }else{
+      x=0;
+    }
+    
+    if(!(aprilTags.getPosTogoTo().getY()>-0.01+offest && aprilTags.getPosTogoTo().getY()<0.01+offest) ){
+      if(aprilTags.getPosTogoTo().getY()<offest){
+     y=-0.2;
 
+      }else{
+        y=0.2;
+      }
+
+    }else{
+      yIsCorrect=true;
+      y=0;
+    }
+    driveTrain.move(x, y,rotation);
+    x=0;
+    rotation=0;
   }
   
 
@@ -75,11 +117,14 @@ public class MoveToReefWithTags extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if (  aprilTags.getXPos()<= Constants.PhotonVisionConstant.kTargetXPos){
-      return true;
+   if ( aprilTags.getTargetVisabile()){
+      if( aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos && angleIsCorrect && yIsCorrect ){
+        return true;
+      }
+      return false;
     }
     else{
-    return false;
+    return true;
     }
   }
 }

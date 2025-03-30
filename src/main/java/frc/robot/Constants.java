@@ -290,7 +290,7 @@ public final class Constants {
   }
   public static final class PhotonVisionConstant {
     public static final double kArmOffset = 0.0406; //meters
-    public static final double kTargetXPos = 0.3; //meters
+    public static final double kTargetXPos = 0.5; //meters
     public static final double kTagToPost = 0.165; //meters
     public static final double CameraOffsets = 0.15;
 

@@ -100,9 +100,9 @@ public class PhotonVision {
           double x = pose.getX();
           double y;
           if(RightorLeft){
-             y = pose.getY()+Constants.PhotonVisionConstant.YoffsetsForCameras;
+             y = pose.getY()+Constants.PhotonVisionConstant.YoffsetsForCameras-Constants.PhotonVisionConstant.kArmOffset;
           }else{
-          y =  pose.getY()-Constants.PhotonVisionConstant.YoffsetsForCameras;
+          y =  pose.getY()-Constants.PhotonVisionConstant.YoffsetsForCameras-Constants.PhotonVisionConstant.kArmOffset;
           }
    
            Translation2d translation2d = new Translation2d(x, y);
