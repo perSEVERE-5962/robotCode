@@ -34,7 +34,7 @@ public class Pivot extends Actuator {
         Constants.PivotConstants.kLowerSoftLimit, 
         false,
         true,
-        true);
+        false);
         
         followerMotor = new SparkMax(PivotConstants.kFollowerID, SparkLowLevel.MotorType.kBrushless);
         followerConfig = new SparkMaxConfig();
@@ -49,6 +49,14 @@ public class Pivot extends Actuator {
         double theEncoder=instance.getPosition();
        SmartDashboard.putNumber("Pivot", theEncoder);
   }
+//   public void moveToPositionWithPID(double position) {
+//     if(Reach.getInstance().getPosition()> 5){
+//       getArmMotor().getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
+//     }
+//     else{
+//       getArmMotor().getClosedLoopController().setReference(0.72, SparkMax.ControlType.kPosition);
+//     }
+// }
 
   public static Pivot getInstance() {
     if (instance == null) {

@@ -119,11 +119,14 @@ private double offest;
   public boolean isFinished() {
    if ( aprilTags.getTargetVisabile()){
       if( aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos && angleIsCorrect && yIsCorrect ){
+        aprilTags.isAtPosition(true);
         return true;
       }
+      aprilTags.isAtPosition(false);
       return false;
     }
     else{
+    aprilTags.isAtPosition(false);
     return true;
     }
   }

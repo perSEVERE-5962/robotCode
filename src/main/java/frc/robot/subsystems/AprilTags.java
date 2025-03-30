@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.PhotonVision;
@@ -21,7 +22,9 @@ import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 public class AprilTags extends SubsystemBase {
   private static AprilTags instance;
+  private AprilTags aprilTags; 
   private static AddressableLED m_led;
+  private static boolean atPosition;
   private static AddressableLEDBuffer m_ledBuffer;
   private static boolean targetVisible = false;
   public static Translation2d translation2d_2 = new Translation2d(0, 0);
@@ -95,21 +98,26 @@ public class AprilTags extends SubsystemBase {
 
   private void createLED() {
     m_led = new AddressableLED(0); // 0 = number of port on three letter thing i forgot what it called
-    m_ledBuffer = new AddressableLEDBuffer(9); // 1 = number of leds in length of it
+    m_ledBuffer = new AddressableLEDBuffer(28); // 1 = number of leds in length of it
     m_led.setLength(m_ledBuffer.getLength());
     m_led.setData(m_ledBuffer);
     m_led.start();
     setLED();
   }
-
+  public void isAtPosition(boolean atPosition){
+    this.atPosition = atPosition;
+  }
   private void setLED() {
     int hue = 0;
     if (targetVisible) {
       hue = ColorConstants.BlueHue;
-    } else {
+    } else if (atPosition){
+      hue = ColorConstants.GreenHue;
+    }
+    else{
       hue = ColorConstants.RedHue;
     }
-
+    
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setHSV(i, hue, 255, 255); // could also do .setRGB if we want that color system
     }
