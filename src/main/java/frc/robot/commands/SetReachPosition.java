@@ -44,6 +44,11 @@ public class SetReachPosition extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-  return true;
+    if(reachSub.getPosition() <= ScoringConstants.postions[targetPos][ScoringConstants.kReach]){
+      return true;
+    }
+   else{
+     return false;
+   }
   }
 }

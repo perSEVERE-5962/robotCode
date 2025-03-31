@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.drivetrain.*;
-import frc.robot.commands.MoveAndScoreCoral;
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a
@@ -45,6 +44,7 @@ public class RobotContainer {
   private final Trigger dr_ResestAllParts = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final Trigger dr_ButtonB = new JoystickButton(driverController, XboxController.Button.kB.value);
   private final Trigger dr_ButtonX = new JoystickButton(driverController, XboxController.Button.kX.value);
+  private final Trigger dr_ButtonA = new JoystickButton(driverController, XboxController.Button.kA.value);
 
   // Copilot Controller
   private final XboxController copilotController = new XboxController(OIConstants.kCoPilotControllerPort);
@@ -52,7 +52,6 @@ public class RobotContainer {
   private final Trigger cp_ReefLevel2Right = new JoystickButton(copilotController, XboxController.Button.kRightBumper.value);
   private final Trigger cp_ReefLevel3Right = new JoystickButton(copilotController, XboxController.Button.kLeftStick.value);
   private final Trigger cp_ReefLevel4Right = new JoystickButton(copilotController, XboxController.Button.kRightStick.value);
-  private final Trigger cp_ReefLevel1Left = new JoystickButton(copilotController, XboxController.Button.kA.value);
   private final Trigger cp_ReefLevel2Left = new JoystickButton(copilotController, XboxController.Button.kB.value);
   private final Trigger cp_ReefLevel3Left = new JoystickButton(copilotController, XboxController.Axis.kLeftTrigger.value);
   private final Trigger cp_ReefLevel4Left = new JoystickButton(copilotController, XboxController.Axis.kRightTrigger.value);
@@ -64,10 +63,11 @@ public class RobotContainer {
   private final XboxController testingController = new XboxController(OIConstants.kTestingControllerPort);
   private final Trigger tc_ForwardPivot = new JoystickButton(testingController, XboxController.Button.kRightBumper.value);
   private final Trigger tc_BackwardPivot = new JoystickButton(testingController, XboxController.Button.kLeftBumper.value);
-  private final Trigger tc_ForwardWrist = new JoystickButton(testingController, XboxController.Button.kA.value);
+  //private final Trigger tc_ForwardWrist = new JoystickButton(testingController, XboxController.Button.kA.value);
   private final Trigger tc_BackwardWrist = new JoystickButton(testingController, XboxController.Button.kB.value);
   private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Button.kX.value);
   private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Button.kY.value);
+  private final Trigger tc_TestPivot = new JoystickButton(testingController, XboxController.Button.kA.value);
   // Autonomous 
   private final SendableChooser<Command> m_autonomousChooser = new SendableChooser<>();
 
@@ -117,13 +117,12 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
-    dr_ResestAllParts.onTrue(new  ResetFuuctionComplete());
+    //dr_ResestAllParts.onTrue(new  ResetFuuctionComplete());
   //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
     cp_ReefLevel1Right.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, true));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     cp_ReefLevel2Right.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, true));//l2
     cp_ReefLevel3Right.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, true));
-    cp_ReefLevel1Left.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false));//trough
     cp_ReefLevel2Left.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, false));//l2
     cp_ReefLevel3Left.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, false));
     //cp_ReefLevel3Right.whileTrue(new moveSubsystems(-0.7, "pivotSub")); // move pivot back - towards starting point
@@ -134,16 +133,18 @@ public class RobotContainer {
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
-    //dr_ButtonB.whileTrue(new MoveToCoralStationWithTags());
+    dr_ButtonB.whileTrue(new MoveToReefWithTags(false));
+    dr_ButtonA.whileTrue(new MoveToReefWithTags(true));
     
 
-
+    //tc_ForwardWrist.onTrue(new SetPivotPosition(8));
     tc_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub"));
     tc_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub"));
-    tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));
+    //tc_ForwardWrist.whileTrue(new moveSubsystems(0.4, "wristSub"));
     tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
     tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
     tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
+    tc_TestPivot.onTrue(new ResetFunctionComplete());
   }
 
   /**

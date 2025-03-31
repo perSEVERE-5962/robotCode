@@ -21,9 +21,10 @@ public class Reach extends Actuator {
         Constants.ReachConstants.kIz,
         Constants.ReachConstants.kUpperSoftLimit,
         Constants.ReachConstants.kLowerSoftLimit,
-        false,
+        true,
         false,
         false);
+        moveToPositionWithPID(5);
   }
   @Override
   public void periodic() {
