@@ -252,8 +252,8 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 1; // extend?
-    public static final double kMinOutput = -1; // retract ?
+    public static final double kMaxOutput = 0.7; // extend?
+    public static final double kMinOutput = -0.7; // retract ?
     public static final float kLowerSoftLimit = 0.195f;//0; // kReverse
     public static final float kUpperSoftLimit =  0.9f;//30.5f; // kForward
     public static final float kL1Limit = 1.5f;
@@ -266,11 +266,11 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 17.5, 0.37, 0.99},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { 21.76, 0.80, 0.705},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { 48.95, 0.81, 0.65},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { 17.5, 0.37, 0.835},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+        { 21.76, 0.78, 0.57},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 50, 0.81, 0.53},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { 11.57, 0.467, 0.834},//corall Station
+        { 11.57, 0.467, 0.67},//corall Station
       {0,-13,0.69},// Straight up
       {5,0.195,0.72}, // Starting position
       {17.5, 0.37, 0.99}, // auto L1
@@ -360,6 +360,7 @@ public static final double[][] apriltagsToReef = {
     public static final int BlueHue = 103;
     public static final int YellowHue = 20;
     public static final int RedHue = 0;
+    public static final int GreenHue = 60;
 }
 }
 

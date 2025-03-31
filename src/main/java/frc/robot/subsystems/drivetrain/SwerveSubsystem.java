@@ -297,13 +297,13 @@ public class SwerveSubsystem extends SubsystemBase {
     setModuleStates(
         new SwerveModuleState[] {
           // front left
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(-45.0)),
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(45.0)),
           // front right
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(45.0)),
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(-45.0)),
           // back left
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(-135.0)),
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(135.0)),
           // back right
-          new SwerveModuleState(0.1, Rotation2d.fromDegrees(135.0))
+          new SwerveModuleState(0.0, Rotation2d.fromDegrees(-135.0))
         });
   }
 
