@@ -9,7 +9,7 @@ import frc.robot.subsystems.Intake;
 public class ScoreCoral extends Command {
   private Intake intakeSub;
   /** Creates a new ShootWithIntake. */
-  private double speed=-0.3;
+  private double speed=-0.5;
   public ScoreCoral(double speed) {
     intakeSub = Intake.getInstance();
     // Use addRequirements() here to declare subsystem dependencies.

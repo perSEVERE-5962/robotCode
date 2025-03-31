@@ -187,7 +187,7 @@ public final class Constants {
   public static final class ReachConstants {
     public static final int kReachID = 50;
     // PID
-    public static final double kP = 0.1; 
+    public static final double kP = 1; 
     public static final double kI = 0; 
     public static final double kD = 0; 
     public static final double kIz = 0;
@@ -199,8 +199,8 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.4; // extend?
-    public static final double kMinOutput = -0.4; // retract ?
+    public static final double kMaxOutput = 1; // extend?
+    public static final double kMinOutput = -1; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
     public static final float kUpperSoftLimit = -73.3f; // kForward
   }
@@ -209,10 +209,10 @@ public final class Constants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 1.7; 
-    public static final double kI = 0.0007; 
+    public static final double kP = 20.0; 
+    public static final double kI = 0.0000; 
     public static final double kD = 0;
-    public static final double kIz = 0.4;
+    public static final double kIz = 0.0;
     public static final double kFF = 0; 
 
     // feedforward
@@ -224,7 +224,7 @@ public final class Constants {
     public static final double kMaxOutput = 1.0; // extend?
     public static final double kMinOutput = -1.0; // retract ?
     public static final float kLowerSoftLimit = 0.60f; // kReverse
-    public static final float kUpperSoftLimit = 0.834f; // kForward
+    public static final float kUpperSoftLimit = 0.99f; // kForward
 
     // absolute encoder
     public static final int kTicks = 8192;
@@ -239,7 +239,8 @@ public final class Constants {
     public static final int kWristID = 53;//53
 
     // PID
-    public static final double kP = 0.1; 
+    //L1 was 15, 0, 0.1
+    public static final double kP = 4; 
     public static final double kI = 0; 
     public static final double kD = 0; 
     public static final double kIz = 0;
@@ -251,10 +252,10 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.3; // extend?
-    public static final double kMinOutput = -0.3; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit =  -19.0f; // kForward
+    public static final double kMaxOutput = 0.7; // extend?
+    public static final double kMinOutput = -0.7; // retract ?
+    public static final float kLowerSoftLimit = 0.195f;//0; // kReverse
+    public static final float kUpperSoftLimit =  0.9f;//30.5f; // kForward
     public static final float kL1Limit = 1.5f;
     public static final float kL2Limit = 1.6f;
     public static final float kL3Limit = 1.9f;
@@ -265,14 +266,17 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { -5, -22, 0.67},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { -5, -22, 0.67},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { -48, -28, 0.64},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
+        { 17.5, 0.37, 0.835},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+        { 21.76, 0.78, 0.57},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 50, 0.81, 0.53},   //L3 (1.Reach, 2.Wrist, 3.Pivot)
         { 0, 0, 0.69},   //L4
-        { -7.0, -8.5, 0.836},//corall Station
+        { 11.57, 0.467, 0.67},//corall Station
       {0,-13,0.69},// Straight up
-      {-5,0,0.67}, // Starting position
-      {-5,-24,0.67} // auto L1
+      {5,0.195,0.72}, // Starting position
+      {17.5, 0.37, 0.99}, // auto L1
+      {5, -22, 0.75},//testing PID values
+      {25, 0.195, 0.72}, //intialize move
+      {0, 0, 0.8} //overshoot for reset fuuction ;(
     }; // Reset function
 
           public static final int kL1=0;
@@ -286,12 +290,18 @@ public final class Constants {
     public static final int kReach=0;
     public static final int kWrist=1;
     public static final int kPivot=2;
-
+    public static final int kIntial = 9;
   }
   public static final class PhotonVisionConstant {
+    public static final double kArmOffset = 0.0406; //meters
+    public static final double kTargetXPos = 0.5; //meters
+    public static final double kTagToPost = 0.165; //meters
+    public static final double CameraOffsets = 0.15;
+
+    public static final double YoffsetsForCameras=0.15;
     public static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
      public static final class FrontLeft{
-       public static String name="Arducam_OV2311_USB_Camera";
+       public static String name="Arducam_OV2311_USB_Camera (1)";
        public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
      }
      public static final class FrontRight{
@@ -303,10 +313,11 @@ public final class Constants {
        public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
      }
     public static final class BackRight{
-       public static String name="FrontLeft";
+       public static String name="Arducam_OV2311_USB_Camera";
        public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
 
      }
+
     
      public static PhotonCamera[] CameraNames={
      new PhotonCamera(FrontLeft.name),
@@ -318,9 +329,12 @@ public final class Constants {
        FrontRight.cameraposeFrontRight,
     BackLeft.cameraposeBackLeft,
        BackRight.cameraposeBackRight};
-
-  }
-  public static final class StartingPos {
+        } 
+       
+      
+      public static final class StartingPos { 
+         
+      
 
 
    public static double statingRotation2dx=0;
@@ -340,5 +354,13 @@ public static final double[][] apriltagsToReef = {
   { 20, 11},   //Right
   { 21,10},   //center
   { 22, 9}};//left
+  
   }
+  public static final class ColorConstants {
+    public static final int BlueHue = 103;
+    public static final int YellowHue = 20;
+    public static final int RedHue = 0;
+    public static final int GreenHue = 60;
 }
+}
+

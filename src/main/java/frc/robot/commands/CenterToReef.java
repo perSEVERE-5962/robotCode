@@ -11,23 +11,29 @@ import frc.robot.Constants;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.Constants.StartingPos;
 import frc.robot.PhotonVision;
+import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 
 /* You should consider using the more terse Command factories API instead https://docs.wpilib.org/en/stable/docs/software/commandbased/organizing-command-based.html#defining-commands */
-public class GetAprilTagDistance extends Command {
-  /** Creates a new GetAprilTagDistance. */
-  private int tag;
+public class CenterToReef extends Command {
+  private boolean isRightPost = true;
   private boolean targetVisible=false;
-  public GetAprilTagDistance() {
+  SwerveSubsystem swerveSubsystem;
+  /** Creates a new CenterToReef. */
+  public CenterToReef(boolean isRightPost) {
+    this.isRightPost = isRightPost;
     // Use addRequirements() here to declare subsystem dependencies.
-    
+    addRequirements();
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() {}
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
     Transform3d pose=new Transform3d();
 
-    for (int i = 0; i < 10; i++) {
       var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();//1 before
       if (!results.isEmpty()) {
         // Camera processed a new frame since last
@@ -63,19 +69,13 @@ public class GetAprilTagDistance extends Command {
             }
         }
       }
-      if (targetVisible == true) {
-        break;
-      }
 
-    }
+    
     SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
     SmartDashboard.putNumber("x-pos", pose.getX());
     SmartDashboard.putNumber("y", pose.getY());
   }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
+  
 
   // Called once the command ends or is interrupted.
   @Override
@@ -84,6 +84,7 @@ public class GetAprilTagDistance extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return targetVisible;
+    return false;
+    //
   }
 }

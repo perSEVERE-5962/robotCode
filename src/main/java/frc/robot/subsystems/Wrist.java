@@ -14,7 +14,7 @@ import frc.robot.Constants.WristConstants;
 
 public class Wrist extends Actuator {
   private static Wrist instance;
-  private static AbsoluteEncoder absoluteEncoder;
+  //private static AbsoluteEncoder absoluteEncoder;
   private Wrist() {
     super(
         Constants.WristConstants.kWristID,
@@ -27,9 +27,9 @@ public class Wrist extends Actuator {
         Constants.WristConstants.kIz,
         Constants.WristConstants.kUpperSoftLimit,
         Constants.WristConstants.kLowerSoftLimit,
-        false,
-        false,
-        false);
+        true,
+        true,
+        true);
         
 
         
