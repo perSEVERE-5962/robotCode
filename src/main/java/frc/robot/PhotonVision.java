@@ -94,12 +94,12 @@ public class PhotonVision {
 //          }
 //          return 0;
 //       }
-      public static Transform2d transform3dtoTransform2d(Transform3d pose,boolean RightorLeft){
+      public static Transform2d transform3dtoTransform2d(Transform3d pose,boolean isRight){
 
           
           double x = pose.getX();
           double y;
-          if(RightorLeft){
+          if(isRight){
              y = pose.getY()+Constants.PhotonVisionConstant.YoffsetsForCameras-Constants.PhotonVisionConstant.kArmOffset;
           }else{
           y =  pose.getY()-Constants.PhotonVisionConstant.YoffsetsForCameras-Constants.PhotonVisionConstant.kArmOffset;
@@ -108,10 +108,12 @@ public class PhotonVision {
            Translation2d translation2d = new Translation2d(x, y);
            Rotation2d rotation2d = pose.getRotation().toRotation2d();
            Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
-      
+           System.out.println(y);
         
 
            return poseTransform2d;
+           
+           
       }
  
       public static Transform2d transform3dtoTransform2d(Transform3d pose){

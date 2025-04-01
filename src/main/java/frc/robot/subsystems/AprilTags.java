@@ -92,7 +92,7 @@ public class AprilTags extends SubsystemBase {
       }
 
     }
-    System.out.println(poseTransform2d_2.toString());
+   
     setLED();
   }
 
