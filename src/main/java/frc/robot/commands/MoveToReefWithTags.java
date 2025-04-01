@@ -107,9 +107,9 @@ private double offest;
       y=0;
     }
     
-    y=-(aprilTags.getPosTogoTo().getY())+offest*0.9*1+u;
-    rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*0.9*1+rotationmin;
-    x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*0.9*1;
+    y=-(aprilTags.getPosTogoTo().getY())+offest*1*1+u;
+    rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
+    x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1;
     driveTrain.move(x, y,rotation);
     
     rotation=0;

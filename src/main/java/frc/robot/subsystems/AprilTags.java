@@ -38,8 +38,8 @@ public class AprilTags extends SubsystemBase {
   }
 
   public void periodic() {
-    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[0].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[3].getLatestResult();
+    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
     targets.sort(PhotonTargetSortMode.Highest.getComparator());
