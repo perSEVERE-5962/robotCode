@@ -133,8 +133,8 @@ public class RobotContainer {
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
 
-    //dr_ButtonB.whileTrue(new MoveToReefWithTags(false));
-    //dr_ButtonA.whileTrue(new MoveToReefWithTags(true));
+    dr_ButtonB.whileTrue(new ResetFunctionComplete());
+    dr_ButtonA.whileTrue(new MoveToReefWithTags(true));
     
 
     //tc_ForwardWrist.onTrue(new SetPivotPosition(8));
