@@ -116,7 +116,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
+    //dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     //dr_ResestAllParts.onTrue(new  ResetFuuctionComplete());
   //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
     cp_ReefLevel1Right.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, true));//trough

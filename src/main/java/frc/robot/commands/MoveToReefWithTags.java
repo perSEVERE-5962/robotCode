@@ -76,9 +76,11 @@ private double offest;
       if(aprilTags.getPosTogoTo().getRotation().getRadians()>0){
         rotation=-1;
         rotationmin=-0.1;
+        rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
       }else {
         rotation=1;
         rotationmin=0.1;
+        rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
       }
       angleIsCorrect= false;
 
@@ -89,7 +91,7 @@ private double offest;
     if(aprilTags.getPosTogoTo().getX()>Constants.PhotonVisionConstant.kTargetXPos){
 
       x=0.4;
-      
+      x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1;
     }else{
       x=0;
     }
@@ -97,19 +99,21 @@ private double offest;
      if(!(aprilTags.getPosTogoTo().getY()>-0.01+offest && aprilTags.getPosTogoTo().getY()<0.01+offest) ){
       if(aprilTags.getPosTogoTo().getY()<offest){
      u=0.1;
-
+     y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
       }else{
         u=-0.1;
+        y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
       }
+      yIsCorrect=false;
 
     }else{
       yIsCorrect=true;
       y=0;
     }
     
-    y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
-    rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
-    x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1;
+   // y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
+   // rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
+  //  x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1;
     driveTrain.move(x, y,rotation);
     
     rotation=0;
@@ -126,7 +130,7 @@ private double offest;
   @Override
   public boolean isFinished() {
    if ( aprilTags.getTargetVisabile()){
-      if(/*aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos && angleIsCorrect && */yIsCorrect ){
+      if(aprilTags.getPosTogoTo().getX()>= Constants.PhotonVisionConstant.kTargetXPos-0.02 && angleIsCorrect && yIsCorrect && aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos+0.02){
         return true;
       }
       aprilTags.isAtPosition(false);
