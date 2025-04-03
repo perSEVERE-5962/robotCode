@@ -126,12 +126,14 @@ private double offest;
   @Override
   public boolean isFinished() {
    if ( aprilTags.getTargetVisabile()){
-      if(/* aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos && angleIsCorrect && */yIsCorrect ){
+      if(/*aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos && angleIsCorrect && */yIsCorrect ){
         return true;
       }
+      aprilTags.isAtPosition(false);
       return false;
     }
     else{
+    aprilTags.isAtPosition(false);
     return true;
     }
   }

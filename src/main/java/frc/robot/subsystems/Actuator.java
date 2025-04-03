@@ -115,4 +115,7 @@ public class Actuator extends SubsystemBase {
     public double getD() {
         return 0;
     }
+    public SparkMax getArmMotor(){
+        return armMotor;
+    }
 }
