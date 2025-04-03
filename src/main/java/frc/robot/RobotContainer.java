@@ -126,8 +126,8 @@ public class RobotContainer {
     cp_ReefLevel2Left.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, false));//l2
     cp_ReefLevel3Left.onTrue(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, false));
     //cp_ReefLevel3Right.whileTrue(new moveSubsystems(-0.7, "pivotSub")); // move pivot back - towards starting point
-    //cp_ReefLevel4.onTrue(new SetArmPosition(Constants.ScoringConstants.kL4));//l4    
-    //cp_ReefLevel4Right.whileTrue(new moveSubsystems(0.7, "pivotSub")); // move pivot forward - towards scoring position
+    cp_ReefLevel4Left.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l4    
+    cp_ReefLevel4Right.whileTrue(new SetArmPosition(Constants.ScoringConstants.kL3)); // move pivot forward - towards scoring position
     cp_CoralStation.onTrue(new SetReachPosition(6).andThen(new SetArmPosition(Constants.ScoringConstants.kStation)));//Coral Station
 
     cp_CollectCoral.onTrue(new  CollectCoral());
