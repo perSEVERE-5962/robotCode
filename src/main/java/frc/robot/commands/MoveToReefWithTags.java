@@ -63,7 +63,7 @@ private double offest;
   public void initialize() {
     yIsCorrect=false;
     angleIsCorrect= false;
-    aprilTags.isAtPosition(aprilTags.getTargetVisabile());
+    aprilTags.isAtPosition(false);
     
   }
 
