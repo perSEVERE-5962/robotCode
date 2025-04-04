@@ -18,6 +18,7 @@ public class StopDrive extends Command {
      */
     public StopDrive(SwerveSubsystem swerve) {
         this.swerve=swerve;
+        addRequirements(swerve);
     }
 
     @Override

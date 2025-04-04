@@ -29,6 +29,7 @@ public class AutoToReefWithCamera extends SequentialCommandGroup {
                 new ScoreCoral(-0.1).withTimeout(0.1),
                 new ScoreCoral(-0.1).withTimeout(0.1),
                 new ScoreCoral(-0.1).withTimeout(2)
+                
     );
     
   }

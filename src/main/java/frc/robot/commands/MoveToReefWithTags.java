@@ -63,6 +63,7 @@ private double offest;
   public void initialize() {
     yIsCorrect=false;
     angleIsCorrect= false;
+    aprilTags.isAtPosition(aprilTags.getTargetVisabile());
     
   }
 
@@ -75,12 +76,12 @@ private double offest;
     ||(aprilTags.getPosTogoTo().getRotation().getRadians()>-Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()<Math.toRadians(-179.5) ))){
       if(aprilTags.getPosTogoTo().getRotation().getRadians()>0){
         rotation=-1;
-        rotationmin=-0.1;
-        rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
+        rotationmin=-0.2;
+        rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*0.8*1+rotationmin;
       }else {
         rotation=1;
-        rotationmin=0.1;
-        rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
+        rotationmin=0.2;
+        rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*0.8*1+rotationmin;
       }
       angleIsCorrect= false;
 
@@ -90,19 +91,19 @@ private double offest;
     }
     if(aprilTags.getPosTogoTo().getX()>Constants.PhotonVisionConstant.kTargetXPos){
 
-      x=0.4;
-      x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1;
+      //x=0.4;
+      x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1+0.1;
     }else{
       x=0;
     }
     double u=0;
      if(!(aprilTags.getPosTogoTo().getY()>-0.01+offest && aprilTags.getPosTogoTo().getY()<0.01+offest) ){
       if(aprilTags.getPosTogoTo().getY()<offest){
-     u=0.1;
-     y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
+     u=0.2;
+ //    y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
       }else{
-        u=-0.1;
-        y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
+        u=-0.2;
+    //    y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
       }
       yIsCorrect=false;
 
@@ -111,7 +112,7 @@ private double offest;
       y=0;
     }
     
-   // y=(-(aprilTags.getPosTogoTo().getY())+offest)*1*1+u;
+    y=(-(aprilTags.getPosTogoTo().getY())+offest)*0.7*1+u;
    // rotation=rotation*(Math.PI-Math.abs(aprilTags.getPosTogoTo().getRotation().getRadians()))*1*1+rotationmin;
   //  x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1;
     driveTrain.move(x, y,rotation);
@@ -130,8 +131,10 @@ private double offest;
   @Override
   public boolean isFinished() {
    if ( aprilTags.getTargetVisabile()){
-      if(aprilTags.getPosTogoTo().getX()>= Constants.PhotonVisionConstant.kTargetXPos-0.02 && angleIsCorrect && yIsCorrect && aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos+0.02){
+      if(aprilTags.getPosTogoTo().getX()>= Constants.PhotonVisionConstant.kTargetXPos-0.02   && angleIsCorrect && yIsCorrect && aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos+0.02){
+        aprilTags.isAtPosition(true);
         return true;
+     
       }
       aprilTags.isAtPosition(false);
       return false;

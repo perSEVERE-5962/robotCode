@@ -41,8 +41,8 @@ public class AprilTags extends SubsystemBase {
   }
 
   public void periodic() {
-    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
+    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[0].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[1].getLatestResult();
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
     targets.sort(PhotonTargetSortMode.Highest.getComparator());
@@ -109,7 +109,7 @@ public class AprilTags extends SubsystemBase {
   }
   private void setLED() {
     int hue = 0;
-    if (targetVisible) {
+    if (targetVisible && !atPosition) {
       hue = ColorConstants.BlueHue;
     } else if (atPosition){
       hue = ColorConstants.GreenHue;
