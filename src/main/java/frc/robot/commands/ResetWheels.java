@@ -41,6 +41,6 @@ public class ResetWheels extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return System.currentTimeMillis() - initialTime > 1000;
+    return System.currentTimeMillis() - initialTime > 500;
   }
 }

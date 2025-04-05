@@ -120,7 +120,7 @@ public class RobotContainer {
     dr_ResestAllParts.onTrue(new  ResetFunctionComplete());
     dr_ButtonX.onTrue(new StopDrive(driveTrain));
   //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
-  cp_ReefLevel1Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, true)));//trough
+  cp_ReefLevel1Right.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
     cp_ReefLevel2Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, true)));//l2
     cp_ReefLevel3Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, true)));
@@ -157,7 +157,7 @@ public class RobotContainer {
     Command command;
   
     command=
-        new SetArmPosition(Constants.ScoringConstants.kL1).withTimeout(2).andThen(new MoveToReefWithTags(true)).andThen(new ScoreCoral());
+    new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false).withTimeout(10)).andThen(new ScoreCoral());
     return command;
   }
 

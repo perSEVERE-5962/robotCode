@@ -50,31 +50,31 @@ public class AprilTags extends SubsystemBase {
     targets2.sort(PhotonTargetSortMode.Highest.getComparator());
     SmartDashboard.putBoolean("Camera 1 found Target", !targets.isEmpty());
     SmartDashboard.putBoolean("Camera 2 found Target", !targets2.isEmpty());
-    boolean targetIsReef = false;
+   boolean targetIsReef = false;
     boolean targetIsReef2 = false;
     ArrayList<Integer> Reef = new ArrayList<>(Arrays.asList(18, 19, 20, 21, 22, 17, 9, 10, 11, 6, 7, 8));
-    for (int x = 0; x <= targets.size(); x++) {
-      if (Reef.contains((Integer) targets.get(x).getFiducialId())) {
+    // for (int x = 0; x < targets.size(); x++) {
+    //   if (Reef.contains((Integer) targets.get(x).getFiducialId())) {
 
-        targetIsReef = true;
+    //     targetIsReef = true;
 
-      } else {
-        targets.remove(x);
-        x--;
-      }
+    //   } else {
+    //     targets.remove(x);
+    //     x--;
+    //   }
 
-    }
-    for (int x = 0; x <= targets2.size(); x++) {
-      if (Reef.contains((Integer) targets2.get(x).getFiducialId())) {
+    // }
+    // for (int x = 0; x < targets2.size(); x++) {
+    //   if (Reef.contains((Integer) targets2.get(x).getFiducialId())) {
 
-        targetIsReef2 = true;
+    //     targetIsReef2 = true;
 
-      } else {
-        targets2.remove(x);
-        x--;
-      }
+    //   } else {
+    //     targets2.remove(x);
+    //     x--;
+    //   }
 
-    }
+    // } 
 
     targetVisible = false;
 

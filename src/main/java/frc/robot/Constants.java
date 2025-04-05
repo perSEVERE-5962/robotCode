@@ -199,8 +199,8 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.75; // extend?
-    public static final double kMinOutput = -0.75; // retract ?
+    public static final double kMaxOutput = 0.8; // extend?
+    public static final double kMinOutput = -0.8; // retract ?
     public static final float kLowerSoftLimit = 0; // kReverse
     public static final float kUpperSoftLimit = -73.3f; // kForward
   }
@@ -240,7 +240,7 @@ public final class Constants {
 
     // PID
     //L1 was 15, 0, 0.1
-    public static final double kP = 5; 
+    public static final double kP = 8; 
     public static final double kI = 0; 
     public static final double kD = 0; 
     public static final double kIz = 0;
@@ -252,8 +252,8 @@ public final class Constants {
     public static final double kPostionConversionFactor = 0; // (end angle - start angle) / value at end angle
 
     // Limits
-    public static final double kMaxOutput = 0.7; // extend?
-    public static final double kMinOutput = -0.7; // retract ?
+    public static final double kMaxOutput = 0.4; // extend?
+    public static final double kMinOutput = -0.4; // retract ?
     public static final float kLowerSoftLimit = 0.195f;//0; // kReverse
     public static final float kUpperSoftLimit =  0.9f;//30.5f; // kForward
     public static final float kL1Limit = 1.5f;
@@ -266,9 +266,9 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 17.5, 0.37, 0.514},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { 15.0, 0.76, 0.26},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { 50.0, 0.84, 0.195},   //L3 (1.Reach, 2.Wrist, 3.Pivot)pivot=0.52
+        { 17.5, 0.37, 0.513},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+        { 15.0, 0.76, 0.23},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 50.0, 0.84, 0.161},   //L3 (1.Reach, 2.Wrist, 3.Pivot)pivot=0.52
         { 0, 0, 0.69},   //L4
         { 11.57, 0.467, 0.352},//corall Station
       {0,-13,0.69},// Straight up
@@ -294,7 +294,7 @@ public final class Constants {
   }
   public static final class PhotonVisionConstant {
     public static final double kArmOffset = 0.0406; //meters
-    public static final double kTargetXPos = 0.5; //meters
+    public static final double kTargetXPos = 0.575; //meters
     public static final double kTagToPost = 0.165; //meters
     public static final double CameraOffsets = 0.15;
 
