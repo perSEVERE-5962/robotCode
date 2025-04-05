@@ -44,7 +44,7 @@ public class SetPivotPosition extends Command {
   @Override
   public boolean isFinished() {
     double atAngle = pivotSub.getPosition();
-    if (atAngle >= ScoringConstants.postions[targetPos][ScoringConstants.kPivot]){
+    if (atAngle >= ScoringConstants.postions[targetPos][ScoringConstants.kPivot]-0.002 ){
       return true;
      }
     else{

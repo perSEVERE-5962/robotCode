@@ -19,10 +19,12 @@ import frc.robot.Constants.ColorConstants;
 import frc.robot.Constants.PhotonVisionConstant;
 import frc.robot.PhotonVision;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AprilTags extends SubsystemBase {
   private static AprilTags instance;
-  private AprilTags aprilTags; 
+  private AprilTags aprilTags;
   private static AddressableLED m_led;
   private static boolean atPosition;
   private static AddressableLEDBuffer m_ledBuffer;
@@ -32,36 +34,60 @@ public class AprilTags extends SubsystemBase {
   public static Transform2d poseTransform2d_2 = new Transform2d(translation2d_2, rotation2d_2);
   public static Transform2d poseTransform2d_1 = new Transform2d(translation2d_2, rotation2d_2);
   public SwerveSubsystem cart = SwerveSubsystem.getInstance();
- public double angleToTagForCameraOne=0;
-  public  double angleToTagForCameraTwo=0;
-
+  public double angleToTagForCameraOne = 0;
+  public double angleToTagForCameraTwo = 0;
 
   private AprilTags() {
     createLED();
   }
 
   public void periodic() {
-    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[2].getLatestResult();
+    PhotonPipelineResult results = PhotonVisionConstant.CameraNames[0].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[1].getLatestResult();
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
     targets.sort(PhotonTargetSortMode.Highest.getComparator());
     targets2.sort(PhotonTargetSortMode.Highest.getComparator());
     SmartDashboard.putBoolean("Camera 1 found Target", !targets.isEmpty());
     SmartDashboard.putBoolean("Camera 2 found Target", !targets2.isEmpty());
-  
-    targetVisible=false;
-    
+   boolean targetIsReef = false;
+    boolean targetIsReef2 = false;
+    ArrayList<Integer> Reef = new ArrayList<>(Arrays.asList(18, 19, 20, 21, 22, 17, 9, 10, 11, 6, 7, 8));
+    // for (int x = 0; x < targets.size(); x++) {
+    //   if (Reef.contains((Integer) targets.get(x).getFiducialId())) {
+
+    //     targetIsReef = true;
+
+    //   } else {
+    //     targets.remove(x);
+    //     x--;
+    //   }
+
+    // }
+    // for (int x = 0; x < targets2.size(); x++) {
+    //   if (Reef.contains((Integer) targets2.get(x).getFiducialId())) {
+
+    //     targetIsReef2 = true;
+
+    //   } else {
+    //     targets2.remove(x);
+    //     x--;
+    //   }
+
+    // } 
+
+    targetVisible = false;
+
     if (!targets.isEmpty() || !targets2.isEmpty()) {
       if (!targets.isEmpty()) {
         Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
-        poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw,true);
-            targetVisible = true;
-        
+        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, true);
+        targetVisible = true;
+
       } else if (!targets2.isEmpty()) {
         Transform3d targetYaw = targets2.get(0).getBestCameraToTarget();
-        poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw,false);
-            targetVisible = true;
+        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, false);
+        targetVisible = true;
       }
 
     } else if (!targets.isEmpty() && !targets2.isEmpty()) {
@@ -69,30 +95,32 @@ public class AprilTags extends SubsystemBase {
       if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() < targets2.get(0).getArea()) {
 
-            Transform3d targetYaw = targets2.get(0).getBestCameraToTarget();
-            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw,false);
-                targetVisible = true;
+        Transform3d targetYaw = targets2.get(0).getBestCameraToTarget();
+        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, false);
+        targetVisible = true;
       } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() > targets2.get(0).getArea()) {
 
-            Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
-            poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw,true);
-                targetVisible = true;
+        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
+        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, true);
+        targetVisible = true;
 
       } else if (targets.get(0).getFiducialId() == targets2.get(0).getFiducialId()) {
         // Change to do averages
         Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
         Transform3d targetYaw2 = targets.get(0).getBestCameraToTarget();
-        poseTransform2d_2=PhotonVision.transform3dtoTransform2d(targetYaw,true);
-        poseTransform2d_1=PhotonVision.transform3dtoTransform2d(targetYaw,false);
-        translation2d_2 = new Translation2d((poseTransform2d_2.getX()+poseTransform2d_1.getX())/2, (poseTransform2d_2.getY()+poseTransform2d_1.getY())/2);
+        poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, true);
+        poseTransform2d_1 = PhotonVision.transform3dtoTransform2d(targetYaw2, false);
+        translation2d_2 = new Translation2d((poseTransform2d_2.getX() + poseTransform2d_1.getX()) / 2,
+            (poseTransform2d_2.getY() + poseTransform2d_1.getY()) / 2);
         poseTransform2d_2 = new Transform2d(translation2d_2, rotation2d_2);
-            targetVisible = true;
-            translation2d_2= new Translation2d(0, 0);
+        targetVisible = true;
+        translation2d_2 = new Translation2d(0, 0);
       }
 
     }
-   
+  
+
     setLED();
   }
 
@@ -104,20 +132,21 @@ public class AprilTags extends SubsystemBase {
     m_led.start();
     setLED();
   }
-  public void isAtPosition(boolean atPosition){
+
+  public void isAtPosition(boolean atPosition) {
     this.atPosition = atPosition;
   }
+
   private void setLED() {
     int hue = 0;
-    if (targetVisible) {
+    if (targetVisible && !atPosition) {
       hue = ColorConstants.BlueHue;
-    } else if (atPosition){
+    } else if (atPosition) {
       hue = ColorConstants.GreenHue;
-    }
-    else{
+    } else {
       hue = ColorConstants.RedHue;
     }
-    
+
     for (int i = 0; i < m_ledBuffer.getLength(); i++) {
       m_ledBuffer.setHSV(i, hue, 255, 255); // could also do .setRGB if we want that color system
     }
@@ -126,7 +155,7 @@ public class AprilTags extends SubsystemBase {
   }
 
   public Transform2d getPosTogoTo() {
-System.out.println(poseTransform2d_2.toString());
+    System.out.println(poseTransform2d_2.toString());
     return poseTransform2d_2;
   }
 
@@ -134,9 +163,10 @@ System.out.println(poseTransform2d_2.toString());
     return cart.getPose().getX();
   }
 
-  public boolean getTargetVisabile(){
+  public boolean getTargetVisabile() {
     return targetVisible;
   }
+
   public static AprilTags getInstance() {
     if (instance == null) {
       instance = new AprilTags();
