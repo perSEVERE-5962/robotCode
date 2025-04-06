@@ -113,6 +113,7 @@ public class AprilTags extends SubsystemBase {
         poseTransform2d_1 = PhotonVision.transform3dtoTransform2d(targetYaw2, false);
         translation2d_2 = new Translation2d((poseTransform2d_2.getX() + poseTransform2d_1.getX()) / 2,
             (poseTransform2d_2.getY() + poseTransform2d_1.getY()) / 2);
+            rotation2d_2 = new Rotation2d(poseTransform2d_2.getRotation().toMatrix());
         poseTransform2d_2 = new Transform2d(translation2d_2, rotation2d_2);
         targetVisible = true;
         translation2d_2 = new Translation2d(0, 0);
