@@ -42,6 +42,8 @@ private double x=0;
 private double y=0;
 private boolean yIsCorrect=false;
 private double offest;
+public int firsttageseen;
+
 
   /** Creates a new MoveToCoralStationWithTags. */
   public MoveToReefWithTags(boolean isRightPost) {
@@ -64,6 +66,8 @@ private double offest;
     yIsCorrect=false;
     angleIsCorrect= false;
     aprilTags.isAtPosition(false);
+    firsttageseen=aprilTags.getFirstTagSeen();
+    aprilTags.setFirstTagSeen(firsttageseen);
     
   }
 
@@ -137,7 +141,7 @@ private double offest;
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-   if ( aprilTags.getTargetVisabile()){
+   if ( aprilTags.getTargetVisabile() && aprilTags.isApriltagtheCorrectnumber==true){
       if(aprilTags.getPosTogoTo().getX()>= Constants.PhotonVisionConstant.kTargetXPos-0.04  && angleIsCorrect && yIsCorrect && aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos+0.04){
         aprilTags.isAtPosition(true);
         return true;
