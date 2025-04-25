@@ -120,10 +120,10 @@ public class RobotContainer {
     dr_ResestAllParts.onTrue(new  ResetFunctionComplete());
     dr_ButtonX.onTrue(new StopDrive(driveTrain));
   //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
-  cp_ReefLevel1Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false)));//trough
+  cp_ReefLevel1Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL1,false)/*,new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false)*/));//trough
     //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
-    cp_ReefLevel2Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, true)));//l2
-    cp_ReefLevel3Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, true)));
+    cp_ReefLevel2Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL2,true)/* ,new MoveAndScoreCoral(Constants.ScoringConstants.kL2, true)*/));//l2
+    cp_ReefLevel3Right.onTrue(new ResetWheels(driveTrain).andThen((new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL3,true)/* ,new MoveAndScoreCoral(Constants.ScoringConstants.kL3, true)*/)));
     cp_ReefLevel2Left.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, false)));//l2
     cp_ReefLevel3Left.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, false)));
     //cp_ReefLevel3Right.whileTrue(new moveSubsystems(-0.7, "pivotSub")); // move pivot back - towards starting point

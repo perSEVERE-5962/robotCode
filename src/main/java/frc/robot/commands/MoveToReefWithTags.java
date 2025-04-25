@@ -63,6 +63,7 @@ public int firsttageseen;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
     yIsCorrect=false;
     angleIsCorrect= false;
     aprilTags.isAtPosition(false);
@@ -76,8 +77,8 @@ public int firsttageseen;
   public void execute() {
 
    double rotationmin=0;
-    if(!(aprilTags.getPosTogoTo().getRotation().getRadians()<Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()>Math.toRadians(179) 
-    ||(aprilTags.getPosTogoTo().getRotation().getRadians()>-Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()<Math.toRadians(-179) ))){
+    if(!(aprilTags.getPosTogoTo().getRotation().getRadians()<Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()>Math.toRadians(179.5) 
+    ||(aprilTags.getPosTogoTo().getRotation().getRadians()>-Math.PI && aprilTags.getPosTogoTo().getRotation().getRadians()<Math.toRadians(-179.5) ))){
       if(aprilTags.getPosTogoTo().getRotation().getRadians()>0){
         rotation=-1;
         rotationmin=-0.2;
@@ -94,7 +95,7 @@ public int firsttageseen;
       angleIsCorrect= true;
     }
     if(!(aprilTags.getPosTogoTo().getX()>= Constants.PhotonVisionConstant.kTargetXPos-0.03 && aprilTags.getPosTogoTo().getX()<= Constants.PhotonVisionConstant.kTargetXPos+0.03)){
-      if(aprilTags.getPosTogoTo().getY()<offest){
+      if(aprilTags.getPosTogoTo().getX()< Constants.PhotonVisionConstant.kTargetXPos-0.03){
       
         x=((aprilTags.getPosTogoTo().getX())-Constants.PhotonVisionConstant.kTargetXPos)*1*1+0.1;
          }else{

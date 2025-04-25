@@ -44,8 +44,6 @@ public class AprilTags extends SubsystemBase {
   public static Transform2d poseTransform2d_2 = new Transform2d(translation2d_2, rotation2d_2);
   public static Transform2d poseTransform2d_1 = new Transform2d(translation2d_2, rotation2d_2);
   public SwerveSubsystem cart = SwerveSubsystem.getInstance();
-  public double angleToTagForCameraOne = 0;
-  public double angleToTagForCameraTwo = 0;
   public int apriltagNumberCamera=0;
   public int apriltagNumberComparer=0;
 public boolean isApriltagtheCorrectnumber=false;
@@ -56,6 +54,7 @@ public boolean isApriltagtheCorrectnumber=false;
   public void periodic() {
      PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
     PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[3].getLatestResult();
+    
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
     targets.sort(PhotonTargetSortMode.Highest.getComparator());
@@ -66,7 +65,20 @@ public boolean isApriltagtheCorrectnumber=false;
      int indexforTagTwo=0;
     targetVisible = false;
     isApriltagtheCorrectnumber=false;
+   
+  if(!targets.isEmpty() &&!targets2.isEmpty()&& targets.get(0).getArea() < targets2.get(0).getArea()){
+      apriltagNumberCamera=targets2.get(0).getFiducialId();
+    }else if(!targets.isEmpty()  &&!targets2.isEmpty()&& targets.get(0).getArea() > targets2.get(0).getArea()){
+      apriltagNumberCamera=targets.get(0).getFiducialId();
+    }else if(targets.isEmpty() &&!targets2.isEmpty() ){
+      apriltagNumberCamera=targets2.get(0).getFiducialId();
+    }else if(!targets.isEmpty() &&targets2.isEmpty() ){
+      apriltagNumberCamera=targets.get(0).getFiducialId();
+    }
+
+  
     for(int x=0;x<targets.size();x++){
+      
       if(targets.get(x).getFiducialId()==apriltagNumberComparer){
         indexforTagOne=x;
         isApriltagtheCorrectnumber=true;
@@ -74,6 +86,7 @@ public boolean isApriltagtheCorrectnumber=false;
       }
     }
     for(int x=0;x<targets2.size();x++){
+
       if(targets2.get(x).getFiducialId()==apriltagNumberComparer){
         indexforTagTwo=x;
         isApriltagtheCorrectnumber=true;
@@ -81,7 +94,8 @@ public boolean isApriltagtheCorrectnumber=false;
       }
     }
 
-    if (!targets.isEmpty() || !targets2.isEmpty()) {
+
+    if ((!targets.isEmpty() || !targets2.isEmpty()) && isApriltagtheCorrectnumber) {
       if (!targets.isEmpty()) {
         Transform3d targetYaw = targets.get(indexforTagOne).getBestCameraToTarget();
         poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, false);
@@ -95,18 +109,18 @@ public boolean isApriltagtheCorrectnumber=false;
         apriltagNumberCamera=targets2.get(indexforTagTwo).getFiducialId();
       }
 
-    } else if (!targets.isEmpty() && !targets2.isEmpty()) {
+    } else if ((!targets.isEmpty() && !targets2.isEmpty() )&&isApriltagtheCorrectnumber) {
       targetVisible = true;
       if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() < targets2.get(0).getArea()) {
 
-        Transform3d targetYaw = targets2.get(indexforTagTwo).getBestCameraToTarget();
+        Transform3d targetYaw = targets2.get(0).getBestCameraToTarget();
         poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, true);
         targetVisible = true;
         apriltagNumberCamera=targets2.get(indexforTagTwo).getFiducialId();
       } else if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() > targets2.get(0).getArea()) {
-        Transform3d targetYaw = targets.get(indexforTagOne).getBestCameraToTarget();
+        Transform3d targetYaw = targets.get(0).getBestCameraToTarget();
         poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, false);
         targetVisible = true;
         apriltagNumberCamera=targets.get(indexforTagOne).getFiducialId();
@@ -119,7 +133,11 @@ public boolean isApriltagtheCorrectnumber=false;
         poseTransform2d_1 = PhotonVision.transform3dtoTransform2d(targetYaw2, true);
         translation2d_2 = new Translation2d((poseTransform2d_2.getX() + poseTransform2d_1.getX()) / 2,
             (poseTransform2d_2.getY() + poseTransform2d_1.getY()) / 2);
-            rotation2d_2 = new Rotation2d(poseTransform2d_2.getRotation().toMatrix());
+            if(targets.get(indexforTagOne).poseAmbiguity<targets2.get(indexforTagTwo).poseAmbiguity){
+              rotation2d_2 = new Rotation2d(poseTransform2d_2.getRotation().toMatrix());
+            }else{
+              rotation2d_2 = new Rotation2d(poseTransform2d_1.getRotation().toMatrix());
+            }
         poseTransform2d_2 = new Transform2d(translation2d_2, rotation2d_2);
         targetVisible = true;
         translation2d_2 = new Translation2d(0, 0);
@@ -128,7 +146,7 @@ public boolean isApriltagtheCorrectnumber=false;
 
 
     } 
- System.out.println(getObservations( PhotonVisionConstant.CameraNames[0],PhotonVisionConstant.FrontLeft.cameraposeFrontLeft).toString());
+ //System.out.println(getObservations( PhotonVisionConstant.CameraNames[1],PhotonVisionConstant.FrontLeft.cameraposeFrontLeft).toString());
 
     setLED();
   }
@@ -146,6 +164,7 @@ public boolean isApriltagtheCorrectnumber=false;
     this.atPosition = atPosition;
   }
   public int getFirstTagSeen(){
+
     return apriltagNumberCamera;
   }
   public void setFirstTagSeen(int x){
