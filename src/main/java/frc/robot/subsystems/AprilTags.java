@@ -53,7 +53,7 @@ public boolean isApriltagtheCorrectnumber=false;
 
   public void periodic() {
      PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[3].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[0].getLatestResult();
     
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
@@ -95,22 +95,27 @@ public boolean isApriltagtheCorrectnumber=false;
     }
 
 
-    if ((!targets.isEmpty() || !targets2.isEmpty()) && isApriltagtheCorrectnumber) {
+    if ((!targets.isEmpty() || !targets2.isEmpty())) {
+      targetVisible = true;
+      if(isApriltagtheCorrectnumber){
       if (!targets.isEmpty()) {
         Transform3d targetYaw = targets.get(indexforTagOne).getBestCameraToTarget();
         poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, false);
-        targetVisible = true;
+        
         apriltagNumberCamera=targets.get(indexforTagOne).getFiducialId();
 
       } else if (!targets2.isEmpty()) {
         Transform3d targetYaw = targets2.get(indexforTagTwo).getBestCameraToTarget();
         poseTransform2d_2 = PhotonVision.transform3dtoTransform2d(targetYaw, true);
-        targetVisible = true;
+      
         apriltagNumberCamera=targets2.get(indexforTagTwo).getFiducialId();
       }
+    }
+    }
 
-    } else if ((!targets.isEmpty() && !targets2.isEmpty() )&&isApriltagtheCorrectnumber) {
+     else if ((!targets.isEmpty() && !targets2.isEmpty() )) {
       targetVisible = true;
+      if(isApriltagtheCorrectnumber){
       if (targets.get(0).getFiducialId() != targets2.get(0).getFiducialId()
           && targets.get(0).getArea() < targets2.get(0).getArea()) {
 
@@ -143,12 +148,14 @@ public boolean isApriltagtheCorrectnumber=false;
         translation2d_2 = new Translation2d(0, 0);
         apriltagNumberCamera=targets2.get(0).getFiducialId();
       }
+    }
 
 
     } 
  //System.out.println(getObservations( PhotonVisionConstant.CameraNames[1],PhotonVisionConstant.FrontLeft.cameraposeFrontLeft).toString());
 
-    setLED();
+  System.out.println(isApriltagtheCorrectnumber);  
+  setLED();
   }
 
   private void createLED() {

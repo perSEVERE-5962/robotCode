@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   //PWMSparkMax Pivot;
   private RobotContainer m_robotContainer;
-  private PhotonVision poseEstimator = new PhotonVision();
+  
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
 
  /*  public Robot() {
