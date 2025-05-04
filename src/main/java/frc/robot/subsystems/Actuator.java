@@ -37,7 +37,7 @@ public class Actuator extends SubsystemBase {
         // Wrist should not be inverted
         // Pivot should not be inverted
         motorConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
-        motorConfig.smartCurrentLimit(40);
+        motorConfig.smartCurrentLimit(60);
         FeedbackSensor feedBackSensor = FeedbackSensor.kPrimaryEncoder;
         if (useThroughBoreEncoder == true) {
             feedBackSensor = FeedbackSensor.kAbsoluteEncoder;
@@ -117,5 +117,8 @@ public class Actuator extends SubsystemBase {
     }
     public SparkMax getArmMotor(){
         return armMotor;
+    }
+    public SparkMaxConfig getMotorConfig(){
+        return motorConfig;
     }
 }

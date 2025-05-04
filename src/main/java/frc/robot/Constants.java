@@ -209,7 +209,7 @@ public final class Constants {
     public static final int kPivotID = 52;
     public static final int kFollowerID = 60;
     // PID
-    public static final double kP = 15.0; 
+    public static final double kP = 15;//15 
     public static final double kI = 0.0000; 
     public static final double kD = 0;
     public static final double kIz = 0.0;
@@ -266,6 +266,7 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
+      // scoring out front 
         { 17.5, 0.37, 0.513},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
         { 15.0, 0.76, 0.23},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 50.0, 0.84, 0.161},   //L3 (1.Reach, 2.Wrist, 3.Pivot)pivot=0.52
@@ -273,10 +274,21 @@ public final class Constants {
         { 11.57, 0.467, 0.352},//corall Station
       {0,-13,0.69},// Straight up
       {15,0.195,0.24}, // Starting position
-      {17.5, 0.37, 0.99}, // auto L1
+      {29.76, 0.34, .859},//Coral Bucket, -228.6 
+      //{17.5, 0.37, 0.99}, // auto L1
       {5, -22, 0.75},//testing PID values
       {25, 0.195, 0.72}, //intialize move
-      {0, 0, 0.7} //overshoot for reset fuuction ;(
+      {0, 0, 0.7} //overshoot for reset fuuction ;( */
+
+      // scoring out back (spoiler side)
+ /*      {28.6, 0.689, 0.77},// L1
+      {26.7, 0.34, 0.015},//L2
+      {59.57, 0.3, 0.06},//L3
+      {15,0.195,0.24}, //L4
+      {15,0.195,0.24},//Coral station
+      {15,0.195,0.24},// Straight up
+      {15,0.195,0.24},//Starting Position
+      {29.76, 0.34, .859},//Coral Bucket, -228.6 */
     }; // Reset function
 
           public static final int kL1=0;

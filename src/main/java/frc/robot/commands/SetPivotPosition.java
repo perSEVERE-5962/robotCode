@@ -25,13 +25,15 @@ public class SetPivotPosition extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    pivotSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kPivot]);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
 
-    pivotSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kPivot]);
+
   }
 
   // Called once the command ends or is interrupted.

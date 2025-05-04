@@ -145,7 +145,7 @@ public class RobotContainer {
     tc_BackwardWrist.whileTrue(new moveSubsystems(-0.4, "wristSub"));
     tc_ForwardReach.whileTrue(new moveSubsystems(0.4, "reachSub"));
     tc_BackwardReach.whileTrue(new moveSubsystems(-0.4, "reachSub"));
-    tc_TestPivot.onTrue(new ResetFunctionComplete());
+    tc_TestPivot.onTrue(new GrabCoral());
   }
 
   /**

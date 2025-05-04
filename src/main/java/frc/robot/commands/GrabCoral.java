@@ -5,20 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.Constants.ScoringConstants;
+import frc.robot.Constants;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SetArmPosition extends SequentialCommandGroup {
-  /** Creates a new SetArmPosition. */
-  public SetArmPosition(int scorePosition) {
+public class GrabCoral extends SequentialCommandGroup {
+  /** Creates a new GrabCoral. */
+  public GrabCoral() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-      //new SetWristPosition(scorePosition).andThen(new SetReachPosition(scorePosition)).andThen
-      ( new SetPivotPosition(scorePosition))
-      );
-
+    addCommands(new DetectCoral(), new SetArmPosition(Constants.ScoringConstants.kAutoL1), new CollectCoral());
   }
 }

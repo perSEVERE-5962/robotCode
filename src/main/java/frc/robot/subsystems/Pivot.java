@@ -16,6 +16,7 @@ import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Pivot extends Actuator {
+  private SparkMaxConfig motorConfig;
   private static Pivot instance;
   private SparkMax followerMotor;
   private SparkMaxConfig followerConfig;
@@ -41,9 +42,30 @@ public class Pivot extends Actuator {
         followerConfig.follow(PivotConstants.kPivotID, true);
         followerConfig.inverted(true);
         followerConfig.idleMode(SparkBaseConfig.IdleMode.kBrake);
-        followerConfig.smartCurrentLimit(40);
+        followerConfig.smartCurrentLimit(60);
         followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
+  public void moveToPositionWithPID(double position) {
+    if(position>.513){
+      motorConfig = getMotorConfig();
+      motorConfig.inverted(true);
+      followerConfig.inverted(false);
+      followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+      getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+    else{
+      motorConfig = getMotorConfig();
+      motorConfig.inverted(false);
+      followerConfig.inverted(true);
+      followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+      getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+    getArmMotor().getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
+  }
+
+
+
+
 
   public void periodic() {
         double theEncoder=instance.getPosition();
