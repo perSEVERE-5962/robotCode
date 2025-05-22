@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   //PWMSparkMax Pivot;
   private RobotContainer m_robotContainer;
-  private PhotonVision poseEstimator = new PhotonVision();
+  
   private final SwerveSubsystem driveTrain = SwerveSubsystem.getInstance();
 
  /*  public Robot() {
@@ -76,108 +76,7 @@ public class Robot extends TimedRobot {
   @Override
    public void robotInit() {
     m_robotContainer = RobotContainer.getInstance();
-    /* Transform3d pose=new Transform3d();
-    boolean targetVisible = false;
-
-    for (int i = 0; i < 10; i++) {
-      var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();//1 before
-      if (!results.isEmpty()) {
-        // Camera processed a new frame since last
-        // Get the last one in the list.
-        var result = results.get(results.size() - 1);
-        if (result.hasTargets() ) {
-          // At least one AprilTag was seen by the camera
-   
-     double x=1;
-     //SmartDashboard.putNumber("Auto-Selected", x);
-          for (var target : result.getTargets()) {
-          //  var targetPose=target;
-          
-            if (target.getFiducialId() == StartingPos.apriltagsToReef[(int)x][0] || target.getFiducialId() == StartingPos.apriltagsToReef[(int)x][1] ) {//First is which on you want to go to, the second one is the color you are.
-              pose=target.getBestCameraToTarget();
-              Constants.StartingPos.poseTransform2d=PhotonVision.transform3dtoTransform2d(pose);
-              // Found Tag 7, record its information
-         //     poseTransform2d= target.getFiducialId().getCameraToTarget();
-              targetVisible = true;
-
-            }
-          } */
-          /* for (var target : resultsCameras.getTargets()) {
-            //  var targetPose=target;
-              if (target.getFiducialId() == StartingPos.apriltagsToReef[0][0] || target.getFiducialId() == StartingPos.apriltagsToReef[0][1] ) {//First is which on you want to go to, the second one is the color you are.
-                pose=target.getBestCameraToTarget();
-                Constants.StartingPos.poseTransform2d_2=PhotonVision.transform3dtoTransform2d(pose);
-                // Found Tag 7, record its information
-           //     poseTransform2d= target.getFiducialId().getCameraToTarget();
-                targetVisible = true;
-  
-              }
-            } */
-        //}
-      //}
-      //if (targetVisible == true) {
-        //break;
-      //}
-
-   //}
-    //SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
-    //SmartDashboard.putNumber("x-pos", pose.getX());
-    //SmartDashboard.putNumber("y", pose.getY());
-  //   // Translation2d startingTranslation2d=new
-  //   // Translation2d(Constants.StartingPos.startingTranslation2dx,
-  //   // Constants.StartingPos.startingTranslation2dy);
-  //   // Rotation2d statingRotation2d=new
-  //   // Rotation2d(Constants.StartingPos.statingRotation2dx,Constants.StartingPos.statingRotation2dy);
-  //   // Pose2d startPose2d =new Pose2d(startingTranslation2d,statingRotation2d);
-  //   // driveTrain.resetOdometry(startPose2d);
-  //   // Instantiate our RobotContainer. This will perform all our button bindings,
-  //   // and put our
-  //   // autonomous chooser on the dashboard.
-  //   Transform3d pose=new Transform3d();
-  //   for (int i = 0; i < 10; i++) {
-  //     var results = PhotonVisionConstant.CameraNames[1].getAllUnreadResults();
-  //     var resultsCamera = PhotonVisionConstant.CameraNames[0].getAllUnreadResults();
-  //     if (!results.isEmpty()|| !resultsCamera.isEmpty()) {
-  //       // Camera processed a new frame since last
-  //       // Get the last one in the list.
-  //       var result = results.get(results.size() - 1);
-  //       var resultsCameras = resultsCamera.get(resultsCamera.size() - 1);
-  //       if (result.hasTargets() || resultsCameras.hasTargets() ) {
-  //         // At least one AprilTag was seen by the camera
-   
-     
-  //         for (var target : result.getTargets()) {
-  //         //  var targetPose=target;
-  //           if (target.getFiducialId() == StartingPos.apriltagsToReef[0][0]) {//First is which on you want to go to, the second one is the color you are.
-  //             pose=target.getBestCameraToTarget();
-  //             Constants.StartingPos.poseTransform2d=PhotonVision.transform3dtoTransform2d(pose);
-  //             // Found Tag 7, record its information
-  //        //     poseTransform2d= target.getFiducialId().getCameraToTarget();
-  //             targetVisible = true;
-
-  //           }
-  //         }
-  //         for (var target : resultsCameras.getTargets()) {
-  //           //  var targetPose=target;
-  //             if (target.getFiducialId() == StartingPos.apriltagsToReef[0][0]) {//First is which on you want to go to, the second one is the color you are.
-  //               pose=target.getBestCameraToTarget();
-  //               Constants.StartingPos.poseTransform2d_2=PhotonVision.transform3dtoTransform2d(pose);
-  //               // Found Tag 7, record its information
-  //          //     poseTransform2d= target.getFiducialId().getCameraToTarget();
-  //               targetVisible = true;
-  
-  //             }
-  //           }
-  //       }
-  //     }
-  //     if (targetVisible == true) {
-  //       break;
-  //     }
-
-  //   }
-  //   SmartDashboard.putBoolean("Vision Target Visible", targetVisible);
-  //   SmartDashboard.putNumber("x-pos", pose.getX());
-  //   SmartDashboard.putNumber("y", pose.getY());
+    
 
     SmartDashboard.putNumber("wristP", Constants.WristConstants.kP);
     SmartDashboard.putNumber("wristI", Constants.WristConstants.kI);
@@ -205,49 +104,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // PhotonPipelineResult
-    // result=PhotonVisionConstant.CameraNames[0].getLatestResult();
-    // PhotonVision.targets = result.getTargets();
-    // PhotonPipelineResult
-    // result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
-    // PhotonVision.targets1 = result1.getTargets();
-    // PhotonPipelineResult
-    // result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
-    // PhotonVision.targets2 = result2.getTargets();
-    // PhotonPipelineResult
-    // result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
-    // PhotonVision.targets3 = result3.getTargets();
-    // // if(!PhotonVision.targets.isEmpty() || !PhotonVision.targets1.isEmpty()||
-    // !PhotonVision.targets2.isEmpty()|| !PhotonVision.targets3.isEmpty()){
-    // //// Pose2d PoseEstimator
-    // =poseEstimator.getEstimatedGlobalPose(m_robotContainer.getDrivetrainSubsystem().getPose());
-    // // driveTrain.resetOdometry(PoseEstimator);
-    // // System.out.print(PoseEstimator);
-    // // }
-
-    // // System.out.println(PhotonVision.targets1.isEmpty());
-
-    // tag 21 if blue
-    // Transform2d
-    // distanceToTarget3=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,6);
-    // Transform2d
-    // distanceToTarget1=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,6);
-    // Transform2d
-    // distanceToTarget=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,6);
-    // Transform2d
-    // distanceToTarget2=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,6);
-    // tag 10 if red
-    // Transform2d
-    // distanceToTarget3tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets3,10);
-    // Transform2d
-    // distanceToTarget1tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets1,10);
-    // Transform2d
-    // distanceToTargettag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets,10);
-    // Transform2d
-    // distanceToTarget2tag10=PhotonVision.distanceToAprilTagForOneCamera(PhotonVision.targets2,10);
-    // System.out.println(distanceToTarget2);
-    // SmartDashboard.putNumber( "distancetotagx",distanceToTarget2.getX());
-    // SmartDashboard.putNumber( "distancetotagy",distanceToTarget2.getY());
     
   
     CommandScheduler.getInstance().run();

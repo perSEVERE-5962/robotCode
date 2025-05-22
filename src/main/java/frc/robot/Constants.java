@@ -276,7 +276,8 @@ public final class Constants {
       {17.5, 0.37, 0.99}, // auto L1
       {5, -22, 0.75},//testing PID values
       {25, 0.195, 0.72}, //intialize move
-      {0, 0, 0.7} //overshoot for reset fuuction ;(
+      {0, 0, 0.7}, //overshoot for reset fuuction 
+      {29.76, 0.34, .859}//Coral bucket 
     }; // Reset function
 
           public static final int kL1=0;
@@ -291,18 +292,20 @@ public final class Constants {
     public static final int kWrist=1;
     public static final int kPivot=2;
     public static final int kIntial = 9;
+    public static final int kOvershoot = 10;
+    public static final int kWristandReachBucket = 11; 
   }
   public static final class PhotonVisionConstant {
     public static final double kArmOffset = 0.0406; //meters
     public static final double kTargetXPos = 0.56; //meters
-    public static final double kTagToPost = 0.165; //meters
+    public static final double kTagToPost = 0.1651; //meters
     public static final double CameraOffsets = 0.15;
 
     public static final double YoffsetsForCameras=0.15;
-    public static AprilTagFieldLayout fieldLayout = AprilTagFields.k2025Reefscape.loadAprilTagLayoutField();
+    public static AprilTagFieldLayout fieldLayout =AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeAndyMark);
      public static final class FrontLeft{
-       public static String name="Arducam_OV2311_USB_Camera (1)";
-       public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
+       public static String name="Arducam_OV2311_USB_Camera";
+       public static Transform3d cameraposeFrontLeft = new Transform3d(new Translation3d(0.31,0.17,0.32),new Rotation3d(0,0,0));
      }
      public static final class FrontRight{
        public static String name="5962_camera_1";
@@ -313,7 +316,7 @@ public final class Constants {
        public static Transform3d cameraposeBackLeft = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
      }
     public static final class BackRight{
-       public static String name="Arducam_OV2311_USB_Camera";
+       public static String name="Arducam_OV2311_USB_Camera (1)";
        public static Transform3d cameraposeBackRight = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
 
      }

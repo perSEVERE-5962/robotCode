@@ -28,7 +28,7 @@ public class PhotonVision {
    //static PhotonPipelineResult result=PhotonVisionConstant.CameraNames[0].getLatestResult();
 //   static PhotonPipelineResult result1=PhotonVisionConstant.CameraNames[1].getLatestResult();
 //   static PhotonPipelineResult result2=PhotonVisionConstant.CameraNames[2].getLatestResult();
-   static PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
+   //static PhotonPipelineResult result3=PhotonVisionConstant.CameraNames[3].getLatestResult();
    
 
    public boolean targetVisible = false;
@@ -38,7 +38,7 @@ public class PhotonVision {
   //  static List<PhotonTrackedTarget> targets = result.getTargets();
 //     static List<PhotonTrackedTarget> targets1 = result1.getTargets();
 //     static List<PhotonTrackedTarget> targets2 = result2.getTargets();
-     static List<PhotonTrackedTarget> targets3 = result3.getTargets();
+     //static List<PhotonTrackedTarget> targets3 = result3.getTargets();
 //    // PhotonTrackedTarget target= result.getBestTarget();
 //     //static Transform3d camerapose = new Transform3d(new Translation3d(0,0,0),new Rotation3d(0,0,0));
 //Pose3d robotPose=PhotonUtils.estimateFieldToRobotAprilTag(target.getBestCameraToTarget(),fieldLayout.getTagPose(target.getFiducialId()).get(), camerapose);
@@ -46,11 +46,11 @@ public class PhotonVision {
 //     public static PhotonPoseEstimator poseEstimator = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[0]);
 //     public static PhotonPoseEstimator poseEstimator1 = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[1]);
 //     public static PhotonPoseEstimator poseEstimator2 = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[2]);
-//     public static PhotonPoseEstimator poseEstimator3 = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[3]);
+     //public static PhotonPoseEstimator poseEstimator3 = new PhotonPoseEstimator(PhotonVisionConstant.fieldLayout,PhotonPoseEstimator.PoseStrategy.CLOSEST_TO_LAST_POSE,PhotonVisionConstant.CameraPoses[3]);
 
-//     public Pose2d getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
+   //  public Pose2d getEstimatedGlobalPose(Pose2d prevEstimatedRobotPose) {
  
-//         poseEstimator.setLastPose(prevEstimatedRobotPose);
+    //    poseEstimator.setLastPose(prevEstimatedRobotPose);
 //         poseEstimator1.setLastPose(prevEstimatedRobotPose);
 //         poseEstimator2.setLastPose(prevEstimatedRobotPose);
 //         poseEstimator3.setLastPose(prevEstimatedRobotPose);
@@ -60,7 +60,7 @@ public class PhotonVision {
 //         EstimatedRobotPose estimatedRobotPose3= poseEstimator3.update(result1).orElse(null);
 //         if(estimatedRobotPose==null && estimatedRobotPose1==null && estimatedRobotPose2==null &&estimatedRobotPose3==null){
 //             return prevEstimatedRobotPose;
-//         }
+   //      }
 
 //         Rotation2d rotation2d = new Rotation2d(
 // (estimatedRobotPose.estimatedPose.getRotation().getX()+estimatedRobotPose1.estimatedPose.getRotation().getX()
@@ -108,7 +108,7 @@ public class PhotonVision {
            Translation2d translation2d = new Translation2d(x, y);
            Rotation2d rotation2d = pose.getRotation().toRotation2d();
            Transform2d poseTransform2d=new Transform2d(translation2d, rotation2d);
-           System.out.println(y);
+        
         
 
            return poseTransform2d;
