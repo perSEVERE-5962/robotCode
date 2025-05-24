@@ -118,4 +118,7 @@ public class Actuator extends SubsystemBase {
     public SparkMax getArmMotor(){
         return armMotor;
     }
+    public SparkMaxConfig getMotorConfig(){
+        return motorConfig;
+    }
 }

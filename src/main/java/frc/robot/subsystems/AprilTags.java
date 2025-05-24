@@ -53,7 +53,7 @@ public boolean isApriltagtheCorrectnumber=false;
 
   public void periodic() {
      PhotonPipelineResult results = PhotonVisionConstant.CameraNames[1].getLatestResult();
-    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[0].getLatestResult();
+    PhotonPipelineResult results2 = PhotonVisionConstant.CameraNames[3].getLatestResult();
     
     List<PhotonTrackedTarget> targets = results.getTargets();
     List<PhotonTrackedTarget> targets2 = results2.getTargets();
@@ -242,8 +242,6 @@ public Pose3d getObservations(PhotonCamera camera, Transform3d robotToCamera) {
                     Transform3d fieldToRobot = fieldToCamera.plus(robotToCamera.inverse());
                     Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
                     return robotPose;
-
-                   
                 
               }
               

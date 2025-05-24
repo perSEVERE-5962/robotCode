@@ -26,7 +26,10 @@ public class SetReachPosition extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    reachSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kReach]);
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

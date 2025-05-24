@@ -49,14 +49,22 @@ public class Pivot extends Actuator {
         double theEncoder=instance.getPosition();
        SmartDashboard.putNumber("Pivot", theEncoder);
   }
-//   public void moveToPositionWithPID(double position) {
-//     if(Reach.getInstance().getPosition()> 5){
-//       getArmMotor().getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
-//     }
-//     else{
-//       getArmMotor().getClosedLoopController().setReference(0.72, SparkMax.ControlType.kPosition);
-//     }
-// }
+  public void moveToPositionWithPID(double position) {
+    SparkMaxConfig motorConfig = getMotorConfig();
+    if(getPosition() - position > 0){
+      motorConfig.inverted(true);      
+      getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+      followerConfig.inverted(false);
+      followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+    else{
+      motorConfig.inverted(false);
+      getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+      followerConfig.inverted(true);
+      followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    }
+    getArmMotor().getClosedLoopController().setReference(position, SparkMax.ControlType.kPosition);
+  }
 
   public static Pivot getInstance() {
     if (instance == null) {
