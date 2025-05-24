@@ -17,7 +17,10 @@ public class ResetFunctionComplete extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
      // new SetWristPosition(10), new SetPivotPosition(10),
-      new StopIntake() .andThen(new SetWristPosition(6)).andThen(new SetPivotPosition(6)).andThen(new SetReachPosition(6))
-    );
+
+      // prior to Mayhem:
+      //new StopIntake() .andThen(new SetWristPosition(6)).andThen(new SetPivotPosition(6)).andThen(new SetReachPosition(6))
+      // changed at Mayhem:
+      new StopIntake() .andThen(new SetPivotPosition(6)).andThen(new SetWristPosition(6)).andThen(new SetReachPosition(6))    );
   }
 }

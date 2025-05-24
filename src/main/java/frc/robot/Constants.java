@@ -276,7 +276,8 @@ public final class Constants {
       {17.5, 0.37, 0.99}, // auto L1
       {5, -22, 0.75},//testing PID values
       {25, 0.195, 0.72}, //intialize move
-      {0, 0, 0.7} //overshoot for reset fuuction ;(
+      {0, 0, 0.7}, //overshoot for reset fuuction 
+      {29.76, 0.34, .859}//Coral bucket 
     }; // Reset function
 
           public static final int kL1=0;
@@ -291,6 +292,8 @@ public final class Constants {
     public static final int kWrist=1;
     public static final int kPivot=2;
     public static final int kIntial = 9;
+    public static final int kOvershoot = 10;
+    public static final int kWristandReachBucket = 11; 
   }
   public static final class PhotonVisionConstant {
     public static final double kArmOffset = 0.0406; //meters
