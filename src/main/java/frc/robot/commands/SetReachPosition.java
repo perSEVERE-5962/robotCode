@@ -35,7 +35,6 @@ public class SetReachPosition extends Command {
   @Override
   public void execute() {
    
-    reachSub.moveToPositionWithPID(ScoringConstants.postions[targetPos][ScoringConstants.kReach]);
   }
 
   // Called once the command ends or is interrupted.
