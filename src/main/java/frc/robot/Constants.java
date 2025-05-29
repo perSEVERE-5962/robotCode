@@ -266,18 +266,18 @@ public final class Constants {
 
   public static final class ScoringConstants {
     public static final double[][] postions = { 
-        { 17.5, 0.37, 0.76},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
-        { 15.0, 0.76, 0.486},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
-        { 50.0, 0.84, 0.385},   //L3 (1.Reach, 2.Wrist, 3.Pivot)pivot=0.52
-        { 0, 0, 0.69},   //L4
+        { 17.5, 0.37, 0.806},   //L1 (1.Reach, 2.Wrist, 3.Pivot)(0,-24.2,0.69)
+        { 15.0, 0.76, 0.532},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
+        { 50.0, 0.84, 0.431},   //L3 (1.Reach, 2.Wrist, 3.Pivot)pivot=0.52
+        { 15,0.195,0.530},   //L4
         { 11.57, 0.467, 0.617},//corall Station
-      {0,-13,0.69},// Straight up
-      {15,0.195,0.484}, // Starting position
-      {17.5, 0.37, 0.99}, // auto L1
-      {5, -22, 0.75},//testing PID values
-      {25, 0.195, 0.72}, //intialize move
-      {0, 0, 0.7}, //overshoot for reset fuuction 
-      {25.5, 0.365, 0.114}//Coral bucket 
+      {15,0.195,0.530},// Straight up
+      {15,0.195,0.530}, // Starting position
+      {15,0.195,0.530}, // auto L1
+      {15,0.195,0.530},//testing PID values
+      {15,0.195,0.530}, //intialize move
+      {15,0.195,0.530}, //overshoot for reset fuuction 
+      {25.5, 0.365, 0.160}//Coral bucket 
     }; // Reset function
 
           public static final int kL1=0;

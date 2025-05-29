@@ -49,31 +49,31 @@ public class Pivot extends Actuator {
         double theEncoder=getPosition();
        SmartDashboard.putNumber("Pivot", theEncoder);
   }
-  public void moveToPositionWithPID(double targetPosition) {
-    SparkMaxConfig motorConfig = getMotorConfig();
-    double currentPosition = getPosition();
-    SmartDashboard.putNumber("Pivot target position", targetPosition);
-       SmartDashboard.putNumber("Pivot source position",currentPosition);
+  // public void moveToPositionWithPID(double targetPosition) {
+  //   SparkMaxConfig motorConfig = getMotorConfig();
+  //   double currentPosition = getPosition();
+  //   SmartDashboard.putNumber("Pivot target position", targetPosition);
+  //      SmartDashboard.putNumber("Pivot source position",currentPosition);
 
   
     
-    // if((currentPosition - targetPosition) > 0){
-    //   SmartDashboard.putString("Pivot State", ">0");
-    //   motorConfig.inverted(true);      
-    //   getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    //   followerConfig.inverted(false);
-    //   followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    // }
-     if ((currentPosition - targetPosition) <= 0){
-      SmartDashboard.putString("Pivot State", "<=0");
-      motorConfig.inverted(false);
-      getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-      followerConfig.inverted(true);
-      followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
-  getArmMotor().getClosedLoopController().setReference(targetPosition, SparkMax.ControlType.kPosition);
+  //   // if((currentPosition - targetPosition) > 0){
+  //   //   SmartDashboard.putString("Pivot State", ">0");
+  //   //   motorConfig.inverted(true);      
+  //   //   getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  //   //   followerConfig.inverted(false);
+  //   //   followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  //   // }
+  //    if ((currentPosition - targetPosition) <= 0){
+  //     SmartDashboard.putString("Pivot State", "<=0");
+  //     motorConfig.inverted(false);
+  //     getArmMotor().configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  //     followerConfig.inverted(true);
+  //     followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  //   }
+  // getArmMotor().getClosedLoopController().setReference(targetPosition, SparkMax.ControlType.kPosition);
     
-  }
+  // }
 
   public static Pivot getInstance() {
     if (instance == null) {
