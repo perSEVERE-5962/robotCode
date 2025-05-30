@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.Constants;
 import frc.robot.subsystems.Reach;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -19,8 +20,8 @@ public class ResetFunctionComplete extends SequentialCommandGroup {
      // new SetWristPosition(10), new SetPivotPosition(10),
 
       // prior to Mayhem:
-      //new StopIntake() .andThen(new SetWristPosition(6)).andThen(new SetPivotPosition(6)).andThen(new SetReachPosition(6))
+      //new StopIntake() .andThen(new SetWristPosition(Constants.ScoringConstants.kStartPos)).andThen(new SetPivotPosition(Constants.ScoringConstants.kStartPos)).andThen(new SetReachPosition(Constants.ScoringConstants.kStartPos))
       // changed at Mayhem:
-      new StopIntake() .andThen(new SetPivotPosition(6)).andThen(new SetWristPosition(6)).andThen(new SetReachPosition(6))    );
+      new StopIntake()/*.andThen(new SetPivotPosition(Constants.ScoringConstants.kStartPos))*/.andThen(new SetWristPosition(Constants.ScoringConstants.kStartPos)).andThen(new SetReachPosition(Constants.ScoringConstants.kStartPos))    );
   }
 }
