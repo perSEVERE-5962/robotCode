@@ -270,7 +270,7 @@ public final class Constants {
         { 15.0, 0.76, 0.532},   //L2 (1.Reach, 2.Wrist, 3.Pivot)
         { 50.0, 0.84, 0.431},   //L3 (1.Reach, 2.Wrist, 3.Pivot)pivot=0.52
         { 15,0.195,0.530},   //L4
-        { 11.57, 0.467, 0.617},//corall Station
+        { 11.57, 0.467, 0.663},//corall Station
       {15,0.195,0.530},// Straight up
       {15,0.195,0.530}, // Starting position
       {15,0.195,0.530}, // auto L1
