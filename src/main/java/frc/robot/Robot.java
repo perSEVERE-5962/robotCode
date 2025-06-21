@@ -15,6 +15,7 @@ import com.revrobotics.spark.config.SmartMotionConfig;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.AprilTags;
 import frc.robot.subsystems.drivetrain.SwerveSubsystem;
 import frc.robot.PhotonVision;
@@ -107,7 +109,10 @@ public class Robot extends TimedRobot {
     
   
     CommandScheduler.getInstance().run();
-
+   Pose3d x= AprilTags.getInstance().getObservations(PhotonVisionConstant.CameraNames[2],PhotonVisionConstant.CameraPoses[2]);
+    SmartDashboard.putNumber("x-pose", x.getX());
+    SmartDashboard.putNumber("y-pose", x.getY());
+    SmartDashboard.putNumber("z-pose", x.getZ());
     SwerveSubsystem sss = SwerveSubsystem.getInstance();
     sss.outputEncoderPositions();
 

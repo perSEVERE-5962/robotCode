@@ -15,6 +15,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -222,32 +223,38 @@ public boolean isApriltagtheCorrectnumber=false;
   }
  
 public Pose3d getObservations(PhotonCamera camera, Transform3d robotToCamera) {
-  PhotonPipelineResult results2 = camera.getLatestResult();
-  List<PhotonTrackedTarget> targets = results2.getTargets();
+  
+  
+  Pose3d robotPose = new Pose3d(0,0,0, new Rotation3d());
+  for (var result : camera.getAllUnreadResults()) {
+    // Add pose observation
+    if (result.getMultiTagResult().isPresent()) { // Multitag result
 
-        for (PhotonTrackedTarget result : targets) {
+      // Calculate robot pose
+      Transform3d fieldToCamera = result.getMultiTagResult().get().estimatedPose.best;
+      Transform3d fieldToRobot = fieldToCamera.plus(robotToCamera.inverse());
+       robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
+
+      // Calculate average tag distance
+
       
-            
+  } else if (!result.targets.isEmpty()) { // Single tag result
+      var target = result.targets.get(0);
 
-             // Single tag result
-                var target = result;
-            
-                // Calculate robot pose
-                var tagPose = Constants.PhotonVisionConstant.fieldLayout.getTagPose(target.fiducialId);
-                if (tagPose.isPresent()) {
-                    Transform3d fieldToTarget = new Transform3d(tagPose.get().getTranslation(),
-                            tagPose.get().getRotation());
-                    Transform3d cameraToTarget = target.bestCameraToTarget;
-                    Transform3d fieldToCamera = fieldToTarget.plus(cameraToTarget.inverse());
-                    Transform3d fieldToRobot = fieldToCamera.plus(robotToCamera.inverse());
-                    Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
-                    return robotPose;
-                
-              }
-              
-            }
-        
-                    return new Pose3d(robotToCamera.getTranslation(), robotToCamera.getRotation());
-                
+      // Calculate robot pose
+      var tagPose = PhotonVisionConstant.fieldLayout.getTagPose(target.fiducialId);
+      if (tagPose.isPresent()) {
+          Transform3d fieldToTarget = new Transform3d(tagPose.get().getTranslation(),
+                  tagPose.get().getRotation());
+          Transform3d cameraToTarget = target.bestCameraToTarget;
+          Transform3d fieldToCamera = fieldToTarget.plus(cameraToTarget.inverse());
+          Transform3d fieldToRobot = fieldToCamera.plus(robotToCamera.inverse());
+           robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
+
+       
+      }
+  }
+  }
+return robotPose;              
 }
 }
