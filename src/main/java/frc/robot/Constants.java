@@ -272,7 +272,7 @@ public final class Constants {
         { 15,0.195,0.530},   //L4
         { 11.57, 0.467, 0.663},//corall Station
       {15,0.195,0.530},// Straight up
-      {15,0.195,0.530}, // Starting position
+      {8,0.195,0.530}, // Starting position
       {15,0.195,0.530}, // auto L1
       {15,0.195,0.530},//testing PID values
       {15,0.195,0.530}, //intialize move
