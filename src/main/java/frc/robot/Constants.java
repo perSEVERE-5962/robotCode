@@ -44,7 +44,7 @@ public final class Constants {
   public static final int TEAM_COLOR_RED = 1;
   public static int kTeamColor = 0;
 
-  public static final boolean kUseJoystick = false; // true for joystick, false for xbox
+  public static final boolean kUseJoystick = true; // true for joystick, false for xbox
 
   /**
    * Types of SDS Swerve Drive Modules
@@ -201,8 +201,8 @@ public final class Constants {
     // Limits
     public static final double kMaxOutput = 0.8; // extend?
     public static final double kMinOutput = -0.8; // retract ?
-    public static final float kLowerSoftLimit = 0; // kReverse
-    public static final float kUpperSoftLimit = -73.3f; // kForward
+    public static final float kLowerSoftLimit = 20.0f; // kReverse
+    public static final float kUpperSoftLimit = 51.3f; // kForward
   }
 
   public static final class PivotConstants {
@@ -272,7 +272,7 @@ public final class Constants {
         { 15,0.195,0.530},   //L4
         { 11.57, 0.467, 0.663},//corall Station
       {15,0.195,0.530},// Straight up
-      {8,0.195,0.530}, // Starting position
+      {20,0.195,0.530}, // Starting position
       {15,0.195,0.530}, // auto L1
       {15,0.195,0.530},//testing PID values
       {15,0.195,0.530}, //intialize move
