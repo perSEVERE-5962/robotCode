@@ -43,7 +43,7 @@ public class RobotContainer {
   private final Trigger dr_resetToOffsets = new JoystickButton(driverController,XboxController.Button.kStart.value);
   private final Trigger dr_ResestAllParts = new JoystickButton(driverController, XboxController.Button.kA.value);
   private final Trigger dr_ButtonX = new JoystickButton(driverController, XboxController.Button.kX.value);
-  private final Trigger dr_WristAndReach = new JoystickButton(driverController,XboxController.Button.kB.value); 
+  //private final Trigger dr_WristAndReach = new JoystickButton(driverController,XboxController.Button.kB.value); 
   private final Trigger dr_ForwardPivot = new JoystickButton(driverController, XboxController.Button.kRightBumper.value); 
   private final Trigger dr_BackwardPivot = new JoystickButton(driverController, XboxController.Button.kLeftBumper.value); 
   // Copilot Controller
@@ -63,10 +63,10 @@ public class RobotContainer {
   private final XboxController testingController = new XboxController(OIConstants.kTestingControllerPort);
   private final Trigger tc_ForwardPivot = new JoystickButton(testingController, XboxController.Button.kRightBumper.value);
   private final Trigger tc_BackwardPivot = new JoystickButton(testingController, XboxController.Button.kLeftBumper.value);
-  private final Trigger tc_ForwardWrist = new JoystickButton(testingController, XboxController.Button.kA.value);
-  private final Trigger tc_BackwardWrist = new JoystickButton(testingController, XboxController.Button.kB.value);
-  private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Button.kX.value);
-  private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Button.kY.value);
+  private final Trigger tc_ForwardWrist = new JoystickButton(testingController, XboxController.Button.kB.value);
+  private final Trigger tc_BackwardWrist = new JoystickButton(testingController, XboxController.Button.kX.value);
+  private final Trigger tc_ForwardReach = new JoystickButton(testingController, XboxController.Button.kY.value);
+  private final Trigger tc_BackwardReach = new JoystickButton(testingController, XboxController.Button.kA.value);
 
   //private final Trigger tc_TestPivot = new JoystickButton(testingController, XboxController.Button.kA.value);
   // Autonomous 
@@ -120,21 +120,21 @@ public class RobotContainer {
     dr_resetToOffsets.onTrue(new ResetWheels(driveTrain));
     dr_ResestAllParts.onTrue(new  ResetFunctionComplete());
     dr_ButtonX.onTrue(new StopDrive(driveTrain));
-    dr_WristAndReach.onTrue(new SetReachPosition(ScoringConstants.kWristandReachBucket).andThen(new SetWristPosition(ScoringConstants.kWristandReachBucket))); 
+    //dr_WristAndReach.onTrue(new SetReachPosition(ScoringConstants.kWristandReachBucket).andThen(new SetWristPosition(ScoringConstants.kWristandReachBucket))); 
     dr_ForwardPivot.whileTrue(new moveSubsystems(1.0, "pivotSub")); 
     dr_BackwardPivot.whileTrue(new moveSubsystems(-1.0, "pivotSub")); 
     //dr_ButtonB.onTrue(new ResetArmAndWrist(0));
 
-    cp_ReefLevel1Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL1,false)/*,new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false)*/));//trough
-    //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
-    cp_ReefLevel2Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL2,true)/* ,new MoveAndScoreCoral(Constants.ScoringConstants.kL2, true)*/));//l2
-    cp_ReefLevel3Right.onTrue(new ResetWheels(driveTrain).andThen((new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL3,true)/* ,new MoveAndScoreCoral(Constants.ScoringConstants.kL3, true)*/)));
-    cp_ReefLevel2Left.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, false)));//l2
-    cp_ReefLevel3Left.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, false)));
-    //cp_ReefLevel3Right.whileTrue(new moveSubsystems(-0.7, "pivotSub")); // move pivot back - towards starting point
-    cp_ReefLevel4Left.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l4    
-    cp_ReefLevel4Right.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1)); // move pivot forward - towards scoring position
-    cp_CoralStation.onTrue(new SetReachPosition(6).andThen(new SetArmPosition(Constants.ScoringConstants.kStation)));//Coral Station
+    // cp_ReefLevel1Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL1,false)/*,new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false)*/));//trough
+    // //cp_ReefLevel2.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l2
+    // cp_ReefLevel2Right.onTrue(new ResetWheels(driveTrain).andThen(new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL2,true)/* ,new MoveAndScoreCoral(Constants.ScoringConstants.kL2, true)*/));//l2
+    // cp_ReefLevel3Right.onTrue(new ResetWheels(driveTrain).andThen((new MoveToReefwithArmPosAndApriltag(Constants.ScoringConstants.kL3,true)/* ,new MoveAndScoreCoral(Constants.ScoringConstants.kL3, true)*/)));
+    // cp_ReefLevel2Left.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL2, false)));//l2
+    // cp_ReefLevel3Left.onTrue(new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL3, false)));
+    // //cp_ReefLevel3Right.whileTrue(new moveSubsystems(-0.7, "pivotSub")); // move pivot back - towards starting point
+    // cp_ReefLevel4Left.onTrue(new SetArmPosition(Constants.ScoringConstants.kL2));//l4    
+    // cp_ReefLevel4Right.onTrue(new SetArmPosition(Constants.ScoringConstants.kL1)); // move pivot forward - towards scoring position
+    // cp_CoralStation.onTrue(new SetReachPosition(6).andThen(new SetArmPosition(Constants.ScoringConstants.kStation)));//Coral Station
 
     cp_CollectCoral.onTrue(new  CollectCoral());
     cp_ScoreCoral.whileTrue(new ScoreCoral());//-5
@@ -161,8 +161,9 @@ public class RobotContainer {
     Command command;
   
     command=
-    new ResetWheels(driveTrain).andThen(new MoveAndScoreCoral(Constants.ScoringConstants.kL1, false).withTimeout(10)).andThen(new ScoreCoral());
+    new ResetWheels(driveTrain).andThen((new AutoToTroughScore()));
     return command;
+    //new ResetWheels(driveTrain).andThen(new SetArmPosition(Constants.ScoringConstants.kL1)).andThen(new AutoToTroughScore()).withTimeout(10).andThen(new ScoreCoral());
   }
 
   public static RobotContainer getInstance() {

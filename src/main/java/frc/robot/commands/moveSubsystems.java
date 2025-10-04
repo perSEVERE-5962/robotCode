@@ -25,7 +25,11 @@ public class moveSubsystems extends Command {
     wristSub.move(speed);
     }
     if(sub == "pivotSub"){
+      if(pivotSub.getPosition()<0.170 && pivotSub.getPosition()>0.130 &&  speed<0){
+        pivotSub.move(0);
+      }else{
       pivotSub.move(speed);
+      }
     }
     if(sub == "reachSub"){
       reachSub.move(speed);

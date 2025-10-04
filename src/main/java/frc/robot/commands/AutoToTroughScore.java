@@ -33,7 +33,8 @@ public class AutoToTroughScore extends SequentialCommandGroup {
 //                       new ScoreCoral()
 //                     )
 new MoveToPosition(SwerveSubsystem.getInstance(),
-                         new Pose2d(2.1, 0, new Rotation2d(0)),
+                         new Pose2d(2, 0, new Rotation2d(
+                          30)),
                          0, DriveConstants.KPID_TKP)
     );
   }
